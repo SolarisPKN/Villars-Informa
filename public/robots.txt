@@ -1,0 +1,41 @@
+# ============================================================
+# ROBOTS.TXT - Villars Informa
+# ============================================================
+# Este archivo indica a los robots de búsqueda qué pueden y
+# no pueden rastrear en el sitio.
+#
+# Además, se incluyen Content Signals para indicar el uso
+# permitido del contenido.
+# ============================================================
+
+# ============================================================
+# 1. DIRECTIVAS DE RASTREO
+# ============================================================
+
+User-agent: *
+Allow: /
+
+# Desactivar el rastreo de páginas en construcción o no deseadas
+Disallow: /under-construction/
+Disallow: /404.html
+
+# ============================================================
+# 2. SITEMAP
+# ============================================================
+
+Sitemap: https://villars.pages.dev/sitemap-index.xml
+
+# ============================================================
+# 3. CONTENT SIGNALS (Directivas de uso de contenido)
+# ============================================================
+# Estas directivas indican si se permite el uso del contenido
+# para diferentes fines (búsqueda, entrada de IA, entrenamiento de IA).
+#
+# search:   permitido (yes)
+# ai-input: permitido (yes) - para grounding y RAG
+# ai-train: no permitido (no)  - reserva de derechos
+# ============================================================
+
+Content-Signal: search yes
+Content-Signal: ai-input yes
+Content-Signal: ai-train no

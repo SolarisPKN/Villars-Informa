@@ -1,0 +1,209 @@
+:root {
+  --bg-dark: #0B0B10;
+  --glass: rgba(20, 25, 45, 0.65);
+  --border-cyan: #00FFCC;
+  --text-light: #E0E0E0;
+  --accent-pink: #FF79C6;
+  --accent-green: #50FA7B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--text-light);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+/* Efecto vidrio */
+.glass {
+  backdrop-filter: blur(12px);
+  background: var(--glass);
+  border: 1px solid var(--border-cyan);
+  border-radius: 24px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 12px rgba(0, 255, 204, 0.3);
+}
+
+/* Animaciones de entrada */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .glass {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+  body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass {
+    padding: 0.75rem;
+  }
+}
+.language-dropdown select {
+  background: var(--glass);
+  border: 1px solid var(--border-cyan);
+  border-radius: 30px;
+  padding: 0.3rem 0.8rem;
+  color: var(--text-light);
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s;
+}
+.language-dropdown select:hover {
+  border-color: var(--accent-pink);
+}
+.language-dropdown select:focus {
+  outline: none;
+  border-color: var(--border-cyan);
+}
+/* Language Selector Styles */
+.language-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--glass);
+  border: 1px solid var(--border-cyan);
+  border-radius: 30px;
+  padding: 0.3rem 0.8rem;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  border-color: var(--accent-pink);
+  background: rgba(255, 121, 198, 0.1);
+}
+
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--glass);  /* efecto vidrio */
+  border: 1px solid var(--border-cyan);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  padding: 0.5rem 0;
+  min-width: 140px;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+}
+
+.lang-dropdown.active {
+  display: block;
+}
+
+.lang-dropdown li a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.lang-dropdown li a:hover {
+  background: rgba(0, 255, 204, 0.1);
+  color: var(--border-cyan);
+}
+
+.lang-dropdown img {
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* ===== VIEW TRANSITIONS PERSONALIZADAS ===== */
+::view-transition-old(root) {
+  animation: fade-out 0.3s ease-in forwards;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+  /* Inter (variable) - con font-display: optional para evitar CLS */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: optional;  /* 🔥 Evita el cambio de layout */
+    src: url('/fonts/inter.woff2') format('woff2-variations');
+  }
+
+  /* JetBrains Mono (variable) - igual */
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: optional;  /* 🔥 Evita el cambio de layout */
+    src: url('/fonts/jetbrains-mono.woff2') format('woff2-variations');
+  }
+
+  /* 📝 Ajuste de fallback para evitar CLS (opcional pero recomendado) */
+  @supports (font-variation-settings: normal) {
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size-adjust: 0.5; /* aproximación al ratio de Inter */
+    }
+  }

@@ -1,0 +1,260 @@
+---
+import Layout from '../layouts/Layout.astro';
+import homeData from '../locales/home.json';
+
+// ===== IMÁGENES DEL CARRUSEL (definidas manualmente) =====
+// Puedes agregar o quitar imágenes según necesites
+// Todas deben estar en /public/images/home/
+const imagenes = [
+  '/images/home/1.jpg',
+  '/images/home/2.webp',
+  '/images/home/3.png',
+  '/images/home/4.jpg',
+  // Agrega más imágenes aquí
+];
+
+// Si no hay imágenes, usamos un placeholder
+const imagenPorDefecto = '/images/placeholder.jpg';
+
+// La primera imagen será la destacada
+const imagenPrincipal = imagenes.length > 0 ? imagenes[0] : imagenPorDefecto;
+---
+
+<Layout title="Villars Informa">
+  <section class="hero-pueblo">
+    <h1 class="frase-grande">{homeData.frasePueblo}</h1>
+    <div class="historia">
+      <p>{homeData.historia}</p>
+    </div>
+  </section>
+
+  <!-- CARRUSEL -->
+  <section class="carrusel-container">
+    <div class="imagen-principal">
+      <img id="imagenGrande" src={imagenPrincipal} alt="Imagen destacada de Villars" />
+    </div>
+    <div class="carrusel-miniaturas" id="carouselWrapper">
+      <div class="track" id="carouselTrack">
+        {imagenes.map(url => (
+          <div class="item-miniatura" data-src={url}>
+            <img src={url} alt="Miniatura" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="/directorio" class="boton-principal">Ver locales</a>
+  </div>
+</Layout>
+
+<style>
+  .frase-grande {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1rem 0;
+    color: var(--text-primary);
+  }
+  .historia {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: justify;
+    padding: 0 1rem;
+  }
+  .carrusel-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .imagen-principal {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: #1a1a1a;
+  }
+  .imagen-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+  .carrusel-miniaturas {
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    position: relative;
+  }
+  .track {
+    display: flex;
+    gap: 0.5rem;
+    width: max-content;
+    transition: transform 0.05s linear;
+  }
+  .item-miniatura {
+    flex: 0 0 120px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .item-miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .item-miniatura.activa {
+    border-color: var(--accent-pink);
+  }
+  .boton-principal {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: var(--accent-pink);
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .boton-principal:hover {
+    background: var(--border-cyan);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('carouselTrack');
+    const wrapper = document.getElementById('carouselWrapper');
+    const imagenGrande = document.getElementById('imagenGrande');
+    const items = Array.from(track.querySelectorAll('.item-miniatura'));
+    
+    if (!track || !wrapper || !imagenGrande || items.length === 0) return;
+
+    // Clonar para efecto infinito
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    let currentTranslateX = 0;
+    let speed = 0.3;
+    let isPaused = false;
+    let isDragging = false;
+    let startX = 0;
+    let prevTranslateX = 0;
+    let animationId = null;
+
+    function setMainImage(src) {
+      imagenGrande.style.opacity = '0';
+      setTimeout(() => {
+        imagenGrande.src = src;
+        imagenGrande.style.opacity = '1';
+      }, 150);
+      items.forEach(el => el.classList.remove('activa'));
+      const target = items.find(el => el.dataset.src === src);
+      if (target) target.classList.add('activa');
+    }
+
+    track.addEventListener('click', (e) => {
+      const item = e.target.closest('.item-miniatura');
+      if (item) {
+        const src = item.dataset.src;
+        if (src) setMainImage(src);
+      }
+    });
+
+    function animate() {
+      if (isPaused || isDragging) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      currentTranslateX -= speed;
+      const maxTranslate = -(track.scrollWidth / 2);
+      if (currentTranslateX <= maxTranslate) {
+        currentTranslateX = 0;
+      }
+      track.style.transform = `translateX(${currentTranslateX}px)`;
+      animationId = requestAnimationFrame(animate);
+    }
+
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      isPaused = true;
+      startX = e.clientX;
+      prevTranslateX = currentTranslateX;
+      track.style.transition = 'none';
+      if (animationId) cancelAnimationFrame(animationId);
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const diff = e.clientX - startX;
+      let newX = prevTranslateX + diff;
+      const maxX = 0;
+      const minX = -(track.scrollWidth / 2);
+      if (newX > maxX) newX = maxX;
+      if (newX < minX) newX = minX;
+      currentTranslateX = newX;
+      track.style.transform = `translateX(${currentTranslateX}px)`;
+    });
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        setTimeout(() => {
+          isPaused = false;
+          if (!animationId) animate();
+        }, 1000);
+      }
+    });
+
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      isPaused = true;
+      startX = e.touches[0].clientX;
+      prevTranslateX = currentTranslateX;
+      track.style.transition = 'none';
+      if (animationId) cancelAnimationFrame(animationId);
+    }, { passive: true });
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const diff = e.touches[0].clientX - startX;
+      let newX = prevTranslateX + diff;
+      const maxX = 0;
+      const minX = -(track.scrollWidth / 2);
+      if (newX > maxX) newX = maxX;
+      if (newX < minX) newX = minX;
+      currentTranslateX = newX;
+      track.style.transform = `translateX(${currentTranslateX}px)`;
+    }, { passive: true });
+    document.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        setTimeout(() => {
+          isPaused = false;
+          if (!animationId) animate();
+        }, 1000);
+      }
+    }, { passive: true });
+
+    wrapper.addEventListener('mouseenter', () => { isPaused = true; });
+    wrapper.addEventListener('mouseleave', () => {
+      isPaused = false;
+      if (!animationId) animate();
+    });
+
+    if (items.length > 0) {
+      items[0].classList.add('activa');
+    }
+
+    animate();
+
+    window.addEventListener('beforeunload', () => {
+      if (animationId) cancelAnimationFrame(animationId);
+    });
+  });
+</script>

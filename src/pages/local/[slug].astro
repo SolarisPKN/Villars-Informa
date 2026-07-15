@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const locales = await getCollection('locales');
+  return locales
+    .filter(l => l.data.paga)
+    .map(local => ({
+      params: { slug: local.slug },
+      props: { local }
+    }));
+}
+const { local } = Astro.props;
+const data = local.data;
+---
+<Layout title={data.nombre}>
+  <h1>{data.nombre}</h1>
+  <p><strong>Dirección:</strong> {data.direccion}</p>
+  <p><strong>Horarios:</strong> {data.horarios}</p>
+  {data.telefono && <p><strong>Teléfono:</strong> {data.telefono}</p>}
+  {data.menu && (
+    <section>
+      <h2>🍽️ Menú</h2>
+      <ul>{data.menu.map(item => <li>{item}</li>)}</ul>
+    </section>
+  )}
+  {data.fotos && (
+    <section>
+      <h2>📸 Galería</h2>
+      <div class="galeria">
+        {data.fotos.map(foto => <img src={foto} alt={data.nombre} loading="lazy" />)}
+      </div>
+    </section>
+  )}
+  <div style="margin-top: 2rem; text-align: center;">
+    <a href="https://tu-sitio-externo.com/contratar" target="_blank" class="boton-cta">
+      ¿Quieres que tu negocio aparezca aquí? ¡Contáctanos!
+    </a>
+  </div>
+</Layout>

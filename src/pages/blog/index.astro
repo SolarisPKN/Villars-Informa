@@ -1,0 +1,166 @@
+---
+// src/pages/[lang]/blog/index.astro
+import Layout from '../../../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// 🔥 Importar CSS específico del blog
+import '../../../styles/blog.css';
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const { lang } = Astro.params;
+
+// ==========================================
+// Leer todos los posts del sistema de archivos
+// ==========================================
+const root = process.cwd();
+const blogBaseDir = path.join(root, 'src', 'content', 'blog');
+const posts = [];
+
+if (fs.existsSync(blogBaseDir)) {
+  const postSlugs = fs.readdirSync(blogBaseDir).filter(f => {
+    const stat = fs.statSync(path.join(blogBaseDir, f));
+    return stat.isDirectory();
+  });
+
+  for (const slug of postSlugs) {
+    const metaPath = path.join(blogBaseDir, slug, 'post.json');
+    const localePath = path.join(root, 'src', 'locales', lang, 'posts', `${slug}.json`);
+
+    if (fs.existsSync(metaPath) && fs.existsSync(localePath)) {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+      const locale = JSON.parse(fs.readFileSync(localePath, 'utf-8'));
+      posts.push({
+        slug,
+        ...meta,
+        title: locale.title || meta.title || slug,
+        description: locale.description || meta.description || '',
+      });
+    }
+  }
+}
+
+// Ordenar por fecha (más reciente primero)
+posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// Tags únicos
+const allTags = [...new Set(posts.flatMap(p => p.tags || []))];
+
+// Posts populares (los 5 más recientes)
+const popularPosts = posts.slice(0, 5);
+
+const t = await import(`../../../locales/${lang}/blog.json`);
+---
+
+<Layout title={t.titulo} lang={lang}>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+    <h1 style="font-size: 2.5rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan);">
+      {t.titulo}
+    </h1>
+    <p style="margin-bottom: 2rem; opacity: 0.8;">{t.descripcion}</p>
+
+    {posts.length === 0 ? (
+      <div class="glass" style="padding: 3rem; text-align: center;">
+        <p style="opacity: 0.6;">📝 No hay posts aún. ¡Crea el primero con <code>npm run create-post</code>!</p>
+      </div>
+    ) : (
+      <>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+          <div style="flex: 3; min-width: 300px;">
+            <!-- Filtros de tags -->
+            <div style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+              <span style="opacity: 0.6; margin-right: 0.5rem;">🏷️</span>
+              <button 
+                class="tag-filter active" 
+                data-tag="all"
+              >
+                {t.todos}
+              </button>
+              {allTags.map(tag => (
+                <button 
+                  class="tag-filter" 
+                  data-tag={tag}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+
+            <!-- Grid de posts -->
+            <div id="post-grid">
+              {posts.map(post => (
+                <a href={`/${lang}/blog/${post.slug}`} style="text-decoration: none; color: inherit; display: block;">
+                  <div class="post-card glass" data-tags={post.tags?.join(',') || ''}>
+                    {post.heroImage && (
+                      <div style="overflow: hidden; height: 200px; flex-shrink: 0;">
+                        <img 
+                          src={post.heroImage} 
+                          alt={post.title} 
+                          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" 
+                          loading="lazy" 
+                        />
+                      </div>
+                    )}
+                    <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
+                      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        {post.tags?.slice(0, 3).map(tag => (
+                          <span style="font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(0,255,204,0.1); border: 1px solid var(--border-cyan); color: var(--border-cyan);">
+                            #{tag}
+                          </span>
+                        ))}
+                        {post.tags?.length > 3 && (
+                          <span style="font-size: 0.7rem; padding: 0.2rem 0.6rem; opacity: 0.6;">+{post.tags.length - 3}</span>
+                        )}
+                      </div>
+                      <h3 style="font-size: 1.2rem; margin: 0 0 0.5rem 0; font-family: 'JetBrains Mono', monospace; color: var(--text-light);">
+                        {post.title}
+                      </h3>
+                      {post.description && (
+                        <p style="font-size: 0.9rem; opacity: 0.7; margin: 0 0 1rem 0; flex: 1;">
+                          {post.description}
+                        </p>
+                      )}
+                      <div style="font-size: 0.8rem; opacity: 0.5; margin-top: auto;">
+                        {new Date(post.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Sidebar: Posts populares -->
+          <aside style="flex: 1; min-width: 250px;">
+            <div class="glass" style="padding: 1.5rem; position: sticky; top: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+              <h3 style="font-size: 1.1rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin-top: 0;">🔥 {t.populares}</h3>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                {popularPosts.map(p => (
+                  <li style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <a href={`/${lang}/blog/${p.slug}`} class="popular-post-link">
+                      {p.title}
+                    </a>
+                    <div style="font-size: 0.7rem; opacity: 0.5; margin-top: 0.2rem;">
+                      {new Date(p.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </>
+    )}
+  </div>
+
+  <!-- ===== SCRIPT (fuera del HTML) ===== -->
+  <script>
+    import '../../../scripts/blog.js';
+  </script>
+</Layout>

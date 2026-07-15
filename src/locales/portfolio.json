@@ -1,0 +1,128 @@
+{
+  "hero": {
+    "nombre": "Pablo Marchetti Orayen"
+  },
+  "aptitudesMini": [
+    "🖥️ Infraestructura IT",
+    "🐧 Administración Linux",
+    "🌐 Redes y Hosting",
+    "🔧 Soporte Técnico"
+  ],
+  "contacto": {
+    "email": "PabloKoutaNya@gmail.com",
+    "whatsappTexto": "WhatsApp: ",
+    "whatsapp": "11-7009-5771"
+  },
+  "botones": {
+    "descargarCV": "Descargar CV"
+  },
+  "sobreMi": {
+    "titulo": "Sobre mí",
+    "perfil": "MI PERFIL",
+    "texto": "Profesional de Infraestructura IT, Linux y Soporte Técnico con experiencia práctica en Windows, Linux, redes, infraestructura web, hosting VPS, hardware y administración de sistemas. He desplegado y administrado servidores Linux, VPS, sitios web, servicios autohospedados, servicios cloud y servidores de videojuegos, configurando dominios, DNS, HTTPS, certificados SSL/TLS, Cloudflare, GitHub, WordPress y cPanel. También cuento con experiencia práctica en redes, SSH, Samba, OpenWRT, Ubiquiti, diagnóstico de hardware, monitorización de servidores, administración remota e integración entre entornos Windows y Linux. Mi forma de trabajar se basa en resolver problemas técnicos reales mediante investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo, aplicando buenas prácticas de seguridad, copias de seguridad, documentación y protección de datos."
+  },
+  "experiencia": {
+    "titulo": "Experiencia",
+    "item1": {
+      "titulo": "SolarisPKN",
+      "fecha": "2015 - Actualidad",
+      "texto": "Fundador y Administrador de SolarisPKN. Responsable de infraestructura IT, soporte técnico, administración de sistemas Linux y Windows, hosting web y desarrollo de soluciones para proyectos propios, particulares y PyMEs. Administración de VPS, servicios autohospedados, GitHub, Cloudflare Pages, WordPress y cPanel. Configuración de redes, DNS, HTTPS, SSL/TLS, SSH, OpenWRT y equipos Ubiquiti. Implementación de automatizaciones, infraestructura para streaming, integración con IA, SEO técnico y gestión de plataformas online. Experiencia adquirida mediante proyectos reales, aplicando buenas prácticas de seguridad, backups, documentación y protección de datos."
+    },
+    "item2": {
+      "titulo": "Lubricantes Villars",
+      "fecha": "2018 - Actualidad",
+      "texto": "Técnico en diagnóstico electrónico y electricidad automotriz. Diagnóstico computarizado mediante escáneres OBD-II, interpretación de códigos DTC y análisis de parámetros en tiempo real. Diagnóstico de sensores, actuadores y módulos ECU. Reparación de sistemas eléctricos vehiculares, interpretación de diagramas eléctricos, mantenimiento preventivo, resolución sistemática de fallas y asesoramiento técnico a clientes."
+    },
+    "item3": {
+      "titulo": "TheZapas",
+      "fecha": "2021 - 2022",
+      "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux Debian mediante SSH, despliegue y mantenimiento de sitios web, administración de hosting, dominios, DNS, HTTPS y certificados SSL/TLS. Monitorización de infraestructura, resolución de incidentes, optimización de rendimiento, implementación de SEO técnico y soporte para las operaciones del comercio electrónico."
+    }
+  },
+  "formacion": {
+    "titulo": "Formación",
+    "curso1": {
+      "titulo": "DKA Formación – Curso Online: Administrador de Servidores",
+      "id": "eU9IUTsvJf",
+      "items": [
+        "Administración de Linux y Windows Server",
+        "Administración remota y mantenimiento",
+        "Seguridad y endurecimiento de servidores"
+      ],
+      "verLink": "Ver"
+    },
+    "curso2": {
+      "titulo": "Fundación Carlos Slim – Curso Online: Desarrollador Front-End",
+      "id": "dk3mhbtwf",
+      "items": [
+        "Desarrollo de interfaces web responsivas"
+      ]
+    }
+  },
+  "aptitudes": {
+    "titulo": "Aptitudes e idiomas",
+    "lista": [
+      "Administración de Linux",
+      "Administración de Windows",
+      "Infraestructura IT",
+      "Servidores VPS",
+      "Hosting Web",
+      "Cloudflare",
+      "Git y GitHub",
+      "WordPress",
+      "cPanel",
+      "DNS, HTTPS y SSL/TLS",
+      "SSH",
+      "OpenWRT",
+      "Ubiquiti",
+      "Redes TCP/IP",
+      "Diagnóstico de Hardware",
+      "Soporte Técnico",
+      "Virtualización",
+      "Automatización de procesos",
+      "Streaming e Integración con IA",
+      "SEO Técnico",
+      "Electrónica Automotriz",
+      "Diagnóstico OBD-II",
+      "Electricidad Automotriz"
+    ],
+    "idiomasExtra": "Inglés técnico (lectura e interpretación de documentación técnica)"
+  },
+  "estudios": {
+    "titulo": "Estudios y Logros",
+    "interesesTitulo": "Intereses",
+    "intereses": [
+      "🎓 Bachillerato – Ciencias Sociales y Humanidades",
+      "📜 Más de 50 certificaciones técnicas",
+      "🖥️ Infraestructura IT",
+      "🐧 Administración Linux",
+      "💻 Desarrollo Web",
+      "🤖 Automatización e IA",
+      "🔧 Electrónica y Hardware",
+      "🔬 Investigación Tecnológica"
+    ],
+    "verMas": "Ver más"
+  },
+  "about": {
+    "title": "Acerca de mí",
+    "intro": "10+ años desarrollando soluciones tecnológicas e infraestructura IT.",
+    "points": [
+      "Linux & Windows",
+      "Servidores y VPS",
+      "Hosting Web",
+      "Infraestructura IT",
+      "Soporte Técnico",
+      "Redes",
+      "IA aplicada"
+    ]
+  },
+  "coreAreasTitle": "Áreas de conocimiento",
+  "techCarouselTitle": "Tecnologías",
+  "certificationsTitle": "Certificaciones",
+  "certificationsFilter": "Filtrar por empresa",
+  "certificationsSearch": "Buscar certificado...",
+  "philosophy": "Creo que la tecnología debe resolver problemas reales. Mi metodología combina investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo para construir soluciones confiables. Siempre priorizo las buenas prácticas de seguridad, documentación, copias de seguridad, privacidad y mejora continua.",
+  "mindMapTitle": "Mapa de habilidades",
+  "mindMapPlaceholder": "Próximamente: mapa interactivo de habilidades y tecnologías.",
+  "mindMapSubtext": "Este espacio mostrará visualmente las tecnologías, herramientas y competencias que forman parte de mi experiencia profesional."
+}

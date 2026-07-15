@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const locales = await getCollection('locales');
+---
+<Layout title="Directorio de Locales">
+  <h1>🏪 Comercios y Servicios</h1>
+  <div class="grid-locales">
+    {locales.map(local => (
+      <div class="tarjeta">
+        <h2>{local.data.nombre}</h2>
+        <p><strong>Dirección:</strong> {local.data.direccion}</p>
+        <p><strong>Horarios:</strong> {local.data.horarios}</p>
+        {local.data.paga ? (
+          <a href={`/local/${local.slug}`} class="boton-ficha">Ver ficha completa</a>
+        ) : (
+          <span class="solo-contacto">📍 Solo contacto</span>
+        )}
+      </div>
+    ))}
+  </div>
+</Layout>

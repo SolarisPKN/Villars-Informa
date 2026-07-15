@@ -1,0 +1,68 @@
+/* src/styles/home-tech.css */
+
+/* ===== HERO ===== */
+.hero-home {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-subtitle {
+  max-width: 600px;
+  font-size: 1.2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== CHIPS ===== */
+.chips-section {
+  margin: 2rem auto;
+  max-width: 900px;
+  text-align: center;
+}
+
+.chips-section canvas {
+  width: 100%;
+  height: auto;
+  background: #00000030;
+  border-radius: 16px;
+}
+
+/* ===== ECOSISTEMA ===== */
+.ecosistema-section {
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.ecosistema-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.ecosistema-grid .glass {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* ===== EARLY ACCESS ===== */
+.early-access-section {
+  margin: 2rem auto;
+  max-width: 900px;
+  text-align: center;
+}

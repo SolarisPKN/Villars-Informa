@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "inicio": "🏠 Inicio",
+    "blog": "🖋 Blog",
+    "proyectos": "🧪 Proyectos",
+    "arquitectura": "🔍 Arquitectura",
+    "portfolio": "📁 Portfolio",
+    "miCuenta": "👥 Mi cuenta"
+  },
+  "footer": {
+    "transparente": "⚡ Laboratorio transparente — ",
+    "codigoAbierto": "Código abierto",
+    "estado": "Estado: operativo"
+  }
+}

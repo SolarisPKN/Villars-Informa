@@ -1,0 +1,9 @@
+{
+  "titulo": "Blog",
+  "descripcion": "Artículos técnicos, tutoriales y reflexiones sobre ingeniería de software, firmware y automatización.",
+  "filtrarPorTags": "Filtrar por tags:",
+  "todos": "Todos",
+  "populares": "Posts populares",
+  "comentariosEnConstruccion": "Comentarios (en construcción)",
+  "comentariosPronto": "Pronto disponible para miembros registrados."
+}

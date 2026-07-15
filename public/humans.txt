@@ -1,0 +1,17 @@
+/* TEAM */
+Author: Pablo Marchetti Orayen
+Site: Villars Informa
+GitHub: https://github.com/SolarisPKN
+LinkedIn: https://linkedin.com/in/solarispkn
+YouTube: https://youtube.com/@SolarisPKN
+TikTok: https://tiktok.com/@SolarisPKN
+X: https://x.com/@SolarisPKN
+Instagram: https://instagram.com/SolarisPKN
+Facebook: https://facebook.com/SolarisPKN
+Twitch: https://twitch.com/SolarisPKN
+Kick: https://kick.com/SolarisPKN
+
+/* THANKS */
+Built with Astro
+Hosted on Cloudflare Pages
+Fonts: Inter, JetBrains Mono

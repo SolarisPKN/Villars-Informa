@@ -1,0 +1,124 @@
+---
+// src/pages/[lang]/blog/[slug].astro
+import Layout from '../../../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
+
+// 🔥 Importar CSS específico del detalle del post
+import '../../../styles/blog-post.css';
+
+// ==========================================
+// getStaticPaths
+// ==========================================
+export async function getStaticPaths() {
+  const root = process.cwd();
+  const blogBaseDir = path.join(root, 'src', 'content', 'blog');
+  const slugs = [];
+  if (fs.existsSync(blogBaseDir)) {
+    const items = fs.readdirSync(blogBaseDir).filter(f => {
+      const stat = fs.statSync(path.join(blogBaseDir, f));
+      return stat.isDirectory();
+    });
+    for (const slug of items) {
+      slugs.push({ params: { lang: 'es', slug } });
+      slugs.push({ params: { lang: 'en', slug } });
+    }
+  }
+  return slugs;
+}
+
+// ==========================================
+// Obtener la raíz del proyecto
+// ==========================================
+const root = process.cwd();
+const { lang, slug } = Astro.params;
+
+// ==========================================
+// Construir rutas de archivos
+// ==========================================
+const postDir = path.join(root, 'src', 'content', 'blog', slug);
+const metaPath = path.join(postDir, 'post.json');
+
+// ✅ Archivo MDX según el idioma
+const mdxFile = `index-${lang}.mdx`;
+const mdxPath = path.join(postDir, mdxFile);
+
+// Si no existe el archivo MDX para este idioma, redirigir a 404
+if (!fs.existsSync(metaPath) || !fs.existsSync(mdxPath)) {
+  return Astro.redirect(`/${lang}/404`);
+}
+
+// ==========================================
+// Leer metadatos y traducción
+// ==========================================
+const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+const localePath = path.join(root, 'src', 'locales', lang, 'posts', `${slug}.json`);
+const locale = fs.existsSync(localePath)
+  ? JSON.parse(fs.readFileSync(localePath, 'utf-8'))
+  : { title: slug, description: '' };
+
+const title = locale.title || meta.title || slug;
+const description = locale.description || meta.description || '';
+const { date, tags, category, heroImage, images } = meta;
+
+// ==========================================
+// Renderizar contenido Markdown
+// ==========================================
+const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
+// Eliminar frontmatter por si acaso (aunque ya no debería tener)
+const contentWithoutFrontmatter = contentRaw.replace(/^---[\s\S]*?---\s*/, '');
+const rawHtml = marked.parse(contentWithoutFrontmatter);
+const htmlContent = DOMPurify.sanitize(rawHtml);
+
+// ==========================================
+// Formatear fecha
+// ==========================================
+const dateStr = new Date(date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const t = await import(`../../../locales/${lang}/blog.json`);
+---
+
+<Layout title={title} lang={lang}>
+  <article style="max-width: 800px; margin: 0 auto; padding: 2rem 1rem;">
+    <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-family: 'JetBrains Mono', monospace; color: var(--border-cyan);">
+      {title}
+    </h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
+      {tags?.map(tag => (
+        <span style="font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(0,255,204,0.1); border: 1px solid var(--border-cyan); color: var(--border-cyan);">
+          #{tag}
+        </span>
+      ))}
+    </div>
+    <p style="opacity: 0.5; font-size: 0.9rem;">
+      {dateStr} {category && `· ${category}`}
+    </p>
+
+    {heroImage && (
+      <img src={heroImage} alt={title} style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 16px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);" />
+    )}
+
+    <div class="prose">
+      <div set:html={htmlContent}></div>
+    </div>
+
+    {images?.length > 0 && (
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
+        {images.map(img => (
+          <img src={img} alt="Imagen del post" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" />
+        ))}
+      </div>
+    )}
+
+    <div class="glass" style="padding: 1.5rem; margin-top: 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+      <p style="opacity: 0.6;">💬 {t.comentariosEnConstruccion}</p>
+      <p style="font-size: 0.8rem; opacity: 0.4;">{t.comentariosPronto}</p>
+    </div>
+  </article>
+</Layout>

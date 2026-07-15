@@ -1,0 +1,105 @@
+---
+// src/layouts/Layout.astro
+import SEO from '@components/SEO.astro';
+import { ViewTransitions } from 'astro:transitions';
+import "@styles/global.css";
+
+// Importar las traducciones comunes (un solo idioma)
+import common from '../locales/common.json';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  schema?: 'person' | 'website' | 'article';
+  canonical?: string;
+}
+
+const {
+  title,
+  description = 'Villars Informa - Historia, Noticias e Información Local',
+  image = '/social.jpg',
+  schema = 'website',
+  canonical,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical || Astro.url.pathname}
+      locale="es_AR"
+      schema={schema}
+      author="Pablo Marchetti Orayen"
+      jobTitle="IT Infrastructure Specialist"
+    />
+    <ViewTransitions />
+
+    <!-- FUENTES -->
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
+
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url('/fonts/inter.woff2') format('woff2-variations');
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: swap;
+        src: url('/fonts/jetbrains-mono.woff2') format('woff2-variations');
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- SKIP TO CONTENT -->
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+    <!-- HEADER usando common.json -->
+    <header class="glass" style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+      <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 0.5rem;">
+        <img src="/favicon.svg" alt="Villars Informa" width="24" height="24" loading="eager" />
+        Villars Informa
+      </div>
+
+      <nav style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
+        <a href="/" style="color: var(--border-cyan); text-decoration: none;">{common.nav.inicio}</a>
+        <a href="/noticias" style="color: var(--border-cyan); text-decoration: none;">{common.nav.blog}</a>
+        <a href="/directorio" style="color: var(--border-cyan); text-decoration: none;">Directorio</a>
+        <a href="/horarios" style="color: var(--border-cyan); text-decoration: none;">Horarios</a>
+        <a href="/contacto" style="color: var(--accent-pink);">Contacto</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- FOOTER usando common.json -->
+    <footer class="glass" style="margin-top: 4rem; text-align: center; font-size: 0.85rem;">
+      <p>
+        {common.footer.transparente}
+        <a href="https://github.com/SolarisPKN/Villars-Informa" style="color: var(--border-cyan);">
+          {common.footer.codigoAbierto}
+        </a>
+        — <span id="status">{common.footer.estado}</span>
+      </p>
+    </footer>
+
+    <script>
+      import '@scripts/layout.js';
+      import '@scripts/scroll-animations.js';
+    </script>
+  </body>
+</html>

@@ -1,22 +1,146 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-const locales = await getCollection('locales');
+import Layout from '../../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// 🔥 Importar CSS específico del directorio
+import '../../styles/locales.css';
+
+// ==========================================
+// Leer todos los locales del sistema de archivos
+// ==========================================
+const root = process.cwd();
+const localesBaseDir = path.join(root, 'src', 'content', 'locales');
+const locales = [];
+
+if (fs.existsSync(localesBaseDir)) {
+  const localSlugs = fs.readdirSync(localesBaseDir).filter(f => {
+    const stat = fs.statSync(path.join(localesBaseDir, f));
+    return stat.isDirectory();
+  });
+
+  for (const slug of localSlugs) {
+    const metaPath = path.join(localesBaseDir, slug, 'post.json');
+    if (fs.existsSync(metaPath)) {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+      locales.push({
+        slug,
+        ...meta,
+        nombre: meta.nombre || slug,
+        categoria: meta.categoria || 'Sin categoría',
+        direccion: meta.direccion || 'Sin dirección',
+        horarios: meta.horarios || 'Sin horarios',
+        telefono: meta.telefono || '',
+        descripcion_corta: meta.descripcion_corta || '',
+        paga: meta.paga || false,
+        menu: meta.menu || [],
+        fotos: meta.fotos || [],
+        portada: meta.portada || '',
+      });
+    }
+  }
+}
+
+// Ordenar por nombre
+locales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+// Obtener categorías únicas
+const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
 ---
-<Layout title="Directorio de Locales">
-  <h1>🏪 Comercios y Servicios</h1>
-  <div class="grid-locales">
-    {locales.map(local => (
-      <div class="tarjeta">
-        <h2>{local.data.nombre}</h2>
-        <p><strong>Dirección:</strong> {local.data.direccion}</p>
-        <p><strong>Horarios:</strong> {local.data.horarios}</p>
-        {local.data.paga ? (
-          <a href={`/local/${local.slug}`} class="boton-ficha">Ver ficha completa</a>
-        ) : (
-          <span class="solo-contacto">📍 Solo contacto</span>
-        )}
+
+<Layout title="Directorio de Locales | Villars Informa">
+  <div class="locales-container">
+    <h1 class="page-title">🏪 Directorio de Locales</h1>
+    <p class="page-subtitle">Descubre los comercios, servicios y emprendimientos de Villars</p>
+
+    <!-- Buscador y filtros -->
+    <div class="locales-filters">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar local..." />
+      <select id="categoryFilter" class="category-filter">
+        <option value="all">Todas las categorías</option>
+        {categorias.map(cat => (
+          <option value={cat}>{cat}</option>
+        ))}
+      </select>
+      <button id="clearFilters" class="clear-filters">Limpiar filtros</button>
+    </div>
+
+    <!-- Grid de locales -->
+    <div id="locales-grid" class="locales-grid">
+      {locales.map(local => (
+        <div class="local-card glass" 
+             data-nombre={local.nombre.toLowerCase()}
+             data-categoria={local.categoria}>
+          
+          <div class="card-body">
+            <h3 class="card-title">{local.nombre}</h3>
+            <span class="card-categoria">{local.categoria}</span>
+            
+            {local.descripcion_corta && (
+              <p class="card-descripcion">{local.descripcion_corta}</p>
+            )}
+            
+            <div class="card-contacto">
+              <p><strong>📍</strong> {local.direccion}</p>
+              <p><strong>🕐</strong> {local.horarios}</p>
+              {local.telefono && <p><strong>📞</strong> {local.telefono}</p>}
+            </div>
+            
+            <div class="card-actions">
+              {local.paga ? (
+                <a href={`/locales/${local.slug}`} class="boton-ficha">
+                  Ver ficha completa
+                </a>
+              ) : (
+                <span class="solo-contacto">📍 Solo información de contacto</span>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {locales.length === 0 && (
+      <div class="empty-state">
+        <p>📝 No hay locales cargados aún.</p>
       </div>
-    ))}
+    )}
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const clearBtn = document.getElementById('clearFilters');
+      const cards = document.querySelectorAll('.local-card');
+
+      function filterLocales() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const category = categoryFilter.value;
+
+        cards.forEach(card => {
+          const nombre = card.dataset.nombre || '';
+          const categoria = card.dataset.categoria || '';
+          
+          let show = true;
+          if (searchTerm && !nombre.includes(searchTerm) && !categoria.includes(searchTerm)) {
+            show = false;
+          }
+          if (category !== 'all' && categoria !== category) {
+            show = false;
+          }
+          card.style.display = show ? 'block' : 'none';
+        });
+      }
+
+      searchInput.addEventListener('input', filterLocales);
+      categoryFilter.addEventListener('change', filterLocales);
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        categoryFilter.value = 'all';
+        filterLocales();
+      });
+    });
+  </script>
 </Layout>

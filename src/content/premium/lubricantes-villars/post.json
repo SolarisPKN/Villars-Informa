@@ -1,0 +1,12 @@
+{
+  "id": "lubricantes-villars",
+  "nombre": "Lubricantes Villars",
+  "direccion": "Infanta Isabel 76 entre Independencia y Francia",
+  "horarios": "Todos los dias de 8:30hs a 14:00hs y de 16:30hs a 20:00hs",
+  "telefono": "+541156645422",
+  "categoria": "Automotor",
+  "descripcion_corta": "Venta de lubricantes y aditivos para el automotor",
+  "paga": true,
+  "menu": ["Aceites", "Lamparas", "Refrigerantes"],
+  "fotos": []
+}

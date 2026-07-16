@@ -1,0 +1,227 @@
+/* ===== DIRECTORIO DE LOCALES ===== */
+
+.locales-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-family: 'Georgia', serif;
+  color: var(--accent-mustard);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  opacity: 0.7;
+  margin-bottom: 2rem;
+}
+
+/* --- FILTROS --- */
+.locales-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--glass);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.6rem 1rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  opacity: 0.5;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-mustard);
+}
+
+.category-filter {
+  padding: 0.6rem 1rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-light);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.category-filter:focus {
+  outline: none;
+  border-color: var(--accent-mustard);
+}
+
+.clear-filters {
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-filters:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--accent-mustard);
+}
+
+/* --- GRID --- */
+.locales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- TARJETA --- */
+.local-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.local-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-mustard);
+  box-shadow: 0 8px 30px rgba(212, 163, 115, 0.15);
+}
+
+.card-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #1A1410;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.local-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-family: 'Georgia', serif;
+  color: var(--accent-mustard);
+  margin: 0 0 0.3rem 0;
+}
+
+.card-categoria {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  background: rgba(212, 163, 115, 0.15);
+  color: var(--accent-mustard);
+  margin-bottom: 0.8rem;
+  align-self: flex-start;
+}
+
+.card-descripcion {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.card-contacto {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.card-contacto p {
+  margin: 0.2rem 0;
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: center;
+}
+
+.boton-ficha {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: var(--accent-mustard);
+  color: #1A1410;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.boton-ficha:hover {
+  background: #D4A373;
+  transform: scale(1.03);
+}
+
+.solo-contacto {
+  font-size: 0.85rem;
+  opacity: 0.5;
+  padding: 0.4rem 1rem;
+  border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 30px;
+}
+
+/* --- EMPTY STATE --- */
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  background: var(--glass);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.empty-state p {
+  opacity: 0.6;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 640px) {
+  .locales-grid {
+    grid-template-columns: 1fr;
+  }
+  .locales-filters {
+    flex-direction: column;
+  }
+  .search-input,
+  .category-filter,
+  .clear-filters {
+    width: 100%;
+  }
+}

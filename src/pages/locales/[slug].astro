@@ -1,40 +1,118 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
+
+// ==========================================
+// getStaticPaths
+// ==========================================
 export async function getStaticPaths() {
-  const locales = await getCollection('locales');
-  return locales
-    .filter(l => l.data.paga)
-    .map(local => ({
-      params: { slug: local.slug },
-      props: { local }
-    }));
+  const root = process.cwd();
+  const localesBaseDir = path.join(root, 'src', 'content', 'locales');
+  const slugs = [];
+  if (fs.existsSync(localesBaseDir)) {
+    const items = fs.readdirSync(localesBaseDir).filter(f => {
+      const stat = fs.statSync(path.join(localesBaseDir, f));
+      return stat.isDirectory();
+    });
+    for (const slug of items) {
+      const metaPath = path.join(localesBaseDir, slug, 'post.json');
+      if (fs.existsSync(metaPath)) {
+        const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+        // Solo generar rutas para los que pagan (paga: true)
+        if (meta.paga === true) {
+          slugs.push({ params: { slug } });
+        }
+      }
+    }
+  }
+  return slugs;
 }
-const { local } = Astro.props;
-const data = local.data;
+
+// ==========================================
+// Obtener datos del local
+// ==========================================
+const { slug } = Astro.params;
+const root = process.cwd();
+const localDir = path.join(root, 'src', 'content', 'locales', slug);
+const metaPath = path.join(localDir, 'post.json');
+
+// Si no existe el post.json, redirigir a 404
+if (!fs.existsSync(metaPath)) {
+  return Astro.redirect('/404');
+}
+
+// Leer metadatos
+const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+const data = meta;
+
+// Leer contenido MDX (si existe)
+const mdxPath = path.join(localDir, 'index.mdx');
+let htmlContent = '';
+if (fs.existsSync(mdxPath)) {
+  const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
+  // Eliminar frontmatter si existe
+  const contentWithoutFrontmatter = contentRaw.replace(/^---[\s\S]*?---\s*/, '');
+  const rawHtml = marked.parse(contentWithoutFrontmatter);
+  htmlContent = DOMPurify.sanitize(rawHtml);
+}
 ---
+
 <Layout title={data.nombre}>
-  <h1>{data.nombre}</h1>
-  <p><strong>Dirección:</strong> {data.direccion}</p>
-  <p><strong>Horarios:</strong> {data.horarios}</p>
-  {data.telefono && <p><strong>Teléfono:</strong> {data.telefono}</p>}
-  {data.menu && (
-    <section>
-      <h2>🍽️ Menú</h2>
-      <ul>{data.menu.map(item => <li>{item}</li>)}</ul>
-    </section>
-  )}
-  {data.fotos && (
-    <section>
-      <h2>📸 Galería</h2>
-      <div class="galeria">
-        {data.fotos.map(foto => <img src={foto} alt={data.nombre} loading="lazy" />)}
+  <article class="ficha-local">
+    <div class="ficha-header">
+      <h1>{data.nombre}</h1>
+      <p class="categoria">{data.categoria}</p>
+    </div>
+
+    <div class="ficha-info">
+      <p><strong>📍 Dirección:</strong> {data.direccion}</p>
+      <p><strong>🕐 Horarios:</strong> {data.horarios}</p>
+      {data.telefono && <p><strong>📞 Teléfono:</strong> {data.telefono}</p>}
+    </div>
+
+    {data.descripcion_corta && (
+      <div class="descripcion">
+        <p>{data.descripcion_corta}</p>
       </div>
-    </section>
-  )}
-  <div style="margin-top: 2rem; text-align: center;">
-    <a href="https://tu-sitio-externo.com/contratar" target="_blank" class="boton-cta">
-      ¿Quieres que tu negocio aparezca aquí? ¡Contáctanos!
-    </a>
-  </div>
+    )}
+
+    {data.menu && data.menu.length > 0 && (
+      <section class="menu-section">
+        <h2>🍽️ Menú</h2>
+        <ul>
+          {data.menu.map(item => <li>{item}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {data.fotos && data.fotos.length > 0 && (
+      <section class="galeria">
+        <h2>📸 Galería</h2>
+        <div class="grid-fotos">
+          {data.fotos.map(foto => (
+            <img src={foto} alt={data.nombre} loading="lazy" />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {htmlContent && (
+      <div class="contenido-extendido prose">
+        <div set:html={htmlContent}></div>
+      </div>
+    )}
+
+    <div class="cta-container">
+      <a href="https://tu-sitio-externo.com/contratar" target="_blank" class="boton-cta">
+        ¿Quieres que tu negocio aparezca aquí? ¡Contáctanos!
+      </a>
+    </div>
+  </article>
 </Layout>
+
+<style>
+  /* (los mismos estilos que ya tenías) */
+</style>

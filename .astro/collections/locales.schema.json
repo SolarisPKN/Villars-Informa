@@ -1,0 +1,58 @@
+{
+  "$ref": "#/definitions/locales",
+  "definitions": {
+    "locales": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "direccion": {
+          "type": "string"
+        },
+        "horarios": {
+          "type": "string"
+        },
+        "telefono": {
+          "type": "string"
+        },
+        "categoria": {
+          "type": "string"
+        },
+        "descripcion_corta": {
+          "type": "string"
+        },
+        "paga": {
+          "type": "boolean",
+          "default": false
+        },
+        "menu": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fotos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "portada": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "nombre",
+        "direccion",
+        "horarios",
+        "categoria"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

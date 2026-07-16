@@ -12,11 +12,13 @@ export async function getStaticPaths() {
   const root = process.cwd();
   const localesBaseDir = path.join(root, 'src', 'content', 'locales');
   const slugs = [];
+  
   if (fs.existsSync(localesBaseDir)) {
     const items = fs.readdirSync(localesBaseDir).filter(f => {
       const stat = fs.statSync(path.join(localesBaseDir, f));
       return stat.isDirectory();
     });
+    
     for (const slug of items) {
       const metaPath = path.join(localesBaseDir, slug, 'post.json');
       if (fs.existsSync(metaPath)) {
@@ -28,6 +30,7 @@ export async function getStaticPaths() {
       }
     }
   }
+  
   return slugs;
 }
 
@@ -48,9 +51,13 @@ if (!fs.existsSync(metaPath)) {
 const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
 const data = meta;
 
-// Leer contenido MDX (si existe)
-const mdxPath = path.join(localDir, 'index.mdx');
+// ==========================================
+// Leer contenido MDX desde la carpeta premium
+// ==========================================
+const premiumDir = path.join(root, 'src', 'content', 'premium', slug);
+const mdxPath = path.join(premiumDir, 'index.mdx');
 let htmlContent = '';
+
 if (fs.existsSync(mdxPath)) {
   const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
   // Eliminar frontmatter si existe
@@ -81,7 +88,7 @@ if (fs.existsSync(mdxPath)) {
 
     {data.menu && data.menu.length > 0 && (
       <section class="menu-section">
-        <h2>🍽️ Menú</h2>
+        <h2>✨Productos</h2>
         <ul>
           {data.menu.map(item => <li>{item}</li>)}
         </ul>
@@ -106,7 +113,7 @@ if (fs.existsSync(mdxPath)) {
     )}
 
     <div class="cta-container">
-      <a href="https://tu-sitio-externo.com/contratar" target="_blank" class="boton-cta">
+      <a href="https://solarispkn.pages.dev/es/portfolio" target="_blank" class="boton-cta">
         ¿Quieres que tu negocio aparezca aquí? ¡Contáctanos!
       </a>
     </div>
@@ -114,5 +121,133 @@ if (fs.existsSync(mdxPath)) {
 </Layout>
 
 <style>
-  /* (los mismos estilos que ya tenías) */
+  .ficha-local {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .ficha-header h1 {
+    font-size: 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--border-cyan);
+    margin-bottom: 0.3rem;
+  }
+  .ficha-header .categoria {
+    font-size: 1rem;
+    color: var(--accent-pink);
+    opacity: 0.8;
+  }
+  .ficha-info {
+    background: var(--glass);
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .ficha-info p {
+    margin: 0.5rem 0;
+  }
+  .descripcion {
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.9;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent-mustard);
+  }
+  .menu-section {
+    margin: 2rem 0;
+  }
+  .menu-section h2 {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-mustard);
+  }
+  .menu-section ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+  .menu-section li {
+    background: var(--glass);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .galeria {
+    margin: 2rem 0;
+  }
+  .galeria h2 {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-mustard);
+  }
+  .grid-fotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .grid-fotos img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s;
+  }
+  .grid-fotos img:hover {
+    transform: scale(1.02);
+  }
+  .contenido-extendido {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--glass);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .contenido-extendido h1,
+  .contenido-extendido h2,
+  .contenido-extendido h3 {
+    font-family: 'Georgia', serif;
+    color: var(--accent-mustard);
+  }
+  .contenido-extendido p {
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+  .contenido-extendido ul,
+  .contenido-extendido ol {
+    padding-left: 1.5rem;
+  }
+  .contenido-extendido blockquote {
+    border-left: 3px solid var(--accent-mustard);
+    padding-left: 1rem;
+    opacity: 0.8;
+    font-style: italic;
+  }
+  .cta-container {
+    text-align: center;
+    margin: 3rem 0 2rem;
+  }
+  .boton-cta {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: var(--accent-mustard);
+    color: #1A1410;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(233, 196, 106, 0.3);
+  }
+  .boton-cta:hover {
+    background: #D4A373;
+    transform: scale(1.02);
+  }
+  @media (max-width: 768px) {
+    .ficha-header h1 { font-size: 2rem; }
+    .grid-fotos { grid-template-columns: 1fr; }
+  }
 </style>

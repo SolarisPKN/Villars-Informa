@@ -28,5 +28,11 @@ const locales = defineCollection({
     portada: z.string().optional(),
   }),
 });
-
-export const collections = { noticias, locales };
+const premium = defineCollection({
+  type: 'content',
+  schema: z.object({
+    titulo: z.string().optional(),
+    subtitulo: z.string().optional(),
+  }),
+});
+export const collections = { noticias, locales, premium };

@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// 🔥 Importar CSS del blog
+import '../../styles/blog.css';
+
+const noticias = await getCollection('noticias');
+
+// Ordenar por fecha (más reciente primero)
+noticias.sort((a, b) => new Date(b.data.fecha) - new Date(a.data.fecha));
+
+// Tags únicos
+const allTags = [...new Set(noticias.flatMap(p => p.data.tags || []))];
+
+// Noticias destacadas (las 5 más recientes)
+const destacadas = noticias.slice(0, 5);
+---
+
+<Layout title="Noticias de Villars">
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1>📰 Noticias</h1>
+      <p>Mantente al día de todo lo que pasa en Villars</p>
+    </div>
+
+    {noticias.length === 0 ? (
+      <div class="empty-state">
+        <p>📝 No hay noticias aún. ¡Sé el primero en publicar!</p>
+      </div>
+    ) : (
+      <div class="blog-layout">
+        <div class="main-column">
+          <!-- Filtros de tags -->
+          <div class="tag-filters">
+            <span class="label">🏷️</span>
+            <button class="tag-filter active" data-tag="all">Todos</button>
+            {allTags.map(tag => (
+              <button class="tag-filter" data-tag={tag}>#{tag}</button>
+            ))}
+          </div>
+
+          <!-- Grid de noticias -->
+          <div id="post-grid" class="post-grid">
+            {noticias.map(noticia => (
+              <a href={`/noticias/${noticia.slug}`} style="text-decoration: none; color: inherit; display: block;">
+                <div class="post-card glass">
+                  {noticia.data.portada && (
+                    <div class="card-image">
+                      <img src={noticia.data.portada} alt={noticia.data.titulo} loading="lazy" />
+                    </div>
+                  )}
+                  <div class="card-body">
+                    <div class="card-tags">
+                      {noticia.data.tags?.slice(0, 3).map(tag => (
+                        <span class="tag">#{tag}</span>
+                      ))}
+                      {noticia.data.tags?.length > 3 && (
+                        <span class="tag" style="opacity:0.5;">+{noticia.data.tags.length - 3}</span>
+                      )}
+                    </div>
+                    <h3 class="card-title">{noticia.data.titulo}</h3>
+                    {noticia.data.descripcion && (
+                      <p class="card-description">{noticia.data.descripcion}</p>
+                    )}
+                    <div class="card-date">
+                      {new Date(noticia.data.fecha).toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sidebar: Noticias destacadas -->
+        <aside class="blog-sidebar">
+          <div class="sidebar-card">
+            <h3>🔥 Destacadas</h3>
+            <ul>
+              {destacadas.map(p => (
+                <li>
+                  <a href={`/noticias/${p.slug}`} class="popular-link">
+                    {p.data.titulo}
+                  </a>
+                  <div class="popular-date">
+                    {new Date(p.data.fecha).toLocaleDateString('es-ES', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    )}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filters = document.querySelectorAll('.tag-filter');
+      const posts = document.querySelectorAll('.post-card');
+      
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => {
+          filters.forEach(f => f.classList.remove('active'));
+          filter.classList.add('active');
+          
+          const tag = filter.dataset.tag;
+          posts.forEach(post => {
+            const postTags = post.closest('a').querySelector('.card-tags');
+            const hasTag = tag === 'all' || 
+              Array.from(postTags?.querySelectorAll('.tag') || [])
+                .some(t => t.textContent === `#${tag}`);
+            post.closest('a').style.display = hasTag ? 'block' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+</Layout>

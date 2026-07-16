@@ -1,14 +1,14 @@
 {
   "nav": {
     "inicio": "🏠 Inicio",
-    "blog": "🖋 Blog",
-    "proyectos": "🧪 Proyectos",
-    "arquitectura": "🔍 Arquitectura",
-    "portfolio": "📁 Portfolio",
-    "miCuenta": "👥 Mi cuenta"
+    "noticias": "📢 Noticias",
+    "locales": "🍗 Locales",
+    "transporte": "🚌 Transporte",
+    "salud": "❤ Salud",
+    "contacto": "👥 Contactanos"
   },
   "footer": {
-    "transparente": "⚡ Laboratorio transparente — ",
+    "transparente": "🌸 Villars Informa — ",
     "codigoAbierto": "Código abierto",
     "estado": "Estado: operativo"
   }

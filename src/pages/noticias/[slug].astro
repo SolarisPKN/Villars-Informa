@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// 🔥 Importar CSS del detalle del post
+import '../../styles/blog-post.css';
+
+export async function getStaticPaths() {
+  const noticias = await getCollection('noticias');
+  return noticias.map(noticia => ({
+    params: { slug: noticia.slug },
+    props: { noticia }
+  }));
+}
+
+const { noticia } = Astro.props;
+const { Content } = await noticia.render();
+const data = noticia.data;
+
+// Formatear fecha
+const fecha = new Date(data.fecha).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={data.titulo}>
+  <article class="post-container">
+    <h1 class="post-title">{data.titulo}</h1>
+    
+    <div class="post-meta">
+      {data.tags?.map(tag => (
+        <span class="tag">#{tag}</span>
+      ))}
+      <span class="date">{fecha}</span>
+      {data.autor && <span class="date">· Por {data.autor}</span>}
+    </div>
+
+    {data.portada && (
+      <img src={data.portada} alt={data.titulo} class="post-hero" />
+    )}
+
+    <div class="post-content prose">
+      <Content />
+    </div>
+
+    <div class="post-comments">
+      <p>💬 Comentarios</p>
+      <p class="sub">Próximamente...</p>
+    </div>
+  </article>
+</Layout>

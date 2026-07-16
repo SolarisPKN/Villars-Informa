@@ -39,7 +39,11 @@ const {
     />
     <ViewTransitions />
 
-    <!-- FUENTES -->
+    <!-- FUENTES (añadimos una serif para títulos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet" />
+    
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -65,19 +69,52 @@ const {
     <!-- SKIP TO CONTENT -->
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
 
-    <!-- HEADER usando common.json -->
-    <header class="glass" style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-      <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 0.5rem;">
-        <img src="/favicon.svg" alt="Villars Informa" width="24" height="24" loading="eager" />
+    <!-- HEADER con estilo pueblo -->
+    <header class="glass-pueblo" style="
+      position: sticky; 
+      top: 1rem; 
+      margin: 1rem; 
+      z-index: 100; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      flex-wrap: wrap;
+      backdrop-filter: blur(12px);
+      background: rgba(40, 30, 20, 0.75);
+      border: 1px solid var(--border-amber);
+      border-radius: 20px;
+      padding: 0.8rem 1.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    ">
+      <div style="
+        font-weight: 700; 
+        font-family: 'Merriweather', 'Georgia', serif; 
+        display: flex; 
+        align-items: center; 
+        gap: 0.75rem;
+        color: var(--accent-mustard);
+        font-size: 1.3rem;
+      ">
+        <img src="/favicon.svg" alt="Villars Informa" width="28" height="28" loading="eager" />
         Villars Informa
       </div>
 
-      <nav style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
-        <a href="/" style="color: var(--border-cyan); text-decoration: none;">{common.nav.inicio}</a>
-        <a href="/noticias" style="color: var(--border-cyan); text-decoration: none;">{common.nav.blog}</a>
-        <a href="/directorio" style="color: var(--border-cyan); text-decoration: none;">Directorio</a>
-        <a href="/horarios" style="color: var(--border-cyan); text-decoration: none;">Horarios</a>
-        <a href="/contacto" style="color: var(--accent-pink);">Contacto</a>
+      <nav style="display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; font-family: 'Inter', sans-serif;">
+        <a href="/" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.inicio}</a>
+        <a href="/noticias" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.noticias}</a>
+        <a href="/locales" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.locales}</a>
+        <a href="/transporte" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.transporte}</a>
+        <a href="/salud" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.salud}</a>
+        <a href="https://solarispkn.pages.dev/es/portfolio" style="
+          color: #1A1410; 
+          background: var(--accent-mustard); 
+          padding: 0.4rem 1.2rem; 
+          border-radius: 40px; 
+          text-decoration: none; 
+          font-weight: 600; 
+          transition: all 0.3s;
+          box-shadow: 0 2px 8px rgba(233,196,106,0.3);
+        ">{common.nav.contacto}</a>
       </nav>
     </header>
 
@@ -86,14 +123,28 @@ const {
       <slot />
     </main>
 
-    <!-- FOOTER usando common.json -->
-    <footer class="glass" style="margin-top: 4rem; text-align: center; font-size: 0.85rem;">
+    <!-- FOOTER con estilo pueblo -->
+    <footer class="glass-pueblo" style="
+      margin-top: 4rem; 
+      text-align: center; 
+      font-size: 0.9rem;
+      backdrop-filter: blur(8px);
+      background: rgba(40, 30, 20, 0.6);
+      border: 1px solid var(--border-amber);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    ">
       <p>
-        {common.footer.transparente}
-        <a href="https://github.com/SolarisPKN/Villars-Informa" style="color: var(--border-cyan);">
+        <span style="opacity: 0.8;">{common.footer.transparente}</span>
+        <a href="https://github.com/SolarisPKN/Villars-Informa" style="color: var(--accent-mustard); text-decoration: none; font-weight: 500;">
           {common.footer.codigoAbierto}
         </a>
-        — <span id="status">{common.footer.estado}</span>
+        <span style="opacity: 0.6;"> — </span>
+        <span id="status" style="opacity: 0.7;">{common.footer.estado}</span>
       </p>
     </footer>
 

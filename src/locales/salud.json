@@ -1,0 +1,68 @@
+{
+  "titulo": "Salud en Villars",
+  "subtitulo": "Información sobre servicios de salud, farmacias y actualizaciones",
+  "contacto": {
+    "titulo": "Contactos de emergencia",
+    "telefonoEmergencias": "911",
+    "hospital": "Hospital Municipal",
+    "direccionHospital": "Calle Salud 123",
+    "telefonoHospital": "+54123456789"
+  },
+  "salitas": {
+    "titulo": "Salitas y Centros de Salud",
+    "lista": [
+      {
+        "nombre": "Salita Villars Centro",
+        "direccion": "Belgrano 456",
+        "horarios": "Lun-Vie 8:00-18:00"
+      },
+      {
+        "nombre": "Salita Barrio Norte",
+        "direccion": "Av. Libertador 789",
+        "horarios": "Lun-Vie 9:00-16:00, Sáb 9:00-12:00"
+      }
+    ]
+  },
+  "farmacias": {
+    "titulo": "Farmacias de turno",
+    "lista": [
+      {
+        "nombre": "Farmacia Central",
+        "direccion": "San Martín 101",
+        "telefono": "+54111234567",
+        "horarios": "24 horas"
+      },
+      {
+        "nombre": "Farmacia del Pueblo",
+        "direccion": "Mitre 202",
+        "telefono": "+54117654321",
+        "horarios": "Lun-Vie 8:00-20:00, Sáb 8:00-13:00"
+      }
+    ]
+  },
+  "cartilla": {
+    "titulo": "Cartilla Médica",
+    "descripcion": "Listado de profesionales y especialidades disponibles en el pueblo.",
+    "profesionales": [
+      {
+        "nombre": "Dr. Juan Pérez",
+        "especialidad": "Clínica Médica",
+        "consultorio": "Belgrano 456",
+        "telefono": "+54119876543"
+      },
+      {
+        "nombre": "Dra. María López",
+        "especialidad": "Pediatría",
+        "consultorio": "San Martín 789",
+        "telefono": "+54113456789"
+      }
+    ]
+  },
+  "actualizaciones": {
+    "titulo": "Últimas actualizaciones",
+    "sinActualizaciones": "No hay actualizaciones recientes.",
+    "paginaAnterior": "Anterior",
+    "paginaSiguiente": "Siguiente",
+    "pagina": "Página"
+  }
+}

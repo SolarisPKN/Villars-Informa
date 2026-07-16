@@ -1,0 +1,14 @@
+{
+  "titulo": "Transporte en Villars",
+  "subtitulo": "Horarios y recorridos de colectivos y tren",
+  "seleccionar": "Seleccionar tipo de transporte",
+  "opciones": {
+    "colectivo": "Colectivo Línea 123",
+    "tren": "Ferrocarril Belgrano Sur"
+  },
+  "proximoColectivo": "Próximo colectivo",
+  "noHayServicio": "No hay servicio en este horario",
+  "minutos": "minutos",
+  "trenInfo": "Próximamente información del tren",
+  "descargaHorarios": "Descargar horarios completos"
+}

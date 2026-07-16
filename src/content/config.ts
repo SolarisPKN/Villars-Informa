@@ -28,6 +28,7 @@ const locales = defineCollection({
     portada: z.string().optional(),
   }),
 });
+
 const premium = defineCollection({
   type: 'content',
   schema: z.object({
@@ -35,4 +36,13 @@ const premium = defineCollection({
     subtitulo: z.string().optional(),
   }),
 });
-export const collections = { noticias, locales, premium };
+
+const actualizaciones = defineCollection({
+  type: 'content',
+  schema: z.object({
+    fecha: z.string(),
+    titulo: z.string().optional(),
+  }),
+});
+
+export const collections = { noticias, locales, premium, actualizaciones };

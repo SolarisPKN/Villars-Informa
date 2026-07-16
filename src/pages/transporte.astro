@@ -1,357 +1,132 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import homeData from '../locales/home.json';
-import { Content } from '../locales/home-descripcion.mdx';
-
-// Lista de imágenes (pon las rutas reales de tus imágenes en /public/images/home/)
-// Si no tienes imágenes, el carrusel no se mostrará (o puedes mostrar un placeholder)
-const imagenes = [
-  // '/images/home/foto1.webp',
-  // '/images/home/foto2.jpg',
-  // '/images/home/foto3.png',
-];
-
-// Si hay imágenes, usa la primera como principal; si no, usa un placeholder
-const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pueblo.jpg';
+import t from '../locales/transporte.json';
 ---
 
-<Layout title="Villars Informa">
-  <section class="hero-pueblo">
-    <div class="hero-content">
-      <h1 class="frase-grande">{homeData.frasePueblo}</h1>
-      <div class="historia">
-        <Content />
+<Layout title={t.titulo}>
+  <div class="transporte-container">
+    <h1>{t.titulo}</h1>
+    <p>{t.descripcion}</p>
+
+    <div class="transport-controls">
+      <select id="tipoTransporte" class="transport-select">
+        <option value="colectivo">🚌 Colectivo</option>
+        <option value="tren">🚆 Tren</option>
+      </select>
+    </div>
+
+    <div id="horarios-container">
+      <!-- Colectivo -->
+      <div id="colectivo-horarios" class="horario-block">
+        <h2>Horarios de Colectivo</h2>
+        <div id="proximo-colectivo" class="proximo">
+          <p>Próximo colectivo: <span id="proximo-tiempo">Calculando...</span></p>
+        </div>
+        <div id="tabla-colectivo">
+          <p>Cargando horarios...</p>
+        </div>
+      </div>
+      <!-- Tren -->
+      <div id="tren-horarios" class="horario-block" style="display:none;">
+        <h2>Horarios de Tren</h2>
+        <p>Próximo tren: <span id="proximo-tren">Calculando...</span></p>
+        <div id="tabla-tren">
+          <ul>
+            <li>06:30 - Villars - Buenos Aires</li>
+            <li>08:15 - Villars - Buenos Aires</li>
+            <li>10:00 - Villars - Buenos Aires</li>
+            <li>12:45 - Villars - Buenos Aires</li>
+            <li>15:30 - Villars - Buenos Aires</li>
+            <li>18:20 - Villars - Buenos Aires</li>
+            <li>21:10 - Villars - Buenos Aires</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- CARRUSEL (solo si hay imágenes) -->
-  {imagenes.length > 0 && (
-    <section class="carrusel-pueblo">
-      <div class="marco-madera">
-        <div class="imagen-principal">
-          <img id="imagenGrande" src={imagenPrincipal} alt="Villars" />
-        </div>
-      </div>
-      <div class="carrusel-miniaturas" id="carouselWrapper">
-        <div class="track" id="carouselTrack">
-          {imagenes.map(url => (
-            <div class="item-miniatura" data-src={url}>
-              <img src={url} alt="Miniatura" loading="lazy" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- BOTÓN AL DIRECTORIO -->
-  <div style="text-align: center; margin-top: 2rem;">
-    <a href="/directorio" class="boton-pueblo">📋 Ver comercios del pueblo</a>
   </div>
 </Layout>
 
 <style>
-  /* ===== HERO ===== */
-  .hero-pueblo {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    background: radial-gradient(ellipse at center, rgba(212, 163, 115, 0.1) 0%, transparent 70%);
-  }
-  .hero-content {
-    max-width: 900px;
-    width: 100%;
-  }
-  .frase-grande {
-    font-size: clamp(1.8rem, 6.3vw, 3.4rem);
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: var(--accent-mustard);
-    text-shadow: 0 4px 20px rgba(233, 196, 106, 0.3);
-    margin-bottom: 2rem;
-    text-align: center;
-    letter-spacing: -0.02em;
-  }
-
-  /* ===== ESTILOS PARA EL CONTENIDO MDX ===== */
-  .historia {
-    max-width: 800px;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2rem 2.5rem;
-    border-radius: 16px;
-    border-left: 4px solid var(--accent-mustard);
-    color: var(--text-light);
-    font-size: 1.1rem;
-    line-height: 1.8;
-    text-align: left;
-  }
-
-  /* Párrafos */
-  .historia p {
-    margin-bottom: 1.2rem;
-  }
-
-  /* Encabezados */
-  .historia h1 {
-    font-size: 2rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: var(--accent-mustard);
-    margin: 2rem 0 1rem;
-    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
-    padding-bottom: 0.5rem;
-  }
-  .historia h2 {
-    font-size: 1.6rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: var(--accent-mustard);
-    margin: 1.8rem 0 0.8rem;
-  }
-  .historia h3 {
-    font-size: 1.3rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: var(--accent-terracotta);
-    margin: 1.5rem 0 0.5rem;
-  }
-
-  /* Blockquotes (citas) */
-  .historia blockquote {
-    border-left: 3px solid var(--accent-mustard);
-    padding-left: 1.5rem;
-    margin: 1.5rem 0;
-    font-style: italic;
-    color: #D4C5A0;
-    background: rgba(212, 163, 115, 0.05);
-    border-radius: 4px;
-    padding: 1rem 1.5rem;
-  }
-  .historia blockquote p {
-    margin-bottom: 0;
-  }
-
-  /* Listas */
-  .historia ul, .historia ol {
-    margin: 1rem 0 1.5rem 1.5rem;
-  }
-  .historia li {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Enlaces dentro del contenido (si los hay) */
-  .historia a {
-    color: var(--accent-mustard);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color 0.2s;
-  }
-  .historia a:hover {
-    color: var(--border-amber);
-  }
-
-  /* Línea horizontal */
-  .historia hr {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-mustard), transparent);
-    margin: 2rem 0;
-  }
-
-  /* ===== CARRUSEL CON MARCO ===== */
-  .carrusel-pueblo {
-    max-width: 1000px;
-    margin: 3rem auto;
-    padding: 0 1rem;
-  }
-  .marco-madera {
-    background: #2C1E16;
-    padding: 12px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 0 1px #5A3D2B;
-    margin-bottom: 1rem;
-  }
-  .imagen-principal {
-    width: 100%;
-    height: 450px;
-    overflow: hidden;
-    border-radius: 12px;
-    background: #1A1410;
-  }
-  .imagen-principal img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.4s ease;
-  }
-
-  .carrusel-miniaturas {
-    overflow: hidden;
-    cursor: grab;
-    user-select: none;
-    padding: 0.5rem 0;
-  }
-  .track {
-    display: flex;
-    gap: 0.75rem;
-    width: max-content;
-    transition: transform 0.05s linear;
-  }
-  .item-miniatura {
-    flex: 0 0 130px;
-    height: 85px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 3px solid transparent;
-    transition: border-color 0.2s;
-    cursor: pointer;
-    background: #2C1E16;
-  }
-  .item-miniatura img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .item-miniatura.activa {
-    border-color: var(--accent-mustard);
-    box-shadow: 0 0 16px rgba(233, 196, 106, 0.4);
-  }
-
-  /* ===== BOTÓN ===== */
-  .boton-pueblo {
-    display: inline-block;
-    padding: 0.8rem 2.5rem;
-    background: var(--accent-mustard);
-    color: #1A1410;
-    border-radius: 40px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(233, 196, 106, 0.3);
-  }
-  .boton-pueblo:hover {
-    background: #D4A373;
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(212, 163, 115, 0.5);
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .imagen-principal { height: 300px; }
-    .item-miniatura { flex: 0 0 90px; height: 60px; }
-    .historia { padding: 1.2rem; font-size: 1rem; }
-    .historia h1 { font-size: 1.6rem; }
-    .historia h2 { font-size: 1.3rem; }
-    .frase-grande { font-size: 2.2rem; }
-  }
-  @media (max-width: 480px) {
-    .historia { padding: 1rem; }
-    .historia blockquote { padding: 0.8rem; }
-  }
+  .transporte-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  .transport-select { padding: 0.5rem 1rem; border-radius: 30px; background: var(--glass); color: var(--text-light); border: 1px solid rgba(255,255,255,0.15); }
+  .horario-block { margin-top: 2rem; background: var(--glass); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+  .proximo { background: rgba(0,255,204,0.1); padding: 0.5rem 1rem; border-radius: 30px; display: inline-block; margin-bottom: 1rem; }
+  .horario-block table { width: 100%; border-collapse: collapse; }
+  .horario-block th, .horario-block td { padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; }
+  .horario-block ul { list-style: none; padding: 0; }
+  .horario-block li { padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 </style>
 
-<!-- Script del carrusel (solo si hay imágenes) -->
-{imagenes.length > 0 && (
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('carouselTrack');
-      const wrapper = document.getElementById('carouselWrapper');
-      const imagenGrande = document.getElementById('imagenGrande');
-      const items = Array.from(track.querySelectorAll('.item-miniatura'));
-      if (!track || !wrapper || !imagenGrande || items.length === 0) return;
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('tipoTransporte');
+    const colectivoBlock = document.getElementById('colectivo-horarios');
+    const trenBlock = document.getElementById('tren-horarios');
 
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
-      });
-
-      let currentTranslateX = 0, speed = 0.3, isPaused = false, isDragging = false;
-      let startX = 0, prevTranslateX = 0, animationId = null;
-
-      function setMainImage(src) {
-        imagenGrande.style.opacity = '0';
-        setTimeout(() => {
-          imagenGrande.src = src;
-          imagenGrande.style.opacity = '1';
-        }, 150);
-        items.forEach(el => el.classList.remove('activa'));
-        const target = items.find(el => el.dataset.src === src);
-        if (target) target.classList.add('activa');
+    select.addEventListener('change', () => {
+      if (select.value === 'colectivo') {
+        colectivoBlock.style.display = 'block';
+        trenBlock.style.display = 'none';
+      } else {
+        colectivoBlock.style.display = 'none';
+        trenBlock.style.display = 'block';
       }
-
-      track.addEventListener('click', (e) => {
-        const item = e.target.closest('.item-miniatura');
-        if (item) { const src = item.dataset.src; if (src) setMainImage(src); }
-      });
-
-      function animate() {
-        if (isPaused || isDragging) { animationId = requestAnimationFrame(animate); return; }
-        currentTranslateX -= speed;
-        const maxTranslate = -(track.scrollWidth / 2);
-        if (currentTranslateX <= maxTranslate) currentTranslateX = 0;
-        track.style.transform = `translateX(${currentTranslateX}px)`;
-        animationId = requestAnimationFrame(animate);
-      }
-
-      wrapper.addEventListener('mousedown', (e) => {
-        isDragging = true; isPaused = true;
-        startX = e.clientX; prevTranslateX = currentTranslateX;
-        track.style.transition = 'none';
-        if (animationId) cancelAnimationFrame(animationId);
-      });
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const diff = e.clientX - startX;
-        let newX = prevTranslateX + diff;
-        const maxX = 0, minX = -(track.scrollWidth / 2);
-        if (newX > maxX) newX = maxX;
-        if (newX < minX) newX = minX;
-        currentTranslateX = newX;
-        track.style.transform = `translateX(${currentTranslateX}px)`;
-      });
-      document.addEventListener('mouseup', () => {
-        if (isDragging) {
-          isDragging = false;
-          setTimeout(() => { isPaused = false; if (!animationId) animate(); }, 1000);
-        }
-      });
-
-      wrapper.addEventListener('touchstart', (e) => {
-        isDragging = true; isPaused = true;
-        startX = e.touches[0].clientX; prevTranslateX = currentTranslateX;
-        track.style.transition = 'none';
-        if (animationId) cancelAnimationFrame(animationId);
-      }, { passive: true });
-      document.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const diff = e.touches[0].clientX - startX;
-        let newX = prevTranslateX + diff;
-        const maxX = 0, minX = -(track.scrollWidth / 2);
-        if (newX > maxX) newX = maxX;
-        if (newX < minX) newX = minX;
-        currentTranslateX = newX;
-        track.style.transform = `translateX(${currentTranslateX}px)`;
-      }, { passive: true });
-      document.addEventListener('touchend', () => {
-        if (isDragging) {
-          isDragging = false;
-          setTimeout(() => { isPaused = false; if (!animationId) animate(); }, 1000);
-        }
-      }, { passive: true });
-
-      wrapper.addEventListener('mouseenter', () => { isPaused = true; });
-      wrapper.addEventListener('mouseleave', () => {
-        isPaused = false;
-        if (!animationId) animate();
-      });
-
-      if (items.length > 0) items[0].classList.add('activa');
-      animate();
-
-      window.addEventListener('beforeunload', () => {
-        if (animationId) cancelAnimationFrame(animationId);
-      });
     });
-  </script>
-)}
+
+    // ===== HORARIOS DE COLECTIVO (ejemplo) =====
+    function cargarHorariosColectivo() {
+      const tabla = document.getElementById('tabla-colectivo');
+      tabla.innerHTML = `
+        <table>
+          <tr><th>Salida</th><th>Destino</th></tr>
+          <tr><td>06:00</td><td>Villars - Centro</td></tr>
+          <tr><td>07:30</td><td>Villars - Centro</td></tr>
+          <tr><td>09:00</td><td>Villars - Centro</td></tr>
+          <tr><td>10:30</td><td>Villars - Centro</td></tr>
+          <tr><td>12:00</td><td>Villars - Centro</td></tr>
+          <tr><td>14:00</td><td>Villars - Centro</td></tr>
+          <tr><td>16:00</td><td>Villars - Centro</td></tr>
+          <tr><td>18:00</td><td>Villars - Centro</td></tr>
+          <tr><td>20:00</td><td>Villars - Centro</td></tr>
+        </table>
+      `;
+      const horarios = ['06:00','07:30','09:00','10:30','12:00','14:00','16:00','18:00','20:00'];
+      calcularProximo('proximo-tiempo', horarios);
+    }
+
+    // ===== CÁLCULO DE PRÓXIMO SERVICIO =====
+    function calcularProximo(elementId, horarios) {
+      const ahora = new Date();
+      const minutosActuales = ahora.getHours() * 60 + ahora.getMinutes();
+      let proximo = null;
+      let menorDiferencia = Infinity;
+      for (let h of horarios) {
+        const [hh, mm] = h.split(':').map(Number);
+        const minutos = hh * 60 + mm;
+        let diff = minutos - minutosActuales;
+        if (diff < 0) diff += 1440;
+        if (diff < menorDiferencia) {
+          menorDiferencia = diff;
+          proximo = h;
+        }
+      }
+      const element = document.getElementById(elementId);
+      if (element) {
+        if (proximo) {
+          const horas = Math.floor(menorDiferencia / 60);
+          const minutos = menorDiferencia % 60;
+          element.textContent = `${proximo} (en ${horas}h ${minutos}min)`;
+        } else {
+          element.textContent = 'No hay más servicios hoy';
+        }
+      }
+    }
+
+    // ===== HORARIOS DE TREN =====
+    const trenHorarios = ['06:30','08:15','10:00','12:45','15:30','18:20','21:10'];
+    calcularProximo('proximo-tren', trenHorarios);
+
+    // Inicializar
+    cargarHorariosColectivo();
+  });
+</script>

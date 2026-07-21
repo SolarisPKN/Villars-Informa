@@ -31,7 +31,7 @@ const {
 } = Astro.props;
 
 // ===== OBTENER URL BASE DESDE CONFIGURACIÓN =====
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://villars.pages.dev';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://villars.solarispkn.com.ar';
 const fullUrl = new URL(canonical ?? '/', siteUrl).toString();
 const fullImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
 

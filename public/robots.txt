@@ -23,7 +23,7 @@ Disallow: /404.html
 # 2. SITEMAP
 # ============================================================
 
-Sitemap: https://villars.pages.dev/sitemap-index.xml
+Sitemap: https://villars.solarispkn.com.ar/sitemap-index.xml
 
 # ============================================================
 # 3. CONTENT SIGNALS (Directivas de uso de contenido)

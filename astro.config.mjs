@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx'; // 👈 Importamos MDX
 
 export default defineConfig({
-  site: 'https://villars.pages.dev',
+  site: 'https://villars.solarispkn.com.ar',
   base: '/',
   output: 'static',
   build: {

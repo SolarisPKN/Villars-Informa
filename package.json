@@ -9,11 +9,11 @@
     "create-post": "node scripts/create-post.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/mdx": "^7.0.5",
     "@astrojs/react": "^3.6.0",
     "@astrojs/sitemap": "^3.3.0",
-    "astro": "^4.0.0",
-    "dompurify": "^3.4.10",
+    "astro": "^7.1.6",
+    "dompurify": "^3.4.12",
     "highlight.js": "^11.11.1",
     "isomorphic-dompurify": "^3.17.0",
     "marked": "^18.0.5",

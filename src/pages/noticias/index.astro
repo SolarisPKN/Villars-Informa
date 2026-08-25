@@ -8,7 +8,7 @@ import '../../styles/blog.css';
 const noticias = await getCollection('noticias');
 
 // Ordenar por fecha (más reciente primero)
-noticias.sort((a, b) => new Date(b.data.fecha) - new Date(a.data.fecha));
+noticias.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
 
 // Tags únicos
 const allTags = [...new Set(noticias.flatMap(p => p.data.tags || []))];
@@ -34,17 +34,17 @@ const destacadas = noticias.slice(0, 5);
           <!-- Filtros de tags -->
           <div class="tag-filters">
             <span class="label">🏷️</span>
-            <button class="tag-filter active" data-tag="all">Todos</button>
+            <button class="tag-filter active" data-tag="all" aria-pressed="true">Todos</button>
             {allTags.map(tag => (
-              <button class="tag-filter" data-tag={tag}>#{tag}</button>
+              <button class="tag-filter" data-tag={tag} aria-pressed="false">#{tag}</button>
             ))}
           </div>
 
           <!-- Grid de noticias -->
           <div id="post-grid" class="post-grid">
             {noticias.map(noticia => (
-              <a href={`/noticias/${noticia.slug}`} style="text-decoration: none; color: inherit; display: block;">
-                <div class="post-card glass">
+              <a href={`/noticias/${noticia.id}/`} style="text-decoration: none; color: inherit; display: block;">
+                <div class="post-card glass" data-tags={noticia.data.tags.join(',')}>
                   {noticia.data.portada && (
                     <div class="card-image">
                       <img src={noticia.data.portada} alt={noticia.data.titulo} loading="lazy" />
@@ -64,7 +64,7 @@ const destacadas = noticias.slice(0, 5);
                       <p class="card-description">{noticia.data.descripcion}</p>
                     )}
                     <div class="card-date">
-                      {new Date(noticia.data.fecha).toLocaleDateString('es-ES', {
+                      {noticia.data.fecha.toLocaleDateString('es-ES', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
@@ -84,11 +84,11 @@ const destacadas = noticias.slice(0, 5);
             <ul>
               {destacadas.map(p => (
                 <li>
-                  <a href={`/noticias/${p.slug}`} class="popular-link">
+                  <a href={`/noticias/${p.id}/`} class="popular-link">
                     {p.data.titulo}
                   </a>
                   <div class="popular-date">
-                    {new Date(p.data.fecha).toLocaleDateString('es-ES', {
+                    {p.data.fecha.toLocaleDateString('es-ES', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric'
@@ -104,25 +104,6 @@ const destacadas = noticias.slice(0, 5);
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filters = document.querySelectorAll('.tag-filter');
-      const posts = document.querySelectorAll('.post-card');
-      
-      filters.forEach(filter => {
-        filter.addEventListener('click', () => {
-          filters.forEach(f => f.classList.remove('active'));
-          filter.classList.add('active');
-          
-          const tag = filter.dataset.tag;
-          posts.forEach(post => {
-            const postTags = post.closest('a').querySelector('.card-tags');
-            const hasTag = tag === 'all' || 
-              Array.from(postTags?.querySelectorAll('.tag') || [])
-                .some(t => t.textContent === `#${tag}`);
-            post.closest('a').style.display = hasTag ? 'block' : 'none';
-          });
-        });
-      });
-    });
+    import '../../scripts/blog.js';
   </script>
 </Layout>

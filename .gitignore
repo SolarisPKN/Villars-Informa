@@ -1,0 +1,43 @@
+# Dependencies and generated output
+node_modules/
+.node_modules-stale/
+dist/
+.astro/
+.wrangler/
+.npm-cache/
+.transport-source/
+
+# Environment files and secrets
+.env
+.env.local
+.env.*.local
+*.log
+*.pid
+*.pid.lock
+
+# Operating systems and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+*.tmp
+*.temp
+
+# Tool caches
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Local databases are ignored by default. The reviewed transport snapshot is
+# intentionally versioned so the static site can be rebuilt reproducibly.
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+!data/transport/horarios.db

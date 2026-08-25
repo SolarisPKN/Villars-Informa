@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-import mdx from '@astrojs/mdx'; // 👈 Importamos MDX
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
+  // Keep Astro 4's HTML-aware whitespace behavior during the migration.
+  compressHTML: true,
   site: 'https://villars.solarispkn.com.ar',
   base: '/',
   output: 'static',
@@ -14,18 +15,15 @@ export default defineConfig({
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
-    domains: ['villars.pages.dev'],
+    domains: ['villars.solarispkn.com.ar'],
   },
   integrations: [
-    react(),
     sitemap({
-      filter: (page) => {
-        return !page.includes('/404') &&
-               !page.includes('/under-construction') &&
-               page !== '/';
-      },
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/under-construction'),
     }),
-    mdx(), // 👈 Añadimos la integración MDX
+    mdx(),
   ],
   vite: {
     resolve: {

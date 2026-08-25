@@ -1,34 +1,10 @@
-// src/scripts/scroll-animations.js
+let observer;
 function initScrollReveal() {
+  observer?.disconnect();
   const reveals = document.querySelectorAll('[data-reveal]');
-  if (!reveals.length) return;
-
-  // Asegurar estado inicial oculto con inline styles para mayor control
-  reveals.forEach(el => {
-    // Si ya tiene la clase visible, la removemos temporalmente
-    el.classList.remove('visible');
-    // Aplicamos estilo inicial inline (se sobrescribirá con la clase cuando sea visible)
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-  });
-
-  // Pequeño retraso para que el navegador pinte los elementos y la transición de View Transitions se complete
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Aplicar clase y estilos finales
-          entry.target.classList.add('visible');
-          // Los estilos inline se sobrescriben con la clase, pero aseguramos el estado final
-          entry.target.style.opacity = '';
-          entry.target.style.transform = '';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-
-    reveals.forEach(el => observer.observe(el));
-  }, 150);
+  if (!reveals.length || matchMedia('(prefers-reduced-motion: reduce)').matches) { reveals.forEach((element) => element.classList.add('visible')); return; }
+  observer = new IntersectionObserver((entries) => { for (const entry of entries) { if (!entry.isIntersecting) continue; entry.target.classList.add('visible'); observer?.unobserve(entry.target); } }, { threshold: .15, rootMargin: '0px 0px -40px' });
+  reveals.forEach((element) => observer.observe(element));
 }
-
 document.addEventListener('astro:page-load', initScrollReveal);
+document.addEventListener('astro:before-swap', () => observer?.disconnect());

@@ -1,124 +1,50 @@
-# SolarisPKN-Labs
+# Villars Informa
 
-🇦🇷 Español | 🇺🇸 [English](README.md)
+Sitio comunitario, estático y de código abierto para Villars, provincia de Buenos Aires. Reúne historia local, noticias, comercios, avisos de salud y horarios programados de transporte.
 
-## Descripción General
+Sitio publicado: <https://villars.solarispkn.com.ar>
 
-SolarisPKN-Labs es el sitio web oficial de desarrollo del ecosistema SolarisPKN.
+## Arquitectura
 
-Actualmente el proyecto se encuentra en una etapa temprana de desarrollo y funciona como un espacio centralizado para presentar proyectos, experimentos, documentación técnica y futuros desarrollos.
+- Astro 7 con salida HTML estática.
+- Content Layer para noticias, comercios, contenido premium y actualizaciones.
+- SEO, datos estructurados y navegación accesible centralizados en el layout.
+- JavaScript nativo y progresivo; el contenido esencial se genera en el build.
+- CI con tests, `astro check`, build y auditoría de dependencias.
 
-Su objetivo principal es ofrecer una forma organizada y accesible de explorar el trabajo desarrollado bajo la marca SolarisPKN.
+La decisión completa sobre transporte está documentada en [`docs/adr/0001-static-transport-snapshot.md`](docs/adr/0001-static-transport-snapshot.md).
 
-## Estado Actual
+## Transporte
 
-⚠️ Este proyecto se encuentra en desarrollo activo.
+`data/transport/horarios.db` es una copia versionada de la base pública de [SolarisPKN Transport](https://github.com/SolarisPKN/SolarisPKN-Transport). `npm run data:transport` valida SQLite y genera `src/data/transport-schedules.json`, incluyendo el SHA-256 de la base de origen.
 
-Actualmente SolarisPKN-Labs es principalmente un sitio web público y un proyecto de aprendizaje utilizado para:
+El workflow `sync-transport.yml` se ejecuta una vez al día. Si la base no cambió, no crea commits. Si cambió, regenera los datos, valida todo el proyecto y recién entonces publica el snapshot.
 
-* Aprender y experimentar con tecnologías web modernas.
-* Construir un portfolio tecnológico personal.
-* Centralizar futuros proyectos y documentación.
-* Desarrollar la base para futuras funcionalidades e integraciones.
+Los horarios mostrados son programados, no información en tiempo real.
 
-## Características
+## Desarrollo
 
-Características actuales:
+Requisitos: Node.js 22.12 o superior y npm 9.6.5 o superior.
 
-* Sitio web público.
-* Diseño adaptable (responsive).
-* Estructura para presentación de proyectos.
-* Navegación básica.
-* Despliegue mediante Cloudflare Pages.
+```bash
+npm ci
+npm run dev
+```
 
-Características planificadas:
+Validación completa:
 
-* Documentación técnica.
-* Catálogo de proyectos.
-* Blog de desarrollo.
-* Sección de arquitectura.
-* Integración con proyectos Open Source.
-* Presentación de firmware y herramientas.
-* Sistema de membresías y cuentas.
-* Sistema de productos y licencias.
+```bash
+npm run validate
+npm audit --audit-level=high
+```
 
-## Objetivos
+Comandos de contenido:
 
-El objetivo a largo plazo de SolarisPKN-Labs es convertirse en un punto central para:
+```bash
+npm run create-news
+npm run create-local
+```
 
-* Proyectos de desarrollo de software.
-* Sistemas embebidos.
-* Desarrollo con ESP32.
-* Infraestructura y tecnologías cloud.
-* Automatización.
-* Documentación técnica.
-* Iniciativas Open Source.
+## Licencia y contribuciones
 
-## Tecnologías
-
-Tecnologías actuales:
-
-* HTML
-* CSS
-* JavaScript
-* GitHub
-* Cloudflare Pages
-
-Tecnologías en evaluación para futuras versiones:
-
-* Astro
-* Cloudflare Workers
-* Cloudflare D1
-* GitHub Actions
-
-## Sitio Web
-
-Sitio en producción:
-
-https://solarispkn.pages.dev
-
-## Repositorio
-
-GitHub:
-
-https://github.com/SolarisPKN
-
-## Filosofía del Proyecto
-
-SolarisPKN-Labs busca ser más que un portfolio.
-
-El objetivo es documentar proyectos, experimentos, aprendizajes y soluciones técnicas mientras la propia plataforma evoluciona constantemente.
-
-En pocas palabras:
-
-Un proyecto diseñado para contener otros proyectos.
-
-## Hoja de Ruta
-
-### Fase 1
-
-* Sitio web inicial
-* Estructura base
-* Publicación pública
-
-### Fase 2
-
-* Sistema de documentación
-* Páginas de proyectos
-* Sección de arquitectura
-
-### Fase 3
-
-* Cuentas de usuario
-* Funciones de membresía
-* Organización avanzada de contenido
-
-### Fase 4
-
-* Distribución de productos
-* Sistema de licencias
-* Integraciones avanzadas
-
-## Licencia
-
-La licencia del proyecto será definida en futuras versiones.
+Antes de proponer cambios, ejecutá la validación completa y no publiques datos personales o información local sin una fuente verificable. La licencia formal del contenido y el código aún debe definirse.

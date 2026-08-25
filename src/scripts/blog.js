@@ -1,33 +1,13 @@
-// ===== BLOG INDEX - FILTROS DE TAGS =====
-document.addEventListener('astro:page-load', () => {
-  const buttons = document.querySelectorAll('.tag-filter');
-  const cards = document.querySelectorAll('.post-card');
-
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const tag = btn.dataset.tag;
-
-      // Actualizar estilos de botones
-      buttons.forEach((b) => {
-        b.classList.remove('active');
-        b.style.background = 'transparent';
-        b.style.color = 'var(--text-light)';
-        b.style.borderColor = 'rgba(255,255,255,0.2)';
-      });
-      btn.classList.add('active');
-      btn.style.background = 'var(--border-cyan)';
-      btn.style.color = '#0a0a0a';
-      btn.style.borderColor = 'var(--border-cyan)';
-
-      // Filtrar cards
-      cards.forEach((card) => {
-        const tags = card.dataset.tags?.split(',') || [];
-        if (tag === 'all' || tags.includes(tag)) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-});
+let controller;
+function initBlogFilters() {
+  controller?.abort(); controller = new AbortController();
+  const buttons = [...document.querySelectorAll('.tag-filter')];
+  const cards = [...document.querySelectorAll('.post-card')];
+  for (const button of buttons) button.addEventListener('click', () => {
+    const tag = button.dataset.tag || 'all';
+    for (const candidate of buttons) { const selected = candidate === button; candidate.classList.toggle('active', selected); candidate.setAttribute('aria-pressed', String(selected)); }
+    for (const card of cards) { const tags = (card.dataset.tags || '').split(',').filter(Boolean); const link = card.closest('a'); if (link instanceof HTMLElement) link.hidden = tag !== 'all' && !tags.includes(tag); }
+  }, { signal: controller.signal });
+}
+document.addEventListener('astro:page-load', initBlogFilters);
+document.addEventListener('astro:before-swap', () => controller?.abort());

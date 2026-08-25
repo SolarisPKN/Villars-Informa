@@ -1,0 +1,2881 @@
+{
+  "schemaVersion": 1,
+  "timezone": "America/Argentina/Buenos_Aires",
+  "source": {
+    "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
+    "databasePath": "horarios.db",
+    "databaseSha256": "2e01ed592527cd2e7838b490e84aa55fe4b833531722792c36b0dc9ce45e37a7",
+    "updatedAt": "2026-08-25T04:04:05Z"
+  },
+  "stats": {
+    "routes": 5,
+    "schedules": 30,
+    "times": 1382
+  },
+  "routes": [
+    {
+      "id": "colectivo-322-canuelas-2",
+      "type": "bus",
+      "name": "Marcos Paz - Cañuelas",
+      "branch": "322 Cañuelas",
+      "company": "LIBERTADOR SAN MARTIN SAT",
+      "websiteUrl": "https://www.argentina.gob.ar/sube/cuandosubo",
+      "sourceUrl": "https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where",
+      "validFrom": "2026-08-29",
+      "schedules": [
+        {
+          "id": 7,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Cañuelas",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:00Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                329,
+                569,
+                809
+              ]
+            },
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 3,
+              "times": [
+                403,
+                643,
+                883
+              ]
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:00Z",
+          "stations": [
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                491,
+                731,
+                971
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                523,
+                763,
+                1003
+              ]
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Cañuelas",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:01Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                329,
+                569,
+                809
+              ]
+            },
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 3,
+              "times": [
+                403,
+                643,
+                883
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:01Z",
+          "stations": [
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                491,
+                731,
+                971
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                523,
+                763,
+                1003
+              ]
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Cañuelas",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:01Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                329,
+                569,
+                809
+              ]
+            },
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 3,
+              "times": [
+                403,
+                643,
+                883
+              ]
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:01Z",
+          "stations": [
+            {
+              "name": "Cañuelas",
+              "normalizedName": "canuelas",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                491,
+                731,
+                971
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                523,
+                763,
+                1003
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "colectivo-322-lujan-3",
+      "type": "bus",
+      "name": "Marcos Paz - Luján",
+      "branch": "322 Luján",
+      "company": "LIBERTADOR SAN MARTIN SAT",
+      "websiteUrl": "https://www.argentina.gob.ar/sube/cuandosubo",
+      "sourceUrl": "https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where",
+      "validFrom": "2026-08-29",
+      "schedules": [
+        {
+          "id": 13,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Luján",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:01Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                332,
+                572,
+                812
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                360,
+                600,
+                840
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 4,
+              "times": [
+                383,
+                623,
+                863
+              ]
+            },
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 5,
+              "times": [
+                433,
+                673,
+                913
+              ]
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:02Z",
+          "stations": [
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 2,
+              "times": [
+                470,
+                710,
+                950
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                493,
+                733,
+                973
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 4,
+              "times": [
+                521,
+                761,
+                1001
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 5,
+              "times": [
+                553,
+                793,
+                1033
+              ]
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Luján",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:02Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                332,
+                572,
+                812
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                360,
+                600,
+                840
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 4,
+              "times": [
+                383,
+                623,
+                863
+              ]
+            },
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 5,
+              "times": [
+                433,
+                673,
+                913
+              ]
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:02Z",
+          "stations": [
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 2,
+              "times": [
+                470,
+                710,
+                950
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                493,
+                733,
+                973
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 4,
+              "times": [
+                521,
+                761,
+                1001
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 5,
+              "times": [
+                553,
+                793,
+                1033
+              ]
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Luján",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:02Z",
+          "stations": [
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 1,
+              "times": [
+                300,
+                540,
+                780
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 2,
+              "times": [
+                332,
+                572,
+                812
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                360,
+                600,
+                840
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 4,
+              "times": [
+                383,
+                623,
+                863
+              ]
+            },
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 5,
+              "times": [
+                433,
+                673,
+                913
+              ]
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Marcos Paz",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:02Z",
+          "stations": [
+            {
+              "name": "Luján",
+              "normalizedName": "lujan",
+              "order": 1,
+              "times": [
+                420,
+                660,
+                900
+              ]
+            },
+            {
+              "name": "Plomer",
+              "normalizedName": "plomer",
+              "order": 2,
+              "times": [
+                470,
+                710,
+                950
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 3,
+              "times": [
+                493,
+                733,
+                973
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 4,
+              "times": [
+                521,
+                761,
+                1001
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 5,
+              "times": [
+                553,
+                793,
+                1033
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "colectivo-136-ramal-a-1",
+      "type": "bus",
+      "name": "Primera Junta - Navarro",
+      "branch": "136 Ramal A",
+      "company": "SARGENTO CABRAL S.A.DE TRANSPORTE",
+      "websiteUrl": "https://www.argentina.gob.ar/sube/cuandosubo",
+      "sourceUrl": "https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where",
+      "validFrom": "2026-08-29",
+      "schedules": [
+        {
+          "id": 1,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Navarro",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:03:59Z",
+          "stations": [
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 1,
+              "times": [
+                54,
+                120,
+                210,
+                300,
+                390,
+                480,
+                570,
+                660,
+                750,
+                840,
+                930,
+                1020,
+                1110,
+                1200,
+                1290
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                137,
+                203,
+                293,
+                383,
+                473,
+                563,
+                653,
+                743,
+                833,
+                923,
+                1013,
+                1103,
+                1193,
+                1283,
+                1373
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 3,
+              "times": [
+                178,
+                244,
+                334,
+                424,
+                514,
+                604,
+                694,
+                784,
+                874,
+                964,
+                1054,
+                1144,
+                1234,
+                1324,
+                1414
+              ]
+            },
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 4,
+              "times": [
+                240,
+                306,
+                396,
+                486,
+                576,
+                666,
+                756,
+                846,
+                936,
+                1026,
+                1116,
+                1206,
+                1296,
+                1386,
+                1476
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Primera Junta",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:03:59Z",
+          "stations": [
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 1,
+              "times": [
+                54,
+                120,
+                210,
+                300,
+                390,
+                480,
+                570,
+                660,
+                750,
+                840,
+                930,
+                1020,
+                1110,
+                1200,
+                1290
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                157,
+                223,
+                313,
+                403,
+                493,
+                583,
+                673,
+                763,
+                853,
+                943,
+                1033,
+                1123,
+                1213,
+                1303,
+                1393
+              ]
+            },
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 3,
+              "times": [
+                240,
+                306,
+                396,
+                486,
+                576,
+                666,
+                756,
+                846,
+                936,
+                1026,
+                1116,
+                1206,
+                1296,
+                1386,
+                1476
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Navarro",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:03:59Z",
+          "stations": [
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 1,
+              "times": [
+                24,
+                90,
+                180,
+                270,
+                360,
+                450,
+                540,
+                600,
+                660,
+                720,
+                780,
+                840,
+                900,
+                960,
+                1020,
+                1080,
+                1140,
+                1200,
+                1260,
+                1320
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                109,
+                175,
+                265,
+                355,
+                445,
+                535,
+                625,
+                685,
+                745,
+                805,
+                865,
+                925,
+                985,
+                1045,
+                1105,
+                1165,
+                1225,
+                1285,
+                1345,
+                1405
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 3,
+              "times": [
+                152,
+                218,
+                308,
+                398,
+                488,
+                578,
+                668,
+                728,
+                788,
+                848,
+                908,
+                968,
+                1028,
+                1088,
+                1148,
+                1208,
+                1268,
+                1328,
+                1388,
+                1448
+              ]
+            },
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 4,
+              "times": [
+                215,
+                281,
+                371,
+                461,
+                551,
+                641,
+                731,
+                791,
+                851,
+                911,
+                971,
+                1031,
+                1091,
+                1151,
+                1211,
+                1271,
+                1331,
+                1391,
+                1451,
+                1511
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Primera Junta",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:00Z",
+          "stations": [
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 1,
+              "times": [
+                24,
+                90,
+                180,
+                270,
+                360,
+                450,
+                540,
+                600,
+                660,
+                720,
+                780,
+                840,
+                900,
+                960,
+                1020,
+                1080,
+                1140,
+                1200,
+                1260,
+                1320
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                130,
+                196,
+                286,
+                376,
+                466,
+                556,
+                646,
+                706,
+                766,
+                826,
+                886,
+                946,
+                1006,
+                1066,
+                1126,
+                1186,
+                1246,
+                1306,
+                1366,
+                1426
+              ]
+            },
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 3,
+              "times": [
+                215,
+                281,
+                371,
+                461,
+                551,
+                641,
+                731,
+                791,
+                851,
+                911,
+                971,
+                1031,
+                1091,
+                1151,
+                1211,
+                1271,
+                1331,
+                1391,
+                1451,
+                1511
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Navarro",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:00Z",
+          "stations": [
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 1,
+              "times": [
+                54,
+                120,
+                210,
+                300,
+                390,
+                460,
+                530,
+                600,
+                670,
+                740,
+                810,
+                880,
+                950,
+                1020,
+                1090,
+                1160,
+                1250,
+                1340
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                137,
+                203,
+                293,
+                383,
+                473,
+                543,
+                613,
+                683,
+                753,
+                823,
+                893,
+                963,
+                1033,
+                1103,
+                1173,
+                1243,
+                1333,
+                1423
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 3,
+              "times": [
+                178,
+                244,
+                334,
+                424,
+                514,
+                584,
+                654,
+                724,
+                794,
+                864,
+                934,
+                1004,
+                1074,
+                1144,
+                1214,
+                1284,
+                1374,
+                1464
+              ]
+            },
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 4,
+              "times": [
+                240,
+                306,
+                396,
+                486,
+                576,
+                646,
+                716,
+                786,
+                856,
+                926,
+                996,
+                1066,
+                1136,
+                1206,
+                1276,
+                1346,
+                1436,
+                1526
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Primera Junta",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:00Z",
+          "stations": [
+            {
+              "name": "Navarro",
+              "normalizedName": "navarro",
+              "order": 1,
+              "times": [
+                54,
+                120,
+                210,
+                300,
+                390,
+                460,
+                530,
+                600,
+                670,
+                740,
+                810,
+                880,
+                950,
+                1020,
+                1090,
+                1160,
+                1250,
+                1340
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 2,
+              "times": [
+                157,
+                223,
+                313,
+                403,
+                493,
+                563,
+                633,
+                703,
+                773,
+                843,
+                913,
+                983,
+                1053,
+                1123,
+                1193,
+                1263,
+                1353,
+                1443
+              ]
+            },
+            {
+              "name": "Primera Junta",
+              "normalizedName": "primera junta",
+              "order": 3,
+              "times": [
+                240,
+                306,
+                396,
+                486,
+                576,
+                646,
+                716,
+                786,
+                856,
+                926,
+                996,
+                1066,
+                1136,
+                1206,
+                1276,
+                1346,
+                1436,
+                1526
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tren-belgrano-sur-4",
+      "type": "train",
+      "name": "González Catán - Lozano",
+      "branch": "Belgrano Sur",
+      "company": "Trenes Argentinos",
+      "websiteUrl": "https://www.argentina.gob.ar/transporte/trenes-argentinos/horarios-tarifas-y-recorridos-de-trenes/gonzalez-catan-lozano",
+      "sourceUrl": "https://api-servicios.sofse.gob.ar/v1/arribos/estacion/154",
+      "validFrom": "2026-08-29",
+      "schedules": [
+        {
+          "id": 19,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "González Catán",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 1,
+              "times": [
+                673,
+                1035
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 2,
+              "times": [
+                699,
+                1061
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                729,
+                847,
+                1091,
+                1227
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 4,
+              "times": [
+                752,
+                870,
+                1114,
+                1250
+              ]
+            },
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 5,
+              "times": [
+                772,
+                890,
+                1134,
+                1270
+              ]
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Lozano",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 1,
+              "times": [
+                560,
+                790,
+                921,
+                1170
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 2,
+              "times": [
+                580,
+                810,
+                941,
+                1190
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                603,
+                833,
+                964,
+                1213
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 4,
+              "times": [
+                633,
+                994
+              ]
+            },
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 5,
+              "times": [
+                661,
+                1022
+              ]
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "González Catán",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 1,
+              "times": []
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 2,
+              "times": [
+                613,
+                1224
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                643,
+                751,
+                863,
+                975,
+                1090,
+                1254
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 4,
+              "times": [
+                666,
+                774,
+                886,
+                998,
+                1113,
+                1277
+              ]
+            },
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 5,
+              "times": [
+                686,
+                794,
+                906,
+                1018,
+                1133,
+                1297
+              ]
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Lozano",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 1,
+              "times": [
+                527,
+                699,
+                807,
+                920,
+                1030,
+                1142
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 2,
+              "times": [
+                547,
+                719,
+                827,
+                940,
+                1050,
+                1162
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                570,
+                742,
+                850,
+                963,
+                1073,
+                1185
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 4,
+              "times": [
+                600,
+                1215
+              ]
+            },
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 5,
+              "times": []
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "González Catán",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 1,
+              "times": [
+                677,
+                1032
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 2,
+              "times": [
+                703,
+                1058
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                733,
+                857,
+                1088,
+                1195
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 4,
+              "times": [
+                756,
+                880,
+                1111,
+                1218
+              ]
+            },
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 5,
+              "times": [
+                776,
+                900,
+                1131,
+                1238
+              ]
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Lozano",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:03Z",
+          "stations": [
+            {
+              "name": "González Catán",
+              "normalizedName": "gonzalez catan",
+              "order": 1,
+              "times": [
+                555,
+                795,
+                912,
+                1142
+              ]
+            },
+            {
+              "name": "20 de Junio",
+              "normalizedName": "20 de junio",
+              "order": 2,
+              "times": [
+                575,
+                815,
+                932,
+                1162
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 3,
+              "times": [
+                598,
+                838,
+                955,
+                1185
+              ]
+            },
+            {
+              "name": "Villars",
+              "normalizedName": "villars",
+              "order": 4,
+              "times": [
+                628,
+                985
+              ]
+            },
+            {
+              "name": "Lozano",
+              "normalizedName": "lozano",
+              "order": 5,
+              "times": [
+                656,
+                1013
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tren-sarmiento-5",
+      "type": "train",
+      "name": "Merlo - Lobos",
+      "branch": "Sarmiento",
+      "company": "Trenes Argentinos",
+      "websiteUrl": "https://www.argentina.gob.ar/transporte/trenes-argentinos/horarios-tarifas-y-recorridos-de-trenes/linea-sarmiento",
+      "sourceUrl": "https://api-servicios.sofse.gob.ar/v1/arribos/estacion/269",
+      "validFrom": "2026-08-29",
+      "schedules": [
+        {
+          "id": 25,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Las Heras",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:04Z",
+          "stations": [
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 1,
+              "times": [
+                253,
+                341,
+                399,
+                466,
+                545,
+                633,
+                691,
+                758,
+                837,
+                925,
+                983,
+                1050,
+                1129,
+                1217,
+                1275,
+                1342
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 2,
+              "times": [
+                261,
+                349,
+                407,
+                474,
+                553,
+                641,
+                699,
+                766,
+                845,
+                933,
+                991,
+                1058,
+                1137,
+                1225,
+                1283,
+                1350
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 3,
+              "times": [
+                266,
+                354,
+                412,
+                479,
+                558,
+                646,
+                704,
+                771,
+                850,
+                938,
+                996,
+                1063,
+                1142,
+                1230,
+                1288,
+                1355
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 4,
+              "times": [
+                271,
+                365,
+                417,
+                484,
+                563,
+                657,
+                709,
+                776,
+                855,
+                949,
+                1001,
+                1068,
+                1147,
+                1241,
+                1293,
+                1360
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                275,
+                369,
+                421,
+                488,
+                567,
+                661,
+                713,
+                780,
+                859,
+                953,
+                1005,
+                1072,
+                1151,
+                1245,
+                1297,
+                1364
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 6,
+              "times": [
+                282,
+                375,
+                428,
+                499,
+                574,
+                667,
+                720,
+                791,
+                866,
+                959,
+                1012,
+                1083,
+                1158,
+                1251,
+                1304,
+                1375
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 7,
+              "times": [
+                293,
+                439,
+                510,
+                585,
+                731,
+                802,
+                877,
+                1023,
+                1094,
+                1169,
+                1315,
+                1386
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 8,
+              "times": [
+                300,
+                446,
+                517,
+                592,
+                738,
+                809,
+                884,
+                1030,
+                1101,
+                1176,
+                1322,
+                1393
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 9,
+              "times": [
+                306,
+                452,
+                523,
+                598,
+                744,
+                815,
+                890,
+                1036,
+                1107,
+                1182,
+                1328,
+                1399
+              ]
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "day": {
+            "key": "sunday",
+            "label": "Domingo"
+          },
+          "direction": "Merlo",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:04Z",
+          "stations": [
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 1,
+              "times": [
+                326,
+                472,
+                547,
+                618,
+                764,
+                839,
+                910,
+                1056,
+                1131,
+                1202,
+                1348,
+                1420
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 2,
+              "times": [
+                332,
+                478,
+                553,
+                624,
+                770,
+                845,
+                916,
+                1062,
+                1137,
+                1208,
+                1354,
+                1426
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 3,
+              "times": [
+                339,
+                485,
+                560,
+                631,
+                777,
+                852,
+                923,
+                1069,
+                1144,
+                1215,
+                1361,
+                1433
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 4,
+              "times": [
+                351,
+                497,
+                576,
+                643,
+                789,
+                868,
+                935,
+                1081,
+                1160,
+                1227,
+                1373,
+                1445
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                357,
+                503,
+                582,
+                649,
+                795,
+                874,
+                941,
+                1087,
+                1166,
+                1233,
+                1379,
+                1451
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 6,
+              "times": [
+                362,
+                508,
+                587,
+                654,
+                800,
+                879,
+                946,
+                1092,
+                1171,
+                1238,
+                1384,
+                1456
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 7,
+              "times": [
+                366,
+                512,
+                591,
+                658,
+                804,
+                883,
+                950,
+                1096,
+                1175,
+                1242,
+                1388,
+                1460
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 8,
+              "times": [
+                371,
+                517,
+                596,
+                663,
+                809,
+                888,
+                955,
+                1101,
+                1180,
+                1247,
+                1393,
+                1465
+              ]
+            },
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 9,
+              "times": [
+                379,
+                525,
+                604,
+                671,
+                817,
+                896,
+                963,
+                1109,
+                1188,
+                1255,
+                1401,
+                1473
+              ]
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Las Heras",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:04Z",
+          "stations": [
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 1,
+              "times": [
+                176,
+                248,
+                336,
+                394,
+                461,
+                545,
+                633,
+                691,
+                758,
+                837,
+                925,
+                983,
+                1050,
+                1129,
+                1217,
+                1275,
+                1342
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 2,
+              "times": [
+                184,
+                256,
+                344,
+                402,
+                469,
+                553,
+                641,
+                699,
+                766,
+                845,
+                933,
+                991,
+                1058,
+                1137,
+                1225,
+                1283,
+                1350
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 3,
+              "times": [
+                189,
+                261,
+                349,
+                407,
+                474,
+                558,
+                646,
+                704,
+                771,
+                850,
+                938,
+                996,
+                1063,
+                1142,
+                1230,
+                1288,
+                1355
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 4,
+              "times": [
+                194,
+                266,
+                360,
+                412,
+                479,
+                563,
+                657,
+                709,
+                776,
+                855,
+                949,
+                1001,
+                1068,
+                1147,
+                1241,
+                1293,
+                1360
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                198,
+                270,
+                364,
+                416,
+                483,
+                567,
+                661,
+                713,
+                780,
+                859,
+                953,
+                1005,
+                1072,
+                1151,
+                1245,
+                1297,
+                1364
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 6,
+              "times": [
+                205,
+                277,
+                370,
+                423,
+                494,
+                574,
+                667,
+                720,
+                791,
+                866,
+                959,
+                1012,
+                1083,
+                1158,
+                1251,
+                1304,
+                1375
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 7,
+              "times": [
+                216,
+                288,
+                434,
+                505,
+                585,
+                731,
+                802,
+                877,
+                1023,
+                1094,
+                1169,
+                1315,
+                1386
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 8,
+              "times": [
+                223,
+                295,
+                441,
+                512,
+                592,
+                738,
+                809,
+                884,
+                1030,
+                1101,
+                1176,
+                1322,
+                1393
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 9,
+              "times": [
+                229,
+                301,
+                447,
+                518,
+                598,
+                744,
+                815,
+                890,
+                1036,
+                1107,
+                1182,
+                1328,
+                1399
+              ]
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Merlo",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:04Z",
+          "stations": [
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 1,
+              "times": [
+                250,
+                321,
+                467,
+                547,
+                618,
+                764,
+                839,
+                910,
+                1056,
+                1131,
+                1202,
+                1348,
+                1420
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 2,
+              "times": [
+                256,
+                327,
+                473,
+                553,
+                624,
+                770,
+                845,
+                916,
+                1062,
+                1137,
+                1208,
+                1354,
+                1426
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 3,
+              "times": [
+                263,
+                334,
+                480,
+                560,
+                631,
+                777,
+                852,
+                923,
+                1069,
+                1144,
+                1215,
+                1361,
+                1433
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 4,
+              "times": [
+                279,
+                346,
+                492,
+                576,
+                643,
+                789,
+                868,
+                935,
+                1081,
+                1160,
+                1227,
+                1373,
+                1445
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                285,
+                352,
+                498,
+                582,
+                649,
+                795,
+                874,
+                941,
+                1087,
+                1166,
+                1233,
+                1379,
+                1451
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 6,
+              "times": [
+                290,
+                357,
+                503,
+                587,
+                654,
+                800,
+                879,
+                946,
+                1092,
+                1171,
+                1238,
+                1384,
+                1456
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 7,
+              "times": [
+                294,
+                361,
+                507,
+                591,
+                658,
+                804,
+                883,
+                950,
+                1096,
+                1175,
+                1242,
+                1388,
+                1460
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 8,
+              "times": [
+                299,
+                366,
+                512,
+                596,
+                663,
+                809,
+                888,
+                955,
+                1101,
+                1180,
+                1247,
+                1393,
+                1465
+              ]
+            },
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 9,
+              "times": [
+                307,
+                374,
+                520,
+                604,
+                671,
+                817,
+                896,
+                963,
+                1109,
+                1188,
+                1255,
+                1401,
+                1473
+              ]
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Las Heras",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:04Z",
+          "stations": [
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 1,
+              "times": [
+                176,
+                248,
+                336,
+                394,
+                461,
+                545,
+                633,
+                691,
+                758,
+                837,
+                925,
+                983,
+                1050,
+                1129,
+                1217,
+                1275,
+                1342
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 2,
+              "times": [
+                184,
+                256,
+                344,
+                402,
+                469,
+                553,
+                641,
+                699,
+                766,
+                845,
+                933,
+                991,
+                1058,
+                1137,
+                1225,
+                1283,
+                1350
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 3,
+              "times": [
+                189,
+                261,
+                349,
+                407,
+                474,
+                558,
+                646,
+                704,
+                771,
+                850,
+                938,
+                996,
+                1063,
+                1142,
+                1230,
+                1288,
+                1355
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 4,
+              "times": [
+                194,
+                266,
+                360,
+                412,
+                479,
+                563,
+                657,
+                709,
+                776,
+                855,
+                949,
+                1001,
+                1068,
+                1147,
+                1241,
+                1293,
+                1360
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                198,
+                270,
+                364,
+                416,
+                483,
+                567,
+                661,
+                713,
+                780,
+                859,
+                953,
+                1005,
+                1072,
+                1151,
+                1245,
+                1297,
+                1364
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 6,
+              "times": [
+                205,
+                277,
+                370,
+                423,
+                494,
+                574,
+                667,
+                720,
+                791,
+                866,
+                959,
+                1012,
+                1083,
+                1158,
+                1251,
+                1304,
+                1375
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 7,
+              "times": [
+                216,
+                288,
+                434,
+                505,
+                585,
+                731,
+                802,
+                877,
+                1023,
+                1094,
+                1169,
+                1315,
+                1386
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 8,
+              "times": [
+                223,
+                295,
+                441,
+                512,
+                592,
+                738,
+                809,
+                884,
+                1030,
+                1101,
+                1176,
+                1322,
+                1393
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 9,
+              "times": [
+                229,
+                301,
+                447,
+                518,
+                598,
+                744,
+                815,
+                890,
+                1036,
+                1107,
+                1182,
+                1328,
+                1399
+              ]
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Merlo",
+          "updateMethod": "API",
+          "updatedAt": "2026-08-25T04:04:05Z",
+          "stations": [
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 1,
+              "times": [
+                250,
+                321,
+                467,
+                547,
+                618,
+                764,
+                839,
+                910,
+                1056,
+                1131,
+                1202,
+                1348,
+                1420
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 2,
+              "times": [
+                256,
+                327,
+                473,
+                553,
+                624,
+                770,
+                845,
+                916,
+                1062,
+                1137,
+                1208,
+                1354,
+                1426
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 3,
+              "times": [
+                263,
+                334,
+                480,
+                560,
+                631,
+                777,
+                852,
+                923,
+                1069,
+                1144,
+                1215,
+                1361,
+                1433
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 4,
+              "times": [
+                279,
+                346,
+                492,
+                576,
+                643,
+                789,
+                868,
+                935,
+                1081,
+                1160,
+                1227,
+                1373,
+                1445
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                285,
+                352,
+                498,
+                582,
+                649,
+                795,
+                874,
+                941,
+                1087,
+                1166,
+                1233,
+                1379,
+                1451
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 6,
+              "times": [
+                290,
+                357,
+                503,
+                587,
+                654,
+                800,
+                879,
+                946,
+                1092,
+                1171,
+                1238,
+                1384,
+                1456
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 7,
+              "times": [
+                294,
+                361,
+                507,
+                591,
+                658,
+                804,
+                883,
+                950,
+                1096,
+                1175,
+                1242,
+                1388,
+                1460
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 8,
+              "times": [
+                299,
+                366,
+                512,
+                596,
+                663,
+                809,
+                888,
+                955,
+                1101,
+                1180,
+                1247,
+                1393,
+                1465
+              ]
+            },
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 9,
+              "times": [
+                307,
+                374,
+                520,
+                604,
+                671,
+                817,
+                896,
+                963,
+                1109,
+                1188,
+                1255,
+                1401,
+                1473
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

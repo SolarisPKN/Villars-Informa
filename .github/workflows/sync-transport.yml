@@ -1,0 +1,61 @@
+name: Sincronizar transporte
+
+on:
+  schedule:
+    - cron: '7 7 * * *'
+      timezone: America/Argentina/Buenos_Aires
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-transport-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar Villars Informa
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Descargar la base pública de SolarisPKN Transport
+        uses: actions/checkout@v4
+        with:
+          repository: SolarisPKN/SolarisPKN-Transport
+          path: .transport-source
+          sparse-checkout: horarios.db
+          sparse-checkout-cone-mode: false
+      - name: Detectar cambios
+        id: changes
+        shell: bash
+        run: |
+          if cmp -s .transport-source/horarios.db data/transport/horarios.db; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            cp .transport-source/horarios.db data/transport/horarios.db
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Preparar Node.js
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Regenerar y validar el sitio
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npm ci
+          npm run data:transport
+          npm run validate
+      - name: Publicar el snapshot actualizado
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/transport/horarios.db src/data/transport-schedules.json
+          git commit -m "data(transport): actualizar horarios"
+          git push origin HEAD:main

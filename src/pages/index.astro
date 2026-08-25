@@ -47,7 +47,7 @@ const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pue
 
   <!-- BOTÓN AL DIRECTORIO -->
   <div style="text-align: center; margin-top: 2rem;">
-    <a href="/directorio" class="boton-pueblo">📋 Ver comercios del pueblo</a>
+    <a href="/locales/" class="boton-pueblo">📋 Ver comercios del pueblo</a>
   </div>
 </Layout>
 
@@ -254,12 +254,14 @@ const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pue
 <!-- Script del carrusel (solo si hay imágenes) -->
 {imagenes.length > 0 && (
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('astro:page-load', () => {
       const track = document.getElementById('carouselTrack');
       const wrapper = document.getElementById('carouselWrapper');
       const imagenGrande = document.getElementById('imagenGrande');
-      const items = Array.from(track.querySelectorAll('.item-miniatura'));
-      if (!track || !wrapper || !imagenGrande || items.length === 0) return;
+      if (!(track instanceof HTMLElement) || !(wrapper instanceof HTMLElement) || !(imagenGrande instanceof HTMLImageElement)) return;
+      const mainImage = imagenGrande;
+      const items = Array.from(track.querySelectorAll('.item-miniatura')).filter((item): item is HTMLElement => item instanceof HTMLElement);
+      if (items.length === 0) return;
 
       items.forEach(item => {
         const clone = item.cloneNode(true);
@@ -267,13 +269,13 @@ const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pue
       });
 
       let currentTranslateX = 0, speed = 0.3, isPaused = false, isDragging = false;
-      let startX = 0, prevTranslateX = 0, animationId = null;
+      let startX = 0, prevTranslateX = 0, animationId: number | null = null;
 
-      function setMainImage(src) {
-        imagenGrande.style.opacity = '0';
+      function setMainImage(src: string) {
+        mainImage.style.opacity = '0';
         setTimeout(() => {
-          imagenGrande.src = src;
-          imagenGrande.style.opacity = '1';
+          mainImage.src = src;
+          mainImage.style.opacity = '1';
         }, 150);
         items.forEach(el => el.classList.remove('activa'));
         const target = items.find(el => el.dataset.src === src);
@@ -281,8 +283,9 @@ const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pue
       }
 
       track.addEventListener('click', (e) => {
+        if (!(e.target instanceof Element)) return;
         const item = e.target.closest('.item-miniatura');
-        if (item) { const src = item.dataset.src; if (src) setMainImage(src); }
+        if (item instanceof HTMLElement) { const src = item.dataset.src; if (src) setMainImage(src); }
       });
 
       function animate() {

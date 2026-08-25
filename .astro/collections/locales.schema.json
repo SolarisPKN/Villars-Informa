@@ -1,58 +1,54 @@
 {
-  "$ref": "#/definitions/locales",
-  "definitions": {
-    "locales": {
-      "type": "object",
-      "properties": {
-        "nombre": {
-          "type": "string"
-        },
-        "direccion": {
-          "type": "string"
-        },
-        "horarios": {
-          "type": "string"
-        },
-        "telefono": {
-          "type": "string"
-        },
-        "categoria": {
-          "type": "string"
-        },
-        "descripcion_corta": {
-          "type": "string"
-        },
-        "paga": {
-          "type": "boolean",
-          "default": false
-        },
-        "menu": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "fotos": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "portada": {
-          "type": "string"
-        },
-        "$schema": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "nombre",
-        "direccion",
-        "horarios",
-        "categoria"
-      ],
-      "additionalProperties": false
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "horarios": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "categoria": {
+      "type": "string"
+    },
+    "descripcion_corta": {
+      "type": "string"
+    },
+    "paga": {
+      "default": false,
+      "type": "boolean"
+    },
+    "menu": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fotos": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "portada": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "nombre",
+    "direccion",
+    "horarios",
+    "categoria"
+  ]
 }

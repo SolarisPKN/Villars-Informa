@@ -1,27 +1,44 @@
 ---
-// src/layouts/Layout.astro
 import SEO from '@components/SEO.astro';
-import { ViewTransitions } from 'astro:transitions';
-import "@styles/global.css";
-
-// Importar las traducciones comunes (un solo idioma)
+import { ClientRouter } from 'astro:transitions';
+import '@styles/global.css';
 import common from '../locales/common.json';
 
 export interface Props {
   title: string;
   description?: string;
   image?: string;
-  schema?: 'person' | 'website' | 'article';
   canonical?: string;
+  schema?: 'website' | 'article' | 'localBusiness';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  business?: Record<string, unknown>;
 }
 
 const {
   title,
-  description = 'Villars Informa - Historia, Noticias e Información Local',
+  description = 'Noticias, historia, comercios, transporte e información útil de Villars.',
   image = '/social.jpg',
+  canonical = Astro.url.pathname,
   schema = 'website',
-  canonical,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags = [],
+  business,
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const navItems = [
+  { href: '/', label: common.nav.inicio },
+  { href: '/noticias/', label: common.nav.noticias },
+  { href: '/locales/', label: common.nav.locales },
+  { href: '/transporte/', label: common.nav.transporte },
+  { href: '/salud/', label: common.nav.salud },
+];
+const isActive = (href: string) => href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href);
 ---
 
 <!doctype html>
@@ -31,126 +48,41 @@ const {
       title={title}
       description={description}
       image={image}
-      canonical={canonical || Astro.url.pathname}
-      locale="es_AR"
+      canonical={canonical}
       schema={schema}
-      author="Pablo Marchetti Orayen"
-      jobTitle="IT Infrastructure Specialist"
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      tags={tags}
+      business={business}
     />
-    <ViewTransitions />
-
-    <!-- FUENTES (añadimos una serif para títulos) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet" />
-    
+    <ClientRouter />
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
-
-    <style>
-      @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 300 700;
-        font-display: swap;
-        src: url('/fonts/inter.woff2') format('woff2-variations');
-      }
-      @font-face {
-        font-family: 'JetBrains Mono';
-        font-style: normal;
-        font-weight: 400 600;
-        font-display: swap;
-        src: url('/fonts/jetbrains-mono.woff2') format('woff2-variations');
-      }
-    </style>
   </head>
-
   <body>
-    <!-- SKIP TO CONTENT -->
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
-
-    <!-- HEADER con estilo pueblo -->
-    <header class="glass-pueblo" style="
-      position: sticky; 
-      top: 1rem; 
-      margin: 1rem; 
-      z-index: 100; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      flex-wrap: wrap;
-      backdrop-filter: blur(12px);
-      background: rgba(40, 30, 20, 0.75);
-      border: 1px solid var(--border-amber);
-      border-radius: 20px;
-      padding: 0.8rem 1.5rem;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    ">
-      <div style="
-        font-weight: 700; 
-        font-family: 'Merriweather', 'Georgia', serif; 
-        display: flex; 
-        align-items: center; 
-        gap: 0.75rem;
-        color: var(--accent-mustard);
-        font-size: 1.3rem;
-      ">
-        <img src="/favicon.svg" alt="Villars Informa" width="28" height="28" loading="eager" />
-        Villars Informa
-      </div>
-
-      <nav style="display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; font-family: 'Inter', sans-serif;">
-        <a href="/" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.inicio}</a>
-        <a href="/noticias" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.noticias}</a>
-        <a href="/locales" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.locales}</a>
-        <a href="/transporte" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.transporte}</a>
-        <a href="/salud" style="color: var(--text-light); text-decoration: none; transition: color 0.2s; border-bottom: 2px solid transparent; padding-bottom: 2px;">{common.nav.salud}</a>
-        <a href="https://labs.solarispkn.com.ar/es/portfolio" style="
-          color: #1A1410; 
-          background: var(--accent-mustard); 
-          padding: 0.4rem 1.2rem; 
-          border-radius: 40px; 
-          text-decoration: none; 
-          font-weight: 600; 
-          transition: all 0.3s;
-          box-shadow: 0 2px 8px rgba(233,196,106,0.3);
-        ">{common.nav.contacto}</a>
+    <header class="site-header glass-pueblo">
+      <a class="site-brand" href="/" aria-label="Villars Informa, inicio">
+        <img src="/favicon.svg" alt="" width="30" height="30" loading="eager" />
+        <span>Villars Informa</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        {navItems.map(({ href, label }) => (
+          <a href={href} aria-current={isActive(href) ? 'page' : undefined}>{label}</a>
+        ))}
+        <a class="contact-link" href="https://labs.solarispkn.com.ar/es/portfolio/" rel="noopener noreferrer">{common.nav.contacto}</a>
       </nav>
     </header>
-
-    <!-- MAIN -->
-    <main id="main-content">
-      <slot />
-    </main>
-
-    <!-- FOOTER con estilo pueblo -->
-    <footer class="glass-pueblo" style="
-      margin-top: 4rem; 
-      text-align: center; 
-      font-size: 0.9rem;
-      backdrop-filter: blur(8px);
-      background: rgba(40, 30, 20, 0.6);
-      border: 1px solid var(--border-amber);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
-      margin-bottom: 1rem;
-      color: var(--text-light);
-    ">
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer glass-pueblo">
       <p>
-        <span style="opacity: 0.8;">{common.footer.transparente}</span>
-        <a href="https://github.com/SolarisPKN/Villars-Informa" style="color: var(--accent-mustard); text-decoration: none; font-weight: 500;">
-          {common.footer.codigoAbierto}
-        </a>
-        <span style="opacity: 0.6;"> — </span>
-        <span id="status" style="opacity: 0.7;">{common.footer.estado}</span>
+        <span>{common.footer.transparente}</span>
+        <a href="https://github.com/SolarisPKN/Villars-Informa">{common.footer.codigoAbierto}</a>
+        <span aria-hidden="true"> — </span>
+        <span>{common.footer.estado}</span>
       </p>
     </footer>
-
-    <script>
-      import '@scripts/layout.js';
-      import '@scripts/scroll-animations.js';
-    </script>
+    <script>import '@scripts/scroll-animations.js';</script>
   </body>
 </html>

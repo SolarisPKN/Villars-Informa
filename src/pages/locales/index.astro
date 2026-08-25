@@ -1,45 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import fs from 'fs';
-import path from 'path';
+import { getCollection } from 'astro:content';
 
 // 🔥 Importar CSS específico del directorio
 import '../../styles/locales.css';
 
-// ==========================================
-// Leer todos los locales del sistema de archivos
-// ==========================================
-const root = process.cwd();
-const localesBaseDir = path.join(root, 'src', 'content', 'locales');
-const locales = [];
-
-if (fs.existsSync(localesBaseDir)) {
-  const localSlugs = fs.readdirSync(localesBaseDir).filter(f => {
-    const stat = fs.statSync(path.join(localesBaseDir, f));
-    return stat.isDirectory();
-  });
-
-  for (const slug of localSlugs) {
-    const metaPath = path.join(localesBaseDir, slug, 'post.json');
-    if (fs.existsSync(metaPath)) {
-      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-      locales.push({
-        slug,
-        ...meta,
-        nombre: meta.nombre || slug,
-        categoria: meta.categoria || 'Sin categoría',
-        direccion: meta.direccion || 'Sin dirección',
-        horarios: meta.horarios || 'Sin horarios',
-        telefono: meta.telefono || '',
-        descripcion_corta: meta.descripcion_corta || '',
-        paga: meta.paga || false,
-        menu: meta.menu || [],
-        fotos: meta.fotos || [],
-        portada: meta.portada || '',
-      });
-    }
-  }
-}
+const locales = (await getCollection('locales')).map(({ id, data }) => ({
+  slug: id,
+  ...data,
+}));
 
 // Ordenar por nombre
 locales.sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -55,7 +24,9 @@ const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
 
     <!-- Buscador y filtros -->
     <div class="locales-filters">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar local..." />
+      <label class="sr-only" for="searchInput">Buscar local</label>
+      <input type="search" id="searchInput" class="search-input" placeholder="🔍 Buscar local..." />
+      <label class="sr-only" for="categoryFilter">Filtrar por categoría</label>
       <select id="categoryFilter" class="category-filter">
         <option value="all">Todas las categorías</option>
         {categorias.map(cat => (
@@ -88,7 +59,7 @@ const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
             
             <div class="card-actions">
               {local.paga ? (
-                <a href={`/locales/${local.slug}`} class="boton-ficha">
+                <a href={`/locales/${local.slug}/`} class="boton-ficha">
                   Ver ficha completa
                 </a>
               ) : (
@@ -108,39 +79,6 @@ const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('searchInput');
-      const categoryFilter = document.getElementById('categoryFilter');
-      const clearBtn = document.getElementById('clearFilters');
-      const cards = document.querySelectorAll('.local-card');
-
-      function filterLocales() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        const category = categoryFilter.value;
-
-        cards.forEach(card => {
-          const nombre = card.dataset.nombre || '';
-          const categoria = card.dataset.categoria || '';
-          
-          let show = true;
-          if (searchTerm && !nombre.includes(searchTerm) && !categoria.includes(searchTerm)) {
-            show = false;
-          }
-          if (category !== 'all' && categoria !== category) {
-            show = false;
-          }
-          card.style.display = show ? 'block' : 'none';
-        });
-      }
-
-      searchInput.addEventListener('input', filterLocales);
-      categoryFilter.addEventListener('change', filterLocales);
-
-      clearBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        categoryFilter.value = 'all';
-        filterLocales();
-      });
-    });
+    import '../../scripts/locales.js';
   </script>
 </Layout>

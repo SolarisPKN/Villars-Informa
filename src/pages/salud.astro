@@ -1,46 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import t from '../locales/salud.json';
-import { marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
 
 const actualizaciones = await getCollection('actualizaciones');
-actualizaciones.sort((a, b) => new Date(b.data.fecha) - new Date(a.data.fecha));
-const updates = actualizaciones.map(item => {
-  const html = DOMPurify.sanitize(marked.parse(item.body));
+actualizaciones.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+const updates = await Promise.all(actualizaciones.map(async (item) => {
+  const { Content } = await render(item);
   return {
     fecha: item.data.fecha,
-    titulo: item.data.titulo || 'Actualización',
-    html
+    titulo: item.data.titulo,
+    Content,
   };
-});
-
-// ⬇️ Convertir a JSON string para pasarlo al script
-const updatesJSON = JSON.stringify(updates);
+}));
 ---
 
 <Layout title={t.titulo}>
   <div class="salud-container">
     <h1>{t.titulo}</h1>
-    <p>{t.descripcion}</p>
+    <p>{t.subtitulo}</p>
 
     <!-- Información fija -->
     <div class="salud-info glass">
-      <h2>📋 Información de salud</h2>
-      <ul>
-        <li><strong>🚨 Emergencias:</strong> {t.emergencias}</li>
-        <li><strong>🏥 Unidad Sanitaria:</strong> {t.unidadSanitaria}</li>
-        <li><strong>💊 Farmacias:</strong> {t.farmacias}</li>
-        <li><strong>🕐 Horarios de atención:</strong> {t.horarios}</li>
-        <li><strong>📋 Cartilla médica:</strong> {t.cartilla}</li>
-      </ul>
+      <h2>🚨 Emergencias</h2>
+      <p>Ante una emergencia, llamá al <a href="tel:911"><strong>911</strong></a>.</p>
+      <p><strong>Importante:</strong> los demás datos sanitarios están pendientes de verificación con una fuente oficial y no se publican como información vigente.</p>
     </div>
 
     <!-- Sección de actualizaciones -->
     <div class="actualizaciones-section">
       <h2>📢 Últimas actualizaciones</h2>
-      <div id="updates-container"></div>
+      <div id="updates-container">
+        {updates.length === 0 ? (
+          <p>No hay actualizaciones aún.</p>
+        ) : updates.map(({ fecha, titulo, Content }, index) => (
+          <article class="update-item" data-update-index={index}>
+            <h3>{titulo}</h3>
+            <time datetime={fecha.toISOString()}>
+              {fecha.toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <Content />
+          </article>
+        ))}
+      </div>
       <div id="pagination-controls" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;"></div>
     </div>
   </div>
@@ -51,51 +53,5 @@ const updatesJSON = JSON.stringify(updates);
 </style>
 
 <script>
-  // ⬇️ Pasar el string JSON al script
-  const updatesData = JSON.parse({updatesJSON});
-  const itemsPerPage = 5;
-  let currentPage = 1;
-
-  function renderUpdates(page) {
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = updatesData.slice(start, end);
-    const container = document.getElementById('updates-container');
-    container.innerHTML = '';
-    if (pageItems.length === 0) {
-      container.innerHTML = '<p>No hay actualizaciones aún.</p>';
-    } else {
-      pageItems.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'update-item';
-        div.innerHTML = `
-          <h3>${item.titulo}</h3>
-          <small>${new Date(item.fecha).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</small>
-          <div>${item.html}</div>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    const totalPages = Math.ceil(updatesData.length / itemsPerPage);
-    const pagination = document.getElementById('pagination-controls');
-    pagination.innerHTML = '';
-    if (totalPages > 1) {
-      for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement('button');
-        btn.textContent = i;
-        btn.className = `page-btn${i === currentPage ? ' active' : ''}`;
-        btn.addEventListener('click', () => {
-          currentPage = i;
-          renderUpdates(i);
-          document.querySelector('.actualizaciones-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-        pagination.appendChild(btn);
-      }
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderUpdates(1);
-  });
+  import '../scripts/health.js';
 </script>

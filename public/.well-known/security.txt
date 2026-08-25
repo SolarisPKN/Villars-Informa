@@ -1,0 +1,4 @@
+Contact: mailto:seguridad@solarispkn.com.ar
+Canonical: https://villars.solarispkn.com.ar/.well-known/security.txt
+Preferred-Languages: es, en
+Expires: 2027-07-19T00:00:00Z

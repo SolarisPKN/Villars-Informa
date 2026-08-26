@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { departuresFor, destinationsFrom, nextService } from '../src/utils/transport-services.js';
 
 const data = JSON.parse(await readFile(new URL('../src/data/transport-schedules.json', import.meta.url), 'utf8'));
 const villarsRoutes = data.routes.filter((route) => route.schedules.some((schedule) => schedule.stations.some((station) => station.normalizedName === 'villars')));
 
 test('el snapshot tiene procedencia verificable y estructura estable', () => {
-  assert.equal(data.schemaVersion, 1); assert.equal(data.timezone, 'America/Argentina/Buenos_Aires');
+  assert.equal(data.schemaVersion, 2); assert.equal(data.timezone, 'America/Argentina/Buenos_Aires');
   assert.match(data.source.databaseSha256, /^[a-f0-9]{64}$/); assert.equal(data.stats.routes, data.routes.length);
   assert.ok(data.stats.schedules > 0); assert.ok(data.stats.times > 0);
 });
@@ -18,8 +19,22 @@ test('días, paradas y minutos de cada grilla son válidos', () => {
   for (const route of data.routes) for (const schedule of route.schedules) {
     assert.ok(dayKeys.has(schedule.day.key)); assert.ok(schedule.direction);
     for (const station of schedule.stations) { assert.ok(station.name); assert.ok(station.times.every((minutes) => Number.isInteger(minutes) && minutes >= 0)); assert.equal(new Set(station.times).size, station.times.length); }
+    for (const service of schedule.services) {
+      assert.ok(service.name); assert.ok(service.stops.length > 0);
+      assert.equal(service.origin, service.stops[0].station); assert.equal(service.destination, service.stops.at(-1).station);
+      assert.ok(service.stops.every((stop) => Number.isInteger(stop.minutes) && stop.minutes >= 0));
+    }
   }
 });
 test('el formato conserva servicios posteriores a medianoche', () => {
   assert.ok(data.routes.some((route) => route.schedules.some((schedule) => schedule.stations.some((station) => station.times.some((minutes) => minutes >= 1440)))));
+});
+test('Lozano no se ofrece en días hábiles y el próximo tren real es el sábado', () => {
+  const train = villarsRoutes.find((route) => route.type === 'train' && destinationsFrom(route).includes('Lozano'));
+  assert.ok(train);
+  assert.deepEqual(departuresFor(train, 'weekday', 'Lozano'), []);
+  assert.deepEqual(departuresFor(train, 'saturday', 'Lozano').map(({ minutes }) => minutes), [628, 985]);
+  assert.deepEqual(departuresFor(train, 'sunday', 'Lozano').map(({ minutes }) => minutes), [633, 994]);
+  const next = nextService(train, 'Lozano', data.timezone, new Date('2026-08-25T15:00:00Z'));
+  assert.equal(next.weekday, 6); assert.equal(next.date, '29/8'); assert.equal(next.minutes, 628);
 });

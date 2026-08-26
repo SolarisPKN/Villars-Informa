@@ -16,6 +16,10 @@
     "validate:dist": "node scripts/validate-dist.mjs",
     "validate": "npm run test && npm run check && npm run build && npm run validate:dist",
     "data:transport": "node scripts/export-transport-data.mjs",
+    "data:transport-map": "node scripts/export-transport-map-data.mjs",
+    "worker:transport:dev": "wrangler dev --config workers/transport-live/wrangler.jsonc --test-scheduled",
+    "worker:transport:check": "wrangler deploy --config workers/transport-live/wrangler.jsonc --dry-run",
+    "worker:transport:deploy": "wrangler deploy --config workers/transport-live/wrangler.jsonc",
     "create-news": "node scripts/create-news.js",
     "create-local": "node scripts/create-local.js",
     "create-post": "npm run create-news"
@@ -23,12 +27,16 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
     "@astrojs/sitemap": "^3.7.3",
+    "@protomaps/basemaps": "^5.7.2",
     "astro": "^7.2.6",
+    "maplibre-gl": "^6.6.0",
+    "pmtiles": "^4.5.0",
     "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "typescript": "^6.0.3",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "wrangler": "^4.125.0"
   }
 }

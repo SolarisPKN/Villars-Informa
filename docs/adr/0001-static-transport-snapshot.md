@@ -6,7 +6,7 @@ Villars Informa se publica como un sitio Astro completamente estático. Los hora
 
 ## Decisión
 
-Se versiona una copia exacta de la base en `data/transport/horarios.db`. Un exportador determinista, basado en `node:sqlite`, valida la integridad y las claves foráneas y genera `src/data/transport-schedules.json`. Astro incluye ese JSON en el build estático y JavaScript nativo aporta filtros y el cálculo del próximo servicio.
+Se versiona una copia exacta de la base en `data/transport/horarios.db`. Un exportador determinista, basado en `node:sqlite`, valida la integridad y las claves foráneas y genera `src/data/transport-schedules.json`. El esquema conserva la matriz formación por parada para calcular el destino real a partir de la última parada con horario; el nombre general de una grilla no se usa como terminal de todas sus formaciones. Astro incluye ese JSON en el build estático y JavaScript nativo aporta filtros y el cálculo del próximo servicio.
 
 Un workflow diario compara la base pública de origen con la copia local. Sólo cuando cambia, copia el archivo, regenera el JSON, ejecuta tests, chequeo de tipos y build, y finalmente publica ambos artefactos en un único commit.
 

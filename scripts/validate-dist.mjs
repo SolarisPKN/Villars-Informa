@@ -1,4 +1,4 @@
-import { access, readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile, stat } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
 
 const dist = resolve('dist');
@@ -41,5 +41,11 @@ for (const file of htmlFiles) {
   }
 }
 if (!htmlFiles.length) errors.push('dist no contiene HTML');
+try {
+  const map = await stat(join(dist, 'maps', 'villars-region.pmtiles'));
+  if (map.size < 1_000_000) errors.push('el PMTiles regional parece vacío o incompleto');
+} catch {
+  errors.push('falta dist/maps/villars-region.pmtiles');
+}
 if (errors.length) throw new Error(`Validación de dist falló:\n- ${errors.join('\n- ')}`);
 console.log(`HTML validado: ${htmlFiles.length} páginas, enlaces locales, IDs y estructura semántica correctos.`);

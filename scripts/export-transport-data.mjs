@@ -38,6 +38,19 @@ try {
     WHERE ge.grilla_id = ?
     ORDER BY ge.orden, h.minutos
   `);
+  const serviceQuery = database.prepare(`
+    SELECT gf.id AS service_id, gf.nombre AS service_name, gf.orden AS service_order,
+           e.nombre AS station_name, e.nombre_norm AS station_norm,
+           ge.orden AS station_order, h.minutos
+    FROM grilla_formaciones gf
+    JOIN grilla_estaciones ge ON ge.grilla_id = gf.grilla_id
+    JOIN estaciones e ON e.id = ge.estacion_id
+    LEFT JOIN horarios h
+      ON h.grilla_formacion_id = gf.id
+     AND h.grilla_estacion_id = ge.id
+    WHERE gf.grilla_id = ?
+    ORDER BY gf.orden, ge.orden
+  `);
 
   const schedulesByRoute = new Map();
   let scheduleCount = 0;
@@ -50,11 +63,39 @@ try {
       if (!stations.has(key)) stations.set(key, { name: row.nombre, normalizedName: row.nombre_norm, order: Number(row.orden), times: [] });
       if (row.minutos !== null) { stations.get(key).times.push(Number(row.minutos)); timeCount += 1; }
     }
+    const services = new Map();
+    for (const row of serviceQuery.all(grid.id)) {
+      const serviceId = Number(row.service_id);
+      if (!services.has(serviceId)) {
+        services.set(serviceId, {
+          id: serviceId,
+          name: row.service_name,
+          order: Number(row.service_order),
+          stops: [],
+        });
+      }
+      if (row.minutos !== null) {
+        services.get(serviceId).stops.push({
+          station: row.station_name,
+          normalizedStation: row.station_norm,
+          order: Number(row.station_order),
+          minutes: Number(row.minutos),
+        });
+      }
+    }
+    const normalizedServices = [...services.values()]
+      .filter((service) => service.stops.length > 0)
+      .map((service) => ({
+        ...service,
+        origin: service.stops[0].station,
+        destination: service.stops.at(-1).station,
+      }));
     const dayKey = dayKeys.get(grid.day_label);
     if (!dayKey) throw new Error(`Día no reconocido en la grilla ${grid.id}: ${grid.day_label}`);
     const schedule = {
       id: Number(grid.id), day: { key: dayKey, label: grid.day_label }, direction: grid.direction,
       updateMethod: grid.update_method, updatedAt: grid.updated_at ? `${grid.updated_at.replace(' ', 'T')}Z` : null,
+      services: normalizedServices,
       stations: [...stations.values()].map((station) => ({ ...station, times: [...new Set(station.times)] })),
     };
     if (!schedulesByRoute.has(grid.recorrido_id)) schedulesByRoute.set(grid.recorrido_id, []);
@@ -70,7 +111,7 @@ try {
     validFrom: route.vigencia_iso || null, schedules: schedulesByRoute.get(route.id) || [],
   }));
   const payload = {
-    schemaVersion: 1, timezone: 'America/Argentina/Buenos_Aires',
+    schemaVersion: 2, timezone: 'America/Argentina/Buenos_Aires',
     source: { repository: 'https://github.com/SolarisPKN/SolarisPKN-Transport', databasePath: 'horarios.db', databaseSha256, updatedAt: latestUpdate ? `${latestUpdate.replace(' ', 'T')}Z` : null },
     stats: { routes: routes.length, schedules: scheduleCount, times: timeCount }, routes,
   };

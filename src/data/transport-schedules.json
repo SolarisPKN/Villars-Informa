@@ -4,8 +4,8 @@
   "source": {
     "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
     "databasePath": "horarios.db",
-    "databaseSha256": "2e01ed592527cd2e7838b490e84aa55fe4b833531722792c36b0dc9ce45e37a7",
-    "updatedAt": "2026-08-25T04:04:05Z"
+    "databaseSha256": "76bc343f49a3d4678a1e4b84ecbef0139f93326504a83db34bdd3a2031b1080c",
+    "updatedAt": "2026-08-26T10:01:02Z"
   },
   "stats": {
     "routes": 5,
@@ -31,7 +31,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:00Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -73,7 +73,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:00Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Cañuelas",
@@ -115,7 +115,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:01Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -157,7 +157,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:01Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Cañuelas",
@@ -199,7 +199,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:01Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -241,7 +241,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:01Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Cañuelas",
@@ -295,7 +295,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:01Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -357,7 +357,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:02Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Luján",
@@ -419,7 +419,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:02Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -481,7 +481,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:02Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Luján",
@@ -543,7 +543,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:02Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Marcos Paz",
@@ -605,7 +605,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:02Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Luján",
@@ -679,7 +679,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:03:59Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Primera Junta",
@@ -779,7 +779,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:03:59Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Navarro",
@@ -857,7 +857,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:03:59Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Primera Junta",
@@ -977,7 +977,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:00Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Navarro",
@@ -1070,7 +1070,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:00Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Primera Junta",
@@ -1182,7 +1182,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:00Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Navarro",
@@ -1281,7 +1281,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Lozano",
@@ -1344,7 +1344,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "González Catán",
@@ -1407,7 +1407,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Lozano",
@@ -1473,7 +1473,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "González Catán",
@@ -1539,7 +1539,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Lozano",
@@ -1602,7 +1602,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:03Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "González Catán",
@@ -1677,7 +1677,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:04Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Merlo",
@@ -1884,7 +1884,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:04Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Las Heras",
@@ -2067,7 +2067,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:04Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Merlo",
@@ -2283,7 +2283,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:04Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Las Heras",
@@ -2475,7 +2475,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:04Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Merlo",
@@ -2691,7 +2691,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-08-25T04:04:05Z",
+          "updatedAt": "2026-08-26T10:01:02Z",
           "stations": [
             {
               "name": "Las Heras",

@@ -10,11 +10,42 @@ const STALE_AFTER_MS = 120_000;
 const UNAVAILABLE_AFTER_MS = 600_000;
 const protocol = new Protocol();
 let protocolRegistered = false;
+let mapArchivePromise;
 let map;
 let pollTimer;
 let pollingController;
 let lastEtag;
 
+class MemoryPmtilesSource {
+  constructor(key, data) {
+    this.key = key;
+    this.data = data;
+  }
+
+  getKey() {
+    return this.key;
+  }
+
+  async getBytes(offset, length, signal) {
+    if (signal?.aborted) throw new DOMException('La carga del mapa fue cancelada', 'AbortError');
+    return { data: this.data.slice(offset, offset + length) };
+  }
+}
+
+async function loadMapArchive(url) {
+  if (!mapArchivePromise) {
+    mapArchivePromise = fetch(url, { cache: 'force-cache' })
+      .then(async (response) => {
+        if (!response.ok) throw new Error('No se pudo descargar la cartografía: HTTP ' + response.status);
+        return new PMTiles(new MemoryPmtilesSource(url, await response.arrayBuffer()));
+      })
+      .catch((error) => {
+        mapArchivePromise = undefined;
+        throw error;
+      });
+  }
+  return mapArchivePromise;
+}
 function setStatus(message, state = 'static') {
   const node = document.querySelector('[data-live-map-status]');
   if (node) {
@@ -149,7 +180,7 @@ function addTransportLayers() {
   }
 }
 
-function initTransportMap() {
+async function initTransportMap() {
   const container = document.querySelector('[data-transport-map]');
   if (!(container instanceof HTMLElement)) return;
   map?.remove();
@@ -158,7 +189,17 @@ function initTransportMap() {
     protocolRegistered = true;
   }
   const mapArchiveUrl = new URL('/maps/villars-region.pmtiles', window.location.origin).href;
-  protocol.add(new PMTiles(mapArchiveUrl));
+  setStatus('Descargando la cartografía local…', 'loading');
+  let archive;
+  try {
+    archive = await loadMapArchive(mapArchiveUrl);
+  } catch (error) {
+    console.error('No se pudo descargar la cartografía local.', error);
+    setStatus('No se pudo abrir la cartografía local. Los horarios siguen disponibles.', 'error');
+    return;
+  }
+  if (!container.isConnected) return;
+  protocol.add(archive);
   map = new maplibregl.Map({
     container,
     center: mapData.center,

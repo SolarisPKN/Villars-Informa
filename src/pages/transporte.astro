@@ -17,7 +17,7 @@ const updatedAt = transportData.source.updatedAt
 <Layout title="Transporte en Villars" description="Horarios programados de colectivos y trenes con parada en Villars, obtenidos de SolarisPKN Transport." canonical="/transporte/">
   <section class="transport-page" data-transport-app>
     <header class="transport-hero">
-      <p class="eyebrow">Datos abiertos · actualización diaria</p>
+      <p class="eyebrow">Horarios versionados · posiciones cada minuto</p>
       <h1>Transporte en Villars</h1>
       <p>Consultá las salidas programadas de colectivos y trenes que realmente continúan desde Villars hasta el destino elegido. El mapa funciona con cartografía alojada en este mismo sitio.</p>
     </header>
@@ -54,7 +54,7 @@ const updatedAt = transportData.source.updatedAt
       </div>
       <div class="map-legend" aria-label="Referencias del mapa"><span><i class="train"></i> Tren Belgrano Sur</span><span><i class="bus"></i> Colectivo 322</span><span><i class="live"></i> Posición informada</span></div>
       <div class="transport-map" data-transport-map aria-label="Mapa navegable de los recorridos de transporte en Villars"></div>
-      <p class="map-note">La base cartográfica es un archivo PMTiles de 7,2 MB incluido en el sitio: podés moverla y hacer zoom sin consultar servidores públicos de mapas. Las posiciones, cuando se active el Worker, serán una capa separada y degradable.</p>
+      <p class="map-note">La base cartográfica es un archivo PMTiles de 7,2 MB incluido en el sitio: podés moverla y hacer zoom sin consultar servidores públicos de mapas. Las posiciones se actualizan desde una capa separada y degradable, sin bloquear el mapa ni los horarios si un proveedor no responde.</p>
     </section>
     <aside class="data-note">
       <h2>Sobre estos datos</h2>

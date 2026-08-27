@@ -54,7 +54,7 @@ const updatedAt = transportData.source.updatedAt
       </div>
       <div class="map-legend" aria-label="Referencias del mapa"><span><i class="train"></i> Tren Belgrano Sur</span><span><i class="bus"></i> Colectivo 322</span><span><i class="live"></i> Posición informada</span></div>
       <div class="transport-map" data-transport-map aria-label="Mapa navegable de los recorridos de transporte en Villars"></div>
-      <p class="map-note">La base cartográfica es un archivo PMTiles de 7,2 MB incluido en el sitio: podés moverla y hacer zoom sin consultar servidores públicos de mapas. Las posiciones se actualizan desde una capa separada y degradable, sin bloquear el mapa ni los horarios si un proveedor no responde.</p>
+      <p class="map-note">La base cartográfica es un archivo PMTiles de 7,2 MB incluido en el sitio y se dibuja en Canvas 2D: podés moverla y hacer zoom sin consultar servidores públicos de mapas ni depender de WebGL. Las posiciones se actualizan desde una capa separada y degradable, sin bloquear el mapa ni los horarios si un proveedor no responde.</p>
     </section>
     <aside class="data-note">
       <h2>Sobre estos datos</h2>
@@ -96,7 +96,9 @@ const updatedAt = transportData.source.updatedAt
   .map-legend span { display: inline-flex; align-items: center; gap: .4rem; }.map-legend i { width: .8rem; height: .8rem; border-radius: 999px; background: #e9c46a; }.map-legend i.bus { background: #6fb7ff; }.map-legend i.live { border: 2px solid white; background: #219ebc; }
   .transport-map { min-height: 31rem; overflow: hidden; border: 1px solid rgba(233,196,106,.25); border-radius: 1rem; background: #17110d; }
   .map-note { margin: .8rem 0 0; color: var(--text-muted); font-size: .8rem; }
-  :global(.maplibregl-popup-content) { border-radius: .65rem; color: #241a14; font-family: Inter, sans-serif; }
+  :global(.leaflet-container) { color: #241a14; font-family: Inter, sans-serif; }
+  :global(.leaflet-popup-content-wrapper) { border-radius: .65rem; }
+  :global(.leaflet-control-attribution) { font-size: .65rem; }
   @media (max-width: 720px) { .transport-controls { grid-template-columns: 1fr; } .next-service { grid-template-columns: 1fr; } .next-service strong { grid-column: 1; grid-row: auto; } .schedule-heading { align-items: start; flex-direction: column; } .schedule-heading > p { text-align: left; } }
   @media (max-width: 720px) { .map-heading { align-items: start; flex-direction: column; }.map-heading > p { text-align: left; }.transport-map { min-height: 26rem; } }
 </style>

@@ -1,20 +1,20 @@
-import * as maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { DARK, layers } from '@protomaps/basemaps';
-import { PMTiles, Protocol } from 'pmtiles';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { PMTiles } from 'pmtiles';
 import mapData from '../data/transport-map.json';
 
-const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL
-  || 'https://transport-data.solarispkn.com.ar/current.json';
+const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL || 'https://transport-data.solarispkn.com.ar/current.json';
 const STALE_AFTER_MS = 120_000;
 const UNAVAILABLE_AFTER_MS = 600_000;
-const protocol = new Protocol();
-let protocolRegistered = false;
+let leafletRendererPromise;
 let mapArchivePromise;
 let map;
+let liveLayer;
 let pollTimer;
 let pollingController;
 let lastEtag;
+let baseMapState = 'loading';
+let liveStatus = { message: 'Conectando con el snapshot de posiciones…', state: 'loading' };
 
 class MemoryPmtilesSource {
   constructor(key, data) {
@@ -32,6 +32,14 @@ class MemoryPmtilesSource {
   }
 }
 
+function loadLeafletRenderer() {
+  if (!leafletRendererPromise) {
+    window.L = L;
+    leafletRendererPromise = import('protomaps-leaflet');
+  }
+  return leafletRendererPromise;
+}
+
 async function loadMapArchive(url) {
   if (!mapArchivePromise) {
     mapArchivePromise = fetch(url, { cache: 'force-cache' })
@@ -46,12 +54,27 @@ async function loadMapArchive(url) {
   }
   return mapArchivePromise;
 }
-function setStatus(message, state = 'static') {
+
+function renderStatus() {
   const node = document.querySelector('[data-live-map-status]');
-  if (node) {
-    node.textContent = message;
-    node.dataset.state = state;
+  if (!node) return;
+  if (baseMapState === 'loading') {
+    node.textContent = 'Cargando la cartografía local…';
+    node.dataset.state = 'loading';
+    return;
   }
+  if (baseMapState === 'error') {
+    node.textContent = 'No se pudo abrir la cartografía local. Los horarios siguen disponibles.';
+    node.dataset.state = 'error';
+    return;
+  }
+  node.textContent = liveStatus.message;
+  node.dataset.state = liveStatus.state;
+}
+
+function setLiveStatus(message, state = 'static') {
+  liveStatus = { message, state };
+  renderStatus();
 }
 
 function liveFeatures(snapshot) {
@@ -79,8 +102,39 @@ function liveFeatures(snapshot) {
     }));
 }
 
+function popupContent(properties, kind) {
+  const content = document.createElement('div');
+  const heading = document.createElement('strong');
+  const description = document.createElement('span');
+  heading.textContent = properties.name || properties.label || 'Transporte';
+  if (kind === 'live') {
+    description.textContent = `${properties.positionKind === 'predicted' ? 'Posición estimada' : 'Posición informada'}${properties.stale ? ' · dato demorado' : ''}`;
+  } else {
+    description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : 'Parada del colectivo 322';
+  }
+  content.append(heading, document.createElement('br'), description);
+  return content;
+}
+
+function markerStyle(feature, live = false) {
+  const isTrain = feature?.properties?.mode === 'train';
+  return {
+    radius: live ? 8 : 5,
+    color: live ? '#ffffff' : '#2c2119',
+    weight: live ? 2 : 1.5,
+    fillColor: isTrain ? (live ? '#f4a261' : '#e9c46a') : (live ? '#219ebc' : '#8ecae6'),
+    fillOpacity: live && feature?.properties?.stale ? 0.4 : 0.95,
+  };
+}
+
+function replaceLiveFeatures(features) {
+  if (!liveLayer) return;
+  liveLayer.clearLayers();
+  liveLayer.addData({ type: 'FeatureCollection', features });
+}
+
 async function updateLiveLayer() {
-  if (!liveSnapshotUrl || !map?.getSource('live-vehicles') || document.hidden) return;
+  if (!liveSnapshotUrl || !liveLayer || document.hidden) return;
   pollingController?.abort();
   pollingController = new AbortController();
   try {
@@ -93,153 +147,108 @@ async function updateLiveLayer() {
     const snapshotAt = new Date(snapshot.generatedAt).getTime();
     const snapshotAge = Date.now() - snapshotAt;
     const features = liveFeatures(snapshot);
-    map.getSource('live-vehicles').setData({ type: 'FeatureCollection', features });
+    replaceLiveFeatures(features);
     const generatedAt = new Date(snapshot.generatedAt).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
     if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || snapshot.status === 'unavailable') {
-      map.getSource('live-vehicles').setData({ type: 'FeatureCollection', features: [] });
-      setStatus('Las posiciones en vivo están temporalmente no disponibles; el mapa y los horarios programados siguen activos.', 'error');
+      replaceLiveFeatures([]);
+      setLiveStatus('Las posiciones en vivo están temporalmente no disponibles; el mapa y los horarios programados siguen activos.', 'error');
     } else if (snapshot.status === 'degraded' || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
-      setStatus(features.length
+      setLiveStatus(features.length
         ? `${features.length} unidades con datos demorados · última consulta a las ${generatedAt}`
         : `Seguimiento parcial sin unidades informadas · consulta de las ${generatedAt}`,
       'stale');
     } else {
-      setStatus(features.length
+      setLiveStatus(features.length
         ? `${features.length} unidades informadas · snapshot de las ${generatedAt}`
         : `Sin unidades informadas por los proveedores · consulta de las ${generatedAt}`,
       features.length ? 'live' : 'empty');
     }
   } catch (error) {
-    if (error.name !== 'AbortError') setStatus('El seguimiento en vivo no respondió; el mapa y los horarios programados siguen disponibles.', 'error');
+    if (error.name !== 'AbortError') setLiveStatus('El seguimiento en vivo no respondió; el mapa y los horarios programados siguen disponibles.', 'error');
   }
 }
 
 function addTransportLayers() {
-  map.addSource('transport-routes', { type: 'geojson', data: mapData.routes });
-  map.addLayer({
-    id: 'transport-routes-shadow',
-    type: 'line',
-    source: 'transport-routes',
-    paint: { 'line-color': '#160f0b', 'line-width': 8, 'line-opacity': 0.65 },
-  });
-  map.addLayer({
-    id: 'transport-routes',
-    type: 'line',
-    source: 'transport-routes',
-    paint: {
-      'line-color': ['match', ['get', 'mode'], 'train', '#e9c46a', '#6fb7ff'],
-      'line-width': ['match', ['get', 'mode'], 'train', 4, 3],
-      'line-opacity': 0.9,
-    },
-  });
-  map.addSource('transport-stops', { type: 'geojson', data: mapData.stops });
-  map.addLayer({
-    id: 'transport-stops',
-    type: 'circle',
-    source: 'transport-stops',
-    paint: {
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2.5, 12, 5],
-      'circle-color': ['match', ['get', 'mode'], 'train', '#e9c46a', '#8ecae6'],
-      'circle-stroke-color': '#2c2119',
-      'circle-stroke-width': 1.5,
-    },
-  });
-  map.addSource('live-vehicles', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-  map.addLayer({
-    id: 'live-vehicles',
-    type: 'circle',
-    source: 'live-vehicles',
-    paint: {
-      'circle-radius': 8,
-      'circle-color': ['match', ['get', 'mode'], 'train', '#f4a261', '#219ebc'],
-      'circle-opacity': ['case', ['get', 'stale'], 0.4, 1],
-      'circle-stroke-color': '#ffffff',
-      'circle-stroke-width': 2,
-    },
-  });
+  L.geoJSON(mapData.routes, {
+    style: (feature) => ({
+      color: feature?.properties?.mode === 'train' ? '#e9c46a' : '#6fb7ff',
+      weight: feature?.properties?.mode === 'train' ? 4 : 3,
+      opacity: 0.95,
+    }),
+  }).addTo(map);
 
-  const popup = (event) => {
-    const feature = event.features?.[0];
-    if (!feature) return;
-    const title = feature.properties.name || feature.properties.label || 'Transporte';
-    const detail = feature.layer.id === 'live-vehicles'
-      ? `${feature.properties.positionKind === 'predicted' ? 'Posición estimada' : 'Posición informada'}${feature.properties.stale ? ' · dato demorado' : ''}`
-      : feature.properties.mode === 'train' ? 'Estación ferroviaria' : 'Parada del colectivo 322';
-    const content = document.createElement('div');
-    const heading = document.createElement('strong');
-    const description = document.createElement('span');
-    heading.textContent = title;
-    description.textContent = detail;
-    content.append(heading, document.createElement('br'), description);
-    new maplibregl.Popup({ offset: 12 }).setLngLat(event.lngLat).setDOMContent(content).addTo(map);
-  };
-  for (const layerId of ['transport-stops', 'live-vehicles']) {
-    map.on('click', layerId, popup);
-    map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
-  }
+  L.geoJSON(mapData.stops, {
+    pointToLayer: (feature, latlng) => L.circleMarker(latlng, markerStyle(feature)),
+    onEachFeature: (feature, layer) => layer.bindPopup(() => popupContent(feature.properties || {}, 'stop')),
+  }).addTo(map);
+
+  liveLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
+    pointToLayer: (feature, latlng) => L.circleMarker(latlng, markerStyle(feature, true)),
+    onEachFeature: (feature, layer) => layer.bindPopup(() => popupContent(feature.properties || {}, 'live')),
+  }).addTo(map);
 }
 
 async function initTransportMap() {
   const container = document.querySelector('[data-transport-map]');
   if (!(container instanceof HTMLElement)) return;
   map?.remove();
-  if (!protocolRegistered) {
-    maplibregl.addProtocol('pmtiles', protocol.tilev4);
-    protocolRegistered = true;
-  }
+  liveLayer = undefined;
+  baseMapState = 'loading';
+  renderStatus();
+
   const mapArchiveUrl = new URL('/maps/villars-region.pmtiles', window.location.origin).href;
-  setStatus('Descargando la cartografía local…', 'loading');
   let archive;
+  let leafletLayer;
   try {
-    archive = await loadMapArchive(mapArchiveUrl);
+    [archive, { leafletLayer }] = await Promise.all([loadMapArchive(mapArchiveUrl), loadLeafletRenderer()]);
   } catch (error) {
-    console.error('No se pudo descargar la cartografía local.', error);
-    setStatus('No se pudo abrir la cartografía local. Los horarios siguen disponibles.', 'error');
+    console.error('No se pudo preparar la cartografía local.', error);
+    baseMapState = 'error';
+    renderStatus();
     return;
   }
   if (!container.isConnected) return;
-  protocol.add(archive);
-  map = new maplibregl.Map({
-    container,
-    center: mapData.center,
-    zoom: 9.5,
+
+  map = L.map(container, {
+    center: [mapData.center[1], mapData.center[0]],
+    zoom: 10,
     minZoom: 8,
     maxZoom: 14,
-    attributionControl: false,
-    style: {
-      version: 8,
-      sources: {
-        protomaps: {
-          type: 'vector',
-          url: `pmtiles://${mapArchiveUrl}`,
-          attribution: '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        },
-      },
-      layers: layers('protomaps', DARK),
-    },
+    zoomControl: true,
+    attributionControl: true,
   });
-  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
-  map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
-  map.on('error', (event) => {
-    console.error('No se pudo cargar una capa del mapa de transporte.', event.error);
-    setStatus('No se pudo abrir la cartografía local. Los horarios siguen disponibles.', 'error');
+
+  const baseLayer = leafletLayer({
+    url: archive,
+    flavor: 'dark',
+    lang: 'es',
+    noWrap: true,
+    minZoom: 8,
+    maxZoom: 14,
+    maxDataZoom: 14,
+    bounds: [[-34.98, -59.18], [-34.48, -58.60]],
+    attribution: '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   });
-  let layersAdded = false;
-  const mapReady = () => {
-    if (layersAdded) return;
-    layersAdded = true;
-    addTransportLayers();
-    if (liveSnapshotUrl) {
-      setStatus('Conectando con el snapshot de posiciones…', 'loading');
-      updateLiveLayer();
-      pollTimer = window.setInterval(updateLiveLayer, 60_000);
-    } else {
-      setStatus('Mapa autocontenido activo. La capa de posiciones queda lista para conectar al Worker de Cloudflare.', 'static');
+  baseLayer.once('load', () => {
+    baseMapState = 'ready';
+    renderStatus();
+  });
+  baseLayer.on('tileerror', (event) => {
+    console.error('No se pudo cargar una tesela de la cartografía local.', event.error);
+    if (baseMapState !== 'ready') {
+      baseMapState = 'error';
+      renderStatus();
     }
-  };
-  map.on('style.load', mapReady);
-  if (map.isStyleLoaded()) mapReady();
+  });
+  baseLayer.addTo(map);
+  addTransportLayers();
+
+  if (liveSnapshotUrl) {
+    updateLiveLayer();
+    pollTimer = window.setInterval(updateLiveLayer, 60_000);
+  } else {
+    setLiveStatus('Mapa autocontenido activo. La capa de posiciones queda lista para conectar al Worker de Cloudflare.', 'static');
+  }
 }
 
 document.addEventListener('visibilitychange', () => { if (!document.hidden) updateLiveLayer(); });
@@ -249,4 +258,5 @@ document.addEventListener('astro:before-swap', () => {
   pollingController?.abort();
   map?.remove();
   map = undefined;
+  liveLayer = undefined;
 });

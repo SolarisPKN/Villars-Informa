@@ -30,6 +30,8 @@ desktop.ini
 
 # Tool caches
 .cache/
+.codex/
+.codex-tmp/
 .parcel-cache/
 .next/
 .nuxt/

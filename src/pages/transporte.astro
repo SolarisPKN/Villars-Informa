@@ -60,6 +60,7 @@ const updatedAt = transportData.source.updatedAt
       <h2>Sobre estos datos</h2>
       <p>Snapshot actualizado el <strong>{updatedAt}</strong>. La copia SQLite y el JSON derivado quedan versionados para poder auditar cada cambio.</p>
       <p>Fuente: <a href={transportData.source.repository}>SolarisPKN Transport</a>. Hash del snapshot: <code>{transportData.source.databaseSha256.slice(0, 12)}…</code></p>
+      <p>Posiciones ferroviarias: <a href="https://www.argentina.gob.ar/transporte/trenes-argentinos/app" target="_blank" rel="noopener noreferrer">Trenes Argentinos</a>. La atribución se realiza conforme a sus <a href="https://www.argentina.gob.ar/transporte/trenes-argentinos/terminos-y-condiciones" target="_blank" rel="noopener noreferrer">términos de contenido CC BY 4.0</a>.</p>
     </aside>
   </section>
   {villarsRoutes.length > 0 && <script>import '../scripts/transport.js'; import '../scripts/transport-map.js';</script>}

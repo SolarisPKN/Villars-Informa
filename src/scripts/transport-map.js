@@ -4,7 +4,10 @@ import { DARK, layers } from '@protomaps/basemaps';
 import { PMTiles, Protocol } from 'pmtiles';
 import mapData from '../data/transport-map.json';
 
-const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL || '';
+const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL
+  || 'https://transport-data.solarispkn.com.ar/current.json';
+const STALE_AFTER_MS = 120_000;
+const UNAVAILABLE_AFTER_MS = 600_000;
 const protocol = new Protocol();
 let protocolRegistered = false;
 let map;
@@ -22,8 +25,15 @@ function setStatus(message, state = 'static') {
 
 function liveFeatures(snapshot) {
   if (!snapshot || snapshot.schemaVersion !== 1 || !Array.isArray(snapshot.vehicles)) throw new Error('Formato de posiciones no reconocido');
+  const now = Date.now();
+  const snapshotAt = new Date(snapshot.generatedAt).getTime();
+  const snapshotStale = !Number.isFinite(snapshotAt) || now - snapshotAt > STALE_AFTER_MS;
   return snapshot.vehicles
-    .filter((vehicle) => Number.isFinite(vehicle.lon) && Number.isFinite(vehicle.lat))
+    .filter((vehicle) => {
+      if (!Number.isFinite(vehicle.lon) || !Number.isFinite(vehicle.lat)) return false;
+      const updatedAt = new Date(vehicle.updatedAt || snapshot.generatedAt).getTime();
+      return Number.isFinite(updatedAt) && now - updatedAt <= UNAVAILABLE_AFTER_MS;
+    })
     .map((vehicle) => ({
       type: 'Feature',
       properties: {
@@ -31,7 +41,7 @@ function liveFeatures(snapshot) {
         mode: vehicle.mode,
         label: vehicle.label || vehicle.routeId || (vehicle.mode === 'train' ? 'Tren' : 'Colectivo'),
         positionKind: vehicle.positionKind || 'unknown',
-        stale: Boolean(vehicle.stale),
+        stale: Boolean(vehicle.stale) || snapshotStale || now - new Date(vehicle.updatedAt || snapshot.generatedAt).getTime() > STALE_AFTER_MS,
         updatedAt: vehicle.updatedAt || snapshot.generatedAt,
       },
       geometry: { type: 'Point', coordinates: [vehicle.lon, vehicle.lat] },
@@ -49,13 +59,25 @@ async function updateLiveLayer() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     lastEtag = response.headers.get('etag') || lastEtag;
     const snapshot = await response.json();
+    const snapshotAt = new Date(snapshot.generatedAt).getTime();
+    const snapshotAge = Date.now() - snapshotAt;
     const features = liveFeatures(snapshot);
     map.getSource('live-vehicles').setData({ type: 'FeatureCollection', features });
     const generatedAt = new Date(snapshot.generatedAt).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-    setStatus(features.length
-      ? `${features.length} unidades informadas · snapshot de las ${generatedAt}`
-      : `Sin unidades informadas por los proveedores · consulta de las ${generatedAt}`,
-    features.length ? 'live' : 'empty');
+    if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || snapshot.status === 'unavailable') {
+      map.getSource('live-vehicles').setData({ type: 'FeatureCollection', features: [] });
+      setStatus('Las posiciones en vivo están temporalmente no disponibles; el mapa y los horarios programados siguen activos.', 'error');
+    } else if (snapshot.status === 'degraded' || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
+      setStatus(features.length
+        ? `${features.length} unidades con datos demorados · última consulta a las ${generatedAt}`
+        : `Seguimiento parcial sin unidades informadas · consulta de las ${generatedAt}`,
+      'stale');
+    } else {
+      setStatus(features.length
+        ? `${features.length} unidades informadas · snapshot de las ${generatedAt}`
+        : `Sin unidades informadas por los proveedores · consulta de las ${generatedAt}`,
+      features.length ? 'live' : 'empty');
+    }
   } catch (error) {
     if (error.name !== 'AbortError') setStatus('El seguimiento en vivo no respondió; el mapa y los horarios programados siguen disponibles.', 'error');
   }

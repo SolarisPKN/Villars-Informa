@@ -9,8 +9,7 @@
   "r2_buckets": [
     {
       "binding": "TRANSPORT_LIVE",
-      "bucket_name": "villars-transport-live",
-      "preview_bucket_name": "villars-transport-live-preview"
+      "bucket_name": "villars-transport-live"
     }
   ],
   "observability": {

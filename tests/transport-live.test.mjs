@@ -59,6 +59,79 @@ test('el Worker limita SOFSE al ramal ferroviario de Villars', () => {
   assert.match(vehicles[0].label, /Villars/);
 });
 
+test('SOFSE conserva un tren activo de 20 de Junio a Catán aunque no informe GPS', () => {
+  const responses = [{
+    results: [{
+      servicio: {
+        id: null,
+        numero: 5010,
+        sentido: 2,
+        ramal: { id: 67 },
+        hasta: { estacion: { nombre: 'González Catán' } },
+        location: null,
+        estaciones: [
+          {
+            idElemento: 526,
+            nombre: '20 de Junio',
+            llegada: { programada: '2026-08-27T21:32:00.000Z' },
+            salida: { real: '2026-08-27T21:33:00.000Z' },
+          },
+          {
+            idElemento: 154,
+            nombre: 'González Catán',
+            llegada: { estimada: '2026-08-27T21:53:00.000Z' },
+            salida: { programada: '2026-08-27T21:55:00.000Z' },
+          },
+        ],
+      },
+    }],
+  }];
+
+  const vehicles = normalizeTrainSnapshots(responses, new Date('2026-08-27T21:50:00.000Z'));
+  assert.equal(vehicles.length, 1);
+  assert.equal(vehicles[0].vehicleId, 'train:5010:2:2026-08-27');
+  assert.equal(vehicles[0].positionKind, 'predicted');
+  assert.equal(vehicles[0].fromStop, '20 de Junio');
+  assert.equal(vehicles[0].toStop, 'González Catán');
+  assert.equal(vehicles[0].scheduledArrivalAt, '2026-08-27T21:53:00.000Z');
+  assert.ok(vehicles[0].lat > -34.781 && vehicles[0].lat < -34.771);
+  assert.ok(vehicles[0].lon > -58.739 && vehicles[0].lon < -58.646);
+
+  const finished = normalizeTrainSnapshots(responses, new Date('2026-08-27T22:10:00.000Z'));
+  assert.equal(finished.length, 0);
+});
+
+test('el Worker consulta SOFSE con ramal, sentido, fecha, hora y destino de la app', async () => {
+  const queried = [];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    const target = String(url);
+    if (target.endsWith('/auth/authorize')) return Response.json({ token: 'test-sofse-token' });
+    if (target.includes('/arribos/estacion/')) {
+      queried.push(target);
+      return Response.json({ results: [] });
+    }
+    throw new Error('URL inesperada: ' + target);
+  };
+  try {
+    await refreshTransport({
+      TRANSPORT_LIVE: { get: async () => null, put: async () => {} },
+    }, new Date('2026-08-27T21:50:00.000Z'));
+
+    assert.equal(queried.length, 6);
+    const twentyJune = queried.map((value) => new URL(value)).find(({ pathname }) => pathname.endsWith('/526'));
+    assert.ok(twentyJune);
+    assert.equal(twentyJune.searchParams.get('ramal'), '67');
+    assert.equal(twentyJune.searchParams.get('sentido'), '2');
+    assert.equal(twentyJune.searchParams.get('fecha'), '2026-08-27');
+    assert.equal(twentyJune.searchParams.get('hora'), '18:50');
+    assert.equal(twentyJune.searchParams.get('hasta'), '154');
+    assert.equal(twentyJune.searchParams.get('paraApp'), 'true');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('el snapshot R2 consolida colectivo y tren sin persistir credenciales', async () => {
   const writes = [];
   const originalFetch = globalThis.fetch;

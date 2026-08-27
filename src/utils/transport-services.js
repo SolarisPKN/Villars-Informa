@@ -57,13 +57,26 @@ export function departuresFor(route, dayKey, destination, stationName = 'villars
   return departures.sort((left, right) => left.minutes - right.minutes);
 }
 
-export function nextService(route, destination, timezone, date = new Date()) {
+export function scheduleGrid(route, dayKey, stationName = 'villars') {
+  const columns = destinationsFrom(route, stationName).map((destination) => ({
+    destination,
+    departures: departuresFor(route, dayKey, destination, stationName),
+  }));
+  const rowCount = Math.max(1, ...columns.map(({ departures }) => departures.length));
+  return {
+    columns,
+    rows: Array.from({ length: rowCount }, (_, index) => columns.map(({ departures }) => departures[index] || null)),
+  };
+}
+
+
+export function nextService(route, destination, timezone, date = new Date(), stationName = 'villars') {
   const now = argentinaNow(timezone, date);
   let closest;
   for (let offset = -1; offset <= 7; offset += 1) {
     const serviceWeekday = (now.weekday + offset + 7) % 7;
     const dayKey = serviceDays[serviceWeekday];
-    for (const departure of departuresFor(route, dayKey, destination)) {
+    for (const departure of departuresFor(route, dayKey, destination, stationName)) {
       const difference = offset * 1440 + departure.minutes - now.minutes;
       if (difference < 0 || (closest && difference >= closest.difference)) continue;
       const nextDayOffset = Math.floor(departure.minutes / 1440);
@@ -78,4 +91,14 @@ export function nextService(route, destination, timezone, date = new Date()) {
     }
   }
   return closest;
+}
+
+export function nextServiceForRoute(route, timezone, date = new Date(), stationName = 'villars') {
+  return destinationsFrom(route, stationName)
+    .map((destination) => {
+      const service = nextService(route, destination, timezone, date, stationName);
+      return service ? { ...service, destination } : null;
+    })
+    .filter(Boolean)
+    .sort((left, right) => left.difference - right.difference)[0] || null;
 }

@@ -10,6 +10,10 @@ let leafletRendererPromise;
 let mapArchivePromise;
 let map;
 let liveLayer;
+let routeLayer;
+let stopLayer;
+let filterController;
+let currentLiveFeatures = [];
 let pollTimer;
 let pollingController;
 let lastEtag;
@@ -93,8 +97,12 @@ function liveFeatures(snapshot) {
       properties: {
         id: vehicle.vehicleId,
         mode: vehicle.mode,
+        routeId: vehicle.routeId || null,
         label: vehicle.label || vehicle.routeId || (vehicle.mode === 'train' ? 'Tren' : 'Colectivo'),
         positionKind: vehicle.positionKind || 'unknown',
+        fromStop: vehicle.fromStop || null,
+        toStop: vehicle.toStop || null,
+        scheduledArrivalAt: vehicle.scheduledArrivalAt || null,
         stale: Boolean(vehicle.stale) || snapshotStale || now - new Date(vehicle.updatedAt || snapshot.generatedAt).getTime() > STALE_AFTER_MS,
         updatedAt: vehicle.updatedAt || snapshot.generatedAt,
       },
@@ -102,15 +110,90 @@ function liveFeatures(snapshot) {
     }));
 }
 
+function routeFamily(feature) {
+  if (feature?.properties?.mode === 'train') return 'train';
+  const identifier = String(feature?.properties?.routeId || feature?.properties?.id || '');
+  if (identifier.startsWith('135_')) return '322';
+  if (identifier.includes('136')) return '136';
+  return 'bus';
+}
+
+function selectedFilters(selector, dataKey) {
+  return new Set([...document.querySelectorAll(selector)]
+    .filter((input) => input instanceof HTMLInputElement && input.checked && !input.disabled)
+    .map((input) => input.dataset[dataKey]));
+}
+
+function currentFilterState() {
+  return {
+    modes: selectedFilters('[data-map-mode]', 'mapMode'),
+    routes: selectedFilters('[data-map-route]', 'mapRoute'),
+    layers: selectedFilters('[data-map-layer]', 'mapLayer'),
+  };
+}
+
+function featureIsVisible(feature, filters) {
+  return filters.modes.has(feature?.properties?.mode) && filters.routes.has(routeFamily(feature));
+}
+
+function renderFilteredLayers() {
+  const filters = currentFilterState();
+  if (routeLayer) {
+    routeLayer.clearLayers();
+    if (filters.layers.has('routes')) {
+      routeLayer.addData({
+        type: 'FeatureCollection',
+        features: mapData.routes.features.filter((feature) => featureIsVisible(feature, filters)),
+      });
+    }
+  }
+  if (stopLayer) {
+    stopLayer.clearLayers();
+    if (filters.layers.has('stops')) {
+      stopLayer.addData({
+        type: 'FeatureCollection',
+        features: mapData.stops.features.filter((feature) => featureIsVisible(feature, filters)),
+      });
+    }
+  }
+  if (liveLayer) {
+    liveLayer.clearLayers();
+    if (filters.layers.has('positions')) {
+      liveLayer.addData({
+        type: 'FeatureCollection',
+        features: currentLiveFeatures.filter((feature) => featureIsVisible(feature, filters)),
+      });
+    }
+  }
+}
+
+function bindMapFilters() {
+  filterController?.abort();
+  filterController = new AbortController();
+  document.querySelectorAll('[data-map-mode], [data-map-route], [data-map-layer]').forEach((input) => {
+    if (input instanceof HTMLInputElement && !input.disabled) {
+      input.addEventListener('change', renderFilteredLayers, { signal: filterController.signal });
+    }
+  });
+}
+
+
 function popupContent(properties, kind) {
   const content = document.createElement('div');
   const heading = document.createElement('strong');
   const description = document.createElement('span');
   heading.textContent = properties.name || properties.label || 'Transporte';
   if (kind === 'live') {
-    description.textContent = `${properties.positionKind === 'predicted' ? 'Posición estimada' : 'Posición informada'}${properties.stale ? ' · dato demorado' : ''}`;
+    const segment = properties.fromStop && properties.toStop
+      ? ` entre ${properties.fromStop} y ${properties.toStop}`
+      : '';
+    const source = properties.positionKind === 'predicted'
+      ? `Posición estimada por horario${segment}`
+      : 'GPS informado';
+    description.textContent = `${source}${properties.stale ? ' · dato demorado' : ''}`;
   } else {
-    description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : 'Parada del colectivo 322';
+    const family = routeFamily({ properties });
+    description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : `Parada del colectivo ${family === '136' ? '136' : '322'}`;
   }
   content.append(heading, document.createElement('br'), description);
   return content;
@@ -118,19 +201,20 @@ function popupContent(properties, kind) {
 
 function markerStyle(feature, live = false) {
   const isTrain = feature?.properties?.mode === 'train';
+  const isPredicted = live && feature?.properties?.positionKind === 'predicted';
   return {
     radius: live ? 8 : 5,
     color: live ? '#ffffff' : '#2c2119',
     weight: live ? 2 : 1.5,
-    fillColor: isTrain ? (live ? '#f4a261' : '#e9c46a') : (live ? '#219ebc' : '#8ecae6'),
+    fillColor: isPredicted ? '#ffb703' : (isTrain ? (live ? '#f4a261' : '#e9c46a') : (live ? '#219ebc' : '#8ecae6')),
+    dashArray: isPredicted ? '3 3' : null,
     fillOpacity: live && feature?.properties?.stale ? 0.4 : 0.95,
   };
 }
 
 function replaceLiveFeatures(features) {
-  if (!liveLayer) return;
-  liveLayer.clearLayers();
-  liveLayer.addData({ type: 'FeatureCollection', features });
+  currentLiveFeatures = features;
+  renderFilteredLayers();
 }
 
 async function updateLiveLayer() {
@@ -147,6 +231,12 @@ async function updateLiveLayer() {
     const snapshotAt = new Date(snapshot.generatedAt).getTime();
     const snapshotAge = Date.now() - snapshotAt;
     const features = liveFeatures(snapshot);
+    const observedCount = features.filter(({ properties }) => properties.positionKind === 'observed').length;
+    const predictedCount = features.filter(({ properties }) => properties.positionKind === 'predicted').length;
+    const countLabel = [
+      observedCount ? `${observedCount} con GPS` : '',
+      predictedCount ? `${predictedCount} estimadas` : '',
+    ].filter(Boolean).join(' · ');
     replaceLiveFeatures(features);
     const generatedAt = new Date(snapshot.generatedAt).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
     if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || snapshot.status === 'unavailable') {
@@ -154,12 +244,12 @@ async function updateLiveLayer() {
       setLiveStatus('Las posiciones en vivo están temporalmente no disponibles; el mapa y los horarios programados siguen activos.', 'error');
     } else if (snapshot.status === 'degraded' || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
       setLiveStatus(features.length
-        ? `${features.length} unidades con datos demorados · última consulta a las ${generatedAt}`
+        ? `${countLabel || `${features.length} posiciones`} con datos demorados · última consulta a las ${generatedAt}`
         : `Seguimiento parcial sin unidades informadas · consulta de las ${generatedAt}`,
       'stale');
     } else {
       setLiveStatus(features.length
-        ? `${features.length} unidades informadas · snapshot de las ${generatedAt}`
+        ? `${countLabel || `${features.length} posiciones`} · snapshot de las ${generatedAt}`
         : `Sin unidades informadas por los proveedores · consulta de las ${generatedAt}`,
       features.length ? 'live' : 'empty');
     }
@@ -169,7 +259,7 @@ async function updateLiveLayer() {
 }
 
 function addTransportLayers() {
-  L.geoJSON(mapData.routes, {
+  routeLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
     style: (feature) => ({
       color: feature?.properties?.mode === 'train' ? '#e9c46a' : '#6fb7ff',
       weight: feature?.properties?.mode === 'train' ? 4 : 3,
@@ -177,7 +267,7 @@ function addTransportLayers() {
     }),
   }).addTo(map);
 
-  L.geoJSON(mapData.stops, {
+  stopLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng, markerStyle(feature)),
     onEachFeature: (feature, layer) => layer.bindPopup(() => popupContent(feature.properties || {}, 'stop')),
   }).addTo(map);
@@ -186,6 +276,7 @@ function addTransportLayers() {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng, markerStyle(feature, true)),
     onEachFeature: (feature, layer) => layer.bindPopup(() => popupContent(feature.properties || {}, 'live')),
   }).addTo(map);
+  renderFilteredLayers();
 }
 
 async function initTransportMap() {
@@ -193,6 +284,9 @@ async function initTransportMap() {
   if (!(container instanceof HTMLElement)) return;
   map?.remove();
   liveLayer = undefined;
+  routeLayer = undefined;
+  stopLayer = undefined;
+  currentLiveFeatures = [];
   baseMapState = 'loading';
   renderStatus();
 
@@ -242,6 +336,7 @@ async function initTransportMap() {
   });
   baseLayer.addTo(map);
   addTransportLayers();
+  bindMapFilters();
 
   if (liveSnapshotUrl) {
     updateLiveLayer();
@@ -259,4 +354,8 @@ document.addEventListener('astro:before-swap', () => {
   map?.remove();
   map = undefined;
   liveLayer = undefined;
+  routeLayer = undefined;
+  stopLayer = undefined;
+  currentLiveFeatures = [];
+  filterController?.abort();
 });

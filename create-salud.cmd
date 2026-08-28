@@ -2,20 +2,36 @@
 setlocal
 cd /d "%~dp0"
 
-where npm >nul 2>&1
+where node >nul 2>&1
 if errorlevel 1 (
-  echo ERROR: npm no esta disponible. Instala Node.js o agrega npm al PATH.
+  echo ERROR: Node.js no esta disponible. Instalalo o agregalo al PATH.
   pause
   exit /b 1
 )
 
-call npm run create-health
+if not exist "node_modules\marked\package.json" (
+  where npm >nul 2>&1
+  if errorlevel 1 (
+    echo ERROR: faltan dependencias y npm no esta disponible.
+    pause
+    exit /b 1
+  )
+  echo Instalando dependencias del editor...
+  call npm install
+  if errorlevel 1 (
+    echo ERROR: no se pudieron instalar las dependencias.
+    pause
+    exit /b 1
+  )
+)
+
+node scripts\content-editor\server.js health
 set "RESULT=%ERRORLEVEL%"
 echo.
 if "%RESULT%"=="0" (
-  echo Borrador de Salud creado correctamente.
+  echo Editor de Salud cerrado correctamente.
 ) else (
-  echo No se pudo crear el borrador de Salud.
+  echo No se pudo abrir el editor de Salud.
 )
 pause
 exit /b %RESULT%

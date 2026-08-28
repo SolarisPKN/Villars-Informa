@@ -20,8 +20,8 @@
     "worker:transport:dev": "wrangler dev --config workers/transport-live/wrangler.jsonc --test-scheduled",
     "worker:transport:check": "wrangler deploy --config workers/transport-live/wrangler.jsonc --dry-run",
     "worker:transport:deploy": "wrangler deploy --config workers/transport-live/wrangler.jsonc",
-    "create-news": "node scripts/create-news.js",
-    "create-health": "node scripts/create-health.js",
+    "create-news": "node scripts/content-editor/server.js news",
+    "create-health": "node scripts/content-editor/server.js health",
     "create-local": "node scripts/create-local.js",
     "create-post": "npm run create-news"
   },
@@ -29,7 +29,9 @@
     "@astrojs/mdx": "^7.0.8",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.2.6",
+    "isomorphic-dompurify": "^3.17.0",
     "leaflet": "^1.9.4",
+    "marked": "^18.0.5",
     "pmtiles": "^3.2.1",
     "protomaps-leaflet": "^5.1.0",
     "sharp": "^0.35.3"

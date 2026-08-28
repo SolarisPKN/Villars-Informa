@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Villars Informa · Editor local</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Villars Informa · herramienta local</p>
+      <h1 id="editor-title">Editor de contenido</h1>
+      <p id="editor-description">Preparando el espacio editorial…</p>
+    </div>
+    <button id="shutdown" class="button ghost" type="button">Cerrar editor</button>
+  </header>
+
+  <main>
+    <form id="news-form" hidden>
+      <section class="panel intro">
+        <div class="section-heading"><span class="step">01</span><div><h2>Identidad de la noticia</h2><p>Una publicación extensa, con URL propia y metadatos para compartir.</p></div></div>
+        <div class="grid three">
+          <label>Título <input id="news-title" maxlength="180" required></label>
+          <label>Slug <input id="news-slug" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required><small>Se genera desde el título y podés editarlo.</small></label>
+          <label>Fecha <input id="news-date" type="date" required></label>
+          <label>Categoría <input id="news-category" list="news-categories" placeholder="Comunidad"></label>
+          <label>Autor <input id="news-author" maxlength="120" placeholder="Villars Informa"></label>
+          <label>Etiquetas <input id="news-tags" list="news-tags-list" placeholder="Villars, comunidad, obras"><small>Separadas por comas.</small></label>
+        </div>
+        <datalist id="news-categories"></datalist>
+        <datalist id="news-tags-list"></datalist>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading"><span class="step">02</span><div><h2>Redacción y vista previa</h2><p>Escribí en Markdown y comprobá el resultado sin salir del editor.</p></div></div>
+        <label>Descripción para el listado <textarea id="news-description" rows="2" maxlength="320" required></textarea></label>
+        <div class="editor-grid">
+          <div>
+            <div class="toolbar" data-target="news-content" aria-label="Formato Markdown">
+              <button type="button" data-wrap="**">Negrita</button>
+              <button type="button" data-prefix="## ">Título</button>
+              <button type="button" data-prefix="> ">Cita</button>
+              <button type="button" data-prefix="- ">Lista</button>
+              <button type="button" data-link>Enlace</button>
+              <button type="button" data-block="code">Código</button>
+            </div>
+            <label>Contenido Markdown <textarea id="news-content" class="content" rows="25" required placeholder="Contá la noticia con contexto, fuentes y datos verificables."></textarea></label>
+          </div>
+          <div><h3>Vista previa</h3><div id="news-preview" class="preview prose"><p class="empty">La vista previa aparecerá acá.</p></div></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading"><span class="step">03</span><div><h2>Imágenes</h2><p>La portada encabeza la noticia; la galería aparece al final y se puede ampliar.</p></div></div>
+        <div class="grid two">
+          <label>Portada <input id="news-hero" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo 10 MB.</small></label>
+          <label>Galería <input id="news-gallery" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo total 30 MB.</small></label>
+        </div>
+        <div id="news-image-summary" class="file-summary">Todavía no seleccionaste imágenes.</div>
+        <div id="news-image-preview" class="image-strip" aria-live="polite"></div>
+      </section>
+
+      <section class="panel finish">
+        <div><span class="step">04</span><h2>Crear noticia</h2><p>Se validan rutas, imágenes y metadatos. Nunca se sobrescribe una publicación existente.</p></div>
+        <button id="news-submit" class="button primary" type="submit">Crear noticia</button>
+      </section>
+    </form>
+
+    <form id="health-form" hidden>
+      <section class="panel health-compose">
+        <div class="section-heading"><span class="step">01</span><div><h2>Nueva actualización de Salud</h2><p>Un aviso breve y verificable, pensado como una micropublicación.</p></div></div>
+        <div class="grid three">
+          <label>Título corto <input id="health-title" maxlength="100" required></label>
+          <label>Slug <input id="health-slug" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required><small>Se genera automáticamente.</small></label>
+          <label>Fecha <input id="health-date" type="date" required></label>
+        </div>
+        <div class="health-editor-grid">
+          <div class="health-fields">
+            <label>Mensaje
+              <textarea id="health-message" rows="9" maxlength="500" required placeholder="Escribí la actualización sanitaria en hasta 500 caracteres."></textarea>
+              <span id="health-counter" class="counter">0 / 500</span>
+            </label>
+            <div class="grid two">
+              <label>Fuente o institución <input id="health-source" maxlength="180" placeholder="Hospital, municipio, organismo…"></label>
+              <label>Enlace de la fuente <input id="health-source-url" type="url" placeholder="https://..."></label>
+            </div>
+            <label>Imagen adjunta <input id="health-image" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Una imagen de hasta 8 MB; podrá ampliarse en la web.</small></label>
+          </div>
+          <div>
+            <h3>Vista previa</h3>
+            <article class="health-preview-card">
+              <header><span class="health-avatar" aria-hidden="true">❤</span><div><strong id="health-preview-title">Actualización de Salud</strong><small id="health-preview-date">Hoy</small></div></header>
+              <p id="health-preview-message" class="empty">El mensaje aparecerá acá.</p>
+              <img id="health-preview-image" alt="Vista previa de la imagen adjunta" hidden>
+              <footer id="health-preview-source" hidden></footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel finish">
+        <div><span class="step">02</span><h2>Crear actualización</h2><p>El límite de 500 caracteres se valida otra vez en el servidor y el slug nunca se sobrescribe.</p></div>
+        <button id="health-submit" class="button health-primary" type="submit">Crear actualización</button>
+      </section>
+    </form>
+
+    <div id="status" class="status" aria-live="polite"></div>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

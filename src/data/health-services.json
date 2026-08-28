@@ -1,0 +1,105 @@
+{
+  "verifiedAt": "2026-08-28",
+  "primaryServices": [
+    {
+      "kind": "Farmacia",
+      "name": "Farmacias de referencia",
+      "address": "El directorio municipal consultado no publica una farmacia dentro de Villars.",
+      "hours": "Consultá el turno y el horario por teléfono antes de viajar.",
+      "phone": "",
+      "phoneHref": "",
+      "status": "Ver farmacias de General Las Heras",
+      "target": "#farmacias"
+    },
+    {
+      "kind": "Salita",
+      "name": "CAPS Villars",
+      "address": "Belgrano y Boulogne Sur Mer, Villars",
+      "hours": "Enfermería las 24 horas, según la guía provincial actualizada a abril de 2022.",
+      "phone": "0220 476-1000",
+      "phoneHref": "tel:+542204761000",
+      "phoneLabel": "Contacto sanitario distrital: Hospital Arozarena",
+      "status": "Atención local"
+    }
+  ],
+  "otherCenters": [
+    {
+      "name": "Hospital Municipal Dr. Pedro Arozarena",
+      "locality": "General Las Heras",
+      "address": "Av. Chiocconi 321",
+      "hours": "Guardia hospitalaria. Confirmá especialidades y turnos por teléfono.",
+      "phone": "0220 476-1000",
+      "phoneHref": "tel:+542204761000"
+    },
+    {
+      "name": "CAPS Plomer",
+      "locality": "Plomer",
+      "address": "Zona rural",
+      "hours": "Lunes a viernes de 08 a 17; sábados y domingos de 08 a 20, según guía de abril de 2022.",
+      "phone": "",
+      "phoneHref": ""
+    },
+    {
+      "name": "CAPS La Choza",
+      "locality": "La Choza",
+      "address": "Martín de Güemes s/n",
+      "hours": "Lunes a viernes de 08 a 17, según guía de abril de 2022.",
+      "phone": "0220 403-6093",
+      "phoneHref": "tel:+542204036093"
+    },
+    {
+      "name": "Dirección de Salud Comunitaria",
+      "locality": "General Las Heras",
+      "address": "Las Heras 1065",
+      "hours": "Lunes a viernes de 08 a 15.",
+      "phone": "",
+      "phoneHref": ""
+    }
+  ],
+  "pharmacies": [
+    {
+      "name": "Farmacia Campos",
+      "address": "Av. Villamayor 512, General Las Heras",
+      "phone": "0220 476-1828",
+      "phoneHref": "tel:+542204761828"
+    },
+    {
+      "name": "Farmacia Custer",
+      "address": "Las Heras 948, General Las Heras",
+      "phone": "0220 476-1563",
+      "phoneHref": "tel:+542204761563"
+    },
+    {
+      "name": "Farmacia del Pueblo",
+      "address": "25 de Mayo 965, General Las Heras",
+      "phone": "0220 476-1028",
+      "phoneHref": "tel:+542204761028"
+    },
+    {
+      "name": "Farmacia Las Heras",
+      "address": "Las Heras y Belgrano, General Las Heras",
+      "phone": "0220 476-1514",
+      "phoneHref": "tel:+542204761514"
+    },
+    {
+      "name": "Farmacia Salinas",
+      "address": "Av. Chiocconi 152, General Las Heras",
+      "phone": "0220 476-1313",
+      "phoneHref": "tel:+542204761313"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Guía provincial de servicios de salud de General Las Heras (abril de 2022)",
+      "url": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
+    },
+    {
+      "label": "Directorio de teléfonos útiles de la Municipalidad de General Las Heras",
+      "url": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+    },
+    {
+      "label": "Dirección municipal de Salud Comunitaria",
+      "url": "https://gobiernodelasheras.com/noticias/gobierno/presentacion-de-la-direccion-de-salud-comunitario/"
+    }
+  ]
+}

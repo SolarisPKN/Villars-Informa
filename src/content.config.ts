@@ -19,8 +19,10 @@ const noticias = defineCollection({
     descripcion: z.string().default(''),
     fecha: z.coerce.date(),
     autor: z.string().optional(),
+    categoria: z.string().default('General'),
     tags: z.array(z.string()).default([]),
     portada: z.string().optional(),
+    imagenes: z.array(z.string()).default([]),
   }),
 });
 
@@ -65,6 +67,10 @@ const actualizaciones = defineCollection({
   schema: z.object({
     fecha: z.coerce.date(),
     titulo: z.string().default('Actualización'),
+    mensaje: z.string().max(500),
+    fuente: z.string().default(''),
+    fuenteUrl: z.union([z.url(), z.literal('')]).default(''),
+    imagen: z.string().default(''),
   }),
 });
 

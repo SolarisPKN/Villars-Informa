@@ -1,0 +1,527 @@
+.health-page {
+  --health-green: #8fa985;
+  --health-green-bright: #b8d3ad;
+  --health-cream: #f2e4cf;
+  --health-ink: #251b16;
+  --health-card: rgba(48, 37, 29, 0.92);
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 5rem) 0 5rem;
+}
+
+.health-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 22rem;
+  display: grid;
+  align-content: end;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  border: 1px solid rgba(184, 211, 173, 0.28);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(184, 211, 173, 0.28), transparent 18rem),
+    linear-gradient(135deg, rgba(42, 60, 41, 0.95), rgba(39, 27, 21, 0.96));
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
+.health-hero::after {
+  position: absolute;
+  right: -2.5rem;
+  top: -3rem;
+  width: 17rem;
+  height: 17rem;
+  border: 2.5rem solid rgba(242, 228, 207, 0.05);
+  border-radius: 50%;
+  content: '';
+}
+
+.health-kicker,
+.section-kicker,
+.service-kind {
+  margin: 0 0 0.45rem;
+  color: var(--health-green-bright);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.health-hero h1 {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--health-cream);
+  font-size: clamp(3rem, 9vw, 6.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.health-hero > p:not(.health-kicker, .health-verified) {
+  max-width: 48rem;
+  margin: 1.2rem 0 0;
+  color: rgba(242, 228, 207, 0.84);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.health-verified {
+  margin: 1rem 0 0;
+  color: rgba(242, 228, 207, 0.58);
+  font-size: 0.8rem;
+}
+
+.health-section {
+  margin-top: 1.15rem;
+  padding: clamp(1.1rem, 3vw, 2.2rem);
+  border: 1px solid rgba(216, 190, 154, 0.18);
+  border-radius: 1.55rem;
+  background: linear-gradient(145deg, rgba(48, 37, 29, 0.94), rgba(31, 23, 18, 0.94));
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-heading h2,
+.emergency-section h2 {
+  margin: 0;
+  color: var(--health-cream);
+  font-size: clamp(1.55rem, 4vw, 2.4rem);
+  letter-spacing: -0.025em;
+}
+
+.section-limit {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(184, 211, 173, 0.24);
+  border-radius: 999px;
+  color: rgba(242, 228, 207, 0.62);
+  font-size: 0.74rem;
+}
+
+.health-feed {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.health-update {
+  overflow: hidden;
+  border: 1px solid rgba(184, 211, 173, 0.19);
+  border-radius: 1rem;
+  background: rgba(20, 29, 21, 0.56);
+}
+
+.health-update header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem 1rem 0;
+}
+
+.update-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 50%;
+  color: #182019;
+  background: var(--health-green-bright);
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.health-update h3 {
+  margin: 0;
+  color: var(--health-cream);
+  font-size: 1rem;
+}
+
+.health-update time {
+  color: rgba(242, 228, 207, 0.55);
+  font-size: 0.75rem;
+}
+
+.update-message {
+  margin: 0;
+  padding: 0.9rem 1rem 1rem 4.2rem;
+  color: rgba(242, 228, 207, 0.9);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.health-update footer {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(184, 211, 173, 0.12);
+  color: rgba(242, 228, 207, 0.55);
+  font-size: 0.76rem;
+}
+
+.health-update footer a {
+  color: var(--health-green-bright);
+}
+
+.update-image-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid rgba(184, 211, 173, 0.14);
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.update-image-button img {
+  display: block;
+  width: 100%;
+  max-height: 30rem;
+  object-fit: cover;
+}
+
+.health-empty {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1.25rem;
+  border: 1px dashed rgba(184, 211, 173, 0.26);
+  border-radius: 1rem;
+  color: rgba(242, 228, 207, 0.68);
+}
+
+.health-empty p {
+  margin: 0;
+}
+
+.primary-services,
+.center-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.service-card,
+.center-card,
+.pharmacy-card {
+  padding: 1.2rem;
+  border: 1px solid rgba(216, 190, 154, 0.18);
+  border-radius: 1rem;
+  background: rgba(28, 20, 16, 0.72);
+}
+
+.service-card-primary {
+  border-color: rgba(184, 211, 173, 0.42);
+  background: linear-gradient(145deg, rgba(41, 57, 40, 0.86), rgba(27, 35, 27, 0.84));
+}
+
+.service-card h3,
+.center-card h3,
+.pharmacy-card h3 {
+  margin: 0 0 0.9rem;
+  color: var(--health-cream);
+  font-size: 1.35rem;
+}
+
+.service-card dl {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.service-card dl div {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.75rem;
+}
+
+.service-card dt {
+  color: rgba(242, 228, 207, 0.52);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.service-card dd {
+  margin: 0;
+  color: rgba(242, 228, 207, 0.87);
+  line-height: 1.5;
+}
+
+.service-card dd small {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(242, 228, 207, 0.48);
+}
+
+.service-card a,
+.center-card a,
+.pharmacy-card a {
+  color: var(--health-green-bright);
+}
+
+.card-action,
+.status-chip,
+.phone-link,
+.missing-contact {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.58rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.card-action,
+.phone-link {
+  border: 1px solid rgba(184, 211, 173, 0.34);
+  text-decoration: none;
+}
+
+.status-chip {
+  color: #182019;
+  background: var(--health-green-bright);
+}
+
+.missing-contact {
+  color: rgba(242, 228, 207, 0.54);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.more-centers,
+.sources-panel {
+  margin-top: 0.9rem;
+  border: 1px solid rgba(216, 190, 154, 0.18);
+  border-radius: 1rem;
+  background: rgba(20, 15, 12, 0.45);
+}
+
+.more-centers summary,
+.sources-panel summary {
+  padding: 1rem 1.15rem;
+  color: var(--health-cream);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.more-centers summary small {
+  display: block;
+  margin-top: 0.2rem;
+  color: rgba(242, 228, 207, 0.5);
+  font-weight: 500;
+}
+
+.more-centers .center-grid {
+  padding: 0 0.9rem 0.9rem;
+}
+
+.center-card > p:first-child {
+  margin: 0 0 0.25rem;
+  color: var(--health-green-bright);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.center-card address,
+.pharmacy-card address {
+  color: rgba(242, 228, 207, 0.78);
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.center-card > p {
+  color: rgba(242, 228, 207, 0.62);
+  line-height: 1.5;
+}
+
+.pharmacy-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1.1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.pharmacy-selector,
+.pharmacy-results {
+  padding: 1.15rem;
+  border-radius: 1rem;
+  background: rgba(20, 15, 12, 0.48);
+}
+
+.pharmacy-selector label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--health-cream);
+  font-weight: 800;
+}
+
+.pharmacy-selector select {
+  width: 100%;
+  padding: 0.78rem 0.9rem;
+  border: 1px solid rgba(184, 211, 173, 0.38);
+  border-radius: 0.7rem;
+  color: var(--health-cream);
+  background: #241b16;
+}
+
+.turn-warning {
+  margin: 0.8rem 0 0;
+  color: #e7c98d;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.pharmacy-results {
+  display: grid;
+}
+
+.pharmacy-card {
+  align-content: center;
+}
+
+.emergency-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1.2fr);
+  gap: 1.2rem;
+  align-items: center;
+  border-color: rgba(224, 138, 125, 0.32);
+  background: linear-gradient(145deg, rgba(72, 34, 30, 0.92), rgba(37, 23, 19, 0.94));
+}
+
+.emergency-section p {
+  color: rgba(242, 228, 207, 0.68);
+}
+
+.emergency-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.emergency-actions a {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid rgba(242, 228, 207, 0.15);
+  border-radius: 0.9rem;
+  color: var(--health-cream);
+  background: rgba(23, 14, 12, 0.48);
+  text-decoration: none;
+}
+
+.emergency-actions span {
+  color: rgba(242, 228, 207, 0.54);
+  font-size: 0.72rem;
+}
+
+.sources-panel {
+  padding: 0 0.25rem;
+}
+
+.sources-panel > p,
+.sources-panel > ul {
+  margin-inline: 1rem;
+}
+
+.sources-panel p {
+  color: rgba(242, 228, 207, 0.62);
+}
+
+.sources-panel a {
+  color: var(--health-green-bright);
+}
+
+.image-dialog {
+  width: min(94vw, 1100px);
+  max-width: none;
+  padding: 0;
+  border: 1px solid rgba(242, 228, 207, 0.24);
+  border-radius: 1rem;
+  background: #17100c;
+}
+
+.image-dialog::backdrop {
+  background: rgba(7, 5, 4, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.image-dialog img {
+  display: block;
+  width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+}
+
+.image-dialog button {
+  position: absolute;
+  z-index: 1;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  color: white;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 780px) {
+  .health-page {
+    width: min(100% - 1rem, 1180px);
+    padding-top: 1rem;
+  }
+
+  .health-hero {
+    min-height: 19rem;
+    border-radius: 1.35rem;
+  }
+
+  .health-section {
+    padding: 1rem;
+    border-radius: 1.15rem;
+  }
+
+  .primary-services,
+  .center-grid,
+  .pharmacy-layout,
+  .emergency-section {
+    grid-template-columns: 1fr;
+  }
+
+  .emergency-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .update-message {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .health-hero h1 {
+    font-size: clamp(2.8rem, 19vw, 4.7rem);
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .service-card dl div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .service-card,
+  .center-card,
+  .pharmacy-card {
+    padding: 1rem;
+  }
+}

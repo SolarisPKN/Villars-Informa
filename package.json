@@ -21,6 +21,7 @@
     "worker:transport:check": "wrangler deploy --config workers/transport-live/wrangler.jsonc --dry-run",
     "worker:transport:deploy": "wrangler deploy --config workers/transport-live/wrangler.jsonc",
     "create-news": "node scripts/create-news.js",
+    "create-health": "node scripts/create-health.js",
     "create-local": "node scripts/create-local.js",
     "create-post": "npm run create-news"
   },

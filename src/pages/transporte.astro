@@ -69,26 +69,34 @@ const updatedAt = transportData.source.updatedAt
           <div><p class="eyebrow" data-route-type>{initialRoute?.type === 'bus' ? 'Colectivo' : 'Tren'}</p><h2 data-schedule-title>Todos los horarios de {initialRoute?.branch || initialRoute?.name}</h2></div>
           <p data-validity>{initialRoute?.validFrom ? 'Vigencia informada desde ' + new Date(initialRoute.validFrom + 'T12:00:00').toLocaleDateString('es-AR') : 'Sin vigencia informada'}</p>
         </div>
+        <div class="direction-picker">
+          <label for="transport-direction">Sentido del recorrido</label>
+          <div class="direction-select-wrap">
+            <select id="transport-direction" data-direction-select aria-controls="transport-schedule-panel">
+              {initialDirections.map(({ key, label }) => <option value={key}>{label}</option>)}
+            </select>
+            <span aria-hidden="true">↓</span>
+          </div>
+          <p>Cada columna es una formación. El destino debajo del número indica dónde termina realmente.</p>
+        </div>
         <div id="transport-schedule-panel" class="schedule-sections" data-schedule-sections role="tabpanel" tabindex="0" aria-live="polite">
-          {initialScheduleGrids.map(({ key, label, grid, total }) => (
+          {initialScheduleGrids.map(({ key, label, grid }) => (
             <section class="schedule-block" data-schedule-day={key}>
-              <div class="schedule-block-heading"><h3>{label}</h3><span>{total ? total + ' salidas desde Villars' : 'Sin salidas desde Villars'}</span></div>
+              <div class="schedule-block-heading"><h3>{label}</h3><span>{grid.services.length ? grid.services.length + ' formaciones' : 'Sin servicios'}</span></div>
               <div class="schedule-table-scroll">
                 <table class="schedule-table">
-                  <caption>{initialRoute?.branch || initialRoute?.name} · {label}</caption>
-                  <thead><tr><th scope="col">Salida</th>{grid.columns.map(({ destination }) => <th scope="col">Hacia {destination}</th>)}</tr></thead>
+                  <caption>{initialRoute?.branch || initialRoute?.name} · {label} · Hacia {initialDirection}</caption>
+                  <thead><tr><th scope="col" class="station-column">Estación</th>{grid.services.map((service) => <th scope="col"><span>{service.name}</span><small>hasta {service.destination}</small></th>)}</tr></thead>
                   <tbody>
-                    {grid.rows.map((row, index) => (
-                      <tr>
-                        <th scope="row">{String(index + 1).padStart(2, '0')}</th>
-                        {row.map((departure) => departure ? (
-                          <td>
-                            <span>{formatMinutes(departure.minutes).value}</span>
-                            {formatMinutes(departure.minutes).nextDay && <small>+1 día</small>}
-                          </td>
+                    {grid.stations.map((station) => (
+                      <tr class:list={{ 'villars-row': station.normalizedName === 'villars' }}>
+                        <th scope="row" class="station-column"><span>{station.name}</span>{station.normalizedName === 'villars' && <small>Estás acá</small>}</th>
+                        {station.stops.map((stop: { minutes: number } | null) => stop ? (
+                          <td><span>{formatMinutes(stop.minutes).value}</span>{formatMinutes(stop.minutes).nextDay && <small>+1 día</small>}</td>
                         ) : <td class="empty-time">—</td>)}
                       </tr>
                     ))}
+                    {grid.stations.length === 0 && <tr><td colspan={Math.max(1, grid.services.length + 1)} class="no-services">No hay servicios informados para este día y sentido.</td></tr>}
                   </tbody>
                 </table>
               </div>
@@ -161,15 +169,24 @@ const updatedAt = transportData.source.updatedAt
   .next-service { display: grid; grid-template-columns: 1fr auto; gap: .15rem 1rem; align-items: center; margin: 1.5rem 0; padding: 1rem 1.15rem; border-left: 4px solid var(--accent-olive); border-radius: .8rem; background: rgba(163,177,138,.1); }
   .next-service strong { grid-column: 2; grid-row: 1 / span 2; color: var(--accent-mustard); font-size: clamp(1.25rem,3vw,2rem); }.next-service > span:last-child { color: var(--text-muted); font-size: .9rem; }
   .schedule-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-top: 2rem; }.schedule-heading h2 { margin: .25rem 0 0; }.schedule-heading > p { color: var(--text-muted); font-size: .85rem; text-align: right; }
-  .schedule-sections { display: grid; gap: 1.15rem; margin-top: 1rem; }
-  :global(.schedule-block) { overflow: hidden; border: 1px solid rgba(233,196,106,.22); border-radius: 1rem; background: rgba(26,20,16,.5); }
-  :global(.schedule-block-heading) { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .8rem 1rem; border-bottom: 1px solid rgba(233,196,106,.18); background: rgba(233,196,106,.06); }
-  :global(.schedule-block-heading h3) { margin: 0; color: var(--accent-mustard); font-size: 1rem; }:global(.schedule-block-heading span) { color: var(--text-muted); font-size: .76rem; }
-  :global(.schedule-table-scroll) { overflow-x: auto; }:global(.schedule-table) { width: 100%; min-width: 34rem; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  .direction-picker { display: grid; grid-template-columns: auto minmax(15rem,22rem) 1fr; gap: .7rem 1rem; align-items: center; margin-top: 1.1rem; padding: .9rem 1rem; border: 1px solid rgba(163,177,138,.3); border-radius: 1rem; background: linear-gradient(110deg,rgba(163,177,138,.13),rgba(233,196,106,.05)); }
+  .direction-picker > label { color: var(--text-light); font-size: .82rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; }.direction-picker > p { margin: 0; color: var(--text-muted); font-size: .78rem; }
+  .direction-select-wrap { position: relative; }.direction-select-wrap select { width: 100%; padding: .72rem 2.5rem .72rem .85rem; border: 1px solid rgba(233,196,106,.55); border-radius: .7rem; color: var(--text-light); background: #241a14; font: 700 .9rem Inter,sans-serif; appearance: none; cursor: pointer; }.direction-select-wrap > span { position: absolute; top: 50%; right: .85rem; color: var(--accent-mustard); pointer-events: none; transform: translateY(-50%); }
+  .schedule-sections { display: grid; gap: 1.25rem; margin-top: 1rem; }
+  :global(.schedule-block) { overflow: hidden; border: 1px solid rgba(233,196,106,.3); border-radius: 1rem; background: rgba(26,20,16,.58); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
+  :global(.schedule-block:nth-child(2)) { border-color: rgba(163,177,138,.38); }:global(.schedule-block:nth-child(3)) { border-color: rgba(231,111,81,.32); }
+  :global(.schedule-block-heading) { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .85rem 1rem; border-bottom: 1px solid rgba(233,196,106,.2); background: linear-gradient(90deg,rgba(233,196,106,.14),rgba(233,196,106,.02)); }
+  :global(.schedule-block:nth-child(2) .schedule-block-heading) { background: linear-gradient(90deg,rgba(163,177,138,.15),transparent); }:global(.schedule-block:nth-child(3) .schedule-block-heading) { background: linear-gradient(90deg,rgba(231,111,81,.12),transparent); }
+  :global(.schedule-block-heading h3) { margin: 0; color: var(--accent-mustard); font-size: 1.08rem; }:global(.schedule-block-heading span) { padding: .25rem .55rem; border-radius: 999px; color: var(--text-muted); background: rgba(0,0,0,.2); font-size: .72rem; }
+  :global(.schedule-table-scroll) { max-height: 31rem; overflow: auto; scrollbar-color: rgba(233,196,106,.45) rgba(0,0,0,.12); }:global(.schedule-table) { width: 100%; min-width: max(100%,48rem); border-collapse: separate; border-spacing: 0; font-family: 'JetBrains Mono',monospace; font-variant-numeric: tabular-nums; }
   :global(.schedule-table caption) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  :global(.schedule-table th), :global(.schedule-table td) { padding: .68rem .9rem; border-right: 1px solid rgba(212,163,115,.16); border-bottom: 1px solid rgba(212,163,115,.13); text-align: center; }
-  :global(.schedule-table thead th) { color: var(--text-light); background: rgba(163,177,138,.11); font-family: Inter, sans-serif; font-size: .8rem; }:global(.schedule-table tbody th) { width: 4.25rem; color: var(--text-muted); font-size: .72rem; font-weight: 500; }
-  :global(.schedule-table td) { color: var(--text-light); font-size: 1rem; }:global(.schedule-table td small) { display: block; color: var(--accent-terracotta); font-family: Inter, sans-serif; font-size: .62rem; }:global(.schedule-table .empty-time) { color: rgba(255,255,255,.28); }
+  :global(.schedule-table th), :global(.schedule-table td) { min-width: 6.35rem; padding: .75rem .8rem; border-right: 1px solid rgba(212,163,115,.14); border-bottom: 1px solid rgba(212,163,115,.13); text-align: center; }
+  :global(.schedule-table thead th) { position: sticky; top: 0; z-index: 3; color: var(--text-light); background: #30261e; box-shadow: 0 2px 0 rgba(233,196,106,.22); font-family: Inter,sans-serif; font-size: .85rem; }:global(.schedule-table thead th > span) { display: block; color: var(--accent-mustard); font-family: 'JetBrains Mono',monospace; font-size: .92rem; }:global(.schedule-table thead th > small) { display: block; max-width: 8rem; margin: .15rem auto 0; color: var(--text-muted); font-size: .63rem; font-weight: 500; line-height: 1.2; }
+  :global(.schedule-table .station-column) { position: sticky; left: 0; z-index: 2; width: 10.5rem; min-width: 10.5rem; max-width: 10.5rem; text-align: left; }:global(.schedule-table thead .station-column) { z-index: 4; background: #3a2b20; }
+  :global(.schedule-table tbody .station-column) { color: var(--text-light); background: #261d17; font-family: Inter,sans-serif; font-size: .8rem; font-weight: 720; }:global(.schedule-table tbody .station-column small) { display: block; margin-top: .18rem; color: var(--accent-mustard); font-size: .62rem; text-transform: uppercase; }
+  :global(.schedule-table tbody tr:nth-child(even) td) { background: rgba(255,255,255,.025); }:global(.schedule-table tbody tr:hover td) { background: rgba(233,196,106,.08); }
+  :global(.schedule-table tbody .villars-row td) { background: rgba(233,196,106,.12); }:global(.schedule-table tbody .villars-row .station-column) { color: #1d1712; background: var(--accent-mustard); }:global(.schedule-table tbody .villars-row .station-column small) { color: #5f4528; }
+  :global(.schedule-table td) { color: var(--text-light); font-size: .98rem; }:global(.schedule-table td small) { display: block; color: var(--accent-terracotta); font-family: Inter,sans-serif; font-size: .62rem; }:global(.schedule-table .empty-time) { color: rgba(255,255,255,.22); background-image: linear-gradient(135deg,transparent 49%,rgba(255,255,255,.04) 50%,transparent 51%); }:global(.schedule-table .no-services) { padding: 1.4rem; color: var(--text-muted); font-family: Inter,sans-serif; text-align: left; }
   .route-meta { display: flex; gap: .75rem 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(212,163,115,.2); color: var(--text-muted); font-size: .85rem; }.route-meta p { margin: 0; }
   .data-note { margin-top: 1.25rem; background: rgba(44,33,25,.5); }.data-note h2 { font-size: 1.15rem; }.data-note p { margin: .4rem 0; color: var(--text-muted); font-size: .9rem; }.data-note code { word-break: break-all; }
   .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-heading > p { max-width: 32rem; margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-heading > p[data-state='live'] { color: #9ed7b0; }.map-heading > p[data-state='error'] { color: #f4a261; }
@@ -179,6 +196,6 @@ const updatedAt = transportData.source.updatedAt
   .map-filters i, .position-key i { display: inline-block; width: .72rem; height: .72rem; border-radius: 999px; background: #e9c46a; }.map-filters i.bus { background: #6fb7ff; }.map-filters i.live, .position-key i.live { border: 2px solid white; background: #219ebc; }.position-key i.estimated { border: 2px dashed white; background: #ffb703; }
   .position-key { display: grid; gap: .45rem; padding-top: .85rem; border-top: 1px solid rgba(212,163,115,.18); color: var(--text-muted); font-size: .72rem; }.position-key span { display: flex; gap: .45rem; align-items: center; }
   .map-note { margin: .8rem 0 0; color: var(--text-muted); font-size: .8rem; }:global(.leaflet-container) { color: #241a14; font-family: Inter, sans-serif; }:global(.leaflet-popup-content-wrapper) { border-radius: .65rem; }:global(.leaflet-control-attribution) { font-size: .65rem; }
-  @media (max-width: 900px) { .service-picker { grid-template-columns: 1fr; }.map-layout { grid-template-columns: 1fr; }.map-filters { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 1rem; }.filter-heading, .position-key { grid-column: 1 / -1; }.map-filters fieldset { border-top: 0; }.transport-map { min-height: 29rem; } }
-  @media (max-width: 640px) { .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }.service-tabs { grid-template-columns: 1fr; }.next-service { grid-template-columns: 1fr; }.next-service strong { grid-column: 1; grid-row: auto; }.schedule-heading, .map-heading { align-items: start; flex-direction: column; }.schedule-heading > p, .map-heading > p { text-align: left; }.map-filters { grid-template-columns: 1fr; }.filter-heading, .position-key { grid-column: auto; }.transport-map { min-height: 25rem; } }
+  @media (max-width: 900px) { .service-picker { grid-template-columns: 1fr; }.direction-picker { grid-template-columns: auto minmax(14rem,1fr); }.direction-picker > p { grid-column: 1 / -1; }.map-layout { grid-template-columns: 1fr; }.map-filters { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 1rem; }.filter-heading, .position-key { grid-column: 1 / -1; }.map-filters fieldset { border-top: 0; }.transport-map { min-height: 29rem; } }
+  @media (max-width: 640px) { .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }.service-tabs { grid-template-columns: 1fr; }.next-service { grid-template-columns: 1fr; }.next-service strong { grid-column: 1; grid-row: auto; }.schedule-heading, .map-heading { align-items: start; flex-direction: column; }.schedule-heading > p, .map-heading > p { text-align: left; }.direction-picker { grid-template-columns: 1fr; }.direction-picker > p { grid-column: auto; }.map-filters { grid-template-columns: 1fr; }.filter-heading, .position-key { grid-column: auto; }.transport-map { min-height: 25rem; } }
 </style>

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { departuresFor, destinationsFrom, nextService, nextServiceForRoute, scheduleGrid } from '../src/utils/transport-services.js';
+import { departuresFor, destinationsFrom, directionsFor, nextService, nextServiceForRoute, stationScheduleGrid } from '../src/utils/transport-services.js';
 
 const data = JSON.parse(await readFile(new URL('../src/data/transport-schedules.json', import.meta.url), 'utf8'));
 const villarsRoutes = data.routes.filter((route) => route.schedules.some((schedule) => schedule.stations.some((station) => station.normalizedName === 'villars')));
@@ -39,37 +39,41 @@ test('Lozano no se ofrece en días hábiles y el próximo tren real es el sábad
   assert.equal(next.weekday, 6); assert.equal(next.date, '29/8'); assert.equal(next.minutes, 628);
 });
 
-test('las grillas muestran juntos lunes a viernes, sábados y domingos por destino', () => {
+test('las grillas ordenan todas las estaciones por sentido y cada formación ocupa una columna', () => {
   const bus = villarsRoutes.find((route) => route.type === 'bus' && destinationsFrom(route).includes('Luján'));
   const train = villarsRoutes.find((route) => route.type === 'train' && destinationsFrom(route).includes('Lozano'));
   assert.ok(bus); assert.ok(train);
+  assert.deepEqual(directionsFor(bus).map(({ key }) => key), ['Luján', 'Marcos Paz']);
+  assert.deepEqual(directionsFor(train).map(({ key }) => key), ['González Catán', 'Lozano']);
 
-  const busWeekday = scheduleGrid(bus, 'weekday');
-  assert.deepEqual(busWeekday.columns.map(({ destination }) => destination), ['Luján', 'Marcos Paz']);
-  assert.equal(busWeekday.rows.length, 3);
-  assert.deepEqual(busWeekday.rows[0].map((departure) => departure.minutes), [360, 493]);
+  const busWeekday = stationScheduleGrid(bus, 'weekday', 'Luján');
+  assert.deepEqual(busWeekday.stations.map(({ name }) => name), ['Marcos Paz', 'Las Heras', 'Villars', 'Plomer', 'Luján']);
+  assert.equal(busWeekday.services.length, 3);
+  assert.equal(busWeekday.stations.find(({ normalizedName }) => normalizedName === 'villars').stops[0].minutes, 360);
 
-  const trainWeekday = scheduleGrid(train, 'weekday');
-  assert.deepEqual(trainWeekday.columns.map(({ destination }) => destination), ['González Catán', 'Lozano']);
-  assert.equal(trainWeekday.rows.length, 2);
-  assert.equal(trainWeekday.rows[0][0].minutes, 613);
-  assert.equal(trainWeekday.rows[0][1], null);
+  const trainWeekday = stationScheduleGrid(train, 'weekday', 'Lozano');
+  assert.deepEqual(trainWeekday.stations.map(({ name }) => name), ['González Catán', '20 de Junio', 'Marcos Paz', 'Villars', 'Lozano']);
+  assert.equal(trainWeekday.services.length, 6);
+  assert.ok(trainWeekday.services.every(({ destination }) => destination !== 'Lozano'));
+  assert.ok(trainWeekday.stations.find(({ normalizedName }) => normalizedName === 'lozano').stops.every((stop) => stop === null));
+  assert.equal(stationScheduleGrid(train, 'saturday', 'Lozano').stations.find(({ normalizedName }) => normalizedName === 'lozano').stops.filter(Boolean).length, 2);
 
   for (const day of ['weekday', 'saturday', 'sunday']) {
-    assert.equal(scheduleGrid(bus, day).columns.length, 2);
-    assert.equal(scheduleGrid(train, day).columns.length, 2);
+    for (const { key } of directionsFor(bus)) assert.ok(stationScheduleGrid(bus, day, key).stations.length > 0);
+    for (const { key } of directionsFor(train)) assert.ok(stationScheduleGrid(train, day, key).stations.length > 0);
   }
 
   const next = nextServiceForRoute(bus, data.timezone, new Date('2026-08-25T08:00:00Z'));
   assert.equal(next.destination, 'Luján');
   assert.equal(next.minutes, 360);
 });
-
 test('el mapa ofrece filtros separados y no presenta la 136 como traza verificada', async () => {
   const [page, script] = await Promise.all([
     readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/scripts/transport-map.js', import.meta.url), 'utf8'),
   ]);
+  assert.match(page, /data-direction-select/);
+  assert.match(page, /grid\.stations\.map/);
   assert.match(page, /data-map-mode="train"/);
   assert.match(page, /data-map-layer="positions"/);
   assert.match(page, /data-map-layer="routes"/);

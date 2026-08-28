@@ -115,15 +115,25 @@ test('el editor responde por HTTP y sanitiza la vista previa Markdown', async ()
     await rm(directory, { recursive: true, force: true });
   }
 });
-test('la página Salud limita el feed y conserva avisos de vigencia', async () => {
+test('Salud usa un único JSON editable y admite varios teléfonos inicialmente vacíos', async () => {
   const [page, data] = await Promise.all([
     readFile(new URL('../src/pages/salud.astro', import.meta.url), 'utf8'),
-    readFile(new URL('../src/data/health-services.json', import.meta.url), 'utf8').then(JSON.parse),
+    readFile(new URL('../src/locales/salud.json', import.meta.url), 'utf8').then(JSON.parse),
   ]);
-  assert.match(page, /actualizaciones\.slice\(0, 5\)/);
-  assert.match(page, /Mostrar otros centros de salud/);
+  const entries = [
+    ...data.atencion.serviciosPrincipales,
+    ...data.atencion.otrosCentros,
+    ...data.farmacias.lista,
+    ...data.urgencias.contactos,
+  ];
+  assert.ok(page.includes('actualizaciones.slice(0, 5)'));
+  assert.ok(page.includes("import salud from '../locales/salud.json'"));
+  assert.match(page, /validPhones/);
+  assert.match(page, /phoneHref/);
   assert.match(page, /id="pharmacy-select"/);
-  assert.match(page, /Confirmá por teléfono qué farmacia está de turno/);
-  assert.equal(data.primaryServices[1].name, 'CAPS Villars');
-  assert.equal(data.pharmacies.length, 5);
+  assert.equal(data.atencion.serviciosPrincipales[1].nombre, 'CAPS Villars');
+  assert.equal(data.farmacias.lista.length, 5);
+  assert.ok(entries.every((entry) => Array.isArray(entry.telefonos)));
+  assert.ok(entries.some((entry) => entry.telefonos.length > 1));
+  assert.ok(entries.flatMap((entry) => entry.telefonos).every((phone) => phone.numero === ''));
 });

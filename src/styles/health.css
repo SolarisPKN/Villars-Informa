@@ -271,6 +271,31 @@
   font-size: 0.78rem;
   font-weight: 750;
 }
+.pending-data {
+  color: rgba(242, 228, 207, 0.48);
+  font-style: italic;
+}
+
+.phone-list {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.phone-list a {
+  color: var(--health-green-bright);
+}
+
+.phone-list-pills {
+  justify-items: start;
+  margin-top: 0.8rem;
+}
+
+.phone-list-pills .phone-link {
+  margin-top: 0;
+}
 
 .card-action,
 .phone-link {
@@ -286,6 +311,31 @@
 .missing-contact {
   color: rgba(242, 228, 207, 0.54);
   background: rgba(255, 255, 255, 0.04);
+}
+.pending-data {
+  color: rgba(242, 228, 207, 0.48);
+  font-style: italic;
+}
+
+.phone-list {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.phone-list a {
+  color: var(--health-green-bright);
+}
+
+.phone-list-pills {
+  justify-items: start;
+  margin-top: 0.8rem;
+}
+
+.phone-list-pills .phone-link {
+  margin-top: 0;
 }
 
 .more-centers,
@@ -399,20 +449,33 @@
   gap: 0.65rem;
 }
 
-.emergency-actions a {
+.emergency-contact {
   display: grid;
-  gap: 0.25rem;
+  align-content: start;
+  gap: 0.65rem;
   padding: 1rem;
   border: 1px solid rgba(242, 228, 207, 0.15);
   border-radius: 0.9rem;
   color: var(--health-cream);
   background: rgba(23, 14, 12, 0.48);
+}
+
+.emergency-contact > span {
+  color: rgba(242, 228, 207, 0.54);
+  font-size: 0.72rem;
+}
+
+.emergency-contact a {
+  display: grid;
+  gap: 0.12rem;
+  color: var(--health-cream);
   text-decoration: none;
 }
 
-.emergency-actions span {
-  color: rgba(242, 228, 207, 0.54);
-  font-size: 0.72rem;
+.emergency-contact small {
+  color: rgba(242, 228, 207, 0.52);
+  font-size: 0.68rem;
+  font-weight: 500;
 }
 
 .sources-panel {

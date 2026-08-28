@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import healthData from '../data/health-services.json';
+import salud from '../locales/salud.json';
 import '../styles/health.css';
 
+type Phone = { etiqueta?: string; numero?: string };
 const actualizaciones = await getCollection('actualizaciones');
 actualizaciones.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
 const updates = actualizaciones.slice(0, 5);
@@ -12,35 +13,43 @@ const formatDate = (date: Date) => date.toLocaleDateString('es-AR', {
   month: 'long',
   year: 'numeric',
 });
+const validPhones = (phones: Phone[] = []) => phones.filter((phone) => phone.numero?.trim());
+const phoneHref = (number: string) => 'tel:' + number.replace(/[^0-9+]/g, '');
+const valueOrPending = (value: string) => value.trim() || salud.textos.datoPendiente;
 ---
 
 <Layout
-  title="Salud en Villars"
-  description="Avisos sanitarios, CAPS Villars, centros de salud y farmacias de referencia para la comunidad."
+  title={salud.titulo}
+  description={salud.descripcionSeo}
   canonical="/salud/"
 >
   <div class="health-page">
     <header class="health-hero">
-      <p class="health-kicker">Información comunitaria verificada</p>
-      <h1>Salud en Villars</h1>
-      <p>Avisos breves, contactos y lugares de atención reunidos en una sola página.</p>
-      <p class="health-verified">Datos fijos revisados el <time datetime={healthData.verifiedAt}>{formatDate(new Date(healthData.verifiedAt + 'T12:00:00'))}</time>.</p>
+      <p class="health-kicker">Información comunitaria</p>
+      <h1>{salud.titulo}</h1>
+      <p>{salud.subtitulo}</p>
+      {salud.verificadoEl && (
+        <p class="health-verified">
+          Datos fijos revisados el
+          <time datetime={salud.verificadoEl}>{formatDate(new Date(salud.verificadoEl + 'T12:00:00'))}</time>.
+        </p>
+      )}
     </header>
 
     <section class="health-section updates-section" aria-labelledby="updates-title">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">Al día</p>
-          <h2 id="updates-title">Últimas noticias de Salud</h2>
+          <p class="section-kicker">{salud.actualizaciones.seccion}</p>
+          <h2 id="updates-title">{salud.actualizaciones.titulo}</h2>
         </div>
-        <span class="section-limit">Máximo 5 avisos</span>
+        <span class="section-limit">{salud.textos.maximoAvisos}</span>
       </div>
 
       <div class="health-feed">
         {updates.length === 0 ? (
           <div class="health-empty">
             <span aria-hidden="true">✦</span>
-            <p>Todavía no se publicaron avisos sanitarios.</p>
+            <p>{salud.actualizaciones.sinActualizaciones}</p>
           </div>
         ) : updates.map((update) => (
           <article class="health-update">
@@ -65,7 +74,7 @@ const formatDate = (date: Date) => date.toLocaleDateString('es-AR', {
             )}
             {(update.data.fuente || update.data.fuenteUrl) && (
               <footer>
-                <span>Fuente:</span>
+                <span>{salud.textos.fuente}</span>
                 {update.data.fuenteUrl ? (
                   <a href={update.data.fuenteUrl} target="_blank" rel="noopener noreferrer">
                     {update.data.fuente || 'Ver publicación original'}
@@ -83,52 +92,68 @@ const formatDate = (date: Date) => date.toLocaleDateString('es-AR', {
     <section class="health-section" aria-labelledby="villars-care-title">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">A mano</p>
-          <h2 id="villars-care-title">Atención y farmacia</h2>
+          <p class="section-kicker">{salud.atencion.seccion}</p>
+          <h2 id="villars-care-title">{salud.atencion.titulo}</h2>
         </div>
       </div>
 
       <div class="primary-services">
-        {healthData.primaryServices.map((service) => (
-          <article class:list={['service-card', service.kind === 'Salita' && 'service-card-primary']}>
-            <p class="service-kind">{service.kind}</p>
-            <h3>{service.name}</h3>
-            <dl>
-              <div><dt>Dirección</dt><dd>{service.address}</dd></div>
-              <div><dt>Horario</dt><dd>{service.hours}</dd></div>
-              <div>
-                <dt>Teléfono</dt>
-                <dd>
-                  {service.phoneHref ? <a href={service.phoneHref}>{service.phone}</a> : 'Sin teléfono local publicado'}
-                  {service.phoneLabel && <small>{service.phoneLabel}</small>}
-                </dd>
-              </div>
-            </dl>
-            {service.target && <a class="card-action" href={service.target}>{service.status} ↓</a>}
-            {!service.target && <span class="status-chip">{service.status}</span>}
-          </article>
-        ))}
+        {salud.atencion.serviciosPrincipales.map((service) => {
+          const phones = validPhones(service.telefonos);
+          return (
+            <article class:list={['service-card', service.destacado && 'service-card-primary']}>
+              <p class="service-kind">{service.tipo}</p>
+              <h3>{service.nombre}</h3>
+              <dl>
+                <div><dt>Dirección</dt><dd class:list={{ 'pending-data': !service.direccion }}>{valueOrPending(service.direccion)}</dd></div>
+                <div><dt>Horario</dt><dd class:list={{ 'pending-data': !service.horarios }}>{valueOrPending(service.horarios)}</dd></div>
+                <div>
+                  <dt>Teléfono</dt>
+                  <dd>
+                    {phones.length > 0 ? (
+                      <ul class="phone-list">
+                        {phones.map((phone) => (
+                          <li>
+                            <a href={phoneHref(phone.numero || '')}>{phone.etiqueta ? phone.etiqueta + ': ' : ''}{phone.numero}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : <span class="pending-data">{salud.textos.telefonoPendiente}</span>}
+                  </dd>
+                </div>
+              </dl>
+              {service.destino
+                ? <a class="card-action" href={service.destino}>{service.estado} ↓</a>
+                : <span class="status-chip">{service.estado}</span>}
+            </article>
+          );
+        })}
       </div>
 
       <details class="more-centers">
         <summary>
-          <span>Mostrar otros centros de salud</span>
-          <small>Hospital, CAPS y Salud Comunitaria</small>
+          <span>{salud.atencion.mostrarOtros}</span>
+          <small>{salud.atencion.resumenOtros}</small>
         </summary>
         <div class="center-grid">
-          {healthData.otherCenters.map((center) => (
-            <article class="center-card">
-              <p>{center.locality}</p>
-              <h3>{center.name}</h3>
-              <address>{center.address}</address>
-              <p>{center.hours}</p>
-              {center.phoneHref ? (
-                <a class="phone-link" href={center.phoneHref}>Llamar al {center.phone}</a>
-              ) : (
-                <span class="missing-contact">Teléfono no publicado en la fuente</span>
-              )}
-            </article>
-          ))}
+          {salud.atencion.otrosCentros.map((center) => {
+            const phones = validPhones(center.telefonos);
+            return (
+              <article class="center-card">
+                <p>{center.localidad}</p>
+                <h3>{center.nombre}</h3>
+                <address class:list={{ 'pending-data': !center.direccion }}>{valueOrPending(center.direccion)}</address>
+                <p class:list={{ 'pending-data': !center.horarios }}>{valueOrPending(center.horarios)}</p>
+                {phones.length > 0 ? (
+                  <ul class="phone-list phone-list-pills">
+                    {phones.map((phone) => (
+                      <li><a class="phone-link" href={phoneHref(phone.numero || '')}>{salud.textos.llamar}{phone.etiqueta ? ' · ' + phone.etiqueta : ''}: {phone.numero}</a></li>
+                    ))}
+                  </ul>
+                ) : <span class="missing-contact">{salud.textos.telefonoPendiente}</span>}
+              </article>
+            );
+          })}
         </div>
       </details>
     </section>
@@ -136,56 +161,75 @@ const formatDate = (date: Date) => date.toLocaleDateString('es-AR', {
     <section id="farmacias" class="health-section pharmacies-section" aria-labelledby="pharmacies-title">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">Antes de viajar</p>
-          <h2 id="pharmacies-title">Farmacias de turno</h2>
+          <p class="section-kicker">{salud.farmacias.seccion}</p>
+          <h2 id="pharmacies-title">{salud.farmacias.titulo}</h2>
         </div>
       </div>
 
       <div class="pharmacy-layout">
         <div class="pharmacy-selector">
-          <label for="pharmacy-select">Elegí una farmacia del directorio</label>
+          <label for="pharmacy-select">{salud.farmacias.selector}</label>
           <select id="pharmacy-select">
-            {healthData.pharmacies.map((pharmacy, index) => (
-              <option value={index}>{pharmacy.name}</option>
+            {salud.farmacias.lista.map((pharmacy, index) => (
+              <option value={index}>{pharmacy.nombre}</option>
             ))}
           </select>
-          <p class="turn-warning">
-            El municipio no publica en la página consultada un cronograma vigente de guardias.
-            Confirmá por teléfono qué farmacia está de turno antes de salir.
-          </p>
+          <p class="turn-warning">{salud.farmacias.advertencia}</p>
         </div>
         <div class="pharmacy-results" aria-live="polite">
-          {healthData.pharmacies.map((pharmacy, index) => (
-            <article class="pharmacy-card" data-pharmacy-card={index} hidden={index !== 0}>
-              <p class="service-kind">General Las Heras</p>
-              <h3>{pharmacy.name}</h3>
-              <address>{pharmacy.address}</address>
-              <a class="phone-link" href={pharmacy.phoneHref}>Llamar al {pharmacy.phone}</a>
-            </article>
-          ))}
+          {salud.farmacias.lista.map((pharmacy, index) => {
+            const phones = validPhones(pharmacy.telefonos);
+            return (
+              <article class="pharmacy-card" data-pharmacy-card={index} hidden={index !== 0}>
+                <p class="service-kind">{pharmacy.localidad}</p>
+                <h3>{pharmacy.nombre}</h3>
+                <address class:list={{ 'pending-data': !pharmacy.direccion }}>{valueOrPending(pharmacy.direccion)}</address>
+                <p class:list={{ 'pending-data': !pharmacy.horarios }}>{valueOrPending(pharmacy.horarios)}</p>
+                {phones.length > 0 ? (
+                  <ul class="phone-list phone-list-pills">
+                    {phones.map((phone) => (
+                      <li><a class="phone-link" href={phoneHref(phone.numero || '')}>{salud.textos.llamar}{phone.etiqueta ? ' · ' + phone.etiqueta : ''}: {phone.numero}</a></li>
+                    ))}
+                  </ul>
+                ) : <span class="missing-contact">{salud.textos.telefonoPendiente}</span>}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
 
     <section class="health-section emergency-section" aria-labelledby="emergency-title">
       <div>
-        <p class="section-kicker">Urgencias</p>
-        <h2 id="emergency-title">Si necesitás ayuda inmediata</h2>
-        <p>Esta página es informativa y no reemplaza la atención profesional.</p>
+        <p class="section-kicker">{salud.urgencias.seccion}</p>
+        <h2 id="emergency-title">{salud.urgencias.titulo}</h2>
+        <p>{salud.urgencias.aviso}</p>
       </div>
       <div class="emergency-actions">
-        <a href="tel:107"><span>SAME</span><strong>107</strong></a>
-        <a href="tel:911"><span>Emergencias</span><strong>911</strong></a>
-        <a href="tel:+542204761000"><span>Hospital Arozarena</span><strong>0220 476-1000</strong></a>
+        {salud.urgencias.contactos.map((contact) => {
+          const phones = validPhones(contact.telefonos);
+          return (
+            <article class="emergency-contact">
+              <span>{contact.nombre}</span>
+              {phones.length > 0 ? (
+                <ul class="phone-list">
+                  {phones.map((phone) => (
+                    <li><a href={phoneHref(phone.numero || '')}><strong>{phone.numero}</strong>{phone.etiqueta && <small>{phone.etiqueta}</small>}</a></li>
+                  ))}
+                </ul>
+              ) : <strong class="pending-data">{salud.textos.telefonoPendiente}</strong>}
+            </article>
+          );
+        })}
       </div>
     </section>
 
     <details class="sources-panel">
-      <summary>Fuentes y vigencia de los datos</summary>
-      <p>Los horarios pueden cambiar. La fecha de cada fuente se muestra para que puedas evaluar su vigencia y confirmar antes de trasladarte.</p>
+      <summary>{salud.fuentes.titulo}</summary>
+      <p>{salud.fuentes.aviso}</p>
       <ul>
-        {healthData.sources.map((source) => (
-          <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>
+        {salud.fuentes.lista.map((source) => (
+          <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.etiqueta}</a></li>
         ))}
       </ul>
     </details>

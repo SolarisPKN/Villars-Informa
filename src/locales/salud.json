@@ -1,68 +1,249 @@
 {
   "titulo": "Salud en Villars",
-  "subtitulo": "Información sobre servicios de salud, farmacias y actualizaciones",
-  "contacto": {
-    "titulo": "Contactos de emergencia",
-    "telefonoEmergencias": "911",
-    "hospital": "Hospital Municipal",
-    "direccionHospital": "Calle Salud 123",
-    "telefonoHospital": "+54123456789"
+  "descripcionSeo": "Avisos sanitarios, CAPS Villars, centros de salud y farmacias para la comunidad.",
+  "subtitulo": "Avisos breves, contactos y lugares de atención reunidos en una sola página.",
+  "verificadoEl": "",
+  "ayudaEdicion": {
+    "telefonos": "Cada campo telefonos es una lista. Para agregar más de un número, duplicá el objeto y completá etiqueta y numero. La web genera automáticamente el enlace tel:.",
+    "camposTelefono": {
+      "etiqueta": "Describe el número, por ejemplo Principal, Guardia o WhatsApp.",
+      "numero": "Escribí el número visible. Dejalo vacío mientras no esté verificado."
+    }
   },
-  "salitas": {
-    "titulo": "Salitas y Centros de Salud",
-    "lista": [
+  "textos": {
+    "datoPendiente": "Dato a completar",
+    "telefonoPendiente": "Teléfono a completar",
+    "llamar": "Llamar",
+    "fuente": "Fuente:",
+    "maximoAvisos": "Máximo 5 avisos"
+  },
+  "actualizaciones": {
+    "seccion": "Al día",
+    "titulo": "Últimas noticias de Salud",
+    "sinActualizaciones": "Todavía no se publicaron avisos sanitarios."
+  },
+  "atencion": {
+    "seccion": "A mano",
+    "titulo": "Atención y farmacia",
+    "mostrarOtros": "Mostrar otros centros de salud",
+    "resumenOtros": "Hospital, CAPS y Salud Comunitaria",
+    "serviciosPrincipales": [
       {
-        "nombre": "Salita Villars Centro",
-        "direccion": "Belgrano 456",
-        "horarios": "Lun-Vie 8:00-18:00"
+        "tipo": "Farmacia",
+        "nombre": "Farmacia",
+        "direccion": "",
+        "horarios": "",
+        "estado": "Ver farmacias disponibles",
+        "destino": "#farmacias",
+        "destacado": false,
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
       },
       {
-        "nombre": "Salita Barrio Norte",
-        "direccion": "Av. Libertador 789",
-        "horarios": "Lun-Vie 9:00-16:00, Sáb 9:00-12:00"
+        "tipo": "Salita",
+        "nombre": "CAPS Villars",
+        "direccion": "Belgrano y Boulogne Sur Mer, Villars",
+        "horarios": "Enfermería las 24 horas, según la guía provincial actualizada a abril de 2022.",
+        "estado": "Atención local",
+        "destino": "",
+        "destacado": true,
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          },
+          {
+            "etiqueta": "Guardia",
+            "numero": ""
+          }
+        ]
+      }
+    ],
+    "otrosCentros": [
+      {
+        "nombre": "Hospital Municipal Dr. Pedro Arozarena",
+        "localidad": "General Las Heras",
+        "direccion": "Av. Chiocconi 321",
+        "horarios": "Guardia hospitalaria. Confirmá especialidades y turnos antes de viajar.",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          },
+          {
+            "etiqueta": "Guardia",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "CAPS Plomer",
+        "localidad": "Plomer",
+        "direccion": "Zona rural",
+        "horarios": "Lunes a viernes de 08 a 17; sábados y domingos de 08 a 20, según guía de abril de 2022.",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "CAPS La Choza",
+        "localidad": "La Choza",
+        "direccion": "Martín de Güemes s/n",
+        "horarios": "Lunes a viernes de 08 a 17, según guía de abril de 2022.",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Dirección de Salud Comunitaria",
+        "localidad": "General Las Heras",
+        "direccion": "Las Heras 1065",
+        "horarios": "Lunes a viernes de 08 a 15.",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
       }
     ]
   },
   "farmacias": {
+    "seccion": "Antes de viajar",
     "titulo": "Farmacias de turno",
+    "selector": "Elegí una farmacia",
+    "advertencia": "Confirmá por teléfono qué farmacia está de turno y su horario antes de salir.",
     "lista": [
       {
-        "nombre": "Farmacia Central",
-        "direccion": "San Martín 101",
-        "telefono": "+54111234567",
-        "horarios": "24 horas"
+        "nombre": "Farmacia Campos",
+        "localidad": "General Las Heras",
+        "direccion": "Av. Villamayor 512",
+        "horarios": "",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          },
+          {
+            "etiqueta": "WhatsApp",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Farmacia Custer",
+        "localidad": "General Las Heras",
+        "direccion": "Las Heras 948",
+        "horarios": "",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
       },
       {
         "nombre": "Farmacia del Pueblo",
-        "direccion": "Mitre 202",
-        "telefono": "+54117654321",
-        "horarios": "Lun-Vie 8:00-20:00, Sáb 8:00-13:00"
-      }
-    ]
-  },
-  "cartilla": {
-    "titulo": "Cartilla Médica",
-    "descripcion": "Listado de profesionales y especialidades disponibles en el pueblo.",
-    "profesionales": [
-      {
-        "nombre": "Dr. Juan Pérez",
-        "especialidad": "Clínica Médica",
-        "consultorio": "Belgrano 456",
-        "telefono": "+54119876543"
+        "localidad": "General Las Heras",
+        "direccion": "25 de Mayo 965",
+        "horarios": "",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
       },
       {
-        "nombre": "Dra. María López",
-        "especialidad": "Pediatría",
-        "consultorio": "San Martín 789",
-        "telefono": "+54113456789"
+        "nombre": "Farmacia Las Heras",
+        "localidad": "General Las Heras",
+        "direccion": "Las Heras y Belgrano",
+        "horarios": "",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Farmacia Salinas",
+        "localidad": "General Las Heras",
+        "direccion": "Av. Chiocconi 152",
+        "horarios": "",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          }
+        ]
       }
     ]
   },
-  "actualizaciones": {
-    "titulo": "Últimas actualizaciones",
-    "sinActualizaciones": "No hay actualizaciones recientes.",
-    "paginaAnterior": "Anterior",
-    "paginaSiguiente": "Siguiente",
-    "pagina": "Página"
+  "urgencias": {
+    "seccion": "Urgencias",
+    "titulo": "Si necesitás ayuda inmediata",
+    "aviso": "Esta página es informativa y no reemplaza la atención profesional.",
+    "contactos": [
+      {
+        "nombre": "SAME",
+        "telefonos": [
+          {
+            "etiqueta": "Emergencias",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Policía y emergencias",
+        "telefonos": [
+          {
+            "etiqueta": "Emergencias",
+            "numero": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Hospital Arozarena",
+        "telefonos": [
+          {
+            "etiqueta": "Principal",
+            "numero": ""
+          },
+          {
+            "etiqueta": "Guardia",
+            "numero": ""
+          }
+        ]
+      }
+    ]
+  },
+  "fuentes": {
+    "titulo": "Fuentes y vigencia de los datos",
+    "aviso": "Los horarios pueden cambiar. Revisá y actualizá la fecha de verificación cuando confirmes los datos.",
+    "lista": [
+      {
+        "etiqueta": "Guía provincial de servicios de salud de General Las Heras (abril de 2022)",
+        "url": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
+      },
+      {
+        "etiqueta": "Directorio de teléfonos útiles de la Municipalidad de General Las Heras",
+        "url": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "etiqueta": "Dirección municipal de Salud Comunitaria",
+        "url": "https://gobiernodelasheras.com/noticias/gobierno/presentacion-de-la-direccion-de-salud-comunitario/"
+      }
+    ]
   }
 }

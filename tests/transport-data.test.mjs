@@ -97,3 +97,23 @@ test('el mapa ofrece filtros separados y no presenta la 136 como traza verificad
   assert.match(script, /function renderFilteredLayers/);
   assert.match(script, /currentLiveFeatures\.filter/);
 });
+test('el modo móvil pagina formaciones y conserva todas las estaciones en filas', async () => {
+  const [page, scheduleScript] = await Promise.all([
+    readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/scripts/transport.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(page, /data-mobile-schedule/);
+  assert.match(page, /data-mobile-previous/);
+  assert.match(page, /data-mobile-next/);
+  assert.match(page, /mobile-service-card/);
+  assert.match(page, /mobile-no-services/);
+  assert.match(page, /\.schedule-table-scroll\) \{ display: none; \}/);
+  assert.match(page, /\.mobile-schedule\) \{ display: block; \}/);
+  assert.match(scheduleScript, /function createMobileSchedule/);
+  assert.match(scheduleScript, /currentIndex \+ 1/);
+  assert.match(scheduleScript, /grid\.stations\.forEach/);
+  assert.match(scheduleScript, /villars-stop/);
+  assert.match(scheduleScript, /aria-controls/);
+  assert.match(scheduleScript, /next-service-card/);
+  assert.match(scheduleScript, /following-service-card/);
+});

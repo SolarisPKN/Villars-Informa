@@ -77,7 +77,7 @@ const updatedAt = transportData.source.updatedAt
             </select>
             <span aria-hidden="true">↓</span>
           </div>
-          <p>Cada fila es una formación y cada columna una estación. La terminal real aparece debajo del número.</p>
+          <p><span class="desktop-grid-hint">Cada fila es una formación y cada columna una estación.</span><span class="mobile-grid-hint">Usá Anterior y Siguiente para recorrer las formaciones; las estaciones aparecen en filas.</span> La terminal real aparece debajo del número.</p>
         </div>
         <div class="schedule-legend" aria-label="Referencia de próximos servicios">
           <span><i class="next" aria-hidden="true"></i> Próxima formación por Villars</span>
@@ -104,8 +104,34 @@ const updatedAt = transportData.source.updatedAt
                   </tbody>
                 </table>
               </div>
-            </section>
-          ))}
+              {grid.services.length > 0 ? (
+                <div class="mobile-schedule" data-mobile-schedule role="region" aria-label={`Formaciones de ${label}, hacia ${initialDirection}`}>
+                  <div class="mobile-schedule-controls">
+                    <button type="button" data-mobile-previous disabled aria-label="Ver formación anterior">← <span>Anterior</span></button>
+                    <p><strong>Formación {grid.services[0].name}</strong><span>1 de {grid.services.length}</span></p>
+                    <button type="button" data-mobile-next disabled={grid.services.length === 1} aria-label="Ver formación siguiente"><span>Siguiente</span> →</button>
+                  </div>
+                  <article class="mobile-service-card">
+                    <header><div><span>Formación {grid.services[0].name}</span><small>hasta {grid.services[0].destination}</small></div></header>
+                    <dl>
+                      {grid.stations.map((station) => {
+                        const stop = station.stops[0];
+                        return (
+                          <div class:list={{ 'villars-stop': station.normalizedName === 'villars' }}>
+                            <dt>{station.name}{station.normalizedName === 'villars' && <small>Estás acá</small>}</dt>
+                            <dd class:list={{ 'empty-time': !stop }}>{stop ? <><span>{formatMinutes(stop.minutes).value}</span>{formatMinutes(stop.minutes).nextDay && <small>+1 día</small>}</> : '—'}</dd>
+                          </div>
+                        );
+                      })}
+                    </dl>
+                  </article>
+                </div>
+              ) : (
+                <div class="mobile-schedule" data-mobile-schedule role="region" aria-label={`Formaciones de ${label}, hacia ${initialDirection}`}>
+                  <p class="mobile-no-services">No hay servicios informados para este día y sentido.</p>
+                </div>
+              )}
+            </section>          ))}
         </div>
         <div class="route-meta">
           <p><strong>Operador:</strong> <span data-company>{initialRoute?.company || 'No informado'}</span></p>
@@ -177,6 +203,7 @@ const updatedAt = transportData.source.updatedAt
   .direction-picker > label { color: var(--text-light); font-size: .82rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; }.direction-picker > p { margin: 0; color: var(--text-muted); font-size: .78rem; }
   .direction-select-wrap { position: relative; }.direction-select-wrap select { width: 100%; padding: .72rem 2.5rem .72rem .85rem; border: 1px solid rgba(233,196,106,.55); border-radius: .7rem; color: var(--text-light); background: #241a14; font: 700 .9rem Inter,sans-serif; appearance: none; cursor: pointer; }.direction-select-wrap > span { position: absolute; top: 50%; right: .85rem; color: var(--accent-mustard); pointer-events: none; transform: translateY(-50%); }
   .schedule-legend { display: flex; gap: .75rem 1.25rem; flex-wrap: wrap; margin: .75rem 0 0; color: var(--text-muted); font-size: .76rem; }.schedule-legend span { display: inline-flex; gap: .45rem; align-items: center; }.schedule-legend i { width: .8rem; height: .8rem; border: 1px solid rgba(255,255,255,.28); border-radius: .2rem; background: #2f7049; }.schedule-legend i.following { background: #78ad86; }
+  .mobile-grid-hint, :global(.mobile-schedule) { display: none; }
   .schedule-sections { display: grid; gap: 1.25rem; margin-top: 1rem; }
   :global(.schedule-block) { overflow: hidden; border: 1px solid rgba(233,196,106,.3); border-radius: 1rem; background: rgba(26,20,16,.58); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
   :global(.schedule-block:nth-child(2)) { border-color: rgba(163,177,138,.38); }:global(.schedule-block:nth-child(3)) { border-color: rgba(231,111,81,.32); }
@@ -205,5 +232,49 @@ const updatedAt = transportData.source.updatedAt
   .position-key { display: grid; gap: .45rem; padding-top: .85rem; border-top: 1px solid rgba(212,163,115,.18); color: var(--text-muted); font-size: .72rem; }.position-key span { display: flex; gap: .45rem; align-items: center; }
   .map-note { margin: .8rem 0 0; color: var(--text-muted); font-size: .8rem; }:global(.leaflet-container) { color: #241a14; font-family: Inter, sans-serif; }:global(.leaflet-popup-content-wrapper) { border-radius: .65rem; }:global(.leaflet-control-attribution) { font-size: .65rem; }
   @media (max-width: 900px) { .service-picker { grid-template-columns: 1fr; }.direction-picker { grid-template-columns: auto minmax(14rem,1fr); }.direction-picker > p { grid-column: 1 / -1; }.map-layout { grid-template-columns: 1fr; }.map-filters { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 1rem; }.filter-heading, .position-key { grid-column: 1 / -1; }.map-filters fieldset { border-top: 0; }.transport-map { min-height: 29rem; } }
-  @media (max-width: 640px) { .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }.service-tabs { grid-template-columns: 1fr; }.next-service { grid-template-columns: 1fr; }.next-service strong { grid-column: 1; grid-row: auto; }.schedule-heading, .map-heading { align-items: start; flex-direction: column; }.schedule-heading > p, .map-heading > p { text-align: left; }.direction-picker { grid-template-columns: 1fr; }.direction-picker > p { grid-column: auto; }.map-filters { grid-template-columns: 1fr; }.filter-heading, .position-key { grid-column: auto; }.transport-map { min-height: 25rem; } }
+  @media (max-width: 640px) {
+    .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }
+    .transport-panel, .data-note, .map-panel { border-radius: 1rem; }
+    .service-tabs { grid-template-columns: 1fr; }
+    .next-service { grid-template-columns: 1fr; }
+    .next-service strong { grid-column: 1; grid-row: auto; }
+    .schedule-heading, .map-heading { align-items: start; flex-direction: column; }
+    .schedule-heading > p, .map-heading > p { text-align: left; }
+    .direction-picker { grid-template-columns: 1fr; }
+    .direction-picker > p { grid-column: auto; }
+    .desktop-grid-hint { display: none; }
+    .mobile-grid-hint { display: inline; }
+    :global(.schedule-table-scroll) { display: none; }
+    :global(.mobile-schedule) { display: block; }
+    :global(.mobile-no-services) { margin: 0; padding: 1.25rem 1rem; color: var(--text-muted); font-size: .82rem; }
+    :global(.mobile-schedule-controls) { display: grid; grid-template-columns: minmax(5.75rem,auto) minmax(0,1fr) minmax(5.75rem,auto); gap: .45rem; align-items: center; padding: .75rem; border-bottom: 1px solid rgba(233,196,106,.2); background: rgba(0,0,0,.18); }
+    :global(.mobile-schedule-controls button) { min-height: 2.75rem; padding: .65rem .55rem; border: 1px solid rgba(233,196,106,.52); border-radius: .7rem; color: var(--text-light); background: rgba(233,196,106,.1); font: 700 .74rem Inter,sans-serif; cursor: pointer; }
+    :global(.mobile-schedule-controls button:not(:disabled):active) { background: rgba(233,196,106,.22); transform: translateY(1px); }
+    :global(.mobile-schedule-controls button:focus-visible) { outline: 3px solid rgba(233,196,106,.45); outline-offset: 2px; }
+    :global(.mobile-schedule-controls button:disabled) { border-color: rgba(255,255,255,.12); color: rgba(255,255,255,.34); background: transparent; cursor: not-allowed; }
+    :global(.mobile-schedule-controls p) { display: grid; gap: .12rem; min-width: 0; margin: 0; text-align: center; }
+    :global(.mobile-schedule-controls strong) { overflow: hidden; color: var(--accent-mustard); font: 750 .78rem Inter,sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+    :global(.mobile-schedule-controls p > span) { color: var(--text-muted); font: 600 .67rem 'JetBrains Mono',monospace; }
+    :global(.mobile-service-card) { margin: 0; }
+    :global(.mobile-service-card > header) { display: flex; justify-content: space-between; gap: .75rem; align-items: center; padding: .9rem 1rem; background: linear-gradient(110deg,rgba(233,196,106,.13),transparent); }
+    :global(.mobile-service-card > header > div) { display: grid; gap: .15rem; }
+    :global(.mobile-service-card > header span) { color: var(--text-light); font: 800 .95rem 'JetBrains Mono',monospace; }
+    :global(.mobile-service-card > header small) { color: var(--text-muted); font: 600 .68rem Inter,sans-serif; }
+    :global(.mobile-service-card .service-rank) { margin: 0; padding: .28rem .5rem; white-space: nowrap; }
+    :global(.mobile-service-card dl) { margin: 0; }
+    :global(.mobile-service-card dl > div) { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 1rem; align-items: center; min-height: 3.25rem; padding: .7rem 1rem; border-top: 1px solid rgba(212,163,115,.14); }
+    :global(.mobile-service-card dl > div:nth-child(even)) { background: rgba(255,255,255,.025); }
+    :global(.mobile-service-card dt) { display: flex; gap: .5rem; align-items: center; color: var(--text-light); font: 650 .82rem Inter,sans-serif; }
+    :global(.mobile-service-card dt small) { padding: .16rem .38rem; border-radius: 999px; color: #211b15; background: var(--accent-mustard); font-size: .56rem; font-weight: 850; letter-spacing: .03em; text-transform: uppercase; }
+    :global(.mobile-service-card dd) { margin: 0; color: var(--text-light); font: 800 1rem 'JetBrains Mono',monospace; font-variant-numeric: tabular-nums; text-align: right; }
+    :global(.mobile-service-card dd small) { display: block; color: var(--accent-terracotta); font: 600 .58rem Inter,sans-serif; }
+    :global(.mobile-service-card .villars-stop) { border-top-color: rgba(233,196,106,.42); border-bottom: 1px solid rgba(233,196,106,.3); background: rgba(233,196,106,.11) !important; }
+    :global(.mobile-service-card.next-service-card > header) { background: #2f7049; }
+    :global(.mobile-service-card.next-service-card .villars-stop) { background: rgba(65,145,91,.42) !important; }
+    :global(.mobile-service-card.following-service-card > header) { background: #557e61; }
+    :global(.mobile-service-card.following-service-card .villars-stop) { background: rgba(120,173,134,.28) !important; }
+    .map-filters { grid-template-columns: 1fr; }
+    .filter-heading, .position-key { grid-column: auto; }
+    .transport-map { min-height: 25rem; }
+  }
 </style>

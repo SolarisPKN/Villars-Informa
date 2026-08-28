@@ -29,6 +29,120 @@ function waitLabel(minutes) {
   return `${days ? `${days} d ` : ''}${hours ? `${hours} h ` : ''}${remainingMinutes} min`;
 }
 
+function createMobileSchedule(route, grid, day, direction, highlights) {
+  const mobile = document.createElement('div');
+  mobile.className = 'mobile-schedule';
+  mobile.dataset.mobileSchedule = '';
+  mobile.setAttribute('role', 'region');
+  mobile.setAttribute('aria-label', `Formaciones de ${day.label}, hacia ${direction}`);
+
+  if (grid.services.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'mobile-no-services';
+    empty.textContent = 'No hay servicios informados para este día y sentido.';
+    mobile.append(empty);
+    return mobile;
+  }
+
+  const controls = document.createElement('div');
+  controls.className = 'mobile-schedule-controls';
+  const previous = document.createElement('button');
+  previous.type = 'button';
+  previous.dataset.mobilePrevious = '';
+  previous.innerHTML = '← <span>Anterior</span>';
+  const position = document.createElement('p');
+  const serviceName = document.createElement('strong');
+  const counter = document.createElement('span');
+  position.append(serviceName, counter);
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.dataset.mobileNext = '';
+  next.innerHTML = '<span>Siguiente</span> →';
+  controls.append(previous, position, next);
+
+  const card = document.createElement('article');
+  const safeId = `mobile-service-${route.id}-${day.key}-${direction}`.replace(/[^a-z0-9_-]+/gi, '-');
+  card.id = safeId;
+  card.setAttribute('aria-live', 'polite');
+  card.setAttribute('aria-atomic', 'true');
+  previous.setAttribute('aria-controls', safeId);
+  next.setAttribute('aria-controls', safeId);
+
+  const highlightedIndex = grid.services.findIndex((service) => highlights.get(scheduleServiceKey(day.key, direction, service)) === 0);
+  let currentIndex = highlightedIndex >= 0 ? highlightedIndex : 0;
+
+  const renderService = () => {
+    const service = grid.services[currentIndex];
+    const rank = highlights.get(scheduleServiceKey(day.key, direction, service));
+    serviceName.textContent = `Formación ${service.name}`;
+    counter.textContent = `${currentIndex + 1} de ${grid.services.length}`;
+    previous.disabled = currentIndex === 0;
+    next.disabled = currentIndex === grid.services.length - 1;
+    previous.setAttribute('aria-label', previous.disabled ? 'No hay una formación anterior' : `Ver formación ${grid.services[currentIndex - 1].name}`);
+    next.setAttribute('aria-label', next.disabled ? 'No hay una formación siguiente' : `Ver formación ${grid.services[currentIndex + 1].name}`);
+
+    card.className = 'mobile-service-card';
+    if (rank === 0) card.classList.add('next-service-card');
+    if (rank === 1) card.classList.add('following-service-card');
+
+    const header = document.createElement('header');
+    const identity = document.createElement('div');
+    const number = document.createElement('span');
+    number.textContent = `Formación ${service.name}`;
+    const destination = document.createElement('small');
+    destination.textContent = `hasta ${service.destination}`;
+    identity.append(number, destination);
+    header.append(identity);
+    if (rank === 0 || rank === 1) {
+      const badge = document.createElement('span');
+      badge.className = 'service-rank';
+      badge.textContent = rank === 0 ? 'Próxima' : 'Después';
+      header.append(badge);
+    }
+
+    const stops = document.createElement('dl');
+    grid.stations.forEach((station) => {
+      const row = document.createElement('div');
+      if (station.normalizedName === 'villars') row.classList.add('villars-stop');
+      const stationName = document.createElement('dt');
+      stationName.append(document.createTextNode(station.name));
+      if (station.normalizedName === 'villars') {
+        const here = document.createElement('small');
+        here.textContent = 'Estás acá';
+        stationName.append(here);
+      }
+      const time = document.createElement('dd');
+      const stop = station.stops[currentIndex];
+      if (stop) {
+        time.append(formattedTime(stop.minutes));
+        time.title = `${station.name}: ${formatMinutes(stop.minutes).value}`;
+      } else {
+        time.className = 'empty-time';
+        time.textContent = '—';
+        time.title = 'Esta formación no pasa por la estación';
+      }
+      row.append(stationName, time);
+      stops.append(row);
+    });
+    card.replaceChildren(header, stops);
+  };
+
+  previous.addEventListener('click', () => {
+    if (currentIndex === 0) return;
+    currentIndex -= 1;
+    renderService();
+  });
+  next.addEventListener('click', () => {
+    if (currentIndex >= grid.services.length - 1) return;
+    currentIndex += 1;
+    renderService();
+  });
+
+  renderService();
+  mobile.append(controls, card);
+  return mobile;
+}
+
 function createScheduleSection(route, day, direction, highlights) {
   const grid = stationScheduleGrid(route, day.key, direction);
   const section = document.createElement('section');
@@ -127,7 +241,7 @@ function createScheduleSection(route, day, direction, highlights) {
 
   table.append(caption, head, body);
   scroll.append(table);
-  section.append(header, scroll);
+  section.append(header, scroll, createMobileSchedule(route, grid, day, direction, highlights));
   return section;
 }
 

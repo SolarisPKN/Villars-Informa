@@ -57,16 +57,51 @@ export function departuresFor(route, dayKey, destination, stationName = 'villars
   return departures.sort((left, right) => left.minutes - right.minutes);
 }
 
-export function scheduleGrid(route, dayKey, stationName = 'villars') {
-  const columns = destinationsFrom(route, stationName).map((destination) => ({
-    destination,
-    departures: departuresFor(route, dayKey, destination, stationName),
-  }));
-  const rowCount = Math.max(1, ...columns.map(({ departures }) => departures.length));
-  return {
-    columns,
-    rows: Array.from({ length: rowCount }, (_, index) => columns.map(({ departures }) => departures[index] || null)),
-  };
+export function directionsFor(route) {
+  const directions = new Map();
+  for (const schedule of route.schedules || []) {
+    if (!directions.has(schedule.direction)) {
+      directions.set(schedule.direction, {
+        key: schedule.direction,
+        label: `Hacia ${schedule.direction}`,
+      });
+    }
+  }
+  return [...directions.values()];
+}
+
+export function stationScheduleGrid(route, dayKey, direction) {
+  const schedules = (route.schedules || []).filter((schedule) => (
+    schedule.day.key === dayKey && schedule.direction === direction
+  ));
+  const servicesById = new Map();
+  const stationsByName = new Map();
+
+  for (const schedule of schedules) {
+    for (const station of schedule.stations || []) {
+      const current = stationsByName.get(station.normalizedName);
+      if (!current || station.order < current.order) stationsByName.set(station.normalizedName, station);
+    }
+    for (const service of schedule.services || []) {
+      const key = service.id ?? `${service.name}:${service.origin}:${service.destination}`;
+      if (!servicesById.has(key)) servicesById.set(key, service);
+    }
+  }
+
+  const services = [...servicesById.values()].sort((left, right) => (
+    (left.order ?? 0) - (right.order ?? 0)
+    || (left.stops?.[0]?.minutes ?? 0) - (right.stops?.[0]?.minutes ?? 0)
+  ));
+  const stations = [...stationsByName.values()]
+    .sort((left, right) => left.order - right.order)
+    .map((station) => ({
+      ...station,
+      stops: services.map((service) => (
+        service.stops.find((stop) => stop.normalizedStation === station.normalizedName) || null
+      )),
+    }));
+
+  return { direction, services, stations };
 }
 
 

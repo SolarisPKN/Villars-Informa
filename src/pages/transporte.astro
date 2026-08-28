@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import transportData from '../data/transport-schedules.json';
-import { destinationsFrom, formatMinutes, nextServiceForRoute, scheduleGrid, weekdayNames } from '../utils/transport-services.js';
+import { destinationsFrom, directionsFor, formatMinutes, nextServiceForRoute, stationScheduleGrid, weekdayNames } from '../utils/transport-services.js';
 
 const villarsRoutes = transportData.routes.filter((route) => destinationsFrom(route).length > 0);
 const scheduleDays = [
@@ -11,13 +11,14 @@ const scheduleDays = [
 ];
 const initialRoute = villarsRoutes[0];
 const initialNext = initialRoute ? nextServiceForRoute(initialRoute, transportData.timezone) : null;
+const initialDirections = initialRoute ? directionsFor(initialRoute) : [];
+const initialDirection = initialDirections[0]?.key;
 const initialScheduleGrids = initialRoute
   ? scheduleDays.map((day) => {
-      const grid = scheduleGrid(initialRoute, day.key);
+      const grid = stationScheduleGrid(initialRoute, day.key, initialDirection);
       return {
         ...day,
         grid,
-        total: grid.columns.reduce((count, column) => count + column.departures.length, 0),
       };
     })
   : [];
@@ -53,8 +54,8 @@ const updatedAt = transportData.source.updatedAt
                 tabindex={index === 0 ? 0 : -1}
               >
                 <span aria-hidden="true">{route.type === 'bus' ? '🚌' : '🚆'}</span>
-                <strong>{route.type === 'bus' ? 'Colectivo' : 'Tren'}</strong>
-                <small>{route.type === 'bus' ? '322' : 'Catán–Lozano'}</small>
+                <strong>{route.type === 'bus' ? 'Línea 322' : 'Belgrano Sur'}</strong>
+                <small>{route.name}</small>
               </button>
             ))}
           </div>

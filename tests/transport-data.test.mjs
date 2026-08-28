@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { departuresFor, destinationsFrom, directionsFor, nextService, nextServiceForRoute, stationScheduleGrid } from '../src/utils/transport-services.js';
+import { departuresFor, destinationsFrom, directionsFor, nextService, nextServiceForRoute, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection } from '../src/utils/transport-services.js';
 
 const data = JSON.parse(await readFile(new URL('../src/data/transport-schedules.json', import.meta.url), 'utf8'));
 const villarsRoutes = data.routes.filter((route) => route.schedules.some((schedule) => schedule.stations.some((station) => station.normalizedName === 'villars')));
@@ -39,7 +39,7 @@ test('Lozano no se ofrece en días hábiles y el próximo tren real es el sábad
   assert.equal(next.weekday, 6); assert.equal(next.date, '29/8'); assert.equal(next.minutes, 628);
 });
 
-test('las grillas ordenan todas las estaciones por sentido y cada formación ocupa una columna', () => {
+test('las grillas ordenan todas las estaciones por sentido y cada formación ocupa una fila', () => {
   const bus = villarsRoutes.find((route) => route.type === 'bus' && destinationsFrom(route).includes('Luján'));
   const train = villarsRoutes.find((route) => route.type === 'train' && destinationsFrom(route).includes('Lozano'));
   assert.ok(bus); assert.ok(train);
@@ -67,18 +67,33 @@ test('las grillas ordenan todas las estaciones por sentido y cada formación ocu
   assert.equal(next.destination, 'Luján');
   assert.equal(next.minutes, 360);
 });
+test('se identifican de forma estable las dos próximas formaciones por Villars', () => {
+  const bus = villarsRoutes.find((route) => route.type === 'bus' && destinationsFrom(route).includes('Luján'));
+  assert.ok(bus);
+  const upcoming = upcomingServicesForDirection(bus, 'Luján', data.timezone, new Date('2026-08-25T08:00:00Z'));
+  assert.equal(upcoming.length, 2);
+  assert.deepEqual(upcoming.map(({ stop }) => stop.minutes), [360, 600]);
+  assert.deepEqual(upcoming.map(({ difference }) => difference), [60, 300]);
+  assert.equal(upcoming[0].key, scheduleServiceKey('weekday', 'Luján', upcoming[0].service));
+  assert.notEqual(upcoming[0].key, upcoming[1].key);
+});
 test('el mapa ofrece filtros separados y no presenta la 136 como traza verificada', async () => {
-  const [page, script] = await Promise.all([
+  const [page, script, scheduleScript] = await Promise.all([
     readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/scripts/transport-map.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/scripts/transport.js', import.meta.url), 'utf8'),
   ]);
   assert.match(page, /data-direction-select/);
-  assert.match(page, /grid\.stations\.map/);
+  assert.match(page, /grid\.services\.map/);
+  assert.match(page, /formation-column/);
   assert.match(page, /data-map-mode="train"/);
   assert.match(page, /data-map-layer="positions"/);
   assert.match(page, /data-map-layer="routes"/);
   assert.match(page, /data-map-layer="stops"/);
   assert.match(page, /data-map-route="136" disabled/);
+  assert.match(scheduleScript, /upcomingServicesForDirection/);
+  assert.match(scheduleScript, /next-service-row/);
+  assert.match(scheduleScript, /following-service-row/);
   assert.match(script, /function renderFilteredLayers/);
   assert.match(script, /currentLiveFeatures\.filter/);
 });

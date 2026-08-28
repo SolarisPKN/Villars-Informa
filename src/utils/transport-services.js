@@ -105,6 +105,48 @@ export function stationScheduleGrid(route, dayKey, direction) {
 }
 
 
+export function scheduleServiceKey(dayKey, direction, service) {
+  return `${dayKey}:${direction}:${service.id ?? `${service.name}:${service.origin}:${service.destination}`}`;
+}
+
+export function upcomingServicesForDirection(route, direction, timezone, date = new Date(), stationName = 'villars', limit = 2) {
+  const now = argentinaNow(timezone, date);
+  const occurrences = [];
+
+  for (let offset = -1; offset <= 7; offset += 1) {
+    const serviceWeekday = (now.weekday + offset + 7) % 7;
+    const dayKey = serviceDays[serviceWeekday];
+    const grid = stationScheduleGrid(route, dayKey, direction);
+    for (const service of grid.services) {
+      const stop = service.stops.find((item) => item.normalizedStation === stationName);
+      if (!stop) continue;
+      const difference = offset * 1440 + stop.minutes - now.minutes;
+      if (difference < 0) continue;
+      const nextDayOffset = Math.floor(stop.minutes / 1440);
+      const calendarDate = new Date(`${now.date}T12:00:00Z`);
+      calendarDate.setUTCDate(calendarDate.getUTCDate() + offset + nextDayOffset);
+      occurrences.push({
+        key: scheduleServiceKey(dayKey, direction, service),
+        dayKey,
+        service,
+        stop,
+        difference,
+        weekday: (serviceWeekday + nextDayOffset) % 7,
+        date: calendarDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'numeric', timeZone: 'UTC' }),
+      });
+    }
+  }
+
+  const selected = [];
+  const selectedKeys = new Set();
+  for (const occurrence of occurrences.sort((left, right) => left.difference - right.difference)) {
+    if (selectedKeys.has(occurrence.key)) continue;
+    selected.push(occurrence);
+    selectedKeys.add(occurrence.key);
+    if (selected.length >= limit) break;
+  }
+  return selected;
+}
 export function nextService(route, destination, timezone, date = new Date(), stationName = 'villars') {
   const now = argentinaNow(timezone, date);
   let closest;

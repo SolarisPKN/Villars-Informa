@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import transportData from '../data/transport-schedules.json';
-import { destinationsFrom, directionsFor, formatMinutes, nextServiceForRoute, stationScheduleGrid, weekdayNames } from '../utils/transport-services.js';
+import { destinationsFrom, directionsFor, formatMinutes, nextServiceForRoute, scheduleServiceKey, stationScheduleGrid, weekdayNames } from '../utils/transport-services.js';
 
 const villarsRoutes = transportData.routes.filter((route) => destinationsFrom(route).length > 0);
 const scheduleDays = [
@@ -77,7 +77,11 @@ const updatedAt = transportData.source.updatedAt
             </select>
             <span aria-hidden="true">↓</span>
           </div>
-          <p>Cada columna es una formación. El destino debajo del número indica dónde termina realmente.</p>
+          <p>Cada fila es una formación y cada columna una estación. La terminal real aparece debajo del número.</p>
+        </div>
+        <div class="schedule-legend" aria-label="Referencia de próximos servicios">
+          <span><i class="next" aria-hidden="true"></i> Próxima formación por Villars</span>
+          <span><i class="following" aria-hidden="true"></i> Formación siguiente</span>
         </div>
         <div id="transport-schedule-panel" class="schedule-sections" data-schedule-sections role="tabpanel" tabindex="0" aria-live="polite">
           {initialScheduleGrids.map(({ key, label, grid }) => (
@@ -86,17 +90,17 @@ const updatedAt = transportData.source.updatedAt
               <div class="schedule-table-scroll">
                 <table class="schedule-table">
                   <caption>{initialRoute?.branch || initialRoute?.name} · {label} · Hacia {initialDirection}</caption>
-                  <thead><tr><th scope="col" class="station-column">Estación</th>{grid.services.map((service) => <th scope="col"><span>{service.name}</span><small>hasta {service.destination}</small></th>)}</tr></thead>
+                  <thead><tr><th scope="col" class="formation-column">Formación</th>{grid.stations.map((station) => <th scope="col" class:list={{ 'villars-column': station.normalizedName === 'villars' }}><span>{station.name}</span>{station.normalizedName === 'villars' && <small>Estás acá</small>}</th>)}</tr></thead>
                   <tbody>
-                    {grid.stations.map((station) => (
-                      <tr class:list={{ 'villars-row': station.normalizedName === 'villars' }}>
-                        <th scope="row" class="station-column"><span>{station.name}</span>{station.normalizedName === 'villars' && <small>Estás acá</small>}</th>
-                        {station.stops.map((stop: { minutes: number } | null) => stop ? (
-                          <td><span>{formatMinutes(stop.minutes).value}</span>{formatMinutes(stop.minutes).nextDay && <small>+1 día</small>}</td>
-                        ) : <td class="empty-time">—</td>)}
+                    {grid.services.map((service, serviceIndex) => (
+                      <tr data-service-key={scheduleServiceKey(key, initialDirection, service)}>
+                        <th scope="row" class="formation-column"><span>{service.name}</span><small>hasta {service.destination}</small></th>
+                        {grid.stations.map((station) => station.stops[serviceIndex] ? (
+                          <td class:list={{ 'villars-column': station.normalizedName === 'villars' }}><span>{formatMinutes(station.stops[serviceIndex].minutes).value}</span>{formatMinutes(station.stops[serviceIndex].minutes).nextDay && <small>+1 día</small>}</td>
+                        ) : <td class:list={['empty-time', { 'villars-column': station.normalizedName === 'villars' }]}>—</td>)}
                       </tr>
                     ))}
-                    {grid.stations.length === 0 && <tr><td colspan={Math.max(1, grid.services.length + 1)} class="no-services">No hay servicios informados para este día y sentido.</td></tr>}
+                    {grid.services.length === 0 && <tr><td colspan={Math.max(1, grid.stations.length + 1)} class="no-services">No hay servicios informados para este día y sentido.</td></tr>}
                   </tbody>
                 </table>
               </div>
@@ -172,6 +176,7 @@ const updatedAt = transportData.source.updatedAt
   .direction-picker { display: grid; grid-template-columns: auto minmax(15rem,22rem) 1fr; gap: .7rem 1rem; align-items: center; margin-top: 1.1rem; padding: .9rem 1rem; border: 1px solid rgba(163,177,138,.3); border-radius: 1rem; background: linear-gradient(110deg,rgba(163,177,138,.13),rgba(233,196,106,.05)); }
   .direction-picker > label { color: var(--text-light); font-size: .82rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; }.direction-picker > p { margin: 0; color: var(--text-muted); font-size: .78rem; }
   .direction-select-wrap { position: relative; }.direction-select-wrap select { width: 100%; padding: .72rem 2.5rem .72rem .85rem; border: 1px solid rgba(233,196,106,.55); border-radius: .7rem; color: var(--text-light); background: #241a14; font: 700 .9rem Inter,sans-serif; appearance: none; cursor: pointer; }.direction-select-wrap > span { position: absolute; top: 50%; right: .85rem; color: var(--accent-mustard); pointer-events: none; transform: translateY(-50%); }
+  .schedule-legend { display: flex; gap: .75rem 1.25rem; flex-wrap: wrap; margin: .75rem 0 0; color: var(--text-muted); font-size: .76rem; }.schedule-legend span { display: inline-flex; gap: .45rem; align-items: center; }.schedule-legend i { width: .8rem; height: .8rem; border: 1px solid rgba(255,255,255,.28); border-radius: .2rem; background: #2f7049; }.schedule-legend i.following { background: #78ad86; }
   .schedule-sections { display: grid; gap: 1.25rem; margin-top: 1rem; }
   :global(.schedule-block) { overflow: hidden; border: 1px solid rgba(233,196,106,.3); border-radius: 1rem; background: rgba(26,20,16,.58); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
   :global(.schedule-block:nth-child(2)) { border-color: rgba(163,177,138,.38); }:global(.schedule-block:nth-child(3)) { border-color: rgba(231,111,81,.32); }
@@ -180,13 +185,16 @@ const updatedAt = transportData.source.updatedAt
   :global(.schedule-block-heading h3) { margin: 0; color: var(--accent-mustard); font-size: 1.08rem; }:global(.schedule-block-heading span) { padding: .25rem .55rem; border-radius: 999px; color: var(--text-muted); background: rgba(0,0,0,.2); font-size: .72rem; }
   :global(.schedule-table-scroll) { max-height: 31rem; overflow: auto; scrollbar-color: rgba(233,196,106,.45) rgba(0,0,0,.12); }:global(.schedule-table) { width: 100%; min-width: max(100%,48rem); border-collapse: separate; border-spacing: 0; font-family: 'JetBrains Mono',monospace; font-variant-numeric: tabular-nums; }
   :global(.schedule-table caption) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  :global(.schedule-table th), :global(.schedule-table td) { min-width: 6.35rem; padding: .75rem .8rem; border-right: 1px solid rgba(212,163,115,.14); border-bottom: 1px solid rgba(212,163,115,.13); text-align: center; }
-  :global(.schedule-table thead th) { position: sticky; top: 0; z-index: 3; color: var(--text-light); background: #30261e; box-shadow: 0 2px 0 rgba(233,196,106,.22); font-family: Inter,sans-serif; font-size: .85rem; }:global(.schedule-table thead th > span) { display: block; color: var(--accent-mustard); font-family: 'JetBrains Mono',monospace; font-size: .92rem; }:global(.schedule-table thead th > small) { display: block; max-width: 8rem; margin: .15rem auto 0; color: var(--text-muted); font-size: .63rem; font-weight: 500; line-height: 1.2; }
-  :global(.schedule-table .station-column) { position: sticky; left: 0; z-index: 2; width: 10.5rem; min-width: 10.5rem; max-width: 10.5rem; text-align: left; }:global(.schedule-table thead .station-column) { z-index: 4; background: #3a2b20; }
-  :global(.schedule-table tbody .station-column) { color: var(--text-light); background: #261d17; font-family: Inter,sans-serif; font-size: .8rem; font-weight: 720; }:global(.schedule-table tbody .station-column small) { display: block; margin-top: .18rem; color: var(--accent-mustard); font-size: .62rem; text-transform: uppercase; }
+  :global(.schedule-table th), :global(.schedule-table td) { min-width: 6.35rem; padding: .75rem .8rem; border-right: 1px solid rgba(212,163,115,.14); border-bottom: 1px solid rgba(212,163,115,.13); text-align: center; transition: background-color .2s,color .2s; }
+  :global(.schedule-table thead th) { position: sticky; top: 0; z-index: 3; color: var(--text-light); background: #30261e; box-shadow: 0 2px 0 rgba(233,196,106,.22); font-family: Inter,sans-serif; font-size: .8rem; }:global(.schedule-table thead th > span) { display: block; }:global(.schedule-table thead th > small) { display: block; margin-top: .15rem; color: var(--accent-mustard); font-size: .62rem; text-transform: uppercase; }
+  :global(.schedule-table .formation-column) { position: sticky; left: 0; z-index: 2; width: 10.5rem; min-width: 10.5rem; max-width: 10.5rem; text-align: left; }:global(.schedule-table thead .formation-column) { z-index: 4; color: var(--accent-mustard); background: #3a2b20; }
+  :global(.schedule-table tbody .formation-column) { color: var(--text-light); background: #261d17; font-family: Inter,sans-serif; font-size: .82rem; font-weight: 750; }:global(.schedule-table tbody .formation-column > span) { display: block; font-family: 'JetBrains Mono',monospace; font-size: .94rem; }:global(.schedule-table tbody .formation-column > small) { display: block; margin-top: .18rem; color: var(--text-muted); font-size: .62rem; font-weight: 500; }
   :global(.schedule-table tbody tr:nth-child(even) td) { background: rgba(255,255,255,.025); }:global(.schedule-table tbody tr:hover td) { background: rgba(233,196,106,.08); }
-  :global(.schedule-table tbody .villars-row td) { background: rgba(233,196,106,.12); }:global(.schedule-table tbody .villars-row .station-column) { color: #1d1712; background: var(--accent-mustard); }:global(.schedule-table tbody .villars-row .station-column small) { color: #5f4528; }
+  :global(.schedule-table .villars-column) { border-right-color: rgba(233,196,106,.38); border-left: 1px solid rgba(233,196,106,.22); background: rgba(233,196,106,.09); }:global(.schedule-table thead .villars-column) { color: var(--accent-mustard); background: #3a3023; }
   :global(.schedule-table td) { color: var(--text-light); font-size: .98rem; }:global(.schedule-table td small) { display: block; color: var(--accent-terracotta); font-family: Inter,sans-serif; font-size: .62rem; }:global(.schedule-table .empty-time) { color: rgba(255,255,255,.22); background-image: linear-gradient(135deg,transparent 49%,rgba(255,255,255,.04) 50%,transparent 51%); }:global(.schedule-table .no-services) { padding: 1.4rem; color: var(--text-muted); font-family: Inter,sans-serif; text-align: left; }
+  :global(.schedule-table tbody .next-service-row td) { color: #effff4; background: rgba(47,112,73,.48); }:global(.schedule-table tbody .next-service-row .formation-column) { color: #fff; background: #2f7049; }:global(.schedule-table tbody .next-service-row .villars-column) { background: rgba(65,145,91,.68); }
+  :global(.schedule-table tbody .following-service-row td) { color: #f4fff7; background: rgba(120,173,134,.24); }:global(.schedule-table tbody .following-service-row .formation-column) { color: #f7fff9; background: #557e61; }:global(.schedule-table tbody .following-service-row .villars-column) { background: rgba(120,173,134,.4); }
+  :global(.service-rank) { display: inline-block; margin-top: .42rem; padding: .18rem .4rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #fff; font-size: .58rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
   .route-meta { display: flex; gap: .75rem 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(212,163,115,.2); color: var(--text-muted); font-size: .85rem; }.route-meta p { margin: 0; }
   .data-note { margin-top: 1.25rem; background: rgba(44,33,25,.5); }.data-note h2 { font-size: 1.15rem; }.data-note p { margin: .4rem 0; color: var(--text-muted); font-size: .9rem; }.data-note code { word-break: break-all; }
   .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-heading > p { max-width: 32rem; margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-heading > p[data-state='live'] { color: #9ed7b0; }.map-heading > p[data-state='error'] { color: #f4a261; }

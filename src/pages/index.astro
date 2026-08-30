@@ -15,7 +15,12 @@ const imagenes = [
 const imagenPrincipal = imagenes.length ? imagenes[0] : '/images/placeholder-pueblo.jpg';
 ---
 
-<Layout title="Villars Informa">
+<Layout
+  title="Villars Informa"
+  description="Noticias, historia, comercios, transporte, salud e información útil de Villars, partido de General Las Heras."
+  canonical="/"
+  schema="website"
+>
   <section class="hero-pueblo">
     <div class="hero-content">
       <h1 class="frase-grande">{homeData.frasePueblo}</h1>

@@ -33,6 +33,11 @@ const PremiumContent = premium ? (await render(premium)).Content : undefined;
   canonical={`/locales/${local.id}/`}
   schema="localBusiness"
   business={data}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Directorio de comercios', url: '/locales/' },
+    { name: data.nombre, url: `/locales/${local.id}/` },
+  ]}
 >
   <article class="ficha-local">
     <div class="ficha-header">
@@ -65,8 +70,8 @@ const PremiumContent = premium ? (await render(premium)).Content : undefined;
       <section class="galeria">
         <h2>📸 Galería</h2>
         <div class="grid-fotos">
-          {data.fotos.map(foto => (
-            <img src={foto} alt={data.nombre} loading="lazy" />
+          {data.fotos.map((foto, index) => (
+            <img src={foto} alt={`${data.nombre}, imagen ${index + 1}`} loading="lazy" decoding="async" />
           ))}
         </div>
       </section>

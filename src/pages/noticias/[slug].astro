@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 const { noticia } = Astro.props;
 const { Content } = await render(noticia);
 const data = noticia.data;
+const wordCount = String(noticia.body || '').trim().split(/\s+/).filter(Boolean).length;
 const fecha = data.fecha.toLocaleDateString('es-AR', {
   year: 'numeric',
   month: 'long',
@@ -28,8 +29,16 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
   schema="article"
   canonical={'/noticias/' + noticia.id + '/'}
   publishedTime={data.fecha.toISOString()}
+  modifiedTime={data.modificada?.toISOString()}
   author={data.autor || undefined}
   tags={data.tags}
+  section={data.categoria}
+  wordCount={wordCount}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Noticias', url: '/noticias/' },
+    { name: data.titulo, url: `/noticias/${noticia.id}/` },
+  ]}
 >
   <article class="article-page">
     <a class="article-back" href="/noticias/">← Volver a Noticias</a>
@@ -41,7 +50,7 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
       <div class="article-meta">
         <time datetime={data.fecha.toISOString()}>{fecha}</time>
         {data.autor && <span>Por {data.autor}</span>}
-        <span>{Math.max(1, Math.ceil(String(noticia.body || '').split(/s+/).length / 220))} min de lectura</span>
+        <span>{Math.max(1, Math.ceil(wordCount / 220))} min de lectura</span>
       </div>
       {data.tags.length > 0 && (
         <div class="article-tags">
@@ -58,7 +67,7 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
         data-article-alt={data.titulo}
         aria-label="Ampliar imagen de portada"
       >
-        <img src={data.portada} alt={data.titulo} class="article-hero" />
+        <img src={data.portada} alt={data.titulo} class="article-hero" decoding="async" />
       </button>
     )}
 
@@ -80,7 +89,7 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
               data-article-alt={'Imagen ' + (index + 1) + ' de ' + data.titulo}
               aria-label={'Ampliar imagen ' + (index + 1)}
             >
-              <img src={image} alt={'Imagen ' + (index + 1) + ' de ' + data.titulo} loading="lazy" />
+              <img src={image} alt={'Imagen ' + (index + 1) + ' de ' + data.titulo} loading="lazy" decoding="async" />
             </button>
           ))}
         </div>

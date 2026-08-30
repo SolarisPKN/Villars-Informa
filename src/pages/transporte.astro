@@ -27,7 +27,13 @@ const updatedAt = transportData.source.updatedAt
   : 'sin fecha informada';
 ---
 
-<Layout title="Transporte en Villars" description="Horarios programados de colectivos y trenes con parada en Villars, obtenidos de SolarisPKN Transport." canonical="/transporte/">
+<Layout
+  title="Transporte en Villars"
+  description="Horarios programados de colectivos y trenes con parada en Villars, grillas por estación y mapa de posiciones informadas."
+  canonical="/transporte/"
+  schema="transport"
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Transporte', url: '/transporte/' }]}
+>
   <section class="transport-page" data-transport-app>
     <header class="transport-hero">
       <p class="eyebrow">Horarios versionados · posiciones cada minuto</p>

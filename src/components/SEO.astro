@@ -1,72 +1,169 @@
 ---
+export type SchemaType = 'website' | 'article' | 'localBusiness' | 'collection' | 'medical' | 'transport';
+
+export interface BreadcrumbItem { name: string; url: string; }
+export interface ListingItem {
+  name: string;
+  url?: string;
+  description?: string;
+  image?: string;
+  type?: 'Article' | 'LocalBusiness' | 'MedicalOrganization' | 'Thing';
+}
 export interface Props {
   title: string;
   description: string;
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   canonical?: string;
-  schema?: 'website' | 'article' | 'localBusiness';
+  schema?: SchemaType;
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
   tags?: string[];
+  section?: string;
+  wordCount?: number;
   business?: Record<string, unknown>;
+  breadcrumbs?: BreadcrumbItem[];
+  items?: ListingItem[];
+  noindex?: boolean;
 }
 
 const {
-  title,
-  description,
-  image = '/social.jpg',
-  canonical = Astro.url.pathname,
-  schema = 'website',
-  publishedTime,
-  modifiedTime,
-  author = 'Villars Informa',
-  tags = [],
-  business,
+  title, description, image = '/social.jpg', imageAlt = title,
+  imageWidth = image === '/social.jpg' ? 1200 : undefined,
+  imageHeight = image === '/social.jpg' ? 630 : undefined,
+  canonical = Astro.url.pathname, schema = 'website', publishedTime, modifiedTime,
+  author = 'Villars Informa', tags = [], section, wordCount, business,
+  breadcrumbs = [], items = [], noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://villars.solarispkn.com.ar';
-const fullUrl = new URL(canonical, `${siteUrl}/`).toString();
-const fullImage = image.startsWith('http') ? image : new URL(image, `${siteUrl}/`).toString();
-const documentTitle = title.toLowerCase().includes('villars informa') ? title : `${title} | Villars Informa`;
-const isNotFound = Astro.url.pathname === '/404' || Astro.url.pathname === '/404.html';
-const robots = isNotFound ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+const absoluteUrl = (value: string) => new URL(value, `${siteUrl}/`).toString();
+const fullUrl = absoluteUrl(canonical);
+const fullImage = absoluteUrl(image);
+const documentTitle = title.toLocaleLowerCase('es-AR').includes('villars informa') ? title : `${title} | Villars Informa`;
+const isNotFound = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname);
+const robots = noindex || isNotFound ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+const imageType = image.toLowerCase().endsWith('.png') ? 'image/png' : image.toLowerCase().endsWith('.webp') ? 'image/webp' : 'image/jpeg';
+const organizationId = `${siteUrl}/#organization`;
+const websiteId = `${siteUrl}/#website`;
+const webpageId = `${fullUrl}#webpage`;
+
 const organization = {
-  '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: 'Villars Informa', url: siteUrl,
-  logo: { '@type': 'ImageObject', url: new URL('/icon-512.png', `${siteUrl}/`).toString() },
+  '@type': 'Organization', '@id': organizationId, name: 'Villars Informa', url: siteUrl,
+  description: 'Medio comunitario de noticias e información útil de Villars, Buenos Aires.',
+  logo: { '@type': 'ImageObject', '@id': `${siteUrl}/#logo`, url: absoluteUrl('/icon-512.png'), contentUrl: absoluteUrl('/icon-512.png'), width: 512, height: 512, caption: 'Villars Informa' },
 };
 const webSite = {
-  '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: 'Villars Informa', url: siteUrl,
-  description, inLanguage: 'es-AR', publisher: { '@id': `${siteUrl}/#organization` },
+  '@type': 'WebSite', '@id': websiteId, name: 'Villars Informa', url: siteUrl,
+  description: 'Noticias, historia, comercios, transporte, salud e información útil de Villars.',
+  inLanguage: 'es-AR', publisher: { '@id': organizationId },
 };
-let pageSchema: Record<string, unknown> = {
-  '@type': 'WebPage', '@id': `${fullUrl}#webpage`, url: fullUrl, name: documentTitle, description,
-  inLanguage: 'es-AR', isPartOf: { '@id': `${siteUrl}/#website` },
+const pageType = schema === 'collection' ? 'CollectionPage' : schema === 'medical' ? 'MedicalWebPage' : 'WebPage';
+const pageSchema: Record<string, unknown> = {
+  '@type': pageType, '@id': webpageId, url: fullUrl, name: documentTitle, description,
+  inLanguage: 'es-AR', isPartOf: { '@id': websiteId }, primaryImageOfPage: { '@id': `${fullUrl}#primaryimage` },
+  breadcrumb: breadcrumbs.length >= 2 ? { '@id': `${fullUrl}#breadcrumb` } : undefined,
 };
+const primaryImage = {
+  '@type': 'ImageObject', '@id': `${fullUrl}#primaryimage`, url: fullImage, contentUrl: fullImage,
+  caption: imageAlt, width: imageWidth, height: imageHeight,
+};
+const mainEntities: Record<string, unknown>[] = [];
+
 if (schema === 'article') {
-  pageSchema = {
-    '@type': 'Article', '@id': `${fullUrl}#article`, headline: title, description,
-    mainEntityOfPage: { '@id': `${fullUrl}#webpage` }, author: { '@type': 'Person', name: author },
-    publisher: { '@id': `${siteUrl}/#organization` }, datePublished: publishedTime,
-    dateModified: modifiedTime || publishedTime, image: fullImage, keywords: tags.join(', '), inLanguage: 'es-AR',
-  };
-} else if (schema === 'localBusiness' && business) {
+  const authorSchema = author === 'Villars Informa' ? { '@id': organizationId } : { '@type': 'Person', name: author };
+  const articleId = `${fullUrl}#article`;
+  mainEntities.push({
+    '@type': 'NewsArticle', '@id': articleId, headline: title, description,
+    mainEntityOfPage: { '@id': webpageId }, author: authorSchema, publisher: { '@id': organizationId },
+    datePublished: publishedTime, dateModified: modifiedTime || publishedTime,
+    image: { '@id': `${fullUrl}#primaryimage` }, articleSection: section,
+    keywords: tags.length > 0 ? tags : undefined, wordCount, inLanguage: 'es-AR',
+  });
+  pageSchema.mainEntity = { '@id': articleId };
+}
+
+if (schema === 'localBusiness' && business) {
   const name = typeof business.nombre === 'string' ? business.nombre : title;
   const address = typeof business.direccion === 'string' ? business.direccion : undefined;
-  const telephone = typeof business.telefono === 'string' ? business.telefono : undefined;
-  const openingHours = typeof business.horarios === 'string' ? business.horarios : undefined;
-  pageSchema = {
-    '@type': 'LocalBusiness', '@id': `${fullUrl}#business`, name, url: fullUrl, description, image: fullImage,
-    telephone, openingHours,
-    address: address ? { '@type': 'PostalAddress', streetAddress: address, addressLocality: 'Villars', addressRegion: 'Buenos Aires', addressCountry: 'AR' } : undefined,
-  };
+  const schedule = typeof business.horarios === 'string' ? business.horarios : undefined;
+  const structuredHours = schedule && /^(?:Mo|Tu|We|Th|Fr|Sa|Su)(?:[-, ]|$)/.test(schedule) ? schedule : undefined;
+  const businessImage = typeof business.portada === 'string'
+    ? absoluteUrl(business.portada)
+    : Array.isArray(business.fotos) && typeof business.fotos[0] === 'string'
+      ? absoluteUrl(business.fotos[0])
+      : undefined;
+  const phoneValues = [
+    ...(typeof business.telefono === 'string' ? [business.telefono] : []),
+    ...(Array.isArray(business.telefonos) ? business.telefonos.flatMap((entry) => {
+      if (typeof entry === 'string') return [entry];
+      if (entry && typeof entry === 'object' && 'numero' in entry && typeof entry.numero === 'string') return [entry.numero];
+      return [];
+    }) : []),
+  ].filter(Boolean);
+  const businessId = `${fullUrl}#business`;
+  mainEntities.push({
+    '@type': 'LocalBusiness', '@id': businessId, name, url: fullUrl, description,
+    image: businessImage,
+    telephone: phoneValues.length === 1 ? phoneValues[0] : phoneValues.length > 1 ? phoneValues : undefined,
+    openingHours: structuredHours,
+    address: address ? {
+      '@type': 'PostalAddress', streetAddress: address, addressLocality: 'Villars',
+      addressRegion: 'Buenos Aires', addressCountry: 'AR',
+    } : undefined,
+  });
+  pageSchema.mainEntity = { '@id': businessId };
 }
-const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webSite, pageSchema] };
+
+if (schema === 'transport') {
+  const datasetId = `${fullUrl}#timetable-dataset`;
+  mainEntities.push({
+    '@type': 'Dataset', '@id': datasetId, name: 'Horarios de transporte con parada en Villars',
+    description, url: fullUrl, creator: { '@id': organizationId },
+    spatialCoverage: { '@type': 'Place', name: 'Villars, General Las Heras, Buenos Aires, Argentina' },
+    inLanguage: 'es-AR', isAccessibleForFree: true,
+  });
+  pageSchema.mainEntity = { '@id': datasetId };
+  pageSchema.about = [
+    { '@type': 'TrainStation', name: 'Estación Villars' },
+    { '@type': 'BusStop', name: 'Paradas de colectivos de Villars' },
+  ];
+}
+
+const itemList = items.length > 0 ? {
+  '@type': 'ItemList', '@id': `${fullUrl}#itemlist`, name: title, numberOfItems: items.length,
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem', position: index + 1, url: item.url ? absoluteUrl(item.url) : undefined,
+    item: {
+      '@type': item.type || 'Thing', name: item.name,
+      url: item.url ? absoluteUrl(item.url) : undefined,
+      description: item.description,
+      image: item.image ? absoluteUrl(item.image) : undefined,
+    },
+  })),
+} : undefined;
+if (itemList) pageSchema.mainEntity = { '@id': `${fullUrl}#itemlist` };
+
+const breadcrumb = breadcrumbs.length >= 2 ? {
+  '@type': 'BreadcrumbList', '@id': `${fullUrl}#breadcrumb`,
+  itemListElement: breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem', position: index + 1, name: item.name, item: absoluteUrl(item.url),
+  })),
+} : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [organization, webSite, pageSchema, primaryImage, ...mainEntities, itemList, breadcrumb].filter(Boolean),
+};
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content={robots} />
+<meta name="googlebot" content={robots} />
 <meta name="generator" content={Astro.generator} />
 <meta name="author" content={author} />
 <meta name="theme-color" content="#1a1410" />
@@ -78,17 +175,23 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webS
 <meta property="og:title" content={documentTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={fullImage} />
-<meta property="og:image:alt" content={title} />
+{imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+{imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+<meta property="og:image:type" content={imageType} />
+<meta property="og:image:alt" content={imageAlt} />
 <meta property="og:url" content={fullUrl} />
 <meta property="og:type" content={schema === 'article' ? 'article' : 'website'} />
 <meta property="og:locale" content="es_AR" />
 <meta property="og:site_name" content="Villars Informa" />
 {schema === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{schema === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+{schema === 'article' && section && <meta property="article:section" content={section} />}
+{schema === 'article' && tags.map((tag) => <meta property="article:tag" content={tag} />)}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={documentTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={fullImage} />
-<meta name="twitter:image:alt" content={title} />
+<meta name="twitter:image:alt" content={imageAlt} />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/icon-192.png" />

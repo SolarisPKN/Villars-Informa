@@ -15,9 +15,23 @@ const allTags = [...new Set(noticias.flatMap(p => p.data.tags || []))];
 
 // Noticias destacadas (las 5 más recientes)
 const destacadas = noticias.slice(0, 5);
+const seoItems = noticias.map((noticia) => ({
+  name: noticia.data.titulo,
+  url: `/noticias/${noticia.id}/`,
+  description: noticia.data.descripcion,
+  image: noticia.data.portada,
+  type: 'Article' as const,
+}));
 ---
 
-<Layout title="Noticias de Villars">
+<Layout
+  title="Noticias de Villars"
+  description="Noticias, avisos y novedades de la comunidad de Villars, Buenos Aires."
+  canonical="/noticias/"
+  schema="collection"
+  items={seoItems}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Noticias', url: '/noticias/' }]}
+>
   <div class="blog-container">
     <div class="blog-header">
       <h1>📰 Noticias</h1>
@@ -47,7 +61,7 @@ const destacadas = noticias.slice(0, 5);
                 <div class="post-card glass" data-tags={noticia.data.tags.join(',')}>
                   {noticia.data.portada && (
                     <div class="card-image">
-                      <img src={noticia.data.portada} alt={noticia.data.titulo} loading="lazy" />
+                      <img src={noticia.data.portada} alt={noticia.data.titulo} loading="lazy" decoding="async" />
                     </div>
                   )}
                   <div class="card-body">
@@ -59,7 +73,7 @@ const destacadas = noticias.slice(0, 5);
                         <span class="tag" style="opacity:0.5;">+{noticia.data.tags.length - 3}</span>
                       )}
                     </div>
-                    <h3 class="card-title">{noticia.data.titulo}</h3>
+                    <h2 class="card-title">{noticia.data.titulo}</h2>
                     {noticia.data.descripcion && (
                       <p class="card-description">{noticia.data.descripcion}</p>
                     )}
@@ -80,7 +94,7 @@ const destacadas = noticias.slice(0, 5);
         <!-- Sidebar: Noticias destacadas -->
         <aside class="blog-sidebar">
           <div class="sidebar-card">
-            <h3>🔥 Destacadas</h3>
+            <h2>🔥 Destacadas</h2>
             <ul>
               {destacadas.map(p => (
                 <li>

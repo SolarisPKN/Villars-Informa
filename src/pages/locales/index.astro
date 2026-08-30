@@ -15,9 +15,23 @@ locales.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
 // Obtener categorías únicas
 const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
+const seoItems = locales.map((local) => ({
+  name: local.nombre,
+  url: local.paga ? `/locales/${local.slug}/` : undefined,
+  description: local.descripcion_corta,
+  image: local.portada,
+  type: 'LocalBusiness' as const,
+}));
 ---
 
-<Layout title="Directorio de Locales | Villars Informa">
+<Layout
+  title="Directorio de comercios de Villars"
+  description="Comercios, servicios y emprendimientos de Villars con direcciones, horarios y datos de contacto."
+  canonical="/locales/"
+  schema="collection"
+  items={seoItems}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Directorio de comercios', url: '/locales/' }]}
+>
   <div class="locales-container">
     <h1 class="page-title">🏪 Directorio de Locales</h1>
     <p class="page-subtitle">Descubre los comercios, servicios y emprendimientos de Villars</p>
@@ -44,7 +58,7 @@ const categorias = [...new Set(locales.map(l => l.categoria).filter(Boolean))];
              data-categoria={local.categoria}>
           
           <div class="card-body">
-            <h3 class="card-title">{local.nombre}</h3>
+            <h2 class="card-title">{local.nombre}</h2>
             <span class="card-categoria">{local.categoria}</span>
             
             {local.descripcion_corta && (

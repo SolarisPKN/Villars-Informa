@@ -1,5 +1,6 @@
 ---
 import SEO from '@components/SEO.astro';
+import type { BreadcrumbItem, ListingItem, SchemaType } from '@components/SEO.astro';
 import { ClientRouter } from 'astro:transitions';
 import '@styles/global.css';
 import common from '../locales/common.json';
@@ -9,12 +10,17 @@ export interface Props {
   description?: string;
   image?: string;
   canonical?: string;
-  schema?: 'website' | 'article' | 'localBusiness';
+  schema?: SchemaType;
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
   tags?: string[];
+  section?: string;
+  wordCount?: number;
   business?: Record<string, unknown>;
+  breadcrumbs?: BreadcrumbItem[];
+  items?: ListingItem[];
+  noindex?: boolean;
 }
 
 const {
@@ -27,7 +33,12 @@ const {
   modifiedTime,
   author,
   tags = [],
+  section,
+  wordCount,
   business,
+  breadcrumbs = [],
+  items = [],
+  noindex = false,
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
@@ -42,7 +53,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname ==
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
   <head>
     <SEO
       title={title}
@@ -54,7 +65,12 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname ==
       modifiedTime={modifiedTime}
       author={author}
       tags={tags}
+      section={section}
+      wordCount={wordCount}
       business={business}
+      breadcrumbs={breadcrumbs}
+      items={items}
+      noindex={noindex}
     />
     <ClientRouter />
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
@@ -64,7 +80,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname ==
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
     <header class="site-header glass-pueblo">
       <a class="site-brand" href="/" aria-label="Villars Informa, inicio">
-        <img src="/favicon.svg" alt="" width="30" height="30" loading="eager" />
+        <img src="/favicon.svg" alt="" width="30" height="30" loading="eager" fetchpriority="high" />
         <span>Villars Informa</span>
       </a>
       <nav class="site-nav" aria-label="Navegación principal">
@@ -78,7 +94,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname ==
     <footer class="site-footer glass-pueblo">
       <p>
         <span>{common.footer.transparente}</span>
-        <a href="https://github.com/SolarisPKN/Villars-Informa">{common.footer.codigoAbierto}</a>
+        <a href="https://github.com/SolarisPKN/Villars-Informa" rel="noopener noreferrer">{common.footer.codigoAbierto}</a>
         <span aria-hidden="true"> — </span>
         <span>{common.footer.estado}</span>
       </p>

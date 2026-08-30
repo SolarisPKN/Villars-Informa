@@ -4,12 +4,11 @@ import Layout from '../layouts/Layout.astro';
 import t from '../locales/under-construction.json';
 ---
 
-<Layout title={t.titulo}>
+<Layout title={t.titulo} description={t.descripcion} canonical="/under-construction/" noindex>
   <div style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background-image: url('/images/background-404.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1;"></div>
     <div class="glass" style="position: relative; z-index: 2; max-width: 600px; width: 90%; padding: 2rem; text-align: center;">
-      <h1 style="font-size: 3rem; color: var(--accent-pink);">🚧</h1>
-      <h2>{t.titulo}</h2>
+      <h1><span aria-hidden="true" style="color: var(--accent-pink);">🚧</span> {t.titulo}</h1>
       <p>{t.descripcion}</p>
       <p style="font-family: monospace; font-size: 0.8rem;">{t.mensajeTecnico}</p>
       <a href="/" class="glass" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; text-decoration: none; color: var(--border-cyan); border: 1px solid var(--border-cyan); border-radius: 30px;">

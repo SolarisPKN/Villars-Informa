@@ -8,9 +8,9 @@ Sitio publicado: <https://villars.solarispkn.com.ar>
 
 - Astro 7 con salida HTML estática.
 - Content Layer para noticias, comercios, contenido premium y actualizaciones.
-- SEO, datos estructurados y navegación accesible centralizados en el layout.
+- SEO y navegación accesible centralizados en el layout: canonicales, Open Graph, Twitter Cards y schemas específicos para noticias, listados, comercios, salud y transporte.
 - JavaScript nativo y progresivo; el contenido esencial se genera en el build.
-- CI con tests, `astro check`, build y auditoría de dependencias.
+- CI con tests, `astro check`, build, auditoría de dependencias y validación del HTML, canonicales, H1, imágenes y grafos JSON-LD generados.
 
 Las decisiones de transporte están documentadas en [`docs/adr/0001-static-transport-snapshot.md`](docs/adr/0001-static-transport-snapshot.md) y [`docs/adr/0002-mapa-estatico-y-posiciones-vivas.md`](docs/adr/0002-mapa-estatico-y-posiciones-vivas.md).
 
@@ -26,7 +26,7 @@ Los horarios mostrados son programados. Las posiciones son una capa separada y s
 
 ## Activar la capa de posiciones
 
-El Worker de `workers/transport-live` consulta Cuándo SUBO una vez por minuto y escribe `current.json` en R2. El conector de trenes se mantiene inactivo hasta contar con una fuente de posiciones verificable.
+El Worker de `workers/transport-live` consulta Cuándo SUBO y SOFSE una vez por minuto y escribe un snapshot consolidado en R2. El cliente distingue posiciones informadas de estimaciones: si SOFSE informa una formación activa pero no entrega GPS, no se presenta como una coordenada medida.
 
 1. Crear los buckets `villars-transport-live` y `villars-transport-live-preview` en Cloudflare R2.
 2. Configurar el CORS del bucket con `workers/transport-live/r2-cors.json` y vincular un dominio personalizado, por ejemplo `transport-data.solarispkn.com.ar`.
@@ -55,6 +55,7 @@ Comandos de contenido:
 
 ```bash
 npm run create-news
+npm run create-health
 npm run create-local
 ```
 

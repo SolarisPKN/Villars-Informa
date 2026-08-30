@@ -16,12 +16,22 @@ const formatDate = (date: Date) => date.toLocaleDateString('es-AR', {
 const validPhones = (phones: Phone[] = []) => phones.filter((phone) => phone.numero?.trim());
 const phoneHref = (number: string) => 'tel:' + number.replace(/[^0-9+]/g, '');
 const valueOrPending = (value: string) => value.trim() || salud.textos.datoPendiente;
+const healthSeoItems = [
+  ...salud.atencion.serviciosPrincipales
+    .filter((service) => service.tipo !== 'Farmacia')
+    .map((service) => ({ name: service.nombre, description: service.direccion, type: 'MedicalOrganization' as const })),
+  ...salud.atencion.otrosCentros
+    .map((center) => ({ name: center.nombre, description: `${center.direccion}, ${center.localidad}`, type: 'MedicalOrganization' as const })),
+];
 ---
 
 <Layout
   title={salud.titulo}
   description={salud.descripcionSeo}
   canonical="/salud/"
+  schema="medical"
+  items={healthSeoItems}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Salud', url: '/salud/' }]}
 >
   <div class="health-page">
     <header class="health-hero">

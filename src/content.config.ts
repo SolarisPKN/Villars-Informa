@@ -18,6 +18,7 @@ const noticias = defineCollection({
     titulo: z.string(),
     descripcion: z.string().default(''),
     fecha: z.coerce.date(),
+    modificada: z.coerce.date().optional(),
     autor: z.string().optional(),
     categoria: z.string().default('General'),
     tags: z.array(z.string()).default([]),

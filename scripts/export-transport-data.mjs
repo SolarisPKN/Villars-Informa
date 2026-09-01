@@ -8,6 +8,21 @@ const outputPath = resolve(process.argv[3] || 'src/data/transport-schedules.json
 const requiredTables = ['dias', 'estaciones', 'grilla_estaciones', 'grilla_formaciones', 'grillas', 'horarios', 'recorridos'];
 const dayKeys = new Map([['Lunes a Viernes', 'weekday'], ['Sábado', 'saturday'], ['Domingo', 'sunday']]);
 const slugify = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const routeMetadata = {
+  'Belgrano Sur': { lineKey: 'belgrano-sur', lineLabel: 'Belgrano Sur', referenceStation: 'Villars' },
+  Sarmiento: {
+    lineKey: 'sarmiento-merlo-lobos',
+    lineLabel: 'Sarmiento · Merlo–Lobos',
+    referenceStation: 'Marcos Paz',
+    serviceNotice: 'El recorrido histórico llega a Lobos. Por obras, los horarios publicados actualmente corresponden al servicio Merlo–Las Heras.',
+    stationContract: ['Merlo', 'Km 34,5', 'A. Ferrari', 'Mariano Acosta', 'Maquinista R. Cal', 'Marcos Paz', 'Zamudio', 'Hornos', 'Las Heras', 'Speratti', 'Zapiola', 'Empalme Lobos', 'Lobos'],
+    publishedTerminus: 'Las Heras',
+  },
+  '136 Ramal A': { lineKey: '136-rapido', lineLabel: '136 Rápido · Primera Junta–Navarro', referenceStation: 'Marcos Paz' },
+  '136 Villars': { lineKey: '136-villars', lineLabel: '136 Villars', referenceStation: 'Estación Marcos Paz' },
+  '322 Luján': { lineKey: '322-lujan', lineLabel: '322 · Marcos Paz–Luján', referenceStation: 'Villars' },
+  '322 Cañuelas': { lineKey: '322-canuelas', lineLabel: '322 · Marcos Paz–Cañuelas', referenceStation: 'Las Heras' },
+};
 const databaseBytes = await readFile(inputPath);
 const databaseSha256 = createHash('sha256').update(databaseBytes).digest('hex');
 const database = new DatabaseSync(inputPath, { readOnly: true });
@@ -109,6 +124,7 @@ try {
     type: route.tipo_norm === 'colectivo' ? 'bus' : 'train', name: route.nombre, branch: route.ramal,
     company: route.empresa, websiteUrl: route.website_url, sourceUrl: route.pdf_url,
     validFrom: route.vigencia_iso || null, schedules: schedulesByRoute.get(route.id) || [],
+    ...(routeMetadata[route.ramal] || {}),
   }));
   const payload = {
     schemaVersion: 2, timezone: 'America/Argentina/Buenos_Aires',

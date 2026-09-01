@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { bytesToHeader } from 'pmtiles';
 import { departuresFor, destinationsFrom, directionsFor, nextService, nextServiceForRoute, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection } from '../src/utils/transport-services.js';
 
 const data = JSON.parse(await readFile(new URL('../src/data/transport-schedules.json', import.meta.url), 'utf8'));
@@ -13,6 +14,24 @@ test('el snapshot tiene procedencia verificable y estructura estable', () => {
 });
 test('Villars cuenta con recorridos reales de colectivo y tren', () => {
   assert.ok(villarsRoutes.some((route) => route.type === 'bus')); assert.ok(villarsRoutes.some((route) => route.type === 'train'));
+});
+test('Merlo–Lobos y 136 Rápido conservan estaciones, sentidos y alcance completo', async () => {
+  const sarmiento = data.routes.find(({ lineKey }) => lineKey === 'sarmiento-merlo-lobos');
+  const rapid136 = data.routes.find(({ lineKey }) => lineKey === '136-rapido');
+  assert.ok(sarmiento); assert.ok(rapid136);
+  assert.equal(sarmiento.stationContract.length, 13);
+  assert.deepEqual(sarmiento.stationContract.slice(-4), ['Speratti', 'Zapiola', 'Empalme Lobos', 'Lobos']);
+  assert.deepEqual(directionsFor(sarmiento).map(({ key }) => key), ['Las Heras', 'Merlo']);
+  assert.equal(stationScheduleGrid(sarmiento, 'weekday', 'Las Heras').stations.length, 13);
+  assert.equal(stationScheduleGrid(sarmiento, 'weekday', 'Las Heras').stations.filter(({ outsidePublishedService }) => outsidePublishedService).length, 4);
+  assert.deepEqual(directionsFor(rapid136).map(({ key }) => key), ['Navarro', 'Primera Junta']);
+  assert.equal(stationScheduleGrid(rapid136, 'weekday', 'Navarro').stations.length, 23);
+
+  const bytes = await readFile(new URL('../public/maps/villars-region.pmtiles', import.meta.url));
+  const header = bytesToHeader(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+  assert.ok(header.minLon <= -59.32 && header.minLat <= -35.22);
+  assert.ok(header.maxLon >= -58.38 && header.maxLat >= -34.48);
+  assert.equal(header.maxZoom, 14);
 });
 test('días, paradas y minutos de cada grilla son válidos', () => {
   const dayKeys = new Set(['weekday', 'saturday', 'sunday']);
@@ -77,7 +96,7 @@ test('se identifican de forma estable las dos próximas formaciones por Villars'
   assert.equal(upcoming[0].key, scheduleServiceKey('weekday', 'Luján', upcoming[0].service));
   assert.notEqual(upcoming[0].key, upcoming[1].key);
 });
-test('el mapa ofrece filtros separados y no presenta la 136 como traza verificada', async () => {
+test('el mapa ofrece filtros separados y presenta la 136 como corredor local estimado', async () => {
   const [page, script, scheduleScript] = await Promise.all([
     readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/scripts/transport-map.js', import.meta.url), 'utf8'),
@@ -90,7 +109,14 @@ test('el mapa ofrece filtros separados y no presenta la 136 como traza verificad
   assert.match(page, /data-map-layer="positions"/);
   assert.match(page, /data-map-layer="routes"/);
   assert.match(page, /data-map-layer="stops"/);
-  assert.match(page, /data-map-route="136" disabled/);
+  assert.match(page, /data-map-route="sarmiento-merlo-lobos" checked/);
+  assert.match(page, /data-map-route="136-rapido" checked/);
+  assert.match(page, /data-map-route="136-villars" checked/);
+  assert.match(page, /no publica GPS abierto/);
+  assert.match(script, /route136MapFeatures/);
+  assert.match(script, /function vehicleMarkerIcon/);
+  assert.match(script, /is-estimated/);
+  assert.match(page, /transport-vehicle-pin/);
   assert.match(scheduleScript, /upcomingServicesForDirection/);
   assert.match(scheduleScript, /next-service-row/);
   assert.match(scheduleScript, /following-service-row/);

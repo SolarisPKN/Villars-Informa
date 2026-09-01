@@ -20,13 +20,15 @@ Las decisiones de transporte están documentadas en [`docs/adr/0001-static-trans
 
 El workflow `sync-transport.yml` se ejecuta una vez al día. Si la base no cambió, no crea commits. Si cambió, regenera los datos, valida todo el proyecto y recién entonces publica el snapshot.
 
-El mapa usa MapLibre sobre `public/maps/villars-region.pmtiles`, un extracto autocontenido de Protomaps/OpenStreetMap. `npm run data:transport-map` renueva las trazas y paradas estáticas de la línea 322; el mapa base no se descarga en cada visita desde OpenStreetMap.
+El mapa usa Leaflet sobre `public/maps/villars-region.pmtiles`, un extracto autocontenido de Protomaps/OpenStreetMap que cubre desde Primera Junta y Merlo hasta Navarro y Lobos. La interfaz mantiene visible la atribución “© OpenStreetMap contributors” con enlace a su aviso de copyright. `npm run data:transport-map` renueva las trazas y paradas estáticas de Belgrano Sur, Sarmiento Merlo–Lobos, 136 Rápido y línea 322; si Cuándo SUBO no autoriza la consulta pública de geometría, conserva el último snapshot 322 auditado en vez de generar datos vacíos. El mapa base no se descarga en cada visita desde OpenStreetMap.
+
+El corredor local del 136 se construyó mediante transcripción manual de horarios y paradas visibles en páginas públicas de Moovit, tratadas como fuente secundaria mientras no exista una publicación primaria equivalente. No se usa una API privada de Moovit ni scraping automatizado. Su geometría vial se calculó previamente con OSRM sobre datos de OpenStreetMap y queda incorporada al bundle: el Worker no consulta Moovit, OSRM ni OpenStreetMap durante la ejecución. Las unidades del 136 se publican exclusivamente como estimaciones `predicted`, nunca como GPS observado.
 
 Los horarios mostrados son programados. Las posiciones son una capa separada y sólo se rotulan como vivas cuando existe un snapshot reciente.
 
 ## Activar la capa de posiciones
 
-El Worker de `workers/transport-live` consulta Cuándo SUBO y SOFSE una vez por minuto y escribe un snapshot consolidado en R2. El cliente distingue posiciones informadas de estimaciones: si SOFSE informa una formación activa pero no entrega GPS, no se presenta como una coordenada medida.
+El Worker de `workers/transport-live` consulta Cuándo SUBO y SOFSE una vez por minuto y escribe un snapshot consolidado en R2. SOFSE cubre tanto Belgrano Sur González Catán–Lozano como Sarmiento Merlo–Lobos; la 136 Villars y la 136 Rápido se interpolan desde horarios publicados y siempre se rotulan como estimaciones. El cliente distingue posiciones informadas de estimaciones: si SOFSE informa una formación activa pero no entrega GPS, no se presenta como una coordenada medida.
 
 1. Crear los buckets `villars-transport-live` y `villars-transport-live-preview` en Cloudflare R2.
 2. Configurar el CORS del bucket con `workers/transport-live/r2-cors.json` y vincular un dominio personalizado, por ejemplo `transport-data.solarispkn.com.ar`.

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-25T11:37:00.194Z",
+  "generatedAt": "2026-09-01T04:32:07.668Z",
   "bounds": [
-    -59.18,
-    -34.98,
-    -58.6,
+    -59.32,
+    -35.22,
+    -58.38,
     -34.48
   ],
   "center": [
@@ -24,6 +24,7 @@
         "properties": {
           "id": "belgrano-sur-gonzalez-catan-lozano",
           "name": "Belgrano Sur · González Catán–Lozano",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -55,9 +56,182 @@
       {
         "type": "Feature",
         "properties": {
+          "id": "sarmiento-merlo-lobos",
+          "name": "Sarmiento · Merlo–Lobos",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -58.7281142,
+              -34.6644017
+            ],
+            [
+              -58.7602409,
+              -34.6801742
+            ],
+            [
+              -58.7794327,
+              -34.706078
+            ],
+            [
+              -58.7930682,
+              -34.7244791
+            ],
+            [
+              -58.8081306,
+              -34.744777
+            ],
+            [
+              -58.8366592,
+              -34.7832092
+            ],
+            [
+              -58.8921946,
+              -34.8578991
+            ],
+            [
+              -58.917861,
+              -34.8923029
+            ],
+            [
+              -58.9445443,
+              -34.9280932
+            ],
+            [
+              -58.9998545,
+              -35.0021051
+            ],
+            [
+              -59.0418857,
+              -35.0583029
+            ],
+            [
+              -59.0908028,
+              -35.1515057
+            ],
+            [
+              -59.0927904,
+              -35.1848403
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-primera-junta-navarro",
+          "name": "136 Rápido · Primera Junta–Navarro (corredor de referencia)",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -58.4417,
+              -34.6205
+            ],
+            [
+              -58.436,
+              -34.618
+            ],
+            [
+              -58.463,
+              -34.628
+            ],
+            [
+              -58.483,
+              -34.629
+            ],
+            [
+              -58.502,
+              -34.636
+            ],
+            [
+              -58.52,
+              -34.644
+            ],
+            [
+              -58.537,
+              -34.641
+            ],
+            [
+              -58.562,
+              -34.64
+            ],
+            [
+              -58.591,
+              -34.645
+            ],
+            [
+              -58.619,
+              -34.648
+            ],
+            [
+              -58.642,
+              -34.656
+            ],
+            [
+              -58.673,
+              -34.658
+            ],
+            [
+              -58.699,
+              -34.666
+            ],
+            [
+              -58.7281142,
+              -34.6644017
+            ],
+            [
+              -58.7602409,
+              -34.6801742
+            ],
+            [
+              -58.7794327,
+              -34.706078
+            ],
+            [
+              -58.7930682,
+              -34.7244791
+            ],
+            [
+              -58.8081306,
+              -34.744777
+            ],
+            [
+              -58.8366592,
+              -34.7832092
+            ],
+            [
+              -58.8921946,
+              -34.8578991
+            ],
+            [
+              -58.917861,
+              -34.8923029
+            ],
+            [
+              -58.9445443,
+              -34.9280932
+            ],
+            [
+              -59.276,
+              -35.005
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
           "id": "135_1623",
           "name": "Línea 322 · Marcos Paz → Luján",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "LineString",
@@ -4222,7 +4396,8 @@
         "properties": {
           "id": "135_1624",
           "name": "Línea 322 · Luján → Marcos Paz",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "LineString",
@@ -7882,8 +8057,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "train-González Catán",
+          "id": "train-belgrano-González Catán",
           "name": "González Catán",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -7897,8 +8073,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "train-20 de Junio",
+          "id": "train-belgrano-20 de Junio",
           "name": "20 de Junio",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -7912,8 +8089,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "train-Marcos Paz (Belgrano)",
+          "id": "train-belgrano-Marcos Paz (Belgrano)",
           "name": "Marcos Paz (Belgrano)",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -7927,8 +8105,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "train-Villars",
+          "id": "train-belgrano-Villars",
           "name": "Villars",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -7942,8 +8121,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "train-Lozano",
+          "id": "train-belgrano-Lozano",
           "name": "Lozano",
+          "lineKey": "belgrano-sur",
           "mode": "train"
         },
         "geometry": {
@@ -7957,10 +8137,587 @@
       {
         "type": "Feature",
         "properties": {
+          "id": "train-sarmiento-Merlo",
+          "name": "Merlo",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7281142,
+            -34.6644017
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Km 34,5",
+          "name": "Km 34,5",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7602409,
+            -34.6801742
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-A. Ferrari",
+          "name": "A. Ferrari",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7794327,
+            -34.706078
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Mariano Acosta",
+          "name": "Mariano Acosta",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7930682,
+            -34.7244791
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Maquinista R. Cal",
+          "name": "Maquinista R. Cal",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8081306,
+            -34.744777
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Marcos Paz",
+          "name": "Marcos Paz",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8366592,
+            -34.7832092
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Zamudio",
+          "name": "Zamudio",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8921946,
+            -34.8578991
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Hornos",
+          "name": "Hornos",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.917861,
+            -34.8923029
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Las Heras",
+          "name": "Las Heras",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.9445443,
+            -34.9280932
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Speratti",
+          "name": "Speratti",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.9998545,
+            -35.0021051
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Zapiola",
+          "name": "Zapiola",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -59.0418857,
+            -35.0583029
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Empalme Lobos",
+          "name": "Empalme Lobos",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -59.0908028,
+            -35.1515057
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "train-sarmiento-Lobos",
+          "name": "Lobos",
+          "lineKey": "sarmiento-merlo-lobos",
+          "mode": "train"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -59.0927904,
+            -35.1848403
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Primera Junta",
+          "name": "Primera Junta",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.4417,
+            -34.6205
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Caballito",
+          "name": "Caballito",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.436,
+            -34.618
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Flores",
+          "name": "Flores",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.463,
+            -34.628
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Floresta",
+          "name": "Floresta",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.483,
+            -34.629
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Villa Luro",
+          "name": "Villa Luro",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.502,
+            -34.636
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Liniers",
+          "name": "Liniers",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.52,
+            -34.644
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Ciudadela",
+          "name": "Ciudadela",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.537,
+            -34.641
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Ramos Mejía",
+          "name": "Ramos Mejía",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.562,
+            -34.64
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Haedo",
+          "name": "Haedo",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.591,
+            -34.645
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Morón",
+          "name": "Morón",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.619,
+            -34.648
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Castelar",
+          "name": "Castelar",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.642,
+            -34.656
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Ituzaingó",
+          "name": "Ituzaingó",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.673,
+            -34.658
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-San Antonio de Padua",
+          "name": "San Antonio de Padua",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.699,
+            -34.666
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Merlo",
+          "name": "Merlo",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7281142,
+            -34.6644017
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Km 34,5",
+          "name": "Km 34,5",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7602409,
+            -34.6801742
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-A. Ferrari",
+          "name": "A. Ferrari",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7794327,
+            -34.706078
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Mariano Acosta",
+          "name": "Mariano Acosta",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.7930682,
+            -34.7244791
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Maquinista R. Cal",
+          "name": "Maquinista R. Cal",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8081306,
+            -34.744777
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Marcos Paz",
+          "name": "Marcos Paz",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8366592,
+            -34.7832092
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Zamudio",
+          "name": "Zamudio",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.8921946,
+            -34.8578991
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Hornos",
+          "name": "Hornos",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.917861,
+            -34.8923029
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Las Heras",
+          "name": "Las Heras",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -58.9445443,
+            -34.9280932
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "136-rapido-Navarro",
+          "name": "Navarro",
+          "lineKey": "136-rapido",
+          "mode": "bus"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -59.276,
+            -35.005
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
           "id": "14_06329000001",
           "name": "Cafiero y Los Alamos (Plomer)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -7976,7 +8733,8 @@
           "id": "14_06329000003",
           "name": "Est. Villars (FC. Belgrano)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -7992,7 +8750,8 @@
           "id": "14_06329000005",
           "name": "Est. Zamudio",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8008,7 +8767,8 @@
           "id": "14_06329000006",
           "name": "Granja Avícola Nutrición",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8024,7 +8784,8 @@
           "id": "14_06329000007",
           "name": "RP. 40 y Los Abedules (Esc. Nº 3)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8040,7 +8801,8 @@
           "id": "14_06329000008",
           "name": "RP. 40 y Los Aromos",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8056,7 +8818,8 @@
           "id": "14_06329000009",
           "name": "Cementerio Mun. Gral. Las Heras",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8072,7 +8835,8 @@
           "id": "14_06329000010",
           "name": "RP. 40 y San Martín",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8088,7 +8852,8 @@
           "id": "14_06329000011",
           "name": "Av. Villamayor y RP. 40",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8104,7 +8869,8 @@
           "id": "14_06329000012",
           "name": "Av. Villamayor y Marconi",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8120,7 +8886,8 @@
           "id": "14_06329000013",
           "name": "Av. Villamayor y Moreno",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8136,7 +8903,8 @@
           "id": "14_06329000014",
           "name": "Est. Las Heras (FC. Sarmiento)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8152,7 +8920,8 @@
           "id": "14_06329000015",
           "name": "Belgrano y Moreno",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8168,7 +8937,8 @@
           "id": "14_06329000016",
           "name": "Belgrano y Marconi",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8184,7 +8954,8 @@
           "id": "14_06329000017",
           "name": "Belgrano y RP. 40",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8200,7 +8971,8 @@
           "id": "14_06329000018",
           "name": "RP. 40 y San Martín",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8216,7 +8988,8 @@
           "id": "14_06329000019",
           "name": "Cementerio Mun. Gral. Las Heras",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8232,7 +9005,8 @@
           "id": "14_06329000020",
           "name": "RP. 40 y Los Aromos",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8248,7 +9022,8 @@
           "id": "14_06329000021",
           "name": "RP. 40 y 2 de Abril (Esc. Nº 3)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8264,7 +9039,8 @@
           "id": "14_06329000022",
           "name": "Granja Avícola Nutrición",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8280,7 +9056,8 @@
           "id": "14_06329000023",
           "name": "Est. Zamudio",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8296,7 +9073,8 @@
           "id": "14_06364000026",
           "name": "RP. 6 y Km. 134.5",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8312,7 +9090,8 @@
           "id": "14_06364000027",
           "name": "RP. 6 y RP. 24 (Vuela)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8328,7 +9107,8 @@
           "id": "14_06364000028",
           "name": "Colegio Agrotécnico El Tejado (RP. 6)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8344,7 +9124,8 @@
           "id": "14_06364000029",
           "name": "RP. 6 y Cno. Navarro (Aero. Gral Rodriguez)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8360,7 +9141,8 @@
           "id": "14_06364000030",
           "name": "RP. 6 y Cno. Mercedez-Rodriguez (La Reserva del Oe",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8376,7 +9158,8 @@
           "id": "14_06364000031",
           "name": "RP. 6 y Haras San Pablo",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8392,7 +9175,8 @@
           "id": "14_06364000032",
           "name": "RP. 6 y Del Sol",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8408,7 +9192,8 @@
           "id": "14_06497000009",
           "name": "Av. Pellegrini (RP. 7) y Gálvez",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8424,7 +9209,8 @@
           "id": "14_06497000011",
           "name": "Av. Pellegrini (RP. 7) y Colón",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8440,7 +9226,8 @@
           "id": "14_06497000101",
           "name": "Terminal Luján",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8456,7 +9243,8 @@
           "id": "14_06497000105",
           "name": "Est. Univ. de Luján",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8472,7 +9260,8 @@
           "id": "14_06497000106",
           "name": "Universidad de Luján",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8488,7 +9277,8 @@
           "id": "14_06497000121",
           "name": "RP. 7 y Av. Unzué de Alvear (Est. Lezica y Torrezu",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8504,7 +9294,8 @@
           "id": "14_06497000122",
           "name": "RP. 7 y 622 bis (OSCOMM)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8520,7 +9311,8 @@
           "id": "14_06497000123",
           "name": "RP. 7 y Del Pilar",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8536,7 +9328,8 @@
           "id": "14_06497000124",
           "name": "RP. 7 y Maryland",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8552,7 +9345,8 @@
           "id": "14_06497000125",
           "name": "RP. 7 y Salta (B° Los Paraisos)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8568,7 +9362,8 @@
           "id": "14_06497000126",
           "name": "Av. Constitución (RP. 7)  y San Martín",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8584,7 +9379,8 @@
           "id": "14_06497000127",
           "name": "Av. Constitución (RP. 7)  y Buenos Aires",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8600,7 +9396,8 @@
           "id": "14_06497000128",
           "name": "Av. Constitución (RP. 7)  y Cap. Luján",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8616,7 +9413,8 @@
           "id": "14_06497000129",
           "name": "Av. Pellegrini (RP. 7)  y Lamadrid",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8632,7 +9430,8 @@
           "id": "14_06497000130",
           "name": "Av. Pellegrini (RP. 7)  y La Rioja",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8648,7 +9447,8 @@
           "id": "14_06497000131",
           "name": "Av. Pellegrini (RP. 7)  y Erézcano (Carrefour)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8664,7 +9464,8 @@
           "id": "14_06497000132",
           "name": "Av. Pellegrini (RP. 7)  y Av. Humberto Primo",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8680,7 +9481,8 @@
           "id": "14_06525000078",
           "name": "EOLIA - SEMEX (RP. 6 y Av. Libertad)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8696,7 +9498,8 @@
           "id": "14_06525000079",
           "name": "RP. 6 y Acceso a Villars",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8712,7 +9515,8 @@
           "id": "14_06525000080",
           "name": "RP. 6 y Las Hojas Club de Campo",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8728,7 +9532,8 @@
           "id": "14_06525000102",
           "name": "Av. Dr. Marcos Paz y Acceso Zabala",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8744,7 +9549,8 @@
           "id": "14_06525000103",
           "name": "Av. Dr. Marcos Paz y Dr. Gómez",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8760,7 +9566,8 @@
           "id": "14_06525000104",
           "name": "Esc. EGB Nº 8 - Jardin Nº 904",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8776,7 +9583,8 @@
           "id": "14_06525000105",
           "name": "RP. 40 y El Zorzal",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8792,7 +9600,8 @@
           "id": "14_06525000106",
           "name": "RP. 40 y RP. 6",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8808,7 +9617,8 @@
           "id": "14_06525000107",
           "name": "Av. Dr. Marcos Paz y Sampietro",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8824,7 +9634,8 @@
           "id": "14_06525000108",
           "name": "Av. Dr. Marcos Paz y Astarita",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8840,7 +9651,8 @@
           "id": "14_06525000109",
           "name": "Av. Dr. Marcos Paz y Bordoni",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8856,7 +9668,8 @@
           "id": "14_06525000110",
           "name": "Av. Dr. Marcos Paz y Bastanchuri",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8872,7 +9685,8 @@
           "id": "14_06525000111",
           "name": "Est. Marcos Paz (FC. Sarmiento)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8888,7 +9702,8 @@
           "id": "14_06525000112",
           "name": "Av. Dr. Marcos Paz y Aguer",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8904,7 +9719,8 @@
           "id": "14_06525000113",
           "name": "Dagnillo y Melgar",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8920,7 +9736,8 @@
           "id": "14_06525000114",
           "name": "RP. 40 y Los Eucaliptos",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8936,7 +9753,8 @@
           "id": "14_06525000115",
           "name": "RP. 40 y Onas",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8952,7 +9770,8 @@
           "id": "14_06525000116",
           "name": "RP. 40 y El Tordo",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8968,7 +9787,8 @@
           "id": "14_06525000117",
           "name": "RP. 40 y Baldo",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -8984,7 +9804,8 @@
           "id": "14_06525000118",
           "name": "Av. Dr. Marcos Paz y Gral. Bosch",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9000,7 +9821,8 @@
           "id": "14_06525000119",
           "name": "Av. Dr. Marcos Paz y Leavy (Esc. Sec. 6)",
           "routeId": "135_1623",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9016,7 +9838,8 @@
           "id": "14_06329000002",
           "name": "Av. Plomer y Cafiero (Plomer)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9032,7 +9855,8 @@
           "id": "14_06329000003",
           "name": "Est. Villars (FC. Belgrano)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9048,7 +9872,8 @@
           "id": "14_06329000004",
           "name": "EOLIA - SEMEX (RP. 6 y Av. Libertad)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9064,7 +9889,8 @@
           "id": "14_06329000005",
           "name": "Est. Zamudio",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9080,7 +9906,8 @@
           "id": "14_06329000006",
           "name": "Granja Avícola Nutrición",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9096,7 +9923,8 @@
           "id": "14_06329000007",
           "name": "RP. 40 y Los Abedules (Esc. Nº 3)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9112,7 +9940,8 @@
           "id": "14_06329000008",
           "name": "RP. 40 y Los Aromos",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9128,7 +9957,8 @@
           "id": "14_06329000009",
           "name": "Cementerio Mun. Gral. Las Heras",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9144,7 +9974,8 @@
           "id": "14_06329000010",
           "name": "RP. 40 y San Martín",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9160,7 +9991,8 @@
           "id": "14_06329000011",
           "name": "Av. Villamayor y RP. 40",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9176,7 +10008,8 @@
           "id": "14_06329000012",
           "name": "Av. Villamayor y Marconi",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9192,7 +10025,8 @@
           "id": "14_06329000013",
           "name": "Av. Villamayor y Moreno",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9208,7 +10042,8 @@
           "id": "14_06329000014",
           "name": "Est. Las Heras (FC. Sarmiento)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9224,7 +10059,8 @@
           "id": "14_06329000015",
           "name": "Belgrano y Moreno",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9240,7 +10076,8 @@
           "id": "14_06329000016",
           "name": "Belgrano y Marconi",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9256,7 +10093,8 @@
           "id": "14_06329000017",
           "name": "Belgrano y RP. 40",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9272,7 +10110,8 @@
           "id": "14_06329000018",
           "name": "RP. 40 y San Martín",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9288,7 +10127,8 @@
           "id": "14_06329000019",
           "name": "Cementerio Mun. Gral. Las Heras",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9304,7 +10144,8 @@
           "id": "14_06329000020",
           "name": "RP. 40 y Los Aromos",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9320,7 +10161,8 @@
           "id": "14_06329000021",
           "name": "RP. 40 y 2 de Abril (Esc. Nº 3)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9336,7 +10178,8 @@
           "id": "14_06329000022",
           "name": "Granja Avícola Nutrición",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9352,7 +10195,8 @@
           "id": "14_06329000023",
           "name": "Est. Zamudio",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9368,7 +10212,8 @@
           "id": "14_06364000033",
           "name": "RP. 6 y Del Sol",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9384,7 +10229,8 @@
           "id": "14_06364000034",
           "name": "RP. 6 y Haras San Pablo",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9400,7 +10246,8 @@
           "id": "14_06364000035",
           "name": "RP. 6 y Cno. Mercedez-Rodriguez (La Reserva del Oe",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9416,7 +10263,8 @@
           "id": "14_06364000036",
           "name": "RP. 6 y Cno. Navarro (Aero. Gral Rodriguez)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9432,7 +10280,8 @@
           "id": "14_06364000037",
           "name": "Colegio Agrotécnico El Tejado (RP. 6)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9448,7 +10297,8 @@
           "id": "14_06364000038",
           "name": "RP. 6 y RP. 24 (Vuela)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9464,7 +10314,8 @@
           "id": "14_06364000039",
           "name": "RP. 6 y Km. 134.5",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9480,7 +10331,8 @@
           "id": "14_06497000081",
           "name": "Av. Pellegrini (RP. 7) y Francia",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9496,7 +10348,8 @@
           "id": "14_06497000087",
           "name": "Av. Pellegrini (RP. 7) y Moreno",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9512,7 +10365,8 @@
           "id": "14_06497000101",
           "name": "Terminal Luján",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9528,7 +10382,8 @@
           "id": "14_06497000118",
           "name": "Universidad de Luján",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9544,7 +10399,8 @@
           "id": "14_06497000119",
           "name": "Est. Univ. de Luján",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9560,7 +10416,8 @@
           "id": "14_06497000133",
           "name": "Av. Pellegrini (RP. 7) y Av. Humberto Primo",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9576,7 +10433,8 @@
           "id": "14_06497000134",
           "name": "Av. Pellegrini (RP. 7) y Sarmiento",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9592,7 +10450,8 @@
           "id": "14_06497000135",
           "name": "Av. Pellegrini (RP. 7) y Alvear",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9608,7 +10467,8 @@
           "id": "14_06497000136",
           "name": "Av. Pellegrini (RP. 7) y Lamadrid",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9624,7 +10484,8 @@
           "id": "14_06497000137",
           "name": "Av. Constitución (RP. 7) y Belgrano",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9640,7 +10501,8 @@
           "id": "14_06497000138",
           "name": "Av. Constitución (RP. 7) y Gamboa",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9656,7 +10518,8 @@
           "id": "14_06497000139",
           "name": "Av. Constitución (RP. 7) y San Martín",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9672,7 +10535,8 @@
           "id": "14_06497000140",
           "name": "RP. 7 y Salta (B° Los Paraisos)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9688,7 +10552,8 @@
           "id": "14_06497000141",
           "name": "RP. 7 y Maryland",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9704,7 +10569,8 @@
           "id": "14_06497000142",
           "name": "RP. 7 y Del Pilar",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9720,7 +10586,8 @@
           "id": "14_06497000143",
           "name": "RP. 7 y 622 bis (OSCOMM)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9736,7 +10603,8 @@
           "id": "14_06497000144",
           "name": "RP. 7 y Av. Unzué de Alvear (Est. Lezica y Torrezu",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9752,7 +10620,8 @@
           "id": "14_06525000081",
           "name": "RP. 6 y Las Hojas Club de Campo",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9768,7 +10637,8 @@
           "id": "14_06525000082",
           "name": "RP. 6 y Acceso a Villars",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9784,7 +10654,8 @@
           "id": "14_06525000083",
           "name": "RP. 40 y RP. 6",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9800,7 +10671,8 @@
           "id": "14_06525000084",
           "name": "Esc. EGB Nº 8 - Jardin Nº 904",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9816,7 +10688,8 @@
           "id": "14_06525000085",
           "name": "RP. 40 y El Zorzal",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9832,7 +10705,8 @@
           "id": "14_06525000086",
           "name": "RP. 40 y El Tordo",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9848,7 +10722,8 @@
           "id": "14_06525000087",
           "name": "RP. 40 y Baldo",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9864,7 +10739,8 @@
           "id": "14_06525000088",
           "name": "RP. 40 y Los Eucaliptos",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9880,7 +10756,8 @@
           "id": "14_06525000089",
           "name": "RP. 40 y Onas",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9896,7 +10773,8 @@
           "id": "14_06525000090",
           "name": "Av. Dr. Marcos Paz y Acceso Zabala",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9912,7 +10790,8 @@
           "id": "14_06525000091",
           "name": "Av. Dr. Marcos Paz y Dr. Gómez",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9928,7 +10807,8 @@
           "id": "14_06525000092",
           "name": "Av. Dr. Marcos Paz y Rosa Luna",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9944,7 +10824,8 @@
           "id": "14_06525000093",
           "name": "Av. Dr. Marcos Paz y Gral. Bosch",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9960,7 +10841,8 @@
           "id": "14_06525000094",
           "name": "Av. Dr. Marcos Paz y Leavy (Esc. Sec. 6)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9976,7 +10858,8 @@
           "id": "14_06525000095",
           "name": "Av. Dr. Marcos Paz y Bordoni",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -9992,7 +10875,8 @@
           "id": "14_06525000096",
           "name": "Av. Dr. Marcos Paz y Bastanchuri",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -10008,7 +10892,8 @@
           "id": "14_06525000097",
           "name": "Av. Dr. Marcos Paz y Sampietro",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -10024,7 +10909,8 @@
           "id": "14_06525000098",
           "name": "Av. Dr. Marcos Paz y Astarita",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -10040,7 +10926,8 @@
           "id": "14_06525000099",
           "name": "Av. Dr. Marcos Paz y Aguer",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -10056,7 +10943,8 @@
           "id": "14_06525000100",
           "name": "Dagnillo y Melgar",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",
@@ -10072,7 +10960,8 @@
           "id": "14_06525000101",
           "name": "Est. Marcos Paz (FC. Sarmiento)",
           "routeId": "135_1624",
-          "mode": "bus"
+          "mode": "bus",
+          "lineKey": "322"
         },
         "geometry": {
           "type": "Point",

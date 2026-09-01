@@ -1,7 +1,22 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { PMTiles } from 'pmtiles';
-import mapData from '../data/transport-map.json';
+import baseMapData from '../data/transport-map.json';
+import route136Config from '../data/transport-136-villars.json';
+import { route136MapFeatures } from '../utils/transport-route-model.js';
+
+const route136Features = route136MapFeatures(route136Config);
+const mapData = {
+  ...baseMapData,
+  routes: {
+    ...baseMapData.routes,
+    features: [...baseMapData.routes.features, route136Features.route],
+  },
+  stops: {
+    ...baseMapData.stops,
+    features: [...baseMapData.stops.features, ...route136Features.stops],
+  },
+};
 
 const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL || 'https://transport-data.solarispkn.com.ar/current.json';
 const STALE_AFTER_MS = 120_000;
@@ -111,10 +126,14 @@ function liveFeatures(snapshot) {
 }
 
 function routeFamily(feature) {
-  if (feature?.properties?.mode === 'train') return 'train';
+  if (feature?.properties?.lineKey) return feature.properties.lineKey;
   const identifier = String(feature?.properties?.routeId || feature?.properties?.id || '');
+  if (identifier === 'sofse-67') return 'belgrano-sur';
+  if (identifier === 'sofse-53') return 'sarmiento-merlo-lobos';
   if (identifier.startsWith('135_')) return '322';
-  if (identifier.includes('136')) return '136';
+  if (identifier.startsWith('739_') || identifier.includes('136-rapido')) return '136-rapido';
+  if (identifier.includes('136')) return '136-villars';
+  if (feature?.properties?.mode === 'train') return 'belgrano-sur';
   return 'bus';
 }
 
@@ -193,7 +212,7 @@ function popupContent(properties, kind) {
     description.textContent = `${source}${properties.stale ? ' · dato demorado' : ''}`;
   } else {
     const family = routeFamily({ properties });
-    description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : `Parada del colectivo ${family === '136' ? '136' : '322'}`;
+    description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : `Parada del colectivo ${family.startsWith('136') ? '136' : '322'}`;
   }
   content.append(heading, document.createElement('br'), description);
   return content;
@@ -210,6 +229,27 @@ function markerStyle(feature, live = false) {
     dashArray: isPredicted ? '3 3' : null,
     fillOpacity: live && feature?.properties?.stale ? 0.4 : 0.95,
   };
+}
+
+function vehicleMarkerIcon(feature) {
+  const isTrain = feature?.properties?.mode === 'train';
+  const isPredicted = feature?.properties?.positionKind === 'predicted';
+  const family = routeFamily(feature);
+  const color = isTrain ? '#d99a2b' : family.startsWith('136') ? '#e97832' : '#168aad';
+  const glyph = isTrain
+    ? '<path d="M7 3h10c2.2 0 4 1.8 4 4v8c0 2-1.5 3.7-3.4 4l2.1 2.1-1.4 1.4-2.2-2.2H7.9l-2.2 2.2-1.4-1.4L6.4 19A4 4 0 0 1 3 15V7c0-2.2 1.8-4 4-4Zm0 3a1 1 0 0 0-1 1v5h12V7a1 1 0 0 0-1-1H7Zm1 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/>'
+    : '<path d="M6 3h12c2.2 0 4 1.8 4 4v10c0 1.5-1 2.7-2.4 3L18 22h-2l-1-2H9l-1 2H6l-1.6-2A3.1 3.1 0 0 1 2 17V7c0-2.2 1.8-4 4-4Zm0 3a1 1 0 0 0-1 1v5h14V7a1 1 0 0 0-1-1H6Zm1 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm10 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/>';
+  const stateClass = [
+    isPredicted ? 'is-estimated' : 'is-observed',
+    feature?.properties?.stale ? 'is-stale' : '',
+  ].filter(Boolean).join(' ');
+  return L.divIcon({
+    className: 'transport-vehicle-icon',
+    html: `<span class="transport-vehicle-pin ${stateClass}" style="--vehicle-color:${color}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${glyph}</svg></span>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -18],
+  });
 }
 
 function replaceLiveFeatures(features) {
@@ -261,7 +301,9 @@ async function updateLiveLayer() {
 function addTransportLayers() {
   routeLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
     style: (feature) => ({
-      color: feature?.properties?.mode === 'train' ? '#e9c46a' : '#6fb7ff',
+      color: feature?.properties?.mode === 'train'
+        ? '#e9c46a'
+        : routeFamily(feature).startsWith('136') ? '#f28c45' : '#6fb7ff',
       weight: feature?.properties?.mode === 'train' ? 4 : 3,
       opacity: 0.95,
     }),
@@ -273,7 +315,11 @@ function addTransportLayers() {
   }).addTo(map);
 
   liveLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
-    pointToLayer: (feature, latlng) => L.circleMarker(latlng, markerStyle(feature, true)),
+    pointToLayer: (feature, latlng) => L.marker(latlng, {
+      icon: vehicleMarkerIcon(feature),
+      keyboard: true,
+      title: feature?.properties?.label || 'Transporte',
+    }),
     onEachFeature: (feature, layer) => layer.bindPopup(() => popupContent(feature.properties || {}, 'live')),
   }).addTo(map);
   renderFilteredLayers();
@@ -320,7 +366,7 @@ async function initTransportMap() {
     minZoom: 8,
     maxZoom: 14,
     maxDataZoom: 14,
-    bounds: [[-34.98, -59.18], [-34.48, -58.60]],
+    bounds: [[-35.22, -59.32], [-34.48, -58.38]],
     attribution: '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   });
   baseLayer.once('load', () => {

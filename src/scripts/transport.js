@@ -1,5 +1,5 @@
 import transportData from '../data/transport-schedules.json';
-import { destinationsFrom, directionsFor, formatMinutes, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection, weekdayNames } from '../utils/transport-services.js';
+import { directionsFor, formatMinutes, normalizeStationName, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection, weekdayNames } from '../utils/transport-services.js';
 
 const scheduleDays = [
   { key: 'weekday', label: 'Lunes a viernes' },
@@ -8,7 +8,9 @@ const scheduleDays = [
 ];
 let controller;
 let refreshTimer;
-const villarsRoutes = transportData.routes.filter((route) => destinationsFrom(route).length > 0);
+const transportRoutes = transportData.routes
+  .filter((route) => route.schedules.length > 0)
+  .sort((left, right) => (left.type === right.type ? (left.lineLabel || left.branch).localeCompare(right.lineLabel || right.branch, 'es') : left.type === 'train' ? -1 : 1));
 
 function formattedTime(minutes) {
   const formatted = formatMinutes(minutes);
@@ -111,6 +113,11 @@ function createMobileSchedule(route, grid, day, direction, highlights) {
         here.textContent = 'Estás acá';
         stationName.append(here);
       }
+      if (station.outsidePublishedService) {
+        const suspended = document.createElement('small');
+        suspended.textContent = 'Sin servicio publicado';
+        stationName.append(suspended);
+      }
       const time = document.createElement('dd');
       const stop = station.stops[currentIndex];
       if (stop) {
@@ -178,6 +185,12 @@ function createScheduleSection(route, day, direction, highlights) {
     const name = document.createElement('span');
     name.textContent = station.name;
     cell.append(name);
+    if (station.outsidePublishedService) {
+      cell.classList.add('outside-service-column');
+      const suspended = document.createElement('small');
+      suspended.textContent = 'Sin servicio publicado';
+      cell.append(suspended);
+    }
     if (station.normalizedName === 'villars') {
       const here = document.createElement('small');
       here.textContent = 'Estás acá';
@@ -250,10 +263,11 @@ function initTransport() {
   if (refreshTimer) window.clearInterval(refreshTimer);
   controller = new AbortController();
   const root = document.querySelector('[data-transport-app]');
-  const tabs = [...(root?.querySelectorAll('[data-service-tab]') || [])];
   const sections = root?.querySelector('[data-schedule-sections]');
+  const modeSelect = root?.querySelector('[data-mode-select]');
+  const routeSelect = root?.querySelector('[data-route-select]');
   const directionSelect = root?.querySelector('[data-direction-select]');
-  if (!(root instanceof HTMLElement) || !(sections instanceof HTMLElement) || !(directionSelect instanceof HTMLSelectElement) || tabs.length === 0) return;
+  if (!(root instanceof HTMLElement) || !(sections instanceof HTMLElement) || !(modeSelect instanceof HTMLSelectElement) || !(routeSelect instanceof HTMLSelectElement) || !(directionSelect instanceof HTMLSelectElement) || transportRoutes.length === 0) return;
 
   const setText = (selector, value) => {
     const node = root.querySelector(selector);
@@ -261,17 +275,22 @@ function initTransport() {
   };
 
   const render = (routeId, requestedDirection) => {
-    const route = villarsRoutes.find((item) => item.id === routeId) || villarsRoutes[0];
+    const route = transportRoutes.find((item) => item.id === routeId) || transportRoutes.find((item) => item.type === modeSelect.value) || transportRoutes[0];
     if (!route) return;
     const directions = directionsFor(route);
     const direction = directions.some(({ key }) => key === requestedDirection) ? requestedDirection : directions[0]?.key;
     if (!direction) return;
 
-    tabs.forEach((tab) => {
-      const active = tab.dataset.serviceTab === route.id;
-      tab.setAttribute('aria-selected', String(active));
-      tab.tabIndex = active ? 0 : -1;
-    });
+    modeSelect.value = route.type;
+    if (![...routeSelect.options].some((option) => option.value === route.id)) {
+      routeSelect.replaceChildren(...transportRoutes.filter((item) => item.type === route.type).map((item) => {
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.lineLabel || item.branch || item.name;
+        return option;
+      }));
+    }
+    routeSelect.value = route.id;
 
     directionSelect.replaceChildren(...directions.map(({ key, label }) => {
       const option = document.createElement('option');
@@ -281,7 +300,8 @@ function initTransport() {
       return option;
     }));
 
-    const upcoming = upcomingServicesForDirection(route, direction, transportData.timezone);
+    const referenceStation = normalizeStationName(route.referenceStation || gridReferenceStation(route, direction));
+    const upcoming = upcomingServicesForDirection(route, direction, transportData.timezone, new Date(), referenceStation);
     const highlights = new Map(upcoming.map(({ key }, index) => [key, index]));
     sections.setAttribute('aria-label', `Horarios de ${route.branch || route.name}, hacia ${direction}`);
     sections.replaceChildren(...scheduleDays.map((day) => createScheduleSection(route, day, direction, highlights)));
@@ -293,9 +313,10 @@ function initTransport() {
       setText('[data-next-detail]', `Formación ${next.service.name} hacia ${next.service.destination} · en ${waitLabel(next.difference)}`);
     } else {
       setText('[data-next-service]', 'Sin servicio');
-      setText('[data-next-detail]', 'No se encontraron formaciones por Villars en este sentido durante los próximos siete días.');
+      setText('[data-next-detail]', 'No se encontraron formaciones en la estación de referencia durante los próximos siete días.');
     }
 
+    setText('[data-reference-station]', route.referenceStation || gridReferenceStation(route, direction));
     setText('[data-route-type]', route.type === 'bus' ? 'Colectivo' : 'Tren');
     setText('[data-schedule-title]', `Todos los horarios de ${route.branch || route.name}`);
     setText('[data-company]', route.company || 'No informado');
@@ -305,30 +326,38 @@ function initTransport() {
       : 'Sin vigencia informada');
     const operatorLink = root.querySelector('[data-operator-link]');
     if (operatorLink instanceof HTMLAnchorElement) operatorLink.href = route.websiteUrl || route.sourceUrl || transportData.source.repository;
+    const notice = root.querySelector('[data-service-notice]');
+    if (notice instanceof HTMLElement) {
+      notice.textContent = route.serviceNotice || '';
+      notice.hidden = !route.serviceNotice;
+    }
   };
 
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => render(tab.dataset.serviceTab), { signal: controller.signal });
-    tab.addEventListener('keydown', (event) => {
-      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-      event.preventDefault();
-      const offset = event.key === 'ArrowRight' ? 1 : -1;
-      const target = tabs[(index + offset + tabs.length) % tabs.length];
-      target.focus();
-      render(target.dataset.serviceTab);
-    }, { signal: controller.signal });
-  });
+  modeSelect.addEventListener('change', () => {
+    const options = transportRoutes.filter((route) => route.type === modeSelect.value);
+    routeSelect.replaceChildren(...options.map((route) => {
+      const option = document.createElement('option');
+      option.value = route.id;
+      option.textContent = route.lineLabel || route.branch || route.name;
+      return option;
+    }));
+    render(options[0]?.id);
+  }, { signal: controller.signal });
+  routeSelect.addEventListener('change', () => render(routeSelect.value), { signal: controller.signal });
   directionSelect.addEventListener('change', () => {
-    const activeRoute = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.dataset.serviceTab;
-    render(activeRoute, directionSelect.value);
+    render(routeSelect.value, directionSelect.value);
   }, { signal: controller.signal });
 
   const renderCurrentSelection = () => {
-    const activeRoute = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.dataset.serviceTab;
-    render(activeRoute, directionSelect.value);
+    render(routeSelect.value, directionSelect.value);
   };
-  render(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.dataset.serviceTab);
+  render(routeSelect.value);
   refreshTimer = window.setInterval(renderCurrentSelection, 60_000);
+}
+
+function gridReferenceStation(route, direction) {
+  const grid = stationScheduleGrid(route, 'weekday', direction);
+  return grid.stations.find((station) => !station.outsidePublishedService)?.name || grid.stations[0]?.name || '';
 }
 
 document.addEventListener('astro:page-load', initTransport);

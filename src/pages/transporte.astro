@@ -1,16 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import transportData from '../data/transport-schedules.json';
-import { destinationsFrom, directionsFor, formatMinutes, nextServiceForRoute, scheduleServiceKey, stationScheduleGrid, weekdayNames } from '../utils/transport-services.js';
+import { directionsFor, formatMinutes, nextServiceForRoute, normalizeStationName, scheduleServiceKey, stationScheduleGrid, weekdayNames } from '../utils/transport-services.js';
 
-const villarsRoutes = transportData.routes.filter((route) => destinationsFrom(route).length > 0);
+const transportRoutes = transportData.routes
+  .filter((route) => route.schedules.length > 0)
+  .sort((left, right) => (left.type === right.type ? (left.lineLabel || left.branch).localeCompare(right.lineLabel || right.branch, 'es') : left.type === 'train' ? -1 : 1));
 const scheduleDays = [
   { key: 'weekday', label: 'Lunes a viernes' },
   { key: 'saturday', label: 'Sábados' },
   { key: 'sunday', label: 'Domingos' },
 ];
-const initialRoute = villarsRoutes[0];
-const initialNext = initialRoute ? nextServiceForRoute(initialRoute, transportData.timezone) : null;
+type GridStation = {
+  name: string;
+  normalizedName: string;
+  outsidePublishedService?: boolean;
+  stops: Array<{ minutes: number } | null>;
+};
+const initialRoute = transportRoutes.find((route) => route.lineKey === 'belgrano-sur') || transportRoutes[0];
+const initialReference = normalizeStationName(initialRoute?.referenceStation || 'villars');
+const initialNext = initialRoute ? nextServiceForRoute(initialRoute, transportData.timezone, new Date(), initialReference) : null;
 const initialDirections = initialRoute ? directionsFor(initialRoute) : [];
 const initialDirection = initialDirections[0]?.key;
 const initialScheduleGrids = initialRoute
@@ -38,10 +47,10 @@ const updatedAt = transportData.source.updatedAt
     <header class="transport-hero">
       <p class="eyebrow">Horarios versionados · posiciones cada minuto</p>
       <h1>Transporte en Villars</h1>
-      <p>Consultá las salidas programadas de colectivos y trenes que realmente continúan desde Villars hasta el destino elegido. El mapa funciona con cartografía alojada en este mismo sitio.</p>
+      <p>Consultá trenes y colectivos por línea y sentido. Los servicios suspendidos se distinguen de los horarios publicados, y el mapa funciona con cartografía alojada en este mismo sitio.</p>
     </header>
-    {villarsRoutes.length === 0 ? (
-      <div class="transport-panel"><h2>Datos temporalmente no disponibles</h2><p>El snapshot actual no contiene recorridos con parada en Villars.</p></div>
+    {transportRoutes.length === 0 ? (
+      <div class="transport-panel"><h2>Datos temporalmente no disponibles</h2><p>El snapshot actual no contiene recorridos publicados.</p></div>
     ) : (
       <div class="transport-panel">
         <div class="service-picker">
@@ -49,25 +58,22 @@ const updatedAt = transportData.source.updatedAt
             <p class="eyebrow">Elegí el servicio</p>
             <p>Al cambiar de servicio se actualizan juntas las tres grillas.</p>
           </div>
-          <div class="service-tabs" role="tablist" aria-label="Servicio de transporte">
-            {villarsRoutes.map((route, index) => (
-              <button
-                type="button"
-                role="tab"
-                data-service-tab={route.id}
-                aria-selected={index === 0 ? 'true' : 'false'}
-                aria-controls="transport-schedule-panel"
-                tabindex={index === 0 ? 0 : -1}
-              >
-                <span aria-hidden="true">{route.type === 'bus' ? '🚌' : '🚆'}</span>
-                <strong>{route.type === 'bus' ? 'Línea 322' : 'Belgrano Sur'}</strong>
-                <small>{route.name}</small>
-              </button>
-            ))}
+          <div class="service-selectors">
+            <label>Tipo
+              <select data-mode-select aria-controls="transport-line transport-schedule-panel">
+                <option value="train">Trenes</option>
+                <option value="bus">Colectivos</option>
+              </select>
+            </label>
+            <label>Línea o ramal
+              <select id="transport-line" data-route-select aria-controls="transport-schedule-panel">
+                {transportRoutes.filter((route) => route.type === initialRoute?.type).map((route) => <option value={route.id} selected={route.id === initialRoute?.id}>{route.lineLabel || route.branch || route.name}</option>)}
+              </select>
+            </label>
           </div>
         </div>
         <div class="next-service" aria-live="polite">
-          <span class="next-label">Próximo servicio programado por Villars</span>
+          <span class="next-label">Próximo servicio en <span data-reference-station>{initialRoute?.referenceStation || 'la estación de referencia'}</span></span>
           <strong data-next-service>{initialNext ? weekdayNames[initialNext.weekday] + ' ' + initialNext.date + ' · ' + formatMinutes(initialNext.minutes).value : 'Sin servicio'}</strong>
           <span data-next-detail>{initialNext ? 'Hacia ' + initialNext.destination : 'No se encontraron salidas en los próximos siete días.'}</span>
         </div>
@@ -75,6 +81,7 @@ const updatedAt = transportData.source.updatedAt
           <div><p class="eyebrow" data-route-type>{initialRoute?.type === 'bus' ? 'Colectivo' : 'Tren'}</p><h2 data-schedule-title>Todos los horarios de {initialRoute?.branch || initialRoute?.name}</h2></div>
           <p data-validity>{initialRoute?.validFrom ? 'Vigencia informada desde ' + new Date(initialRoute.validFrom + 'T12:00:00').toLocaleDateString('es-AR') : 'Sin vigencia informada'}</p>
         </div>
+        <p class="service-notice" data-service-notice hidden={!initialRoute?.serviceNotice}>{initialRoute?.serviceNotice}</p>
         <div class="direction-picker">
           <label for="transport-direction">Sentido del recorrido</label>
           <div class="direction-select-wrap">
@@ -86,7 +93,7 @@ const updatedAt = transportData.source.updatedAt
           <p><span class="desktop-grid-hint">Cada fila es una formación y cada columna una estación.</span><span class="mobile-grid-hint">Usá Anterior y Siguiente para recorrer las formaciones; las estaciones aparecen en filas.</span> La terminal real aparece debajo del número.</p>
         </div>
         <div class="schedule-legend" aria-label="Referencia de próximos servicios">
-          <span><i class="next" aria-hidden="true"></i> Próxima formación por Villars</span>
+          <span><i class="next" aria-hidden="true"></i> Próxima formación en la estación de referencia</span>
           <span><i class="following" aria-hidden="true"></i> Formación siguiente</span>
         </div>
         <div id="transport-schedule-panel" class="schedule-sections" data-schedule-sections role="tabpanel" tabindex="0" aria-live="polite">
@@ -96,12 +103,12 @@ const updatedAt = transportData.source.updatedAt
               <div class="schedule-table-scroll">
                 <table class="schedule-table">
                   <caption>{initialRoute?.branch || initialRoute?.name} · {label} · Hacia {initialDirection}</caption>
-                  <thead><tr><th scope="col" class="formation-column">Formación</th>{grid.stations.map((station) => <th scope="col" class:list={{ 'villars-column': station.normalizedName === 'villars' }}><span>{station.name}</span>{station.normalizedName === 'villars' && <small>Estás acá</small>}</th>)}</tr></thead>
+                  <thead><tr><th scope="col" class="formation-column">Formación</th>{grid.stations.map((station: GridStation) => <th scope="col" class:list={{ 'villars-column': station.normalizedName === 'villars', 'outside-service-column': station.outsidePublishedService }}><span>{station.name}</span>{station.normalizedName === 'villars' && <small>Estás acá</small>}{station.outsidePublishedService && <small>Sin servicio publicado</small>}</th>)}</tr></thead>
                   <tbody>
                     {grid.services.map((service, serviceIndex) => (
                       <tr data-service-key={scheduleServiceKey(key, initialDirection, service)}>
                         <th scope="row" class="formation-column"><span>{service.name}</span><small>hasta {service.destination}</small></th>
-                        {grid.stations.map((station) => station.stops[serviceIndex] ? (
+                        {grid.stations.map((station: GridStation) => station.stops[serviceIndex] ? (
                           <td class:list={{ 'villars-column': station.normalizedName === 'villars' }}><span>{formatMinutes(station.stops[serviceIndex].minutes).value}</span>{formatMinutes(station.stops[serviceIndex].minutes).nextDay && <small>+1 día</small>}</td>
                         ) : <td class:list={['empty-time', { 'villars-column': station.normalizedName === 'villars' }]}>—</td>)}
                       </tr>
@@ -120,11 +127,11 @@ const updatedAt = transportData.source.updatedAt
                   <article class="mobile-service-card">
                     <header><div><span>Formación {grid.services[0].name}</span><small>hasta {grid.services[0].destination}</small></div></header>
                     <dl>
-                      {grid.stations.map((station) => {
+                      {grid.stations.map((station: GridStation) => {
                         const stop = station.stops[0];
                         return (
                           <div class:list={{ 'villars-stop': station.normalizedName === 'villars' }}>
-                            <dt>{station.name}{station.normalizedName === 'villars' && <small>Estás acá</small>}</dt>
+                            <dt>{station.name}{station.normalizedName === 'villars' && <small>Estás acá</small>}{station.outsidePublishedService && <small>Sin servicio publicado</small>}</dt>
                             <dd class:list={{ 'empty-time': !stop }}>{stop ? <><span>{formatMinutes(stop.minutes).value}</span>{formatMinutes(stop.minutes).nextDay && <small>+1 día</small>}</> : '—'}</dd>
                           </div>
                         );
@@ -164,9 +171,11 @@ const updatedAt = transportData.source.updatedAt
           </fieldset>
           <fieldset>
             <legend>Recorridos</legend>
-            <label><input type="checkbox" data-map-route="train" checked /> <span>Catán–Lozano</span></label>
+            <label><input type="checkbox" data-map-route="belgrano-sur" checked /> <span>Belgrano Sur · Catán–Lozano</span></label>
+            <label><input type="checkbox" data-map-route="sarmiento-merlo-lobos" checked /> <span>Sarmiento · Merlo–Lobos</span></label>
             <label><input type="checkbox" data-map-route="322" checked /> <span>Línea 322</span></label>
-            <label class="unavailable"><input type="checkbox" data-map-route="136" disabled /> <span>Línea 136 <small>sin trazado local</small></span></label>
+            <label><input type="checkbox" data-map-route="136-rapido" checked /> <span>136 Rápido · Primera Junta–Navarro</span></label>
+            <label><input type="checkbox" data-map-route="136-villars" checked /> <span>136 Villars / Plomer / Las Heras</span></label>
           </fieldset>
           <fieldset>
             <legend>Mostrar</legend>
@@ -177,7 +186,7 @@ const updatedAt = transportData.source.updatedAt
           <div class="position-key"><span><i class="live"></i> GPS informado</span><span><i class="estimated"></i> Estimación por horario</span></div>
         </aside>
       </div>
-      <p class="map-note">La cartografía PMTiles está alojada en el sitio. Los filtros actúan sólo sobre la visualización: no alteran el snapshot ni los horarios. La línea 136 permanecerá desactivada hasta contar con una geometría verificable para no dibujar un recorrido aproximado como si fuera real.</p>
+      <p class="map-note">La cartografía PMTiles está alojada en el sitio. Los filtros actúan sólo sobre la visualización: no alteran el snapshot ni los horarios. El corredor local del 136 sigue la red vial de OpenStreetMap y conserva sus ramales hacia Villars, Plomer y Las Heras. Como este servicio no publica GPS abierto, sus unidades se muestran sólo como estimaciones por horario y nunca como posiciones observadas.</p>
     </section>
     <aside class="data-note">
       <h2>Sobre estos datos</h2>
@@ -186,7 +195,7 @@ const updatedAt = transportData.source.updatedAt
       <p>Posiciones ferroviarias: <a href="https://www.argentina.gob.ar/transporte/trenes-argentinos/app" target="_blank" rel="noopener noreferrer">Trenes Argentinos</a>. La atribución se realiza conforme a sus <a href="https://www.argentina.gob.ar/transporte/trenes-argentinos/terminos-y-condiciones" target="_blank" rel="noopener noreferrer">términos de contenido CC BY 4.0</a>.</p>
     </aside>
   </section>
-  {villarsRoutes.length > 0 && <script>import '../scripts/transport.js'; import '../scripts/transport-map.js';</script>}
+  {transportRoutes.length > 0 && <script>import '../scripts/transport.js'; import '../scripts/transport-map.js';</script>}
 </Layout>
 
 <style>
@@ -198,10 +207,12 @@ const updatedAt = transportData.source.updatedAt
   .transport-panel, .data-note, .map-panel { padding: clamp(1rem, 3vw, 2rem); border: 1px solid rgba(212,163,115,.35); border-radius: 1.5rem; background: rgba(44,33,25,.82); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
   .service-picker { display: grid; grid-template-columns: minmax(13rem,.65fr) minmax(0,1.35fr); gap: 1.25rem; align-items: center; }
   .service-picker > div:first-child > p:last-child { margin: .4rem 0 0; color: var(--text-muted); font-size: .86rem; }
-  .service-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
-  .service-tabs button { display: grid; grid-template-columns: auto 1fr; gap: .1rem .65rem; align-items: center; padding: .85rem 1rem; border: 1px solid rgba(212,163,115,.35); border-radius: .9rem; color: var(--text-light); background: rgba(26,20,16,.7); text-align: left; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
-  .service-tabs button > span { grid-row: 1 / span 2; font-size: 1.4rem; }.service-tabs button strong { font-size: .95rem; }.service-tabs button small { color: var(--text-muted); }
-  .service-tabs button[aria-selected='true'] { border-color: var(--accent-mustard); background: rgba(233,196,106,.13); box-shadow: inset 0 0 0 1px rgba(233,196,106,.2); }.service-tabs button:hover { transform: translateY(-1px); }
+  .service-selectors { display: grid; grid-template-columns: minmax(10rem,.8fr) minmax(15rem,1.2fr); gap: .75rem; }
+  .service-selectors label { display: grid; gap: .35rem; color: var(--text-muted); font-size: .76rem; font-weight: 750; letter-spacing: .05em; text-transform: uppercase; }
+  .service-selectors select { width: 100%; min-height: 3rem; padding: .7rem 2.4rem .7rem .85rem; border: 1px solid rgba(212,163,115,.45); border-radius: .8rem; color: var(--text-light); background: #211a15; font: inherit; text-transform: none; }
+  .service-notice { margin: 1rem 0 0; padding: .85rem 1rem; border-left: 3px solid var(--accent-mustard); border-radius: .25rem .75rem .75rem .25rem; color: var(--text-light); background: rgba(233,196,106,.09); }
+  .outside-service-column { opacity: .72; background: rgba(255,255,255,.025); }
+  .outside-service-column small { display: block; max-width: 7.5rem; color: #e7b982; font-size: .64rem; white-space: normal; }
   .next-service { display: grid; grid-template-columns: 1fr auto; gap: .15rem 1rem; align-items: center; margin: 1.5rem 0; padding: 1rem 1.15rem; border-left: 4px solid var(--accent-olive); border-radius: .8rem; background: rgba(163,177,138,.1); }
   .next-service strong { grid-column: 2; grid-row: 1 / span 2; color: var(--accent-mustard); font-size: clamp(1.25rem,3vw,2rem); }.next-service > span:last-child { color: var(--text-muted); font-size: .9rem; }
   .schedule-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-top: 2rem; }.schedule-heading h2 { margin: .25rem 0 0; }.schedule-heading > p { color: var(--text-muted); font-size: .85rem; text-align: right; }
@@ -232,6 +243,11 @@ const updatedAt = transportData.source.updatedAt
   .data-note { margin-top: 1.25rem; background: rgba(44,33,25,.5); }.data-note h2 { font-size: 1.15rem; }.data-note p { margin: .4rem 0; color: var(--text-muted); font-size: .9rem; }.data-note code { word-break: break-all; }
   .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-heading > p { max-width: 32rem; margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-heading > p[data-state='live'] { color: #9ed7b0; }.map-heading > p[data-state='error'] { color: #f4a261; }
   .map-layout { display: grid; grid-template-columns: minmax(0,1fr) 17.5rem; gap: 1rem; align-items: stretch; margin-top: 1rem; }.map-stage { min-width: 0; }.transport-map { min-height: 34rem; height: 100%; overflow: hidden; border: 1px solid rgba(233,196,106,.25); border-radius: 1rem; background: #17110d; }
+  :global(.transport-vehicle-icon) { background: transparent; border: 0; }
+  :global(.transport-vehicle-pin) { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; box-sizing: border-box; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--vehicle-color); box-shadow: 0 0 0 3px rgba(23,17,13,.58), 0 .2rem .65rem rgba(0,0,0,.38); }
+  :global(.transport-vehicle-pin svg) { width: 1.35rem; height: 1.35rem; fill: currentColor; }
+  :global(.transport-vehicle-pin.is-estimated) { border-color: #ffe7a8; border-style: dashed; box-shadow: 0 0 0 3px rgba(255,183,3,.3), 0 .2rem .65rem rgba(0,0,0,.32); }
+  :global(.transport-vehicle-pin.is-stale) { opacity: .5; filter: grayscale(.25); }
   .map-filters { padding: 1rem; border: 1px solid rgba(212,163,115,.25); border-radius: 1rem; background: rgba(26,20,16,.7); }.filter-heading h3 { margin: .2rem 0 .9rem; }.map-filters fieldset { display: grid; gap: .58rem; margin: 0; padding: .85rem 0; border: 0; border-top: 1px solid rgba(212,163,115,.18); }.map-filters legend { padding: .85rem 0 .25rem; color: var(--text-light); font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .05em; }
   .map-filters label { display: flex; gap: .55rem; align-items: start; color: var(--text-muted); font-size: .82rem; cursor: pointer; }.map-filters input { margin-top: .13rem; accent-color: var(--accent-mustard); }.map-filters label > span { display: inline-flex; gap: .4rem; align-items: center; }.map-filters label small { display: block; color: rgba(255,255,255,.38); font-size: .65rem; }.map-filters .unavailable { cursor: not-allowed; opacity: .65; }
   .map-filters i, .position-key i { display: inline-block; width: .72rem; height: .72rem; border-radius: 999px; background: #e9c46a; }.map-filters i.bus { background: #6fb7ff; }.map-filters i.live, .position-key i.live { border: 2px solid white; background: #219ebc; }.position-key i.estimated { border: 2px dashed white; background: #ffb703; }
@@ -241,7 +257,7 @@ const updatedAt = transportData.source.updatedAt
   @media (max-width: 640px) {
     .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }
     .transport-panel, .data-note, .map-panel { border-radius: 1rem; }
-    .service-tabs { grid-template-columns: 1fr; }
+    .service-selectors { grid-template-columns: 1fr; }
     .next-service { grid-template-columns: 1fr; }
     .next-service strong { grid-column: 1; grid-row: auto; }
     .schedule-heading, .map-heading { align-items: start; flex-direction: column; }

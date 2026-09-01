@@ -14,5 +14,12 @@
       "@layouts/*": ["src/layouts/*"],
       "@locales/*": ["src/locales/*"]
     }
-  }
+  },
+  "exclude": [
+    ".astro",
+    "dist",
+    "node_modules",
+    "outputs",
+    "workers/**/outputs"
+  ]
 }

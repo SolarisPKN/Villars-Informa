@@ -32,6 +32,8 @@ desktop.ini
 .cache/
 .codex/
 .codex-tmp/
+/outputs/
+**/outputs/
 .parcel-cache/
 .next/
 .nuxt/

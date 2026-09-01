@@ -9,6 +9,10 @@ export function formatMinutes(minutes) {
   };
 }
 
+export function normalizeStationName(value) {
+  return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
 export function argentinaNow(timezone, date = new Date()) {
   const formatter = new Intl.DateTimeFormat('en-CA', {
     timeZone: timezone,
@@ -92,7 +96,7 @@ export function stationScheduleGrid(route, dayKey, direction) {
     (left.order ?? 0) - (right.order ?? 0)
     || (left.stops?.[0]?.minutes ?? 0) - (right.stops?.[0]?.minutes ?? 0)
   ));
-  const stations = [...stationsByName.values()]
+  const observedStations = [...stationsByName.values()]
     .sort((left, right) => left.order - right.order)
     .map((station) => ({
       ...station,
@@ -100,6 +104,27 @@ export function stationScheduleGrid(route, dayKey, direction) {
         service.stops.find((stop) => stop.normalizedStation === station.normalizedName) || null
       )),
     }));
+
+  const contract = Array.isArray(route.stationContract) ? route.stationContract : [];
+  const contractOrder = normalizeStationName(direction) === normalizeStationName(contract[0])
+    ? [...contract].reverse()
+    : contract;
+  const observedByName = new Map(observedStations.map((station) => [normalizeStationName(station.name), station]));
+  const stations = contractOrder.length
+    ? contractOrder.map((name, order) => {
+      const observed = observedByName.get(normalizeStationName(name));
+      return observed
+        ? { ...observed, order, outsidePublishedService: false }
+        : {
+          name,
+          normalizedName: normalizeStationName(name),
+          order,
+          times: [],
+          stops: services.map(() => null),
+          outsidePublishedService: true,
+        };
+    })
+    : observedStations;
 
   return { direction, services, stations };
 }

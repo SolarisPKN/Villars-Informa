@@ -1,14 +1,23 @@
+import route136Config from '../../../src/data/transport-136-villars.json' with { type: 'json' };
+import transportMap from '../../../src/data/transport-map.json' with { type: 'json' };
+import transportSchedules from '../../../src/data/transport-schedules.json' with { type: 'json' };
+import { estimateScheduled136, estimateTimetableVehicles } from '../../../src/utils/transport-route-model.js';
+
 const CUANDO_SUBO_VEHICLES = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where/vehicles-for-agency/135.json';
 const SOFSE_BASE_URL = 'https://api-servicios.sofse.gob.ar/v1';
 const VILLARS_BUS_ROUTES = new Set(['135_1623', '135_1624']);
-const VILLARS_TRAIN_BRANCH = 67;
+const TRAIN_BRANCHES = new Set([67, 53]);
 const SOFSE_QUERIES = [
-  { station: 154, destination: 4226, direction: 1 },
-  { station: 154, destination: 6000, direction: 1 },
-  { station: 526, destination: 154, direction: 2 },
-  { station: 3700, destination: 154, direction: 2 },
-  { station: 4226, destination: 154, direction: 2 },
-  { station: 6000, destination: 154, direction: 2 },
+  { branch: 67, station: 154, destination: 4226, direction: 1 },
+  { branch: 67, station: 154, destination: 6000, direction: 1 },
+  { branch: 67, station: 526, destination: 154, direction: 2 },
+  { branch: 67, station: 3700, destination: 154, direction: 2 },
+  { branch: 67, station: 4226, destination: 154, direction: 2 },
+  { branch: 67, station: 6000, destination: 154, direction: 2 },
+  { branch: 53, station: 269, destination: 225, direction: 1 },
+  { branch: 53, station: 254, destination: 225, direction: 1 },
+  { branch: 53, station: 225, destination: 269, direction: 2 },
+  { branch: 53, station: 254, destination: 269, direction: 2 },
 ];
 const TRAIN_STATIONS = new Map([
   [154, { name: 'González Catán', lat: -34.771634, lon: -58.6467472 }],
@@ -16,6 +25,9 @@ const TRAIN_STATIONS = new Map([
   [3700, { name: 'Marcos Paz (Belgrano)', lat: -34.7865089, lon: -58.8296815 }],
   [4226, { name: 'Villars', lat: -34.8289569, lon: -58.9384773 }],
   [6000, { name: 'Lozano', lat: -34.850067, lon: -59.0536908 }],
+  [269, { name: 'Merlo', lat: -34.6644017, lon: -58.7281142 }],
+  [254, { name: 'Marcos Paz', lat: -34.7832092, lon: -58.8366592 }],
+  [225, { name: 'Las Heras', lat: -34.9280932, lon: -58.9445443 }],
 ]);
 const FETCH_TIMEOUT_MS = 10_000;
 const STALE_AFTER_MS = 120_000;
@@ -188,10 +200,13 @@ function estimateTrainPosition(service, generatedAt) {
   return null;
 }
 
-function trainIsRelevant(service) {
-  if (Number(service?.ramal?.id) === VILLARS_TRAIN_BRANCH) return true;
+function trainBranch(service) {
+  const declaredBranch = Number(service?.ramal?.id);
+  if (TRAIN_BRANCHES.has(declaredBranch)) return declaredBranch;
   const stationIds = new Set((service?.estaciones || []).map(stationId).filter(Number.isFinite));
-  return stationIds.has(154) && (stationIds.has(4226) || stationIds.has(6000));
+  if (stationIds.has(154) && (stationIds.has(4226) || stationIds.has(6000))) return 67;
+  if (stationIds.has(269) && (stationIds.has(254) || stationIds.has(225))) return 53;
+  return null;
 }
 
 export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
@@ -201,7 +216,8 @@ export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
     for (const item of body?.results || []) {
       const service = item?.servicio ?? item;
       const location = service?.location;
-      if (!trainIsRelevant(service)) continue;
+      const branchId = trainBranch(service);
+      if (branchId === null) continue;
       const observed = {
         lat: finiteCoordinate(location?.lat),
         lon: finiteCoordinate(location?.long),
@@ -214,11 +230,11 @@ export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
         .map((station) => eventTime(station?.salida, ['programada', 'estimada', 'real']) ?? eventTime(station?.llegada, ['programada', 'estimada', 'real']))
         .find((value) => value !== null);
       const serviceDate = firstServiceTime ? new Date(firstServiceTime).toISOString().slice(0, 10) : argentinaDate(generatedAt);
-      const identity = service?.id || [service?.numero || 'sin-numero', service?.sentido || 'sin-sentido', serviceDate].join(':');
+      const identity = service?.id || [branchId, service?.numero || 'sin-numero', service?.sentido || 'sin-sentido', serviceDate].join(':');
       vehicles.set(identity, {
         provider: 'sofse',
         mode: 'train',
-        routeId: `sofse-${VILLARS_TRAIN_BRANCH}`,
+        routeId: `sofse-${branchId}`,
         tripId: service?.id ?? null,
         vehicleId: `train:${identity}`,
         label: `Tren ${service?.numero || ''}${stationName(destination) ? ` · ${stationName(destination)}` : ''}`.trim(),
@@ -263,9 +279,9 @@ async function collectTrains(generatedAt) {
   const token = await authenticateSofse(generatedAt);
   const date = argentinaDate(generatedAt);
   const time = argentinaTime(generatedAt);
-  const requests = await Promise.allSettled(SOFSE_QUERIES.map(async ({ station, destination, direction }) => {
+  const requests = await Promise.allSettled(SOFSE_QUERIES.map(async ({ branch, station, destination, direction }) => {
     const params = new URLSearchParams({
-      ramal: String(VILLARS_TRAIN_BRANCH),
+      ramal: String(branch),
       sentido: String(direction),
       cantidad: '30',
       fecha: date,
@@ -317,14 +333,25 @@ async function readPreviousSnapshot(env) {
   }
 }
 
-export async function refreshTransport(env, now = new Date()) {
+export async function refreshTransport(env, now = new Date(), options = {}) {
   const previous = await readPreviousSnapshot(env);
   const busConfigured = Boolean(env.CUANDO_SUBO_API_KEY);
-  const [busResult, trainResult] = await Promise.allSettled([
+  const scheduleCollector = options.scheduleCollector
+    || ((generatedAt) => {
+      const rapid136 = transportSchedules.routes.find(({ lineKey }) => lineKey === '136-rapido');
+      const rapidStops = transportMap.stops.features.filter(({ properties }) => properties?.lineKey === '136-rapido');
+      return [
+        ...estimateScheduled136(route136Config, generatedAt),
+        ...estimateTimetableVehicles(rapid136, rapidStops, generatedAt),
+      ];
+    });
+  const [busResult, trainResult, scheduleResult] = await Promise.allSettled([
     busConfigured ? collectBus(env, now) : Promise.resolve([]),
     collectTrains(now),
+    Promise.resolve().then(() => scheduleCollector(now)),
   ]);
 
+  const scheduled136Vehicles = scheduleResult.status === 'fulfilled' ? scheduleResult.value : [];
   const busVehicles = busConfigured && busResult.status === 'fulfilled'
     ? busResult.value
     : busConfigured ? previousVehicles(previous, 'cuando-subo') : [];
@@ -339,9 +366,14 @@ export async function refreshTransport(env, now = new Date()) {
   const trainLastSuccessfulAt = trainResult.status === 'fulfilled'
     ? generatedAt
     : previousSuccessAt(previous, 'sofse');
+  const scheduleLastSuccessfulAt = scheduleResult.status === 'fulfilled'
+    ? generatedAt
+    : previousSuccessAt(previous, 'published-schedule');
   const busFailed = busConfigured && busResult.status === 'rejected';
-  const degraded = busFailed || trainResult.status === 'rejected' || trainPartial > 0;
-  const unavailable = trainResult.status === 'rejected'
+  const scheduleFailed = scheduleResult.status === 'rejected';
+  const degraded = busFailed || scheduleFailed || trainResult.status === 'rejected' || trainPartial > 0;
+  const unavailable = scheduleFailed
+    && trainResult.status === 'rejected'
     && (!busConfigured || (busFailed && isUnavailable(busLastSuccessfulAt, now)))
     && isUnavailable(trainLastSuccessfulAt, now);
   const snapshot = {
@@ -351,6 +383,9 @@ export async function refreshTransport(env, now = new Date()) {
     discardAfter: new Date(now.getTime() + UNAVAILABLE_AFTER_MS).toISOString(),
     status: unavailable ? 'unavailable' : degraded ? 'degraded' : 'ok',
     providers: {
+      'published-schedule': scheduleResult.status === 'fulfilled'
+        ? { status: 'estimated', vehicles: scheduled136Vehicles.length, lastSuccessfulAt: scheduleLastSuccessfulAt }
+        : { status: 'error', vehicles: 0, lastSuccessfulAt: scheduleLastSuccessfulAt, message: safeError(scheduleResult.reason) },
       'cuando-subo': !busConfigured
         ? { status: 'disabled', vehicles: 0, lastSuccessfulAt: null }
         : busResult.status === 'fulfilled'
@@ -360,7 +395,7 @@ export async function refreshTransport(env, now = new Date()) {
         ? { status: trainPartial > 0 ? 'degraded' : 'ok', vehicles: trainVehicles.length, failedStations: trainPartial, lastSuccessfulAt: trainLastSuccessfulAt }
         : { status: 'error', vehicles: trainVehicles.length, lastSuccessfulAt: trainLastSuccessfulAt, message: safeError(trainResult.reason) },
     },
-    vehicles: [...busVehicles, ...trainVehicles],
+    vehicles: [...busVehicles, ...trainVehicles, ...scheduled136Vehicles],
   };
   await env.TRANSPORT_LIVE.put('current.json', JSON.stringify(snapshot), {
     httpMetadata: {

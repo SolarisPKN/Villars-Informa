@@ -2,22 +2,23 @@ import route136Config from '../../../src/data/transport-136-villars.json' with {
 import transportMap from '../../../src/data/transport-map.json' with { type: 'json' };
 import transportSchedules from '../../../src/data/transport-schedules.json' with { type: 'json' };
 import { estimateScheduled136, estimateTimetableVehicles } from '../../../src/utils/transport-route-model.js';
+import { handleBridgeIngest, readBridgeProviders } from './bridge-ingest.js';
 
-const CUANDO_SUBO_VEHICLES = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where/vehicles-for-agency/135.json';
+const CUANDO_SUBO_BASE_URL = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where';
+const CUANDO_SUBO_AGENCIES = ['135', '739'];
 const SOFSE_BASE_URL = 'https://api-servicios.sofse.gob.ar/v1';
-const VILLARS_BUS_ROUTES = new Set(['135_1623', '135_1624']);
+const VILLARS_BUS_ROUTES = new Map([
+  ['135_1623', { lineKey: '322-lujan', label: 'Colectivo 322 · hacia Luján' }],
+  ['135_1624', { lineKey: '322-lujan', label: 'Colectivo 322 · hacia Marcos Paz' }],
+  ['135_1625', { lineKey: '322-canuelas', label: 'Colectivo 322 · hacia Cañuelas' }],
+  ['135_1626', { lineKey: '322-canuelas', label: 'Colectivo 322 · hacia Marcos Paz' }],
+  ['739_670', { lineKey: '136-rapido', label: 'Colectivo 136 Rápido · hacia Navarro' }],
+  ['739_671', { lineKey: '136-rapido', label: 'Colectivo 136 Rápido · hacia Primera Junta' }],
+]);
 const TRAIN_BRANCHES = new Set([67, 53]);
-const SOFSE_QUERIES = [
-  { branch: 67, station: 154, destination: 4226, direction: 1 },
-  { branch: 67, station: 154, destination: 6000, direction: 1 },
-  { branch: 67, station: 526, destination: 154, direction: 2 },
-  { branch: 67, station: 3700, destination: 154, direction: 2 },
-  { branch: 67, station: 4226, destination: 154, direction: 2 },
-  { branch: 67, station: 6000, destination: 154, direction: 2 },
-  { branch: 53, station: 269, destination: 225, direction: 1 },
-  { branch: 53, station: 254, destination: 225, direction: 1 },
-  { branch: 53, station: 225, destination: 269, direction: 2 },
-  { branch: 53, station: 254, destination: 269, direction: 2 },
+const SOFSE_POSITION_STATIONS = [
+  154, 526, 3700, 4226, 6000,
+  269, 464, 137, 257, 4601, 254, 432, 173, 225,
 ];
 const TRAIN_STATIONS = new Map([
   [154, { name: 'González Catán', lat: -34.771634, lon: -58.6467472 }],
@@ -26,7 +27,13 @@ const TRAIN_STATIONS = new Map([
   [4226, { name: 'Villars', lat: -34.8289569, lon: -58.9384773 }],
   [6000, { name: 'Lozano', lat: -34.850067, lon: -59.0536908 }],
   [269, { name: 'Merlo', lat: -34.6644017, lon: -58.7281142 }],
+  [464, { name: 'Km 34,5', lat: -34.6801742, lon: -58.7602409 }],
+  [137, { name: 'A. Ferrari', lat: -34.706078, lon: -58.7794327 }],
+  [257, { name: 'Mariano Acosta', lat: -34.7244791, lon: -58.7930682 }],
+  [4601, { name: 'Maquinista R. Cal', lat: -34.744777, lon: -58.8081306 }],
   [254, { name: 'Marcos Paz', lat: -34.7832092, lon: -58.8366592 }],
+  [432, { name: 'Zamudio', lat: -34.8578991, lon: -58.8921946 }],
+  [173, { name: 'Hornos', lat: -34.8923029, lon: -58.917861 }],
   [225, { name: 'Las Heras', lat: -34.9280932, lon: -58.9445443 }],
 ]);
 const FETCH_TIMEOUT_MS = 10_000;
@@ -49,17 +56,6 @@ function argentinaDate(date = new Date()) {
   }).formatToParts(date);
   const values = Object.fromEntries(parts.filter(({ type }) => type !== 'literal').map(({ type, value }) => [type, value]));
   return `${values.year}-${values.month}-${values.day}`;
-}
-
-function argentinaTime(date = new Date()) {
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'America/Argentina/Buenos_Aires',
-    hour: '2-digit',
-    minute: '2-digit',
-    hourCycle: 'h23',
-  }).formatToParts(date);
-  const values = Object.fromEntries(parts.filter(({ type }) => type !== 'literal').map(({ type, value }) => [type, value]));
-  return values.hour + ':' + values.minute;
 }
 
 function replaceLowercase(value, replacements) {
@@ -100,7 +96,8 @@ export function normalizeBusSnapshot(body, generatedAt = new Date()) {
   const vehicles = [];
   for (const entry of body?.data?.list || []) {
     const trip = trips.get(entry.tripId);
-    if (!trip || !VILLARS_BUS_ROUTES.has(trip.routeId)) continue;
+    const route = trip ? VILLARS_BUS_ROUTES.get(trip.routeId) : null;
+    if (!route) continue;
     const observed = entry.location;
     const predicted = entry.tripStatus?.position;
     const position = Number.isFinite(observed?.lat) && Number.isFinite(observed?.lon) ? observed : predicted;
@@ -111,9 +108,10 @@ export function normalizeBusSnapshot(body, generatedAt = new Date()) {
       provider: 'cuando-subo',
       mode: 'bus',
       routeId: trip.routeId,
+      lineKey: route.lineKey,
       tripId: entry.tripId,
-      vehicleId: `bus:${entry.vehicleId || entry.id}`,
-      label: 'Colectivo 322 Luján',
+      vehicleId: `bus:${trip.routeId}:${entry.vehicleId || entry.id}`,
+      label: route.label,
       lat: position.lat,
       lon: position.lon,
       bearing: Number.isFinite(entry.tripStatus?.orientation) ? entry.tripStatus.orientation : null,
@@ -209,6 +207,91 @@ function trainBranch(service) {
   return null;
 }
 
+const TRAIN_CANCELLATION_PATTERN = /\b(cancelad[oa]|suspendid[oa]|suprimid[oa]|no\s+circula|servicio\s+cancelado)\b/i;
+const TRAIN_DELAY_THRESHOLD_MINUTES = 3;
+
+function serviceEventTimes(service, field) {
+  return (service?.estaciones || []).flatMap((station) => [
+    dateValue(station?.llegada?.[field]),
+    dateValue(station?.salida?.[field]),
+  ]).filter((value) => value !== null);
+}
+
+function serviceBounds(service) {
+  const stationTimes = (service?.estaciones || []).flatMap((station) => [
+    eventTime(station?.llegada, ['real', 'estimada', 'programada']),
+    eventTime(station?.salida, ['real', 'estimada', 'programada']),
+  ]).filter((value) => value !== null);
+  return stationTimes.length
+    ? { start: Math.min(...stationTimes), end: Math.max(...stationTimes) }
+    : { start: null, end: null };
+}
+
+function serviceDelayMinutes(service) {
+  const delays = (service?.estaciones || []).flatMap((station) => (
+    ['llegada', 'salida'].map((eventName) => {
+      const event = station?.[eventName];
+      const planned = dateValue(event?.programada);
+      const observed = dateValue(event?.real) ?? dateValue(event?.estimada);
+      return planned === null || observed === null ? null : Math.round((observed - planned) / 60_000);
+    })
+  )).filter(Number.isFinite);
+  return delays.length ? Math.max(0, ...delays) : 0;
+}
+
+export function normalizeTrainServiceStatuses(responses, generatedAt = new Date()) {
+  const statuses = new Map();
+  const statusPriority = { scheduled: 1, completed: 2, confirmed: 3, in_progress: 4, delayed: 5, cancelled: 6 };
+  for (const body of responses) {
+    const receivedAt = timestamp(body?.timestamp) || generatedAt.toISOString();
+    for (const item of body?.results || []) {
+      const service = item?.servicio ?? item;
+      const branchId = trainBranch(service);
+      if (branchId === null || !service?.numero) continue;
+      const bounds = serviceBounds(service);
+      if (bounds.start === null || bounds.end === null) continue;
+      const realTimes = serviceEventTimes(service, 'real');
+      const estimatedTimes = serviceEventTimes(service, 'estimada');
+      const location = service?.location;
+      const hasLocation = Number.isFinite(finiteCoordinate(location?.lat)) && Number.isFinite(finiteCoordinate(location?.long));
+      const dynamicEvidence = hasLocation || realTimes.length > 0 || estimatedTimes.length > 0;
+      const now = generatedAt.getTime();
+      const activeWindow = now >= bounds.start && now <= bounds.end;
+      const description = [service?.leyenda, service?.tipo?.nombre].filter(Boolean).join(' · ');
+      const cancelled = TRAIN_CANCELLATION_PATTERN.test(description);
+      const delayMinutes = serviceDelayMinutes(service);
+      let status = 'scheduled';
+      if (cancelled) status = 'cancelled';
+      else if (dynamicEvidence && now > bounds.end) status = 'completed';
+      else if (dynamicEvidence && delayMinutes >= TRAIN_DELAY_THRESHOLD_MINUTES) status = 'delayed';
+      else if (dynamicEvidence && activeWindow) status = 'in_progress';
+      else if (dynamicEvidence) status = 'confirmed';
+      const destination = service?.hasta?.estacion ?? service?.hasta;
+      const operationalDate = argentinaDate(new Date(bounds.start));
+      const record = {
+        provider: 'sofse',
+        lineKey: branchId === 67 ? 'belgrano-sur' : 'sarmiento-merlo-lobos',
+        routeId: `sofse-${branchId}`,
+        serviceNumber: String(service.numero),
+        directionId: Number(service?.sentido) || null,
+        destination: stationName(destination),
+        operationalDate,
+        status,
+        delayMinutes: status === 'delayed' ? delayMinutes : null,
+        evidence: hasLocation ? 'location' : realTimes.length ? 'real-time' : estimatedTimes.length ? 'estimated-time' : 'published-schedule',
+        message: cancelled ? description : status === 'delayed' ? `Demora informada de ${delayMinutes} minutos` : null,
+        scheduledStartAt: new Date(bounds.start).toISOString(),
+        scheduledEndAt: new Date(bounds.end).toISOString(),
+        updatedAt: receivedAt,
+      };
+      const key = `${record.routeId}:${record.serviceNumber}:${record.directionId}:${record.operationalDate}`;
+      const previous = statuses.get(key);
+      if (!previous || statusPriority[record.status] > statusPriority[previous.status]) statuses.set(key, record);
+    }
+  }
+  return [...statuses.values()];
+}
+
 export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
   const vehicles = new Map();
   for (const body of responses) {
@@ -231,7 +314,7 @@ export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
         .find((value) => value !== null);
       const serviceDate = firstServiceTime ? new Date(firstServiceTime).toISOString().slice(0, 10) : argentinaDate(generatedAt);
       const identity = service?.id || [branchId, service?.numero || 'sin-numero', service?.sentido || 'sin-sentido', serviceDate].join(':');
-      vehicles.set(identity, {
+      const candidate = {
         provider: 'sofse',
         mode: 'train',
         routeId: `sofse-${branchId}`,
@@ -247,7 +330,11 @@ export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
         toStop: position.toStop ?? null,
         scheduledArrivalAt: position.scheduledArrivalAt ?? null,
         stale: generatedAt.getTime() - new Date(receivedAt).getTime() > STALE_AFTER_MS,
-      });
+      };
+      const previous = vehicles.get(identity);
+      if (!previous || previous.positionKind !== 'observed' || candidate.positionKind === 'observed') {
+        vehicles.set(identity, candidate);
+      }
     }
   }
   return [...vehicles.values()];
@@ -255,13 +342,23 @@ export function normalizeTrainSnapshots(responses, generatedAt = new Date()) {
 
 async function collectBus(env, generatedAt) {
   if (!env.CUANDO_SUBO_API_KEY) throw new Error('Falta el secreto CUANDO_SUBO_API_KEY');
-  const body = await fetchJson(CUANDO_SUBO_VEHICLES, {
-    headers: { Authorization: `Bearer ${env.CUANDO_SUBO_API_KEY}` },
-  });
-  if (!Array.isArray(body?.data?.list) || !Array.isArray(body?.data?.references?.trips)) {
-    throw new Error('Cuándo SUBO devolvió una respuesta sin el esquema esperado');
+  const requests = await Promise.allSettled(CUANDO_SUBO_AGENCIES.map(async (agency) => {
+    const body = await fetchJson(`${CUANDO_SUBO_BASE_URL}/vehicles-for-agency/${agency}.json`, {
+      headers: { Authorization: `Bearer ${env.CUANDO_SUBO_API_KEY}` },
+    });
+    if (!Array.isArray(body?.data?.list) || !Array.isArray(body?.data?.references?.trips)) {
+      throw new Error(`Cuándo SUBO devolvió una respuesta inválida para la agencia ${agency}`);
+    }
+    return normalizeBusSnapshot(body, generatedAt);
+  }));
+  const successful = requests.filter(({ status }) => status === 'fulfilled').flatMap(({ value }) => value);
+  if (!requests.some(({ status }) => status === 'fulfilled')) {
+    throw new Error('Cuándo SUBO no respondió para ninguna agencia configurada');
   }
-  return normalizeBusSnapshot(body, generatedAt);
+  return {
+    vehicles: [...new Map(successful.map((vehicle) => [vehicle.vehicleId, vehicle])).values()],
+    partialFailures: requests.filter(({ status }) => status === 'rejected').length,
+  };
 }
 
 async function authenticateSofse(generatedAt) {
@@ -277,20 +374,9 @@ async function authenticateSofse(generatedAt) {
 
 async function collectTrains(generatedAt) {
   const token = await authenticateSofse(generatedAt);
-  const date = argentinaDate(generatedAt);
-  const time = argentinaTime(generatedAt);
-  const requests = await Promise.allSettled(SOFSE_QUERIES.map(async ({ branch, station, destination, direction }) => {
-    const params = new URLSearchParams({
-      ramal: String(branch),
-      sentido: String(direction),
-      cantidad: '30',
-      fecha: date,
-      hora: time,
-      hasta: String(destination),
-      paraApp: 'true',
-    });
+  const requests = await Promise.allSettled(SOFSE_POSITION_STATIONS.map(async (station) => {
     const body = await fetchJson(
-      SOFSE_BASE_URL + '/arribos/estacion/' + station + '?' + params,
+      `${SOFSE_BASE_URL}/arribos/estacion/${station}`,
       { headers: { Authorization: token } },
     );
     if (!Array.isArray(body?.results)) throw new Error(`SOFSE devolvió una respuesta inválida para la estación ${station}`);
@@ -300,6 +386,7 @@ async function collectTrains(generatedAt) {
   if (successful.length === 0) throw new Error('SOFSE no respondió en ninguna estación controlada');
   return {
     vehicles: normalizeTrainSnapshots(successful, generatedAt),
+    services: normalizeTrainServiceStatuses(successful, generatedAt),
     partialFailures: requests.length - successful.length,
   };
 }
@@ -308,6 +395,12 @@ function previousVehicles(snapshot, provider) {
   return (snapshot?.vehicles || [])
     .filter((vehicle) => vehicle?.provider === provider)
     .map((vehicle) => ({ ...vehicle, stale: true }));
+}
+
+function previousServices(snapshot, provider) {
+  return (snapshot?.services || [])
+    .filter((service) => service?.provider === provider)
+    .map((service) => ({ ...service }));
 }
 
 function safeError(error) {
@@ -333,32 +426,90 @@ async function readPreviousSnapshot(env) {
   }
 }
 
+function vehicleFamily(vehicle) {
+  if (vehicle?.lineKey) return String(vehicle.lineKey);
+  const routeId = String(vehicle?.routeId || '');
+  if (routeId === 'sofse-67' || routeId === 'schedule-belgrano-sur') return 'belgrano-sur';
+  if (routeId === 'sofse-53' || routeId === 'schedule-sarmiento-merlo-lobos') return 'sarmiento-merlo-lobos';
+  if (routeId === '322-lujan' || routeId === 'schedule-322-lujan' || routeId === '135_1623' || routeId === '135_1624') return '322-lujan';
+  if (routeId === '322-canuelas' || routeId === 'schedule-322-canuelas' || routeId === '135_1625' || routeId === '135_1626') return '322-canuelas';
+  if (routeId === '136-rapido' || routeId.startsWith('739_') || routeId.includes('136-rapido')) return '136-rapido';
+  if (routeId.includes('136')) return '136-villars';
+  return routeId;
+}
+
+function vehicleRunKey(vehicle) {
+  const serviceNumber = String(vehicle?.label || '').match(/\b\d{3,5}\b/)?.[0];
+  return serviceNumber ? `${vehicleFamily(vehicle)}:${serviceNumber}` : null;
+}
+
+function bridgeProvider(bridgeProviders, id, failure = null) {
+  if (failure) return { status: 'error', vehicles: 0, arrivals: 0, lastSuccessfulAt: null, message: safeError(failure) };
+  const provider = bridgeProviders.find((entry) => entry.id === id);
+  if (!provider) return { status: 'disabled', vehicles: 0, arrivals: 0, lastSuccessfulAt: null };
+  return {
+    status: provider.status,
+    vehicles: provider.vehicles.length,
+    arrivals: provider.arrivals.length,
+    lastSuccessfulAt: provider.lastSuccessfulAt,
+  };
+}
+
 export async function refreshTransport(env, now = new Date(), options = {}) {
   const previous = await readPreviousSnapshot(env);
   const busConfigured = Boolean(env.CUANDO_SUBO_API_KEY);
   const scheduleCollector = options.scheduleCollector
     || ((generatedAt) => {
-      const rapid136 = transportSchedules.routes.find(({ lineKey }) => lineKey === '136-rapido');
-      const rapidStops = transportMap.stops.features.filter(({ properties }) => properties?.lineKey === '136-rapido');
+      const timetableLines = new Set([
+        '136-rapido', '322-lujan', '322-canuelas',
+        'belgrano-sur', 'sarmiento-merlo-lobos',
+      ]);
+      const timetableVehicles = transportSchedules.routes
+        .filter(({ lineKey }) => timetableLines.has(lineKey))
+        .flatMap((route) => estimateTimetableVehicles(
+          route,
+          transportMap.stops.features.filter(({ properties }) => properties?.lineKey === route.lineKey),
+          generatedAt,
+        ));
       return [
         ...estimateScheduled136(route136Config, generatedAt),
-        ...estimateTimetableVehicles(rapid136, rapidStops, generatedAt),
+        ...timetableVehicles,
       ];
     });
-  const [busResult, trainResult, scheduleResult] = await Promise.allSettled([
+  const bridgeCollector = options.bridgeCollector || ((generatedAt) => readBridgeProviders(env, generatedAt));
+  const [busResult, trainResult, scheduleResult, bridgeResult] = await Promise.allSettled([
     busConfigured ? collectBus(env, now) : Promise.resolve([]),
     collectTrains(now),
     Promise.resolve().then(() => scheduleCollector(now)),
+    Promise.resolve().then(() => bridgeCollector(now)),
   ]);
 
-  const scheduled136Vehicles = scheduleResult.status === 'fulfilled' ? scheduleResult.value : [];
-  const busVehicles = busConfigured && busResult.status === 'fulfilled'
-    ? busResult.value
-    : busConfigured ? previousVehicles(previous, 'cuando-subo') : [];
+  const bridgeProviders = bridgeResult.status === 'fulfilled' ? bridgeResult.value : [];
+  const bridgeVehicles = bridgeProviders.flatMap(({ vehicles }) => vehicles);
+  const bridgeArrivals = bridgeProviders.flatMap(({ arrivals }) => arrivals);
+  const observedBridgeFamilies = new Set(bridgeVehicles
+    .filter(({ positionKind, stale }) => positionKind === 'observed' && !stale)
+    .map(vehicleFamily));
+  const busVehicles = (busConfigured && busResult.status === 'fulfilled'
+    ? busResult.value.vehicles
+    : busConfigured ? previousVehicles(previous, 'cuando-subo') : [])
+    .filter((vehicle) => !observedBridgeFamilies.has(vehicleFamily(vehicle)));
   const trainVehicles = trainResult.status === 'fulfilled'
     ? trainResult.value.vehicles
     : previousVehicles(previous, 'sofse');
-  const trainPartial = trainResult.status === 'fulfilled' ? trainResult.value.partialFailures : SOFSE_QUERIES.length;
+  const trainServices = trainResult.status === 'fulfilled'
+    ? trainResult.value.services
+    : previousServices(previous, 'sofse');
+  const reportedTrainRuns = new Set(trainVehicles.map(vehicleRunKey).filter(Boolean));
+  const scheduledVehicles = (scheduleResult.status === 'fulfilled' ? scheduleResult.value : [])
+    .filter((vehicle) => !observedBridgeFamilies.has(vehicleFamily(vehicle)))
+    .filter((vehicle) => vehicle.mode !== 'train' || !reportedTrainRuns.has(vehicleRunKey(vehicle)));
+  const trainPartial = trainResult.status === 'fulfilled'
+    ? trainResult.value.partialFailures
+    : SOFSE_POSITION_STATIONS.length;
+  const busPartial = busConfigured && busResult.status === 'fulfilled'
+    ? busResult.value.partialFailures
+    : busConfigured ? CUANDO_SUBO_AGENCIES.length : 0;
   const generatedAt = now.toISOString();
   const busLastSuccessfulAt = busConfigured && busResult.status === 'fulfilled'
     ? generatedAt
@@ -371,7 +522,10 @@ export async function refreshTransport(env, now = new Date(), options = {}) {
     : previousSuccessAt(previous, 'published-schedule');
   const busFailed = busConfigured && busResult.status === 'rejected';
   const scheduleFailed = scheduleResult.status === 'rejected';
-  const degraded = busFailed || scheduleFailed || trainResult.status === 'rejected' || trainPartial > 0;
+  const bridgeFailed = bridgeResult.status === 'rejected';
+  const bridgeDegraded = bridgeProviders.some(({ status }) => status === 'degraded' || status === 'unavailable');
+  const degraded = busFailed || busPartial > 0 || scheduleFailed || trainResult.status === 'rejected' || trainPartial > 0
+    || bridgeFailed || bridgeDegraded;
   const unavailable = scheduleFailed
     && trainResult.status === 'rejected'
     && (!busConfigured || (busFailed && isUnavailable(busLastSuccessfulAt, now)))
@@ -384,18 +538,30 @@ export async function refreshTransport(env, now = new Date(), options = {}) {
     status: unavailable ? 'unavailable' : degraded ? 'degraded' : 'ok',
     providers: {
       'published-schedule': scheduleResult.status === 'fulfilled'
-        ? { status: 'estimated', vehicles: scheduled136Vehicles.length, lastSuccessfulAt: scheduleLastSuccessfulAt }
+        ? { status: 'estimated', vehicles: scheduledVehicles.length, lastSuccessfulAt: scheduleLastSuccessfulAt }
         : { status: 'error', vehicles: 0, lastSuccessfulAt: scheduleLastSuccessfulAt, message: safeError(scheduleResult.reason) },
       'cuando-subo': !busConfigured
         ? { status: 'disabled', vehicles: 0, lastSuccessfulAt: null }
         : busResult.status === 'fulfilled'
-        ? { status: 'ok', vehicles: busVehicles.length, lastSuccessfulAt: busLastSuccessfulAt }
+        ? { status: busPartial > 0 ? 'degraded' : 'ok', vehicles: busVehicles.length, failedAgencies: busPartial, lastSuccessfulAt: busLastSuccessfulAt }
         : { status: 'error', vehicles: busVehicles.length, lastSuccessfulAt: busLastSuccessfulAt, message: safeError(busResult.reason) },
       sofse: trainResult.status === 'fulfilled'
-        ? { status: trainPartial > 0 ? 'degraded' : 'ok', vehicles: trainVehicles.length, failedStations: trainPartial, lastSuccessfulAt: trainLastSuccessfulAt }
-        : { status: 'error', vehicles: trainVehicles.length, lastSuccessfulAt: trainLastSuccessfulAt, message: safeError(trainResult.reason) },
+        ? { status: trainPartial > 0 ? 'degraded' : 'ok', vehicles: trainVehicles.length, services: trainServices.length, failedStations: trainPartial, lastSuccessfulAt: trainLastSuccessfulAt }
+        : { status: 'error', vehicles: trainVehicles.length, services: trainServices.length, lastSuccessfulAt: trainLastSuccessfulAt, message: safeError(trainResult.reason) },
+      'transporteya-bridge': bridgeProvider(
+        bridgeProviders,
+        'transporteya-bridge',
+        bridgeResult.status === 'rejected' ? bridgeResult.reason : null,
+      ),
+      'cuando-subo-bridge': bridgeProvider(
+        bridgeProviders,
+        'cuando-subo-bridge',
+        bridgeResult.status === 'rejected' ? bridgeResult.reason : null,
+      ),
     },
-    vehicles: [...busVehicles, ...trainVehicles, ...scheduled136Vehicles],
+    services: trainServices,
+    arrivals: bridgeArrivals,
+    vehicles: [...bridgeVehicles, ...busVehicles, ...trainVehicles, ...scheduledVehicles],
   };
   await env.TRANSPORT_LIVE.put('current.json', JSON.stringify(snapshot), {
     httpMetadata: {
@@ -411,10 +577,20 @@ export default {
   async scheduled(_event, env, context) {
     context.waitUntil(refreshTransport(env));
   },
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/health') {
-      return Response.json({ status: 'ok', role: 'scheduled-writer', snapshot: 'R2/current.json' });
+      return Response.json({
+        status: 'ok',
+        role: 'scheduled-writer-and-signed-bridge-ingest',
+        snapshot: 'R2/current.json',
+        bridgeIngestConfigured: Boolean(env.BRIDGE_INGEST_SECRET),
+      });
+    }
+    const ingestMatch = /^\/ingest\/(transporteya|cuando-subo)$/.exec(url.pathname);
+    if (ingestMatch) {
+      if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
+      return handleBridgeIngest(request, env, ingestMatch[1]);
     }
     return new Response('Not found', { status: 404 });
   },

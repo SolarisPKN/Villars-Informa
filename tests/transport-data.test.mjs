@@ -3,8 +3,10 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { bytesToHeader } from 'pmtiles';
 import { departuresFor, destinationsFrom, directionsFor, nextService, nextServiceForRoute, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection } from '../src/utils/transport-services.js';
+import { estimateTimetableVehicles } from '../src/utils/transport-route-model.js';
 
 const data = JSON.parse(await readFile(new URL('../src/data/transport-schedules.json', import.meta.url), 'utf8'));
+const mapData = JSON.parse(await readFile(new URL('../src/data/transport-map.json', import.meta.url), 'utf8'));
 const villarsRoutes = data.routes.filter((route) => route.schedules.some((schedule) => schedule.stations.some((station) => station.normalizedName === 'villars')));
 
 test('el snapshot tiene procedencia verificable y estructura estable', () => {
@@ -112,7 +114,9 @@ test('el mapa ofrece filtros separados y presenta la 136 como corredor local est
   assert.match(page, /data-map-route="sarmiento-merlo-lobos" checked/);
   assert.match(page, /data-map-route="136-rapido" checked/);
   assert.match(page, /data-map-route="136-villars" checked/);
-  assert.match(page, /no publica GPS abierto/);
+  assert.match(page, /no entrega coordenadas autorizadas/);
+  assert.match(page, /data-map-route="322-lujan" checked/);
+  assert.match(page, /data-map-route="322-canuelas" checked/);
   assert.match(script, /route136MapFeatures/);
   assert.match(script, /function vehicleMarkerIcon/);
   assert.match(script, /is-estimated/);
@@ -122,6 +126,51 @@ test('el mapa ofrece filtros separados y presenta la 136 como corredor local est
   assert.match(scheduleScript, /following-service-row/);
   assert.match(script, /function renderFilteredLayers/);
   assert.match(script, /currentLiveFeatures\.filter/);
+});
+
+test('el mapa y el estimador cubren por separado 322 Luján y 322 Cañuelas', () => {
+  for (const lineKey of ['322-lujan', '322-canuelas']) {
+    const route = data.routes.find((candidate) => candidate.lineKey === lineKey);
+    assert.ok(route, `falta el cronograma ${lineKey}`);
+    const mapRoutes = mapData.routes.features.filter(({ properties }) => properties?.lineKey === lineKey);
+    const mapStops = mapData.stops.features.filter(({ properties }) => properties?.lineKey === lineKey);
+    assert.equal(mapRoutes.length, 2);
+    assert.ok(mapStops.length >= (lineKey === '322-lujan' ? 5 : 3));
+    const grid = route.schedules.find(({ day }) => day.key === 'weekday');
+    const service = grid.services[0];
+    const first = service.stops[0].minutes;
+    const last = service.stops.at(-1).minutes;
+    const minute = Math.floor((first + last) / 2);
+    const localDate = new Date(Date.UTC(2026, 7, 25, Math.floor(minute / 60) + 3, minute % 60));
+    const estimates = estimateTimetableVehicles(route, mapStops, localDate);
+    assert.ok(estimates.some(({ lineKey: family }) => family === lineKey));
+  }
+});
+test('el corredor 136 Villars expone E, F, G, H e I y distingue horarios estimados', async () => {
+  const local136 = data.routes.filter(({ lineKey }) => lineKey === '136-villars');
+  assert.deepEqual(
+    local136.map(({ lineLabel }) => lineLabel).sort((left, right) => left.localeCompare(right, 'es')),
+    [
+      '136 E · Marcos Paz–Villars',
+      '136 F · Marcos Paz–Plomer',
+      '136 G · Plomer - Villars - Las Heras - Marcos Paz',
+      '136 H · Villars–Las Heras',
+      '136 I · Plomer–Las Heras',
+    ].sort((left, right) => left.localeCompare(right, 'es')),
+  );
+  for (const route of local136.filter(({ lineLabel }) => !lineLabel.startsWith('136 G'))) {
+    assert.equal(directionsFor(route).length, 2);
+    assert.ok(route.schedules.every(({ updateMethod }) => updateMethod === 'Estimado'));
+    assert.ok(route.schedules.every(({ stations }) => stations.length >= 20));
+    assert.deepEqual(new Set(route.schedules.map(({ day }) => day.key)), new Set(['weekday', 'saturday', 'sunday']));
+  }
+  const reverseF = local136.find(({ name }) => name.startsWith('136 F'));
+  assert.ok(reverseF.schedules.some(({ direction }) => direction === 'Estación Marcos Paz'));
+
+  const config = JSON.parse(await readFile(new URL('../src/data/transport-136-villars.json', import.meta.url), 'utf8'));
+  const reversePattern = config.patterns.find(({ id }) => id === '136-f-marcos-paz');
+  assert.deepEqual(reversePattern.weekdayDepartures, [1220, 1375]);
+  assert.deepEqual(reversePattern.weekendDepartures, [755, 1190]);
 });
 test('el modo móvil pagina formaciones y conserva todas las estaciones en filas', async () => {
   const [page, scheduleScript] = await Promise.all([

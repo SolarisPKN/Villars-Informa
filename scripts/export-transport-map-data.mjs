@@ -4,8 +4,46 @@ import { dirname, resolve } from 'node:path';
 const outputPath = resolve(process.argv[2] || 'src/data/transport-map.json');
 const oneBusAwayBaseUrl = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where';
 const busRoutes = [
-  { id: '135_1623', name: 'Línea 322 · Marcos Paz → Luján', lineKey: '322' },
-  { id: '135_1624', name: 'Línea 322 · Luján → Marcos Paz', lineKey: '322' },
+  {
+    id: '135_1623', name: 'Línea 322 · Marcos Paz → Luján', lineKey: '322-lujan',
+    referenceStops: [
+      { id: '14_06525000111', name: 'Marcos Paz', coordinates: [-58.836593, -34.784525] },
+      { id: '14_06329000014', name: 'Las Heras', coordinates: [-58.944517, -34.927507] },
+      { id: '14_06329000003', name: 'Villars', coordinates: [-58.938715, -34.82856] },
+      { id: '14_06329000001', name: 'Plomer', coordinates: [-59.028343, -34.792732] },
+      { id: '14_06497000101', name: 'Luján', coordinates: [-59.119978, -34.55957] },
+    ],
+  },
+  {
+    id: '135_1624', name: 'Línea 322 · Luján → Marcos Paz', lineKey: '322-lujan',
+    referenceStops: [
+      { id: '14_06497000101', name: 'Luján', coordinates: [-59.119978, -34.55957] },
+      { id: '14_06329000002', name: 'Plomer', coordinates: [-59.029452, -34.794475] },
+      { id: '14_06329000003', name: 'Villars', coordinates: [-58.938715, -34.82856] },
+      { id: '14_06329000014', name: 'Las Heras', coordinates: [-58.944517, -34.927507] },
+      { id: '14_06525000101', name: 'Marcos Paz', coordinates: [-58.836848, -34.784592] },
+    ],
+  },
+  {
+    id: '135_1625',
+    name: 'Línea 322 · Marcos Paz → Cañuelas',
+    lineKey: '322-canuelas',
+    referenceStops: [
+      { id: '14_06525000111', name: 'Marcos Paz', coordinates: [-58.836593, -34.784525] },
+      { id: '14_06329000014', name: 'Las Heras', coordinates: [-58.944517, -34.927507] },
+      { id: '14_06134000038', name: 'Cañuelas', coordinates: [-58.7359377, -35.0247591] },
+    ],
+  },
+  {
+    id: '135_1626',
+    name: 'Línea 322 · Cañuelas → Marcos Paz',
+    lineKey: '322-canuelas',
+    referenceStops: [
+      { id: '14_06134000038', name: 'Cañuelas', coordinates: [-58.7359377, -35.0247591] },
+      { id: '14_06329000014', name: 'Las Heras', coordinates: [-58.944517, -34.927507] },
+      { id: '14_06525000101', name: 'Marcos Paz', coordinates: [-58.836848, -34.784592] },
+    ],
+  },
 ];
 const belgranoStations = [
   { name: 'González Catán', coordinates: [-58.6467472, -34.771634] },
@@ -51,6 +89,21 @@ function decodePolyline(encoded) {
   return coordinates;
 }
 
+function referenceStopFeatures(route) {
+  return (route.referenceStops || []).map((stop) => ({
+    type: 'Feature',
+    properties: {
+      id: `schedule-ref-${route.id}-${stop.id}`,
+      name: stop.name,
+      routeId: route.id,
+      lineKey: route.lineKey,
+      mode: 'bus',
+      referenceOnly: true,
+    },
+    geometry: { type: 'Point', coordinates: stop.coordinates },
+  }));
+}
+
 async function fetchRoute(route) {
   const response = await fetch(`${oneBusAwayBaseUrl}/stops-for-route/${route.id}.json?key=web`, {
     headers: { Accept: 'application/json', 'User-Agent': 'Villars-Informa/1.0 (+https://villars.solarispkn.com.ar)' },
@@ -72,7 +125,37 @@ async function fetchRoute(route) {
       properties: { id: route.id, name: route.name, lineKey: route.lineKey, mode: 'bus' },
       geometry: { type: 'LineString', coordinates: decodePolyline(encoded) },
     },
-    stops,
+    stops: [...stops, ...referenceStopFeatures(route)],
+  };
+}
+
+async function referenceRoute(route) {
+  if (!route.referenceStops?.length) return null;
+  const waypoints = route.referenceStops.map(({ coordinates }) => coordinates.join(',')).join(';');
+  let coordinates = route.referenceStops.map(({ coordinates: point }) => point);
+  try {
+    const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson`, {
+      headers: { Accept: 'application/json', 'User-Agent': 'Villars-Informa/1.0 (+https://villars.solarispkn.com.ar)' },
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const body = await response.json();
+    if (body?.routes?.[0]?.geometry?.coordinates?.length > 2) {
+      coordinates = body.routes[0].geometry.coordinates;
+    }
+  } catch (error) {
+    console.warn(`OSRM no pudo trazar ${route.id} (${error.message}); se conserva el corredor entre paradas verificadas.`);
+  }
+  return {
+    route: {
+      type: 'Feature',
+      properties: { id: route.id, name: route.name, lineKey: route.lineKey, mode: 'bus', geometryKind: 'reference-corridor' },
+      geometry: { type: 'LineString', coordinates },
+    },
+    stops: route.referenceStops.map((stop) => ({
+      type: 'Feature',
+      properties: { id: stop.id, name: stop.name, routeId: route.id, lineKey: route.lineKey, mode: 'bus' },
+      geometry: { type: 'Point', coordinates: stop.coordinates },
+    })),
   };
 }
 
@@ -98,7 +181,7 @@ function cachedBusRoute(previousMap, route) {
       ...previousRoute,
       properties: { ...previousRoute.properties, lineKey: route.lineKey, mode: 'bus' },
     },
-    stops: previousStops,
+    stops: [...previousStops, ...referenceStopFeatures(route)],
   };
 }
 
@@ -108,9 +191,14 @@ const busData = await Promise.all(busRoutes.map(async (route) => {
     return await fetchRoute(route);
   } catch (error) {
     const cached = cachedBusRoute(previousMap, route);
-    if (!cached) throw error;
-    console.warn(`${error.message}; se conserva la geometría previamente auditada de ${route.id}.`);
-    return cached;
+    if (cached) {
+      console.warn(`${error.message}; se conserva la geometría previamente auditada de ${route.id}.`);
+      return cached;
+    }
+    const reference = await referenceRoute(route);
+    if (!reference) throw error;
+    console.warn(`${error.message}; se usa el corredor vial estático de referencia para ${route.id}.`);
+    return reference;
   }
 }));
 const trainRoute = {

@@ -1,5 +1,6 @@
 import transportData from '../data/transport-schedules.json';
 import { directionsFor, formatMinutes, normalizeStationName, scheduleServiceKey, stationScheduleGrid, upcomingServicesForDirection, weekdayNames } from '../utils/transport-services.js';
+import { operationalStatusForService } from '../utils/transport-operational-status.js';
 
 const scheduleDays = [
   { key: 'weekday', label: 'Lunes a viernes' },
@@ -8,6 +9,7 @@ const scheduleDays = [
 ];
 let controller;
 let refreshTimer;
+let liveSnapshot;
 const transportRoutes = transportData.routes
   .filter((route) => route.schedules.length > 0)
   .sort((left, right) => (left.type === right.type ? (left.lineLabel || left.branch).localeCompare(right.lineLabel || right.branch, 'es') : left.type === 'train' ? -1 : 1));
@@ -29,6 +31,15 @@ function waitLabel(minutes) {
   const hours = Math.floor((minutes % 1440) / 60);
   const remainingMinutes = minutes % 60;
   return `${days ? `${days} d ` : ''}${hours ? `${hours} h ` : ''}${remainingMinutes} min`;
+}
+
+function statusBadge(status) {
+  if (!status) return null;
+  const badge = document.createElement('span');
+  badge.className = `service-status service-status-${status.state}`;
+  badge.textContent = status.label;
+  if (status.record?.message) badge.title = status.record.message;
+  return badge;
 }
 
 function createMobileSchedule(route, grid, day, direction, highlights) {
@@ -76,6 +87,7 @@ function createMobileSchedule(route, grid, day, direction, highlights) {
   const renderService = () => {
     const service = grid.services[currentIndex];
     const rank = highlights.get(scheduleServiceKey(day.key, direction, service));
+    const status = operationalStatusForService(liveSnapshot, route, day.key, service, transportData.timezone, new Date(), rank);
     serviceName.textContent = `Formación ${service.name}`;
     counter.textContent = `${currentIndex + 1} de ${grid.services.length}`;
     previous.disabled = currentIndex === 0;
@@ -86,6 +98,7 @@ function createMobileSchedule(route, grid, day, direction, highlights) {
     card.className = 'mobile-service-card';
     if (rank === 0) card.classList.add('next-service-card');
     if (rank === 1) card.classList.add('following-service-card');
+    if (status) card.classList.add(`service-${status.state}-card`);
 
     const header = document.createElement('header');
     const identity = document.createElement('div');
@@ -95,7 +108,9 @@ function createMobileSchedule(route, grid, day, direction, highlights) {
     destination.textContent = `hasta ${service.destination}`;
     identity.append(number, destination);
     header.append(identity);
-    if (rank === 0 || rank === 1) {
+    if (status) {
+      header.append(statusBadge(status));
+    } else if (rank === 0 || rank === 1) {
       const badge = document.createElement('span');
       badge.className = 'service-rank';
       badge.textContent = rank === 0 ? 'Próxima' : 'Después';
@@ -206,8 +221,10 @@ function createScheduleSection(route, day, direction, highlights) {
     const serviceKey = scheduleServiceKey(day.key, direction, service);
     row.dataset.serviceKey = serviceKey;
     const rank = highlights.get(serviceKey);
+    const status = operationalStatusForService(liveSnapshot, route, day.key, service, transportData.timezone, new Date(), rank);
     if (rank === 0) row.classList.add('next-service-row');
     if (rank === 1) row.classList.add('following-service-row');
+    if (status) row.classList.add(`service-${status.state}-row`);
 
     const serviceCell = document.createElement('th');
     serviceCell.scope = 'row';
@@ -217,7 +234,9 @@ function createScheduleSection(route, day, direction, highlights) {
     const destination = document.createElement('small');
     destination.textContent = `hasta ${service.destination}`;
     serviceCell.append(number, destination);
-    if (rank === 0 || rank === 1) {
+    if (status) {
+      serviceCell.append(statusBadge(status));
+    } else if (rank === 0 || rank === 1) {
       const badge = document.createElement('span');
       badge.className = 'service-rank';
       badge.textContent = rank === 0 ? 'Próxima' : 'Después';
@@ -307,10 +326,16 @@ function initTransport() {
     sections.replaceChildren(...scheduleDays.map((day) => createScheduleSection(route, day, direction, highlights)));
 
     const next = upcoming[0];
+    const nextPanel = root.querySelector('.next-service');
+    nextPanel?.classList.remove('service-cancelled', 'service-delayed', 'service-confirmed', 'service-in-progress', 'service-scheduled-active');
     if (next) {
+      const nextStatus = operationalStatusForService(liveSnapshot, route, next.dayKey, next.service, transportData.timezone, new Date(), 0);
       const formatted = formatMinutes(next.stop.minutes);
       setText('[data-next-service]', `${weekdayNames[next.weekday]} ${next.date} · ${formatted.value}`);
-      setText('[data-next-detail]', `Formación ${next.service.name} hacia ${next.service.destination} · en ${waitLabel(next.difference)}`);
+      setText('[data-next-detail]', nextStatus?.state === 'cancelled'
+        ? `Formación ${next.service.name} hacia ${next.service.destination} · cancelada por el operador`
+        : `Formación ${next.service.name} hacia ${next.service.destination} · ${nextStatus?.label || 'Programado'} · en ${waitLabel(next.difference)}`);
+      if (nextStatus) nextPanel?.classList.add(`service-${nextStatus.state}`);
     } else {
       setText('[data-next-service]', 'Sin servicio');
       setText('[data-next-detail]', 'No se encontraron formaciones en la estación de referencia durante los próximos siete días.');
@@ -320,7 +345,8 @@ function initTransport() {
     setText('[data-route-type]', route.type === 'bus' ? 'Colectivo' : 'Tren');
     setText('[data-schedule-title]', `Todos los horarios de ${route.branch || route.name}`);
     setText('[data-company]', route.company || 'No informado');
-    setText('[data-update-method]', route.schedules[0]?.updateMethod || 'No informado');
+    const updateMethod = route.schedules[0]?.updateMethod;
+    setText('[data-update-method]', updateMethod === 'Estimado' ? 'Estimación por recorrido' : updateMethod || 'No informado');
     setText('[data-validity]', route.validFrom
       ? `Vigencia informada desde ${new Date(`${route.validFrom}T12:00:00`).toLocaleDateString('es-AR')}`
       : 'Sin vigencia informada');
@@ -351,6 +377,10 @@ function initTransport() {
   const renderCurrentSelection = () => {
     render(routeSelect.value, directionSelect.value);
   };
+  document.addEventListener('transport-live-update', (event) => {
+    liveSnapshot = event.detail;
+    renderCurrentSelection();
+  }, { signal: controller.signal });
   render(routeSelect.value);
   refreshTimer = window.setInterval(renderCurrentSelection, 60_000);
 }
@@ -364,4 +394,5 @@ document.addEventListener('astro:page-load', initTransport);
 document.addEventListener('astro:before-swap', () => {
   controller?.abort();
   if (refreshTimer) window.clearInterval(refreshTimer);
+  liveSnapshot = undefined;
 });

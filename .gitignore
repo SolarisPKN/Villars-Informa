@@ -34,6 +34,8 @@ desktop.ini
 .codex-tmp/
 /outputs/
 **/outputs/
+# Backups exactos de Workers pueden conservar autenticación de cliente embebida.
+/backup/cloudflare/
 .parcel-cache/
 .next/
 .nuxt/

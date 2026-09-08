@@ -96,6 +96,14 @@ const updatedAt = transportData.source.updatedAt
           <span><i class="next" aria-hidden="true"></i> Próxima formación en la estación de referencia</span>
           <span><i class="following" aria-hidden="true"></i> Formación siguiente</span>
         </div>
+        <div class="operational-legend" aria-label="Estados operativos de las formaciones">
+          <span><i class="scheduled" aria-hidden="true"></i> Programado</span>
+          <span><i class="confirmed" aria-hidden="true"></i> Confirmado por SOFSE</span>
+          <span><i class="active" aria-hidden="true"></i> En curso</span>
+          <span><i class="delayed" aria-hidden="true"></i> Demorado</span>
+          <span><i class="estimated" aria-hidden="true"></i> En curso estimado</span>
+          <span><i class="cancelled" aria-hidden="true"></i> Cancelado</span>
+        </div>
         <div id="transport-schedule-panel" class="schedule-sections" data-schedule-sections role="tabpanel" tabindex="0" aria-live="polite">
           {initialScheduleGrids.map(({ key, label, grid }) => (
             <section class="schedule-block" data-schedule-day={key}>
@@ -148,7 +156,7 @@ const updatedAt = transportData.source.updatedAt
         </div>
         <div class="route-meta">
           <p><strong>Operador:</strong> <span data-company>{initialRoute?.company || 'No informado'}</span></p>
-          <p><strong>Método de actualización:</strong> <span data-update-method>{initialRoute?.schedules[0]?.updateMethod || 'No informado'}</span></p>
+          <p><strong>Método de actualización:</strong> <span data-update-method>{initialRoute?.schedules[0]?.updateMethod === 'Estimado' ? 'Estimación por recorrido' : initialRoute?.schedules[0]?.updateMethod || 'No informado'}</span></p>
           <p><a data-operator-link href={initialRoute?.websiteUrl || initialRoute?.sourceUrl || transportData.source.repository} target="_blank" rel="noopener noreferrer">Consultar fuente del operador</a></p>
         </div>
       </div>
@@ -173,7 +181,8 @@ const updatedAt = transportData.source.updatedAt
             <legend>Recorridos</legend>
             <label><input type="checkbox" data-map-route="belgrano-sur" checked /> <span>Belgrano Sur · Catán–Lozano</span></label>
             <label><input type="checkbox" data-map-route="sarmiento-merlo-lobos" checked /> <span>Sarmiento · Merlo–Lobos</span></label>
-            <label><input type="checkbox" data-map-route="322" checked /> <span>Línea 322</span></label>
+            <label><input type="checkbox" data-map-route="322-lujan" checked /> <span>322 · Marcos Paz–Luján</span></label>
+            <label><input type="checkbox" data-map-route="322-canuelas" checked /> <span>322 · Marcos Paz–Cañuelas</span></label>
             <label><input type="checkbox" data-map-route="136-rapido" checked /> <span>136 Rápido · Primera Junta–Navarro</span></label>
             <label><input type="checkbox" data-map-route="136-villars" checked /> <span>136 Villars / Plomer / Las Heras</span></label>
           </fieldset>
@@ -183,10 +192,13 @@ const updatedAt = transportData.source.updatedAt
             <label><input type="checkbox" data-map-layer="routes" checked /> <span>Recorridos</span></label>
             <label><input type="checkbox" data-map-layer="stops" checked /> <span>Estaciones y paradas</span></label>
           </fieldset>
+          <button type="button" class="map-focus-live" data-map-focus-live disabled>
+            <span aria-hidden="true">⌖</span> Ver unidades visibles <strong data-map-live-count>0</strong>
+          </button>
           <div class="position-key"><span><i class="live"></i> GPS informado</span><span><i class="estimated"></i> Estimación por horario</span></div>
         </aside>
       </div>
-      <p class="map-note">La cartografía PMTiles está alojada en el sitio. Los filtros actúan sólo sobre la visualización: no alteran el snapshot ni los horarios. El corredor local del 136 sigue la red vial de OpenStreetMap y conserva sus ramales hacia Villars, Plomer y Las Heras. Como este servicio no publica GPS abierto, sus unidades se muestran sólo como estimaciones por horario y nunca como posiciones observadas.</p>
+      <p class="map-note">La cartografía PMTiles está alojada en el sitio. Los filtros actúan sólo sobre la visualización: no alteran el snapshot ni los horarios. El corredor local del 136 sigue la red vial de OpenStreetMap y conserva sus ramales hacia Villars, Plomer y Las Heras. Cuando un proveedor no entrega coordenadas autorizadas —actualmente el 136 Villars/Plomer— sus unidades se muestran sólo como estimaciones por horario y nunca como GPS observado.</p>
     </section>
     <aside class="data-note">
       <h2>Sobre estos datos</h2>
@@ -215,11 +227,13 @@ const updatedAt = transportData.source.updatedAt
   .outside-service-column small { display: block; max-width: 7.5rem; color: #e7b982; font-size: .64rem; white-space: normal; }
   .next-service { display: grid; grid-template-columns: 1fr auto; gap: .15rem 1rem; align-items: center; margin: 1.5rem 0; padding: 1rem 1.15rem; border-left: 4px solid var(--accent-olive); border-radius: .8rem; background: rgba(163,177,138,.1); }
   .next-service strong { grid-column: 2; grid-row: 1 / span 2; color: var(--accent-mustard); font-size: clamp(1.25rem,3vw,2rem); }.next-service > span:last-child { color: var(--text-muted); font-size: .9rem; }
+  .next-service.service-cancelled { border-left-color: #d64a4a; background: rgba(159,39,39,.2); }.next-service.service-cancelled strong { color: #ff9b9b; }.next-service.service-delayed { border-left-color: #f4c430; background: rgba(244,196,48,.18); }.next-service.service-delayed strong { color: #ffe07a; }.next-service.service-confirmed { border-left-color: #3aa1c5; background: rgba(33,109,137,.16); }.next-service.service-in-progress { border-left-color: #39b877; background: rgba(29,113,70,.2); }.next-service.service-scheduled-active { border-left-color: #d99a2b; background: rgba(168,111,25,.18); }
   .schedule-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-top: 2rem; }.schedule-heading h2 { margin: .25rem 0 0; }.schedule-heading > p { color: var(--text-muted); font-size: .85rem; text-align: right; }
   .direction-picker { display: grid; grid-template-columns: auto minmax(15rem,22rem) 1fr; gap: .7rem 1rem; align-items: center; margin-top: 1.1rem; padding: .9rem 1rem; border: 1px solid rgba(163,177,138,.3); border-radius: 1rem; background: linear-gradient(110deg,rgba(163,177,138,.13),rgba(233,196,106,.05)); }
   .direction-picker > label { color: var(--text-light); font-size: .82rem; font-weight: 750; letter-spacing: .03em; text-transform: uppercase; }.direction-picker > p { margin: 0; color: var(--text-muted); font-size: .78rem; }
   .direction-select-wrap { position: relative; }.direction-select-wrap select { width: 100%; padding: .72rem 2.5rem .72rem .85rem; border: 1px solid rgba(233,196,106,.55); border-radius: .7rem; color: var(--text-light); background: #241a14; font: 700 .9rem Inter,sans-serif; appearance: none; cursor: pointer; }.direction-select-wrap > span { position: absolute; top: 50%; right: .85rem; color: var(--accent-mustard); pointer-events: none; transform: translateY(-50%); }
   .schedule-legend { display: flex; gap: .75rem 1.25rem; flex-wrap: wrap; margin: .75rem 0 0; color: var(--text-muted); font-size: .76rem; }.schedule-legend span { display: inline-flex; gap: .45rem; align-items: center; }.schedule-legend i { width: .8rem; height: .8rem; border: 1px solid rgba(255,255,255,.28); border-radius: .2rem; background: #2f7049; }.schedule-legend i.following { background: #78ad86; }
+  .operational-legend { display: flex; gap: .55rem 1rem; flex-wrap: wrap; margin: .5rem 0 0; color: var(--text-muted); font-size: .7rem; }.operational-legend span { display: inline-flex; align-items: center; gap: .38rem; }.operational-legend i { width: .7rem; height: .7rem; border: 1px solid rgba(255,255,255,.45); border-radius: 999px; }.operational-legend .scheduled { background: #8f7a54; }.operational-legend .confirmed { background: #2f87a5; }.operational-legend .active { background: #238653; }.operational-legend .delayed { background: #f4c430; }.operational-legend .estimated { border-style: dashed; background: #d99a2b; }.operational-legend .cancelled { background: #b33232; }
   .mobile-grid-hint, :global(.mobile-schedule) { display: none; }
   .schedule-sections { display: grid; gap: 1.25rem; margin-top: 1rem; }
   :global(.schedule-block) { overflow: hidden; border: 1px solid rgba(233,196,106,.3); border-radius: 1rem; background: rgba(26,20,16,.58); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
@@ -239,6 +253,8 @@ const updatedAt = transportData.source.updatedAt
   :global(.schedule-table tbody .next-service-row td) { color: #effff4; background: rgba(47,112,73,.48); }:global(.schedule-table tbody .next-service-row .formation-column) { color: #fff; background: #2f7049; }:global(.schedule-table tbody .next-service-row .villars-column) { background: rgba(65,145,91,.68); }
   :global(.schedule-table tbody .following-service-row td) { color: #f4fff7; background: rgba(120,173,134,.24); }:global(.schedule-table tbody .following-service-row .formation-column) { color: #f7fff9; background: #557e61; }:global(.schedule-table tbody .following-service-row .villars-column) { background: rgba(120,173,134,.4); }
   :global(.service-rank) { display: inline-block; margin-top: .42rem; padding: .18rem .4rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #fff; font-size: .58rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  :global(.service-status) { display: inline-flex !important; width: fit-content; margin-top: .35rem; padding: .16rem .42rem; border: 1px solid rgba(255,255,255,.34); border-radius: 999px; color: #fff !important; font-family: Inter,sans-serif !important; font-size: .58rem !important; font-weight: 800 !important; line-height: 1.2; text-transform: uppercase; letter-spacing: .035em; }:global(.service-status-scheduled) { background: #6f6045; }:global(.service-status-confirmed) { background: #216d89; }:global(.service-status-in-progress) { background: #1d7146; }:global(.service-status-delayed) { color: #2a2100 !important; background: #f4c430; }:global(.service-status-scheduled-active) { border-style: dashed; background: #a86f19; }:global(.service-status-cancelled) { background: #9f2727; }:global(.service-status-completed) { background: #555; }
+  :global(.schedule-table tbody .service-confirmed-row td) { background: rgba(33,109,137,.3); }:global(.schedule-table tbody .service-confirmed-row .formation-column) { background: #215b70; }:global(.schedule-table tbody .service-in-progress-row td) { background: rgba(29,113,70,.42); }:global(.schedule-table tbody .service-in-progress-row .formation-column) { background: #185b39; }:global(.schedule-table tbody .service-delayed-row td) { color: #fff7d1; background: rgba(196,145,8,.34); }:global(.schedule-table tbody .service-delayed-row .formation-column) { background: #7a5b08; }:global(.schedule-table tbody .service-scheduled-active-row td) { background: rgba(168,111,25,.28); }:global(.schedule-table tbody .service-scheduled-active-row .formation-column) { background: #74501d; }:global(.schedule-table tbody .service-cancelled-row td) { color: #fff1f1; background: rgba(159,39,39,.42); }:global(.schedule-table tbody .service-cancelled-row .formation-column) { background: #791f1f; }
   .route-meta { display: flex; gap: .75rem 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(212,163,115,.2); color: var(--text-muted); font-size: .85rem; }.route-meta p { margin: 0; }
   .data-note { margin-top: 1.25rem; background: rgba(44,33,25,.5); }.data-note h2 { font-size: 1.15rem; }.data-note p { margin: .4rem 0; color: var(--text-muted); font-size: .9rem; }.data-note code { word-break: break-all; }
   .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-heading > p { max-width: 32rem; margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-heading > p[data-state='live'] { color: #9ed7b0; }.map-heading > p[data-state='error'] { color: #f4a261; }
@@ -252,8 +268,9 @@ const updatedAt = transportData.source.updatedAt
   .map-filters label { display: flex; gap: .55rem; align-items: start; color: var(--text-muted); font-size: .82rem; cursor: pointer; }.map-filters input { margin-top: .13rem; accent-color: var(--accent-mustard); }.map-filters label > span { display: inline-flex; gap: .4rem; align-items: center; }.map-filters label small { display: block; color: rgba(255,255,255,.38); font-size: .65rem; }.map-filters .unavailable { cursor: not-allowed; opacity: .65; }
   .map-filters i, .position-key i { display: inline-block; width: .72rem; height: .72rem; border-radius: 999px; background: #e9c46a; }.map-filters i.bus { background: #6fb7ff; }.map-filters i.live, .position-key i.live { border: 2px solid white; background: #219ebc; }.position-key i.estimated { border: 2px dashed white; background: #ffb703; }
   .position-key { display: grid; gap: .45rem; padding-top: .85rem; border-top: 1px solid rgba(212,163,115,.18); color: var(--text-muted); font-size: .72rem; }.position-key span { display: flex; gap: .45rem; align-items: center; }
+  .map-focus-live { display: flex; width: 100%; justify-content: center; align-items: center; gap: .45rem; margin: .3rem 0 .85rem; padding: .65rem .75rem; border: 1px solid rgba(233,196,106,.5); border-radius: .7rem; color: var(--bg-dark); background: var(--accent-mustard); font-size: .78rem; font-weight: 800; cursor: pointer; }.map-focus-live strong { min-width: 1.45rem; padding: .05rem .35rem; border-radius: 999px; color: var(--text-light); background: rgba(26,20,16,.75); }.map-focus-live:disabled { cursor: not-allowed; opacity: .48; }
   .map-note { margin: .8rem 0 0; color: var(--text-muted); font-size: .8rem; }:global(.leaflet-container) { color: #241a14; font-family: Inter, sans-serif; }:global(.leaflet-popup-content-wrapper) { border-radius: .65rem; }:global(.leaflet-control-attribution) { font-size: .65rem; }
-  @media (max-width: 900px) { .service-picker { grid-template-columns: 1fr; }.direction-picker { grid-template-columns: auto minmax(14rem,1fr); }.direction-picker > p { grid-column: 1 / -1; }.map-layout { grid-template-columns: 1fr; }.map-filters { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 1rem; }.filter-heading, .position-key { grid-column: 1 / -1; }.map-filters fieldset { border-top: 0; }.transport-map { min-height: 29rem; } }
+  @media (max-width: 900px) { .service-picker { grid-template-columns: 1fr; }.direction-picker { grid-template-columns: auto minmax(14rem,1fr); }.direction-picker > p { grid-column: 1 / -1; }.map-layout { grid-template-columns: 1fr; }.map-filters { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 1rem; }.filter-heading, .map-focus-live, .position-key { grid-column: 1 / -1; }.map-filters fieldset { border-top: 0; }.transport-map { min-height: 29rem; } }
   @media (max-width: 640px) {
     .transport-page { width: min(100% - 1rem, 1240px); margin-top: 1.5rem; }
     .transport-panel, .data-note, .map-panel { border-radius: 1rem; }
@@ -295,8 +312,9 @@ const updatedAt = transportData.source.updatedAt
     :global(.mobile-service-card.next-service-card .villars-stop) { background: rgba(65,145,91,.42) !important; }
     :global(.mobile-service-card.following-service-card > header) { background: #557e61; }
     :global(.mobile-service-card.following-service-card .villars-stop) { background: rgba(120,173,134,.28) !important; }
+    :global(.mobile-service-card.service-confirmed-card > header) { background: #215b70; }:global(.mobile-service-card.service-in-progress-card > header) { background: #185b39; }:global(.mobile-service-card.service-delayed-card > header) { background: #7a5b08; }:global(.mobile-service-card.service-delayed-card) { border-color: rgba(244,196,48,.62); background: rgba(196,145,8,.12); }:global(.mobile-service-card.service-scheduled-active-card > header) { background: #74501d; }:global(.mobile-service-card.service-cancelled-card > header) { background: #791f1f; }:global(.mobile-service-card.service-cancelled-card) { border-color: rgba(214,74,74,.62); background: rgba(159,39,39,.13); }
     .map-filters { grid-template-columns: 1fr; }
-    .filter-heading, .position-key { grid-column: auto; }
+    .filter-heading, .map-focus-live, .position-key { grid-column: auto; }
     .transport-map { min-height: 25rem; }
   }
 </style>

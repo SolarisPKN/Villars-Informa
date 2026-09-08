@@ -19,7 +19,12 @@ const routeMetadata = {
     publishedTerminus: 'Las Heras',
   },
   '136 Ramal A': { lineKey: '136-rapido', lineLabel: '136 Rápido · Primera Junta–Navarro', referenceStation: 'Marcos Paz' },
-  '136 Villars': { lineKey: '136-villars', lineLabel: '136 Villars', referenceStation: 'Estación Marcos Paz' },
+  '136 Villars': {
+    lineKey: '136-villars',
+    lineLabel: '136 Villars',
+    referenceStation: 'Estacion Villars',
+    serviceNotice: 'Las salidas y duraciones corresponden a horarios publicados. Cuando la fuente no ofrece la matriz completa, los pasos intermedios se muestran como estimaciones por recorrido.',
+  },
   '322 Luján': { lineKey: '322-lujan', lineLabel: '322 · Marcos Paz–Luján', referenceStation: 'Villars' },
   '322 Cañuelas': { lineKey: '322-canuelas', lineLabel: '322 · Marcos Paz–Cañuelas', referenceStation: 'Las Heras' },
 };
@@ -119,13 +124,23 @@ try {
     if (grid.updated_at && grid.updated_at > latestUpdate) latestUpdate = grid.updated_at;
   }
 
-  const routes = routeRows.map((route) => ({
-    id: `${route.tipo_norm}-${slugify(route.ramal || route.nombre)}-${route.id}`,
-    type: route.tipo_norm === 'colectivo' ? 'bus' : 'train', name: route.nombre, branch: route.ramal,
-    company: route.empresa, websiteUrl: route.website_url, sourceUrl: route.pdf_url,
-    validFrom: route.vigencia_iso || null, schedules: schedulesByRoute.get(route.id) || [],
-    ...(routeMetadata[route.ramal] || {}),
-  }));
+  const routes = routeRows.map((route) => {
+    const metadata = routeMetadata[route.ramal] || {};
+    return {
+      id: `${route.tipo_norm}-${slugify(route.ramal || route.nombre)}-${route.id}`,
+      type: route.tipo_norm === 'colectivo' ? 'bus' : 'train', name: route.nombre, branch: route.ramal,
+      company: route.empresa, websiteUrl: route.website_url, sourceUrl: route.pdf_url,
+      validFrom: route.vigencia_iso || null, schedules: schedulesByRoute.get(route.id) || [],
+      ...metadata,
+      ...(route.ramal === '136 Villars'
+        ? {
+            lineLabel: route.nombre.startsWith('Plomer - Villars')
+              ? `136 G · ${route.nombre}`
+              : route.nombre,
+          }
+        : {}),
+    };
+  });
   const payload = {
     schemaVersion: 2, timezone: 'America/Argentina/Buenos_Aires',
     source: { repository: 'https://github.com/SolarisPKN/SolarisPKN-Transport', databasePath: 'horarios.db', databaseSha256, updatedAt: latestUpdate ? `${latestUpdate.replace(' ', 'T')}Z` : null },

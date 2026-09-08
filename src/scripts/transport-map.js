@@ -4,6 +4,7 @@ import { PMTiles } from 'pmtiles';
 import baseMapData from '../data/transport-map.json';
 import route136Config from '../data/transport-136-villars.json';
 import { route136MapFeatures } from '../utils/transport-route-model.js';
+import { featureIsVisible, routeFamily } from '../utils/transport-map-live.js';
 
 const route136Features = route136MapFeatures(route136Config);
 const mapData = {
@@ -34,6 +35,7 @@ let pollingController;
 let lastEtag;
 let baseMapState = 'loading';
 let liveStatus = { message: 'Conectando con el snapshot de posiciones…', state: 'loading' };
+let hasAutoFocusedLive = false;
 
 class MemoryPmtilesSource {
   constructor(key, data) {
@@ -125,18 +127,6 @@ function liveFeatures(snapshot) {
     }));
 }
 
-function routeFamily(feature) {
-  if (feature?.properties?.lineKey) return feature.properties.lineKey;
-  const identifier = String(feature?.properties?.routeId || feature?.properties?.id || '');
-  if (identifier === 'sofse-67') return 'belgrano-sur';
-  if (identifier === 'sofse-53') return 'sarmiento-merlo-lobos';
-  if (identifier.startsWith('135_')) return '322';
-  if (identifier.startsWith('739_') || identifier.includes('136-rapido')) return '136-rapido';
-  if (identifier.includes('136')) return '136-villars';
-  if (feature?.properties?.mode === 'train') return 'belgrano-sur';
-  return 'bus';
-}
-
 function selectedFilters(selector, dataKey) {
   return new Set([...document.querySelectorAll(selector)]
     .filter((input) => input instanceof HTMLInputElement && input.checked && !input.disabled)
@@ -149,10 +139,6 @@ function currentFilterState() {
     routes: selectedFilters('[data-map-route]', 'mapRoute'),
     layers: selectedFilters('[data-map-layer]', 'mapLayer'),
   };
-}
-
-function featureIsVisible(feature, filters) {
-  return filters.modes.has(feature?.properties?.mode) && filters.routes.has(routeFamily(feature));
 }
 
 function renderFilteredLayers() {
@@ -184,6 +170,33 @@ function renderFilteredLayers() {
       });
     }
   }
+  updateLiveFocusControl();
+}
+
+function visibleLiveFeatures() {
+  const filters = currentFilterState();
+  if (!filters.layers.has('positions')) return [];
+  return currentLiveFeatures.filter((feature) => featureIsVisible(feature, filters));
+}
+
+function updateLiveFocusControl() {
+  const button = document.querySelector('[data-map-focus-live]');
+  const count = document.querySelector('[data-map-live-count]');
+  const visible = visibleLiveFeatures();
+  if (button instanceof HTMLButtonElement) button.disabled = visible.length === 0;
+  if (count) count.textContent = String(visible.length);
+}
+
+function focusLivePositions() {
+  if (!map) return;
+  const visible = visibleLiveFeatures();
+  if (visible.length === 0) return;
+  const points = visible.map(({ geometry }) => L.latLng(geometry.coordinates[1], geometry.coordinates[0]));
+  if (points.length === 1) {
+    map.setView(points[0], Math.max(map.getZoom(), 11), { animate: true });
+  } else {
+    map.fitBounds(L.latLngBounds(points), { padding: [42, 42], maxZoom: 12, animate: true });
+  }
 }
 
 function bindMapFilters() {
@@ -194,6 +207,10 @@ function bindMapFilters() {
       input.addEventListener('change', renderFilteredLayers, { signal: filterController.signal });
     }
   });
+  const focusButton = document.querySelector('[data-map-focus-live]');
+  if (focusButton instanceof HTMLButtonElement) {
+    focusButton.addEventListener('click', focusLivePositions, { signal: filterController.signal });
+  }
 }
 
 
@@ -255,6 +272,14 @@ function vehicleMarkerIcon(feature) {
 function replaceLiveFeatures(features) {
   currentLiveFeatures = features;
   renderFilteredLayers();
+  if (!hasAutoFocusedLive && map && features.length > 0) {
+    const bounds = map.getBounds();
+    const anyVisibleInViewport = visibleLiveFeatures().some(({ geometry }) => (
+      bounds.contains(L.latLng(geometry.coordinates[1], geometry.coordinates[0]))
+    ));
+    if (!anyVisibleInViewport) focusLivePositions();
+    hasAutoFocusedLive = true;
+  }
 }
 
 async function updateLiveLayer() {
@@ -268,6 +293,7 @@ async function updateLiveLayer() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     lastEtag = response.headers.get('etag') || lastEtag;
     const snapshot = await response.json();
+    document.dispatchEvent(new CustomEvent('transport-live-update', { detail: snapshot }));
     const snapshotAt = new Date(snapshot.generatedAt).getTime();
     const snapshotAge = Date.now() - snapshotAt;
     const features = liveFeatures(snapshot);
@@ -333,6 +359,7 @@ async function initTransportMap() {
   routeLayer = undefined;
   stopLayer = undefined;
   currentLiveFeatures = [];
+  hasAutoFocusedLive = false;
   baseMapState = 'loading';
   renderStatus();
 
@@ -403,5 +430,6 @@ document.addEventListener('astro:before-swap', () => {
   routeLayer = undefined;
   stopLayer = undefined;
   currentLiveFeatures = [];
+  hasAutoFocusedLive = false;
   filterController?.abort();
 });

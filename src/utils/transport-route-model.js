@@ -180,7 +180,7 @@ export function estimateTimetableVehicles(route, stopFeatures, date = new Date()
           routeId: `schedule-${route.lineKey}`,
           lineKey: route.lineKey,
           tripId: `${route.id}:${grid.id}:${service.id}`,
-          vehicleId: `bus-estimated:${route.lineKey}:${grid.id}:${service.id}`,
+          vehicleId: `${route.type === 'train' ? 'train' : 'bus'}-estimated:${route.lineKey}:${grid.id}:${service.id}`,
           label: `${route.lineLabel || route.branch || route.name} · ${service.name}`,
           lat: coordinate[1],
           lon: coordinate[0],

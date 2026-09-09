@@ -4,8 +4,8 @@
   "source": {
     "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
     "databasePath": "horarios.db",
-    "databaseSha256": "3a5a53fad7e8788b061b2b38689c1086fe5b5e1fb48a6b025a14f98ff68e36a3",
-    "updatedAt": "2026-09-07T19:26:05Z"
+    "databaseSha256": "d10f84f0c37a63e21a3dcbffa2b494c4690ea578587a235eeb8f9c1ef92b8411",
+    "updatedAt": "2026-09-08T22:12:30Z"
   },
   "stats": {
     "routes": 10,
@@ -31,7 +31,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:56Z",
+          "updatedAt": "2026-09-08T22:12:20Z",
           "services": [
             {
               "id": 109,
@@ -1061,7 +1061,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:56Z",
+          "updatedAt": "2026-09-08T22:12:21Z",
           "services": [
             {
               "id": 113,
@@ -2296,7 +2296,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:57Z",
+          "updatedAt": "2026-09-08T22:12:22Z",
           "services": [
             {
               "id": 128,
@@ -3941,7 +3941,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:22Z",
           "services": [
             {
               "id": 135,
@@ -5381,7 +5381,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:59Z",
+          "updatedAt": "2026-09-08T22:12:24Z",
           "services": [
             {
               "id": 165,
@@ -6411,7 +6411,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:59Z",
+          "updatedAt": "2026-09-08T22:12:24Z",
           "services": [
             {
               "id": 169,
@@ -7662,7 +7662,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:56Z",
+          "updatedAt": "2026-09-08T22:12:21Z",
           "services": [
             {
               "id": 118,
@@ -8534,7 +8534,7 @@
           },
           "direction": "Avenida Plomer Y Los Nogales",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:56Z",
+          "updatedAt": "2026-09-08T22:12:21Z",
           "services": [
             {
               "id": 120,
@@ -9103,7 +9103,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:22Z",
           "services": [
             {
               "id": 141,
@@ -9975,7 +9975,7 @@
           },
           "direction": "Avenida Plomer Y Los Nogales",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:23Z",
           "services": [
             {
               "id": 143,
@@ -11390,7 +11390,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:59Z",
+          "updatedAt": "2026-09-08T22:12:24Z",
           "services": [
             {
               "id": 174,
@@ -12262,7 +12262,7 @@
           },
           "direction": "Avenida Plomer Y Los Nogales",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:24Z",
           "services": [
             {
               "id": 176,
@@ -12847,7 +12847,7 @@
           },
           "direction": "25 De Mayo 1042",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:57Z",
+          "updatedAt": "2026-09-08T22:12:21Z",
           "services": [
             {
               "id": 121,
@@ -13320,7 +13320,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:57Z",
+          "updatedAt": "2026-09-08T22:12:21Z",
           "services": [
             {
               "id": 123,
@@ -13793,7 +13793,7 @@
           },
           "direction": "25 De Mayo 1042",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:23Z",
           "services": [
             {
               "id": 147,
@@ -14734,7 +14734,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:23Z",
           "services": [
             {
               "id": 152,
@@ -15987,7 +15987,7 @@
           },
           "direction": "25 De Mayo 1042",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:25Z",
           "services": [
             {
               "id": 177,
@@ -16460,7 +16460,7 @@
           },
           "direction": "Estacion Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:25Z",
           "services": [
             {
               "id": 179,
@@ -16949,7 +16949,7 @@
           },
           "direction": "Terminal Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:57Z",
+          "updatedAt": "2026-09-08T22:12:22Z",
           "services": [
             {
               "id": 125,
@@ -17420,7 +17420,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:57Z",
+          "updatedAt": "2026-09-08T22:12:22Z",
           "services": [
             {
               "id": 126,
@@ -18082,7 +18082,7 @@
           },
           "direction": "Terminal Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:58Z",
+          "updatedAt": "2026-09-08T22:12:23Z",
           "services": [
             {
               "id": 159,
@@ -19019,7 +19019,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:25:59Z",
+          "updatedAt": "2026-09-08T22:12:23Z",
           "services": [
             {
               "id": 162,
@@ -19681,7 +19681,7 @@
           },
           "direction": "Terminal Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:25Z",
           "services": [
             {
               "id": 181,
@@ -20152,7 +20152,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:25Z",
           "services": [
             {
               "id": 182,
@@ -20830,7 +20830,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:00Z",
+          "updatedAt": "2026-09-08T22:12:25Z",
           "services": [
             {
               "id": 184,
@@ -20955,7 +20955,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:01Z",
+          "updatedAt": "2026-09-08T22:12:26Z",
           "services": [
             {
               "id": 187,
@@ -21080,7 +21080,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:01Z",
+          "updatedAt": "2026-09-08T22:12:26Z",
           "services": [
             {
               "id": 190,
@@ -21205,7 +21205,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:01Z",
+          "updatedAt": "2026-09-08T22:12:26Z",
           "services": [
             {
               "id": 193,
@@ -21330,7 +21330,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:01Z",
+          "updatedAt": "2026-09-08T22:12:26Z",
           "services": [
             {
               "id": 196,
@@ -21455,7 +21455,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:01Z",
+          "updatedAt": "2026-09-08T22:12:26Z",
           "services": [
             {
               "id": 199,
@@ -21595,7 +21595,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:27Z",
           "services": [
             {
               "id": 202,
@@ -21776,7 +21776,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:27Z",
           "services": [
             {
               "id": 205,
@@ -21957,7 +21957,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:27Z",
           "services": [
             {
               "id": 208,
@@ -22138,7 +22138,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:27Z",
           "services": [
             {
               "id": 211,
@@ -22319,7 +22319,7 @@
           },
           "direction": "Luján",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:27Z",
           "services": [
             {
               "id": 214,
@@ -22500,7 +22500,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:02Z",
+          "updatedAt": "2026-09-08T22:12:28Z",
           "services": [
             {
               "id": 217,
@@ -22696,7 +22696,7 @@
           },
           "direction": "Estación Marcos Paz",
           "updateMethod": "Manual",
-          "updatedAt": "2026-09-07T19:25:59Z",
+          "updatedAt": "2026-09-08T22:12:24Z",
           "services": [
             {
               "id": 164,
@@ -23603,7 +23603,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:55Z",
+          "updatedAt": "2026-09-08T22:12:19Z",
           "services": [
             {
               "id": 1,
@@ -26328,7 +26328,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:55Z",
+          "updatedAt": "2026-09-08T22:12:19Z",
           "services": [
             {
               "id": 16,
@@ -28841,7 +28841,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:55Z",
+          "updatedAt": "2026-09-08T22:12:20Z",
           "services": [
             {
               "id": 31,
@@ -32416,7 +32416,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:55Z",
+          "updatedAt": "2026-09-08T22:12:20Z",
           "services": [
             {
               "id": 51,
@@ -35709,7 +35709,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:55Z",
+          "updatedAt": "2026-09-08T22:12:20Z",
           "services": [
             {
               "id": 71,
@@ -39091,7 +39091,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:25:56Z",
+          "updatedAt": "2026-09-08T22:12:20Z",
           "services": [
             {
               "id": 90,
@@ -42222,7 +42222,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:28Z",
           "services": [
             {
               "id": 220,
@@ -42419,7 +42419,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:28Z",
           "services": [
             {
               "id": 224,
@@ -42616,7 +42616,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:28Z",
           "services": [
             {
               "id": 228,
@@ -42858,7 +42858,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:28Z",
           "services": [
             {
               "id": 234,
@@ -43100,7 +43100,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:29Z",
           "services": [
             {
               "id": 240,
@@ -43297,7 +43297,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:03Z",
+          "updatedAt": "2026-09-08T22:12:29Z",
           "services": [
             {
               "id": 244,
@@ -43509,7 +43509,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:04Z",
+          "updatedAt": "2026-09-08T22:12:29Z",
           "services": [
             {
               "id": 248,
@@ -44654,7 +44654,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:04Z",
+          "updatedAt": "2026-09-08T22:12:29Z",
           "services": [
             {
               "id": 264,
@@ -45595,7 +45595,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:04Z",
+          "updatedAt": "2026-09-08T22:12:29Z",
           "services": [
             {
               "id": 276,
@@ -46812,7 +46812,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:04Z",
+          "updatedAt": "2026-09-08T22:12:30Z",
           "services": [
             {
               "id": 293,
@@ -47825,7 +47825,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:04Z",
+          "updatedAt": "2026-09-08T22:12:30Z",
           "services": [
             {
               "id": 306,
@@ -49042,7 +49042,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-09-07T19:26:05Z",
+          "updatedAt": "2026-09-08T22:12:30Z",
           "services": [
             {
               "id": 323,

@@ -10,6 +10,7 @@ const scheduleDays = [
 let controller;
 let refreshTimer;
 let liveSnapshot;
+let lastMapSelectionKey;
 const transportRoutes = transportData.routes
   .filter((route) => route.schedules.length > 0)
   .sort((left, right) => (left.type === right.type ? (left.lineLabel || left.branch).localeCompare(right.lineLabel || right.branch, 'es') : left.type === 'train' ? -1 : 1));
@@ -277,6 +278,21 @@ function createScheduleSection(route, day, direction, highlights) {
   return section;
 }
 
+function announceMapSelection(route, directions) {
+  const selectionKey = `${route.type}:${route.id}`;
+  if (selectionKey === lastMapSelectionKey) return;
+  lastMapSelectionKey = selectionKey;
+  document.dispatchEvent(new CustomEvent('transport-route-selection', {
+    detail: {
+      mode: route.type,
+      routeId: route.id,
+      lineKey: route.lineKey,
+      label: route.lineLabel || route.branch || route.name,
+      directions: directions.map(({ key }) => key),
+    },
+  }));
+}
+
 function initTransport() {
   controller?.abort();
   if (refreshTimer) window.clearInterval(refreshTimer);
@@ -318,6 +334,7 @@ function initTransport() {
       option.selected = key === direction;
       return option;
     }));
+    announceMapSelection(route, directions);
 
     const referenceStation = normalizeStationName(route.referenceStation || gridReferenceStation(route, direction));
     const upcoming = upcomingServicesForDirection(route, direction, transportData.timezone, new Date(), referenceStation);
@@ -395,4 +412,5 @@ document.addEventListener('astro:before-swap', () => {
   controller?.abort();
   if (refreshTimer) window.clearInterval(refreshTimer);
   liveSnapshot = undefined;
+  lastMapSelectionKey = undefined;
 });

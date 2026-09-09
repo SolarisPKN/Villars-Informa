@@ -98,7 +98,7 @@ test('se identifican de forma estable las dos próximas formaciones por Villars'
   assert.equal(upcoming[0].key, scheduleServiceKey('weekday', 'Luján', upcoming[0].service));
   assert.notEqual(upcoming[0].key, upcoming[1].key);
 });
-test('el mapa ofrece filtros separados y presenta la 136 como corredor local estimado', async () => {
+test('el mapa sigue el tipo y recorrido elegidos, conserva capas y presenta la 136 estimada', async () => {
   const [page, script, scheduleScript] = await Promise.all([
     readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/scripts/transport-map.js', import.meta.url), 'utf8'),
@@ -107,21 +107,23 @@ test('el mapa ofrece filtros separados y presenta la 136 como corredor local est
   assert.match(page, /data-direction-select/);
   assert.match(page, /grid\.services\.map/);
   assert.match(page, /formation-column/);
-  assert.match(page, /data-map-mode="train"/);
   assert.match(page, /data-map-layer="positions"/);
   assert.match(page, /data-map-layer="routes"/);
   assert.match(page, /data-map-layer="stops"/);
-  assert.match(page, /data-map-route="sarmiento-merlo-lobos" checked/);
-  assert.match(page, /data-map-route="136-rapido" checked/);
-  assert.match(page, /data-map-route="136-villars" checked/);
+  assert.match(page, /data-map-selection-route/);
+  assert.match(page, /data-map-direction-blue/);
+  assert.match(page, /data-map-direction-orange/);
+  assert.doesNotMatch(page, /data-map-mode=/);
+  assert.doesNotMatch(page, /data-map-route=/);
   assert.match(page, /no entrega coordenadas autorizadas/);
-  assert.match(page, /data-map-route="322-lujan" checked/);
-  assert.match(page, /data-map-route="322-canuelas" checked/);
   assert.match(script, /route136MapFeatures/);
   assert.match(script, /function vehicleMarkerIcon/);
+  assert.match(script, /vehicleDirectionVariant/);
+  assert.match(script, /transport-route-selection/);
   assert.match(script, /is-estimated/);
   assert.match(page, /transport-vehicle-pin/);
   assert.match(scheduleScript, /upcomingServicesForDirection/);
+  assert.match(scheduleScript, /transport-route-selection/);
   assert.match(scheduleScript, /next-service-row/);
   assert.match(scheduleScript, /following-service-row/);
   assert.match(script, /function renderFilteredLayers/);

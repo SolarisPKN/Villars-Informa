@@ -17,6 +17,7 @@
     "validate": "npm run test && npm run check && npm run build && npm run validate:dist",
     "data:transport": "node scripts/export-transport-data.mjs",
     "data:transport-map": "node scripts/export-transport-map-data.mjs",
+    "data:transport-live-index": "node scripts/export-transport-live-index.mjs",
     "worker:transport:dev": "wrangler dev --config workers/transport-live/wrangler.jsonc --test-scheduled",
     "worker:transport:check": "wrangler deploy --config workers/transport-live/wrangler.jsonc --dry-run",
     "worker:transport:deploy": "wrangler deploy --config workers/transport-live/wrangler.jsonc",

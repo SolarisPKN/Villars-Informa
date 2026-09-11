@@ -383,10 +383,14 @@ async function updateLiveLayer() {
       predictedCount ? `${predictedCount} estimadas` : '',
     ].filter(Boolean).join(' · ');
     replaceLiveFeatures(features);
-    const generatedAt = new Date(snapshot.generatedAt).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    const generatedDate = new Date(snapshot.generatedAt);
+    const generatedAt = generatedDate.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    const generatedLabel = Number.isFinite(snapshotAt)
+      ? generatedDate.toLocaleString('es-AR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
+      : 'desconocido';
     if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || snapshot.status === 'unavailable') {
       replaceLiveFeatures([]);
-      setLiveStatus('Las posiciones en vivo están temporalmente no disponibles; el mapa y los horarios programados siguen activos.', 'error');
+      setLiveStatus(`Actualización de posiciones interrumpida · último dato ${generatedLabel}. El mapa y los horarios programados siguen activos.`, 'error');
     } else if (snapshot.status === 'degraded' || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
       setLiveStatus(features.length
         ? `${countLabel || `${features.length} posiciones`} con datos demorados · última consulta a las ${generatedAt}`

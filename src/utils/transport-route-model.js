@@ -198,6 +198,48 @@ export function estimateTimetableVehicles(route, stopFeatures, date = new Date()
   return vehicles;
 }
 
+export function estimateIndexedTimetableVehicles(index, date = new Date()) {
+  if (index?.schemaVersion !== 1 || !index?.days) return [];
+  const clock = argentinaClock(date);
+  const contexts = [
+    { dayKey: dayKeyForClock(clock.weekday), minutes: clock.minutes },
+    { dayKey: previousWeekday[clock.weekday], minutes: clock.minutes + 1440 },
+  ];
+  const vehicles = [];
+  const updatedAt = date.toISOString();
+  for (const context of contexts) {
+    for (const run of index.days[context.dayKey] || []) {
+      if (context.minutes < run.a) break;
+      if (context.minutes > run.z) continue;
+      const stopIndex = run.s.findIndex((stop, indexPosition) => indexPosition > 0 && context.minutes <= stop[0]);
+      if (stopIndex < 1) continue;
+      const from = run.s[stopIndex - 1];
+      const to = run.s[stopIndex];
+      const duration = Math.max(1, to[0] - from[0]);
+      const progress = Math.min(1, Math.max(0, (context.minutes - from[0]) / duration));
+      vehicles.push({
+        provider: 'published-schedule',
+        mode: run.m,
+        routeId: run.r,
+        lineKey: run.l,
+        tripId: run.t,
+        vehicleId: run.v,
+        label: run.n,
+        lat: from[2] + (to[2] - from[2]) * progress,
+        lon: from[1] + (to[1] - from[1]) * progress,
+        bearing: null,
+        updatedAt,
+        positionKind: 'predicted',
+        fromStop: from[3],
+        toStop: to[3],
+        scheduledArrivalAt: new Date(date.getTime() + (to[0] - context.minutes) * 60_000).toISOString(),
+        stale: false,
+      });
+    }
+  }
+  return vehicles;
+}
+
 export function estimateScheduled136(config, date = new Date()) {
   const clock = argentinaClock(date);
   const isWeekend = clock.weekday === 'Sat' || clock.weekday === 'Sun';

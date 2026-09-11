@@ -1,7 +1,6 @@
 import route136Config from '../../../src/data/transport-136-villars.json' with { type: 'json' };
-import transportMap from '../../../src/data/transport-map.json' with { type: 'json' };
-import transportSchedules from '../../../src/data/transport-schedules.json' with { type: 'json' };
-import { estimateScheduled136, estimateTimetableVehicles } from '../../../src/utils/transport-route-model.js';
+import scheduleIndex from './generated-schedule-index.json' with { type: 'json' };
+import { estimateIndexedTimetableVehicles, estimateScheduled136 } from '../../../src/utils/transport-route-model.js';
 import { handleBridgeIngest, readBridgeProviders } from './bridge-ingest.js';
 
 const CUANDO_SUBO_BASE_URL = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where';
@@ -459,23 +458,10 @@ export async function refreshTransport(env, now = new Date(), options = {}) {
   const previous = await readPreviousSnapshot(env);
   const busConfigured = Boolean(env.CUANDO_SUBO_API_KEY);
   const scheduleCollector = options.scheduleCollector
-    || ((generatedAt) => {
-      const timetableLines = new Set([
-        '136-rapido', '322-lujan', '322-canuelas',
-        'belgrano-sur', 'sarmiento-merlo-lobos',
-      ]);
-      const timetableVehicles = transportSchedules.routes
-        .filter(({ lineKey }) => timetableLines.has(lineKey))
-        .flatMap((route) => estimateTimetableVehicles(
-          route,
-          transportMap.stops.features.filter(({ properties }) => properties?.lineKey === route.lineKey),
-          generatedAt,
-        ));
-      return [
-        ...estimateScheduled136(route136Config, generatedAt),
-        ...timetableVehicles,
-      ];
-    });
+    || ((generatedAt) => [
+      ...estimateScheduled136(route136Config, generatedAt),
+      ...estimateIndexedTimetableVehicles(scheduleIndex, generatedAt),
+    ]);
   const bridgeCollector = options.bridgeCollector || ((generatedAt) => readBridgeProviders(env, generatedAt));
   const [busResult, trainResult, scheduleResult, bridgeResult] = await Promise.allSettled([
     busConfigured ? collectBus(env, now) : Promise.resolve([]),

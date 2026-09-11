@@ -10,7 +10,13 @@ const scheduleDays = [
   { key: 'weekday', label: 'Lunes a viernes' },
   { key: 'saturday', label: 'Sábados' },
   { key: 'sunday', label: 'Domingos' },
+  { key: 'holiday', label: 'Feriados' },
+  { key: 'non-working-day', label: 'Días no laborables' },
 ];
+type TransportRoute = (typeof transportData.routes)[number];
+const scheduleDaysFor = (route?: TransportRoute) => route
+  ? scheduleDays.filter((day) => route.schedules.some((schedule) => schedule.day.key === day.key))
+  : [];
 type GridStation = {
   name: string;
   normalizedName: string;
@@ -23,7 +29,7 @@ const initialNext = initialRoute ? nextServiceForRoute(initialRoute, transportDa
 const initialDirections = initialRoute ? directionsFor(initialRoute) : [];
 const initialDirection = initialDirections[0]?.key;
 const initialScheduleGrids = initialRoute
-  ? scheduleDays.map((day) => {
+  ? scheduleDaysFor(initialRoute).map((day) => {
       const grid = stationScheduleGrid(initialRoute, day.key, initialDirection);
       return {
         ...day,

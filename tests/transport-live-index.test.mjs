@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { canonicalJsonSha256 } from '../scripts/lib/canonical-json.mjs';
 import {
   estimateIndexedTimetableVehicles,
   estimateTimetableVehicles,
@@ -16,13 +16,15 @@ const schedules = JSON.parse(scheduleBytes);
 const map = JSON.parse(mapBytes);
 const index = JSON.parse(indexBytes);
 const included = new Set(['136-rapido', '322-lujan', '322-canuelas', 'belgrano-sur', 'sarmiento-merlo-lobos']);
-const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
-
 test('el índice live corresponde exactamente a los JSON estáticos vigentes', () => {
   assert.equal(index.schemaVersion, 1);
-  assert.equal(index.source.schedulesSha256, digest(scheduleBytes));
-  assert.equal(index.source.mapSha256, digest(mapBytes));
-  assert.equal(index.stats.runs, 260);
+  assert.equal(index.source.schedulesSha256, canonicalJsonSha256(schedules));
+  assert.equal(index.source.mapSha256, canonicalJsonSha256(map));
+  const expectedRuns = schedules.routes
+    .filter((route) => included.has(route.lineKey))
+    .flatMap((route) => route.schedules)
+    .reduce((total, grid) => total + grid.services.length, 0);
+  assert.equal(index.stats.runs, expectedRuns);
   assert.equal(index.stats.skipped, 0);
 });
 

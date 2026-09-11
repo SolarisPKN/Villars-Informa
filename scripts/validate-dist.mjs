@@ -67,14 +67,20 @@ for (const file of htmlFiles) {
     if (!/\balt=["'][^"']*["']/i.test(match[0])) errors.push(`${label}: imagen sin atributo alt`);
   }
   const jsonLdBlocks = [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
-  if (jsonLdBlocks.length !== 1) errors.push(`${label}: debe contener exactamente un bloque JSON-LD`);
+  if (jsonLdBlocks.length < 1) errors.push(`${label}: debe contener al menos un bloque JSON-LD`);
+  let graphCount = 0;
   for (const block of jsonLdBlocks) {
     try {
       const data = JSON.parse(block[1]);
-      if (data['@context'] !== 'https://schema.org' || !Array.isArray(data['@graph'])) {
-        errors.push(`${label}: JSON-LD sin contexto o grafo Schema.org`);
+      if (data['@context'] !== 'https://schema.org') {
+        errors.push(`${label}: JSON-LD sin contexto Schema.org`);
         continue;
       }
+      if (!Array.isArray(data['@graph'])) {
+        if (!data['@type']) errors.push(`${label}: JSON-LD adicional sin @type`);
+        continue;
+      }
+      graphCount += 1;
       const types = new Set(data['@graph'].map((entry) => entry?.['@type']).flat());
       for (const required of ['Organization', 'WebSite']) {
         if (!types.has(required)) errors.push(`${label}: JSON-LD sin ${required}`);
@@ -90,6 +96,7 @@ for (const file of htmlFiles) {
       errors.push(`${label}: bloque JSON-LD inválido`);
     }
   }
+  if (graphCount !== 1) errors.push(`${label}: debe contener exactamente un grafo JSON-LD principal`);
   for (const forbidden of ['/directorio', '/search?q=', 'fonts.googleapis.com', 'favicon.ico', 'Calle Salud 123']) {
     if (html.includes(forbidden)) errors.push(`${label}: referencia heredada o ficticia: ${forbidden}`);
   }

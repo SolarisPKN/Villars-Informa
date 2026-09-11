@@ -68,9 +68,9 @@ test('las grillas ordenan todas las estaciones por sentido y cada formación ocu
   assert.deepEqual(directionsFor(train).map(({ key }) => key), ['González Catán', 'Lozano']);
 
   const busWeekday = stationScheduleGrid(bus, 'weekday', 'Luján');
-  assert.deepEqual(busWeekday.stations.map(({ name }) => name), ['Marcos Paz', 'Las Heras', 'Villars', 'Plomer', 'Luján']);
-  assert.equal(busWeekday.services.length, 3);
-  assert.equal(busWeekday.stations.find(({ normalizedName }) => normalizedName === 'villars').stops[0].minutes, 360);
+  assert.deepEqual(busWeekday.stations.map(({ name }) => name), ['Marcos Paz', 'General Las Heras', 'Villars', 'Plomer', 'Luján']);
+  assert.equal(busWeekday.services.length, 4);
+  assert.equal(busWeekday.stations.find(({ normalizedName }) => normalizedName === 'villars').stops[0].minutes, 383);
 
   const trainWeekday = stationScheduleGrid(train, 'weekday', 'Lozano');
   assert.deepEqual(trainWeekday.stations.map(({ name }) => name), ['González Catán', '20 de Junio', 'Marcos Paz', 'Villars', 'Lozano']);
@@ -86,15 +86,15 @@ test('las grillas ordenan todas las estaciones por sentido y cada formación ocu
 
   const next = nextServiceForRoute(bus, data.timezone, new Date('2026-08-25T08:00:00Z'));
   assert.equal(next.destination, 'Luján');
-  assert.equal(next.minutes, 360);
+  assert.equal(next.minutes, 383);
 });
 test('se identifican de forma estable las dos próximas formaciones por Villars', () => {
   const bus = villarsRoutes.find((route) => route.type === 'bus' && destinationsFrom(route).includes('Luján'));
   assert.ok(bus);
   const upcoming = upcomingServicesForDirection(bus, 'Luján', data.timezone, new Date('2026-08-25T08:00:00Z'));
   assert.equal(upcoming.length, 2);
-  assert.deepEqual(upcoming.map(({ stop }) => stop.minutes), [360, 600]);
-  assert.deepEqual(upcoming.map(({ difference }) => difference), [60, 300]);
+  assert.deepEqual(upcoming.map(({ stop }) => stop.minutes), [383, 624]);
+  assert.deepEqual(upcoming.map(({ difference }) => difference), [83, 324]);
   assert.equal(upcoming[0].key, scheduleServiceKey('weekday', 'Luján', upcoming[0].service));
   assert.notEqual(upcoming[0].key, upcoming[1].key);
 });
@@ -150,24 +150,14 @@ test('el mapa y el estimador cubren por separado 322 Luján y 322 Cañuelas', ()
 });
 test('el corredor 136 Villars expone E, F, G, H e I y distingue horarios estimados', async () => {
   const local136 = data.routes.filter(({ lineKey }) => lineKey === '136-villars');
-  assert.deepEqual(
-    local136.map(({ lineLabel }) => lineLabel).sort((left, right) => left.localeCompare(right, 'es')),
-    [
-      '136 E · Marcos Paz–Villars',
-      '136 F · Marcos Paz–Plomer',
-      '136 G · Plomer - Villars - Las Heras - Marcos Paz',
-      '136 H · Villars–Las Heras',
-      '136 I · Plomer–Las Heras',
-    ].sort((left, right) => left.localeCompare(right, 'es')),
-  );
-  for (const route of local136.filter(({ lineLabel }) => !lineLabel.startsWith('136 G'))) {
-    assert.equal(directionsFor(route).length, 2);
-    assert.ok(route.schedules.every(({ updateMethod }) => updateMethod === 'Estimado'));
-    assert.ok(route.schedules.every(({ stations }) => stations.length >= 20));
-    assert.deepEqual(new Set(route.schedules.map(({ day }) => day.key)), new Set(['weekday', 'saturday', 'sunday']));
-  }
-  const reverseF = local136.find(({ name }) => name.startsWith('136 F'));
-  assert.ok(reverseF.schedules.some(({ direction }) => direction === 'Estación Marcos Paz'));
+  assert.equal(local136.length, 1);
+  assert.equal(local136[0].id, 'colectivo-136-villars');
+  assert.equal(local136[0].lineLabel, '136 Villars / Plomer · ramales E–I');
+  assert.equal(local136[0].stationContract.length, 11);
+  assert.equal(local136[0].stationContract.filter(({ name }) => name === 'Villars').length, 2);
+  assert.ok(local136[0].variants.length >= 5);
+  assert.ok(directionsFor(local136[0]).some(({ key }) => key === 'Mariano Acosta'));
+  assert.ok(local136[0].schedules.some(({ direction }) => direction === 'Marcos Paz'));
 
   const config = JSON.parse(await readFile(new URL('../src/data/transport-136-villars.json', import.meta.url), 'utf8'));
   const reversePattern = config.patterns.find(({ id }) => id === '136-f-marcos-paz');

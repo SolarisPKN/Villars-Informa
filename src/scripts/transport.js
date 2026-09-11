@@ -6,7 +6,10 @@ const scheduleDays = [
   { key: 'weekday', label: 'Lunes a viernes' },
   { key: 'saturday', label: 'Sábados' },
   { key: 'sunday', label: 'Domingos' },
+  { key: 'holiday', label: 'Feriados' },
+  { key: 'non-working-day', label: 'Días no laborables' },
 ];
+const scheduleDaysFor = (route) => scheduleDays.filter((day) => route?.schedules?.some((schedule) => schedule.day.key === day.key));
 let controller;
 let refreshTimer;
 let liveSnapshot;
@@ -340,7 +343,7 @@ function initTransport() {
     const upcoming = upcomingServicesForDirection(route, direction, transportData.timezone, new Date(), referenceStation);
     const highlights = new Map(upcoming.map(({ key }, index) => [key, index]));
     sections.setAttribute('aria-label', `Horarios de ${route.branch || route.name}, hacia ${direction}`);
-    sections.replaceChildren(...scheduleDays.map((day) => createScheduleSection(route, day, direction, highlights)));
+    sections.replaceChildren(...scheduleDaysFor(route).map((day) => createScheduleSection(route, day, direction, highlights)));
 
     const next = upcoming[0];
     const nextPanel = root.querySelector('.next-service');

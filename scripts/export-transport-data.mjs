@@ -6,7 +6,13 @@ import { DatabaseSync } from 'node:sqlite';
 const inputPath = resolve(process.argv[2] || 'data/transport/horarios.db');
 const outputPath = resolve(process.argv[3] || 'src/data/transport-schedules.json');
 const requiredTables = ['dias', 'estaciones', 'grilla_estaciones', 'grilla_formaciones', 'grillas', 'horarios', 'recorridos'];
-const dayKeys = new Map([['Lunes a Viernes', 'weekday'], ['Sábado', 'saturday'], ['Domingo', 'sunday']]);
+const dayKeys = new Map([
+  ['Lunes a Viernes', 'weekday'],
+  ['Sábado', 'saturday'],
+  ['Domingo', 'sunday'],
+  ['Feriados', 'holiday'],
+  ['No Laboral', 'non-working-day'],
+]);
 const slugify = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const routeMetadata = {
   'Belgrano Sur': { lineKey: 'belgrano-sur', lineLabel: 'Belgrano Sur', referenceStation: 'Villars' },
@@ -21,12 +27,25 @@ const routeMetadata = {
   '136 Ramal A': { lineKey: '136-rapido', lineLabel: '136 Rápido · Primera Junta–Navarro', referenceStation: 'Marcos Paz' },
   '136 Villars': {
     lineKey: '136-villars',
-    lineLabel: '136 Villars',
-    referenceStation: 'Estacion Villars',
+    lineLabel: '136 Villars / Plomer · ramales E–I',
+    referenceStation: 'Villars',
     serviceNotice: 'Las salidas y duraciones corresponden a horarios publicados. Cuando la fuente no ofrece la matriz completa, los pasos intermedios se muestran como estimaciones por recorrido.',
+    stationContract: [
+      { name: 'General Las Heras', matches: ['Terminal Las Heras', '25 De Mayo 1042'] },
+      { name: 'General Hornos', matches: ['Rp 40 Y 2 De Abril'] },
+      { name: 'Zamudio', matches: ['Ruta Provincial 6 Y Rivadavia', 'Rivadavia Y Ruta Provincial 6', 'Rp 40 Y Rp 6'] },
+      { name: 'Villars', matches: ['Estacion Villars', 'Villars'], occurrence: 0 },
+      { name: 'Plomer', matches: ['Estación Plomer', 'Cercanías A Est. Plomer', 'Plomer', 'Avenida Plomer Y Los Nogales'] },
+      { name: 'Villars', matches: ['Estacion Villars', 'Villars'], occurrence: 1 },
+      { name: 'Escuela N° 8 Manuel Belgrano', matches: ['Escuela N° 8 Manuel Belgrano'] },
+      { name: 'El Moro', matches: ['Rp40 Y Los Eucaliptus (Country El Moro)', 'El Moro'] },
+      { name: 'Marcos Paz', matches: ['Estación Marcos Paz', 'Marcos Paz'] },
+      { name: 'Maquinista Ricardo Cal', matches: ['Maquinista Ricardo Cal'] },
+      { name: 'Mariano Acosta', matches: ['Mariano Acosta'] },
+    ],
   },
   '322 Luján': { lineKey: '322-lujan', lineLabel: '322 · Marcos Paz–Luján', referenceStation: 'Villars' },
-  '322 Cañuelas': { lineKey: '322-canuelas', lineLabel: '322 · Marcos Paz–Cañuelas', referenceStation: 'Las Heras' },
+  '322 Cañuelas': { lineKey: '322-canuelas', lineLabel: '322 · Marcos Paz–Cañuelas', referenceStation: 'General Las Heras' },
 };
 const databaseBytes = await readFile(inputPath);
 const databaseSha256 = createHash('sha256').update(databaseBytes).digest('hex');
@@ -124,7 +143,7 @@ try {
     if (grid.updated_at && grid.updated_at > latestUpdate) latestUpdate = grid.updated_at;
   }
 
-  const routes = routeRows.map((route) => {
+  const expandedRoutes = routeRows.map((route) => {
     const metadata = routeMetadata[route.ramal] || {};
     return {
       id: `${route.tipo_norm}-${slugify(route.ramal || route.nombre)}-${route.id}`,
@@ -132,15 +151,31 @@ try {
       company: route.empresa, websiteUrl: route.website_url, sourceUrl: route.pdf_url,
       validFrom: route.vigencia_iso || null, schedules: schedulesByRoute.get(route.id) || [],
       ...metadata,
-      ...(route.ramal === '136 Villars'
-        ? {
-            lineLabel: route.nombre.startsWith('Plomer - Villars')
-              ? `136 G · ${route.nombre}`
-              : route.nombre,
-          }
-        : {}),
     };
   });
+  const local136 = expandedRoutes.filter(({ lineKey }) => lineKey === '136-villars');
+  const routes = expandedRoutes.filter(({ lineKey }) => lineKey !== '136-villars');
+  if (local136.length) {
+    const metadata = routeMetadata['136 Villars'];
+    const schedules = local136.flatMap((route) => route.schedules.map((schedule) => ({
+      ...schedule,
+      direction: /mariano acosta/i.test(schedule.direction) ? 'Mariano Acosta'
+        : /marcos paz/i.test(schedule.direction) ? 'Marcos Paz'
+          : /plomer/i.test(schedule.direction) ? 'Plomer'
+            : /(las heras|25 de mayo 1042)/i.test(schedule.direction) ? 'General Las Heras'
+              : /villars/i.test(schedule.direction) ? 'Villars'
+                : schedule.direction,
+    })));
+    routes.push({
+      id: 'colectivo-136-villars', type: 'bus', name: '136 Villars / Plomer', branch: '136 Villars',
+      company: local136[0].company, websiteUrl: local136[0].websiteUrl,
+      sourceUrl: local136.find((route) => route.sourceUrl)?.sourceUrl || null,
+      validFrom: local136.map((route) => route.validFrom).filter(Boolean).sort().at(-1) || null,
+      schedules,
+      variants: local136.map((route) => ({ id: route.id, name: route.name })),
+      ...metadata,
+    });
+  }
   const payload = {
     schemaVersion: 2, timezone: 'America/Argentina/Buenos_Aires',
     source: { repository: 'https://github.com/SolarisPKN/SolarisPKN-Transport', databasePath: 'horarios.db', databaseSha256, updatedAt: latestUpdate ? `${latestUpdate.replace(' ', 'T')}Z` : null },

@@ -106,23 +106,30 @@ export function stationScheduleGrid(route, dayKey, direction) {
     }));
 
   const contract = Array.isArray(route.stationContract) ? route.stationContract : [];
-  const contractOrder = normalizeStationName(direction) === normalizeStationName(contract[0])
+  const contractName = (entry) => typeof entry === 'string' ? entry : entry?.name;
+  const contractOrder = normalizeStationName(direction) === normalizeStationName(contractName(contract[0]))
     ? [...contract].reverse()
     : contract;
   const observedByName = new Map(observedStations.map((station) => [normalizeStationName(station.name), station]));
   const stations = contractOrder.length
-    ? contractOrder.map((name, order) => {
-      const observed = observedByName.get(normalizeStationName(name));
-      return observed
-        ? { ...observed, order, outsidePublishedService: false }
-        : {
-          name,
-          normalizedName: normalizeStationName(name),
-          order,
-          times: [],
-          stops: services.map(() => null),
-          outsidePublishedService: true,
-        };
+    ? contractOrder.map((entry, order) => {
+      const name = contractName(entry);
+      const matches = (typeof entry === 'string' ? [entry] : entry.matches || [name]).map(normalizeStationName);
+      const occurrence = typeof entry === 'object' ? Number(entry.occurrence || 0) : 0;
+      const observed = matches.map((match) => observedByName.get(match)).find(Boolean);
+      const stops = services.map((service) => {
+        const candidates = service.stops.filter((stop) => matches.includes(stop.normalizedStation));
+        return candidates[occurrence] || null;
+      });
+      return {
+        ...(observed || {}),
+        name,
+        normalizedName: normalizeStationName(name),
+        order,
+        times: stops.filter(Boolean).map((stop) => stop.minutes),
+        stops,
+        outsidePublishedService: stops.every((stop) => !stop),
+      };
     })
     : observedStations;
 

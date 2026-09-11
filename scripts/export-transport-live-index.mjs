@@ -1,6 +1,6 @@
-import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { canonicalJsonSha256 } from './lib/canonical-json.mjs';
 
 const schedulesPath = resolve(process.argv[2] || 'src/data/transport-schedules.json');
 const mapPath = resolve(process.argv[3] || 'src/data/transport-map.json');
@@ -26,10 +26,6 @@ function normalizedLabel(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
-}
-
-function sha256(bytes) {
-  return createHash('sha256').update(bytes).digest('hex');
 }
 
 const [scheduleBytes, mapBytes] = await Promise.all([
@@ -96,8 +92,8 @@ const payload = {
   schemaVersion: 1,
   timezone: schedules.timezone || 'America/Argentina/Buenos_Aires',
   source: {
-    schedulesSha256: sha256(scheduleBytes),
-    mapSha256: sha256(mapBytes),
+    schedulesSha256: canonicalJsonSha256(schedules),
+    mapSha256: canonicalJsonSha256(map),
   },
   stats: {
     runs: Object.values(days).reduce((total, runs) => total + runs.length, 0),

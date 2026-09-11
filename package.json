@@ -29,18 +29,18 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.2.6",
+    "astro": "^7.3.2",
     "isomorphic-dompurify": "^3.17.0",
     "leaflet": "^1.9.4",
     "marked": "^18.0.5",
     "pmtiles": "^3.2.1",
     "protomaps-leaflet": "^5.1.0",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "typescript": "^6.0.3",
     "vite": "^8.2.2",
-    "wrangler": "^4.125.0"
+    "wrangler": "^4.131.1"
   }
 }

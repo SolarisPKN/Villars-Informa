@@ -29,7 +29,7 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.2.6",
+    "astro": "^7.3.2",
     "isomorphic-dompurify": "^3.17.0",
     "leaflet": "^1.9.4",
     "marked": "^18.0.5",

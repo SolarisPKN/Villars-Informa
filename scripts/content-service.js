@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import fsp from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -148,6 +149,263 @@ function jsonFrontmatter(entries) {
   return ['---', ...entries.map(([key, value]) => `${key}: ${JSON.stringify(value)}`), '---', ''].join('\n');
 }
 
+function validateOptionalDate(value, label) {
+  const text = String(value ?? '').trim();
+  if (!text) return '';
+  try {
+    return validateDate(text);
+  } catch {
+    throw new Error(`${label} debe ser válida y tener formato AAAA-MM-DD.`);
+  }
+}
+
+function validateOptionalTime(value) {
+  const text = String(value ?? '').trim();
+  if (text && !/^([01]\d|2[0-3]):[0-5]\d$/.test(text)) {
+    throw new Error('La hora del evento debe tener formato HH:MM.');
+  }
+  return text;
+}
+
+function validateOptionalCoordinate(value, label, minimum, maximum) {
+  if (value === '' || value === null || value === undefined) return null;
+  const number = typeof value === 'number' ? value : Number(String(value).replace(',', '.'));
+  if (!Number.isFinite(number) || number < minimum || number > maximum) {
+    throw new Error(`${label} debe ser un número entre ${minimum} y ${maximum}.`);
+  }
+  return Number(number.toFixed(7));
+}
+
+function eventFrontmatter(news) {
+  if (!news.event) return [['evento', false]];
+  const entries = [
+    ['evento', true],
+    ['fechaEvento', news.eventDate],
+  ];
+  if (news.eventEndDate) entries.push(['fechaFinEvento', news.eventEndDate]);
+  if (news.eventTime) entries.push(['horaEvento', news.eventTime]);
+  if (news.eventPlace) entries.push(['lugarEvento', news.eventPlace]);
+  if (news.eventLat !== null && news.eventLon !== null) {
+    entries.push(['latEvento', news.eventLat], ['lonEvento', news.eventLon]);
+  }
+  if (news.showEventMap) entries.push(['mostrarMapaEvento', true]);
+  return entries;
+}
+
+function revisionFor(source) {
+  return createHash('sha256').update(source).digest('hex');
+}
+
+function validSlug(value) {
+  const slug = String(value || '');
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('Slug editorial no válido.');
+  return slug;
+}
+
+function parseJsonFrontmatter(source) {
+  const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(source);
+  if (!match) throw new Error('La publicación no tiene frontmatter reconocible.');
+  const data = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const entry = /^([A-Za-z][A-Za-z0-9_-]*):\s*(.*)$/.exec(line);
+    if (!entry) continue;
+    try {
+      data[entry[1]] = JSON.parse(entry[2]);
+    } catch {
+      throw new Error(`El campo ${entry[1]} no usa el formato seguro del editor.`);
+    }
+  }
+  return { data, body: source.slice(match[0].length).trim() };
+}
+
+function channelPaths(channel, slug, rootDirectory) {
+  const safeSlug = validSlug(slug);
+  if (channel === 'news') {
+    return {
+      contentDirectory: inside(rootDirectory, 'src', 'content', 'noticias', safeSlug),
+      contentPath: inside(rootDirectory, 'src', 'content', 'noticias', safeSlug, 'index.mdx'),
+      imagesDirectory: inside(rootDirectory, 'public', 'images', 'noticias', safeSlug),
+      url: `/noticias/${safeSlug}/`,
+    };
+  }
+  if (channel === 'health') {
+    return {
+      contentDirectory: inside(rootDirectory, 'src', 'content', 'actualizaciones', safeSlug),
+      contentPath: inside(rootDirectory, 'src', 'content', 'actualizaciones', safeSlug, 'index.mdx'),
+      imagesDirectory: inside(rootDirectory, 'public', 'images', 'salud', safeSlug),
+      url: '/salud/',
+    };
+  }
+  throw new Error('Canal editorial no válido.');
+}
+
+function publicPost(channel, slug, source) {
+  const { data, body } = parseJsonFrontmatter(source);
+  if (channel === 'news') {
+    return {
+      channel,
+      slug,
+      revision: revisionFor(source),
+      title: String(data.titulo || ''),
+      date: String(data.fecha || ''),
+      description: String(data.descripcion || ''),
+      author: String(data.autor || ''),
+      category: String(data.categoria || 'General'),
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      content: body,
+      heroUrl: String(data.portada || ''),
+      galleryUrls: Array.isArray(data.imagenes) ? data.imagenes : [],
+      event: data.evento === true,
+      eventDate: String(data.fechaEvento || ''),
+      eventEndDate: String(data.fechaFinEvento || ''),
+      eventTime: String(data.horaEvento || ''),
+      eventPlace: String(data.lugarEvento || ''),
+      eventLat: typeof data.latEvento === 'number' ? data.latEvento : null,
+      eventLon: typeof data.lonEvento === 'number' ? data.lonEvento : null,
+      showEventMap: data.mostrarMapaEvento === true,
+      url: `/noticias/${slug}/`,
+    };
+  }
+  return {
+    channel,
+    slug,
+    revision: revisionFor(source),
+    title: String(data.titulo || ''),
+    date: String(data.fecha || ''),
+    message: String(data.mensaje || ''),
+    source: String(data.fuente || ''),
+    sourceUrl: String(data.fuenteUrl || ''),
+    imageUrl: String(data.imagen || ''),
+    url: '/salud/',
+  };
+}
+
+export async function readContent(channel, slug, { rootDirectory = projectRoot } = {}) {
+  const paths = channelPaths(channel, slug, rootDirectory);
+  try {
+    const source = await fsp.readFile(paths.contentPath, 'utf8');
+    return publicPost(channel, validSlug(slug), source);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      const missing = new Error('La publicación ya no existe.');
+      missing.code = 'CONTENT_NOT_FOUND';
+      throw missing;
+    }
+    throw error;
+  }
+}
+
+export async function listContent(channel, { rootDirectory = projectRoot } = {}) {
+  const base = channel === 'news'
+    ? inside(rootDirectory, 'src', 'content', 'noticias')
+    : channel === 'health'
+      ? inside(rootDirectory, 'src', 'content', 'actualizaciones')
+      : null;
+  if (!base) throw new Error('Canal editorial no válido.');
+  let entries = [];
+  try {
+    entries = await fsp.readdir(base, { withFileTypes: true });
+  } catch (error) {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  }
+  const posts = await Promise.all(entries
+    .filter((entry) => entry.isDirectory() && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.name))
+    .map(async (entry) => {
+      try {
+        const post = await readContent(channel, entry.name, { rootDirectory });
+        if (channel === 'news') {
+          const { content: _content, heroUrl: _heroUrl, galleryUrls: _galleryUrls, ...summary } = post;
+          return summary;
+        }
+        return post;
+      } catch {
+        return null;
+      }
+    }));
+  return posts.filter(Boolean).sort((left, right) => (
+    right.date.localeCompare(left.date) || left.title.localeCompare(right.title, 'es')
+  ));
+}
+
+async function assertCurrentRevision(contentPath, expectedRevision) {
+  const source = await fsp.readFile(contentPath, 'utf8');
+  if (!expectedRevision || revisionFor(source) !== expectedRevision) {
+    const conflict = new Error('La publicación cambió desde que la abriste. Recargala antes de guardar o eliminar.');
+    conflict.code = 'CONTENT_CONFLICT';
+    throw conflict;
+  }
+  return { source, parsed: parseJsonFrontmatter(source) };
+}
+
+export async function updateContent(channel, slug, input, { rootDirectory = projectRoot } = {}) {
+  const paths = channelPaths(channel, slug, rootDirectory);
+  let current;
+  try {
+    current = await assertCurrentRevision(paths.contentPath, input?.revision);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      error.code = 'CONTENT_NOT_FOUND';
+      error.message = 'La publicación ya no existe.';
+    }
+    throw error;
+  }
+  let source;
+  if (channel === 'news') {
+    const news = validateNewsInput({ ...input, slug, hero: null, gallery: [] });
+    const frontmatter = jsonFrontmatter([
+      ['titulo', news.title],
+      ['descripcion', news.description],
+      ['fecha', news.date],
+      ['modificada', today()],
+      ['autor', news.author],
+      ['categoria', news.category],
+      ['tags', news.tags],
+      ['portada', String(current.parsed.data.portada || '')],
+      ['imagenes', Array.isArray(current.parsed.data.imagenes) ? current.parsed.data.imagenes : []],
+      ...eventFrontmatter(news),
+    ]);
+    source = `${frontmatter}\n${news.content.trim()}\n`;
+  } else {
+    const update = validateHealthInput({ ...input, slug, image: null });
+    const frontmatter = jsonFrontmatter([
+      ['fecha', update.date],
+      ['titulo', update.title],
+      ['mensaje', update.message],
+      ['fuente', update.source],
+      ['fuenteUrl', update.sourceUrl],
+      ['imagen', String(current.parsed.data.imagen || '')],
+    ]);
+    source = `${frontmatter}\n`;
+  }
+  await assertCurrentRevision(paths.contentPath, input?.revision);
+  await atomicWrite(paths.contentPath, source);
+  return { ...(await readContent(channel, slug, { rootDirectory })), files: [path.relative(rootDirectory, paths.contentPath).replaceAll(path.sep, '/')] };
+}
+
+export async function archiveContent(channel, slug, input, { rootDirectory = projectRoot } = {}) {
+  const paths = channelPaths(channel, slug, rootDirectory);
+  await assertCurrentRevision(paths.contentPath, input?.revision);
+  const archiveDirectory = inside(rootDirectory, '.content-trash', channel, `${Date.now()}-${validSlug(slug)}`);
+  const archivedContent = inside(archiveDirectory, 'content');
+  const archivedImages = inside(archiveDirectory, 'images');
+  await fsp.mkdir(archiveDirectory, { recursive: true });
+  try {
+    await fsp.rename(paths.contentDirectory, archivedContent);
+    if (fs.existsSync(paths.imagesDirectory)) await fsp.rename(paths.imagesDirectory, archivedImages);
+  } catch (error) {
+    if (fs.existsSync(archivedContent) && !fs.existsSync(paths.contentDirectory)) {
+      await fsp.rename(archivedContent, paths.contentDirectory);
+    }
+    throw error;
+  }
+  return {
+    archived: true,
+    slug,
+    recoveryPath: path.relative(rootDirectory, archiveDirectory).replaceAll(path.sep, '/'),
+  };
+}
+
 async function createEntry({ rootDirectory, contentDirectory, imagesDirectory, writes }) {
   const conflicts = [contentDirectory, imagesDirectory].filter((candidate) => candidate && fs.existsSync(candidate));
   if (conflicts.length) {
@@ -189,6 +447,18 @@ export function validateNewsInput(input) {
     totalBytes += image.data.length;
   }
   if (totalBytes > TOTAL_NEWS_IMAGE_LIMIT) throw new Error('Las imágenes superan el máximo total de 30 MB.');
+  const event = input?.event === true;
+  const eventDate = event ? validateOptionalDate(input?.eventDate, 'La fecha del evento') : '';
+  const eventEndDate = event ? validateOptionalDate(input?.eventEndDate, 'La fecha final del evento') : '';
+  const eventTime = event ? validateOptionalTime(input?.eventTime) : '';
+  const eventPlace = event ? optionalText(input?.eventPlace, 'El lugar del evento', 180) : '';
+  const eventLat = event ? validateOptionalCoordinate(input?.eventLat, 'La latitud', -90, 90) : null;
+  const eventLon = event ? validateOptionalCoordinate(input?.eventLon, 'La longitud', -180, 180) : null;
+  const showEventMap = event && input?.showEventMap === true;
+  if (event && !eventDate) throw new Error('La fecha del evento es obligatoria.');
+  if (eventEndDate && eventEndDate < eventDate) throw new Error('La fecha final no puede ser anterior a la fecha del evento.');
+  if ((eventLat === null) !== (eventLon === null)) throw new Error('La ubicación del evento requiere latitud y longitud.');
+  if (showEventMap && (eventLat === null || eventLon === null)) throw new Error('Para mostrar el mapa primero elegí una ubicación.');
   return {
     slug,
     title,
@@ -198,6 +468,14 @@ export function validateNewsInput(input) {
     category: optionalText(input?.category, 'La categoría', 100) || 'General',
     tags: normalizeTags(input?.tags),
     content: requireText(input?.content, 'El contenido', 500000),
+    event,
+    eventDate,
+    eventEndDate,
+    eventTime,
+    eventPlace,
+    eventLat,
+    eventLon,
+    showEventMap,
     hero,
     gallery,
   };
@@ -219,6 +497,7 @@ export async function createNews(input, { rootDirectory = projectRoot } = {}) {
     ['tags', news.tags],
     ['portada', news.hero ? `${prefix}${news.hero.name}` : ''],
     ['imagenes', news.gallery.map((image) => `${prefix}${image.name}`)],
+    ...eventFrontmatter(news),
   ]);
   const contentPath = inside(contentDirectory, 'index.mdx');
   const writes = [[contentPath, `${frontmatter}\n${news.content.trim()}\n`]];

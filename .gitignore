@@ -32,6 +32,7 @@ desktop.ini
 .cache/
 .codex/
 .codex-tmp/
+.content-trash/
 /outputs/
 **/outputs/
 # Backups exactos de Workers pueden conservar autenticación de cliente embebida.

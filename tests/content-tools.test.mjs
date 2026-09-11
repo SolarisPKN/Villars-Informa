@@ -1,12 +1,17 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { access, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import {
+  archiveContent,
   createHealthUpdate,
   createNews,
+  listContent,
+  readContent,
+  updateContent,
   validateHealthInput,
+  validateNewsInput,
 } from '../scripts/content-service.js';
 import { createEditorServer, validLocalRequest } from '../scripts/content-editor/server.js';
 
@@ -52,6 +57,44 @@ test('Noticias crea MDX, portada y galería sin sobrescribir', async () => {
     assert.match(content, /portada: "\/images\/noticias\/nueva-plaza-para-villars\/foto.gif"/);
     assert.match(content, /imagenes: \["\/images\/noticias\/nueva-plaza-para-villars\/galeria.gif"\]/);
     await assert.rejects(() => createNews(input, { rootDirectory: directory }), /No se sobrescribió nada/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('Noticias valida y conserva eventos geolocalizados sin mezclar fechas', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'villars-event-editor-'));
+  const input = {
+    title: 'Feria comunitaria',
+    date: '2026-09-10',
+    description: 'Una feria para toda la comunidad.',
+    category: 'Comunidad',
+    tags: ['Villars', 'agenda'],
+    content: 'Información completa del evento.',
+    event: true,
+    eventDate: '2026-09-15',
+    eventEndDate: '2026-09-16',
+    eventTime: '18:30',
+    eventPlace: 'Plaza de Villars',
+    eventLat: '-34.8312345',
+    eventLon: '-58.9456789',
+    showEventMap: true,
+  };
+  try {
+    const created = await createNews(input, { rootDirectory: directory });
+    const source = await readFile(join(directory, 'src/content/noticias/feria-comunitaria/index.mdx'), 'utf8');
+    assert.match(source, /fecha: "2026-09-10"/);
+    assert.match(source, /evento: true/);
+    assert.match(source, /fechaEvento: "2026-09-15"/);
+    assert.match(source, /fechaFinEvento: "2026-09-16"/);
+    assert.match(source, /latEvento: -34\.8312345/);
+    const post = await readContent('news', created.slug, { rootDirectory: directory });
+    assert.equal(post.event, true);
+    assert.equal(post.eventPlace, 'Plaza de Villars');
+    assert.equal(post.showEventMap, true);
+    assert.throws(() => validateNewsInput({ ...input, eventDate: '' }), /fecha del evento es obligatoria/);
+    assert.throws(() => validateNewsInput({ ...input, eventEndDate: '2026-09-01' }), /fecha final no puede ser anterior/);
+    assert.throws(() => validateNewsInput({ ...input, eventLon: '', showEventMap: true }), /requiere latitud y longitud/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
@@ -112,6 +155,46 @@ test('el editor responde por HTTP y sanitiza la vista previa Markdown', async ()
     assert.match(preview.html, /Texto seguro/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('el navegador editorial edita con revisión y archiva de forma recuperable', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'villars-editor-library-'));
+  try {
+    const created = await createNews({
+      title: 'Noticia editable',
+      date: '2026-09-10',
+      description: 'Versión inicial.',
+      category: 'Comunidad',
+      tags: ['Villars'],
+      content: 'Contenido inicial.',
+      hero: tinyGif,
+    }, { rootDirectory: directory });
+    const listed = await listContent('news', { rootDirectory: directory });
+    assert.equal(listed.length, 1);
+    assert.equal(listed[0].slug, created.slug);
+    const original = await readContent('news', created.slug, { rootDirectory: directory });
+    const updated = await updateContent('news', created.slug, {
+      ...original,
+      revision: original.revision,
+      title: 'Noticia corregida',
+      description: 'Versión revisada.',
+      content: 'Contenido actualizado.',
+    }, { rootDirectory: directory });
+    assert.notEqual(updated.revision, original.revision);
+    assert.equal(updated.heroUrl.endsWith('/foto.gif'), true);
+    await assert.rejects(() => updateContent('news', created.slug, {
+      ...original,
+      revision: original.revision,
+    }, { rootDirectory: directory }), /cambió desde que la abriste/);
+    const archived = await archiveContent('news', created.slug, {
+      revision: updated.revision,
+    }, { rootDirectory: directory });
+    await assert.rejects(() => readContent('news', created.slug, { rootDirectory: directory }), /ya no existe/);
+    await access(join(directory, archived.recoveryPath, 'content', 'index.mdx'));
+    await access(join(directory, archived.recoveryPath, 'images', 'foto.gif'));
+  } finally {
     await rm(directory, { recursive: true, force: true });
   }
 });

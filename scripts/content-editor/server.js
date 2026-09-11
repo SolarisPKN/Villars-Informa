@@ -5,14 +5,31 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
-import { createContent, getNewsTaxonomy, projectRoot, today } from '../content-service.js';
+import {
+  archiveContent,
+  createContent,
+  getNewsTaxonomy,
+  listContent,
+  projectRoot,
+  readContent,
+  today,
+  updateContent,
+} from '../content-service.js';
 
 const host = '127.0.0.1';
 const editorDirectory = path.dirname(fileURLToPath(import.meta.url));
 const assets = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/event-map-picker.js', ['event-map-picker.js', 'text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
+]);
+const projectAssets = new Map([
+  ['/vendor/leaflet.css', [path.join(projectRoot, 'node_modules', 'leaflet', 'dist', 'leaflet.css'), 'text/css; charset=utf-8']],
+  ['/vendor/leaflet.js', [path.join(projectRoot, 'node_modules', 'leaflet', 'dist', 'leaflet.js'), 'text/javascript; charset=utf-8']],
+  ['/vendor/pmtiles.js', [path.join(projectRoot, 'node_modules', 'pmtiles', 'dist', 'pmtiles.js'), 'text/javascript; charset=utf-8']],
+  ['/vendor/protomaps-leaflet.js', [path.join(projectRoot, 'node_modules', 'protomaps-leaflet', 'dist', 'protomaps-leaflet.js'), 'text/javascript; charset=utf-8']],
+  ['/maps/villars-region.pmtiles', [path.join(projectRoot, 'public', 'maps', 'villars-region.pmtiles'), 'application/vnd.pmtiles']],
 ]);
 
 function send(response, status, body, contentType = 'application/json; charset=utf-8') {
@@ -20,7 +37,7 @@ function send(response, status, body, contentType = 'application/json; charset=u
     'content-type': contentType,
     'cache-control': 'no-store',
     'x-content-type-options': 'nosniff',
-    'content-security-policy': "default-src 'self'; style-src 'self'; img-src 'self' data: blob:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+    'content-security-policy': "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
     'referrer-policy': 'no-referrer',
   });
   response.end(contentType.startsWith('application/json') ? JSON.stringify(body) : body);
@@ -83,6 +100,32 @@ export function createEditorServer({ channel, rootDirectory = projectRoot } = {}
         send(response, 200, { channel, date: today(), ...taxonomy });
         return;
       }
+      if (request.method === 'GET' && projectAssets.has(url.pathname)) {
+        const [filePath, contentType] = projectAssets.get(url.pathname);
+        send(response, 200, await fsp.readFile(filePath), contentType);
+        return;
+      }
+
+      if (request.method === 'GET' && url.pathname === '/api/posts') {
+        send(response, 200, { posts: await listContent(channel, { rootDirectory }) });
+        return;
+      }
+
+      const postMatch = /^\/api\/posts\/([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(url.pathname);
+      if (request.method === 'GET' && postMatch) {
+        send(response, 200, await readContent(channel, postMatch[1], { rootDirectory }));
+        return;
+      }
+
+      if (request.method === 'PUT' && postMatch) {
+        send(response, 200, await updateContent(channel, postMatch[1], await readJson(request), { rootDirectory }));
+        return;
+      }
+
+      if (request.method === 'DELETE' && postMatch) {
+        send(response, 200, await archiveContent(channel, postMatch[1], await readJson(request), { rootDirectory }));
+        return;
+      }
 
       if (request.method === 'POST' && url.pathname === '/api/preview') {
         const payload = await readJson(request);
@@ -105,7 +148,11 @@ export function createEditorServer({ channel, rootDirectory = projectRoot } = {}
 
       send(response, 404, { error: 'Ruta inexistente.' });
     } catch (error) {
-      const status = error.code === 'CONTENT_EXISTS' ? 409 : 400;
+      const status = error.code === 'CONTENT_NOT_FOUND'
+        ? 404
+        : ['CONTENT_EXISTS', 'CONTENT_CONFLICT'].includes(error.code)
+          ? 409
+          : 400;
       send(response, status, { error: error.message || 'Error inesperado.' });
     }
   });

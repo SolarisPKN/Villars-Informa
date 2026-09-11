@@ -1,0 +1,53 @@
+---
+interface Props {
+  lat: number;
+  lon: number;
+  place?: string;
+}
+
+const { lat, lon, place = 'Ubicación del evento' } = Astro.props;
+const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lon}`)}`;
+---
+
+<section class="event-map-card" aria-labelledby="event-map-title">
+  <header>
+    <div>
+      <p>Ubicación</p>
+      <h2 id="event-map-title">Dónde es</h2>
+      <span>{place}</span>
+    </div>
+    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">Abrir en Google Maps ↗</a>
+  </header>
+  <div
+    class="event-map-canvas"
+    data-event-map
+    data-lat={lat}
+    data-lon={lon}
+    data-place={place}
+    aria-label={`Mapa de ${place}`}
+  ></div>
+  <p class="event-map-status" data-event-map-status>Cargando la cartografía local…</p>
+</section>
+
+<script>
+  import '../scripts/event-map.js';
+</script>
+
+<style>
+  .event-map-card { margin: 2rem 0; overflow: hidden; border: 1px solid rgba(233,196,106,.28); border-radius: 1.1rem; background: rgba(23,17,13,.72); }
+  .event-map-card header { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 1rem 1.15rem; }
+  .event-map-card header div { display: grid; gap: .2rem; }
+  .event-map-card header p { margin: 0; color: var(--accent-gold, #e9c46a); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .event-map-card h2 { margin: 0; font-size: 1.45rem; }
+  .event-map-card header span { color: var(--text-muted, #c9b9aa); }
+  .event-map-card header a { flex: 0 0 auto; padding: .7rem .9rem; border: 1px solid rgba(233,196,106,.38); border-radius: 999px; color: var(--accent-gold, #e9c46a); text-decoration: none; font-weight: 750; }
+  .event-map-canvas { min-height: 26rem; background: #15100d; }
+  .event-map-status { margin: 0; padding: .7rem 1rem; color: var(--text-muted, #c9b9aa); font-size: .82rem; }
+  .event-map-status[data-state='ready'] { color: #a3b18a; }
+  .event-map-status[data-state='error'] { color: #ff9a9a; }
+  @media (max-width: 640px) {
+    .event-map-card header { align-items: flex-start; flex-direction: column; }
+    .event-map-card header a { width: 100%; text-align: center; }
+    .event-map-canvas { min-height: 20rem; }
+  }
+</style>

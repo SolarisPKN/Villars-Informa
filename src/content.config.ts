@@ -24,6 +24,27 @@ const noticias = defineCollection({
     tags: z.array(z.string()).default([]),
     portada: z.string().optional(),
     imagenes: z.array(z.string()).default([]),
+    evento: z.boolean().default(false),
+    fechaEvento: z.coerce.date().optional(),
+    fechaFinEvento: z.coerce.date().optional(),
+    horaEvento: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/).optional(),
+    lugarEvento: z.string().max(180).default(''),
+    latEvento: z.number().min(-90).max(90).optional(),
+    lonEvento: z.number().min(-180).max(180).optional(),
+    mostrarMapaEvento: z.boolean().default(false),
+  }).superRefine((data, context) => {
+    if (data.evento && !data.fechaEvento) {
+      context.addIssue({ code: 'custom', path: ['fechaEvento'], message: 'Los eventos requieren una fecha.' });
+    }
+    if (data.fechaEvento && data.fechaFinEvento && data.fechaFinEvento < data.fechaEvento) {
+      context.addIssue({ code: 'custom', path: ['fechaFinEvento'], message: 'La fecha final no puede ser anterior al comienzo.' });
+    }
+    if ((data.latEvento === undefined) !== (data.lonEvento === undefined)) {
+      context.addIssue({ code: 'custom', path: ['latEvento'], message: 'La ubicación requiere latitud y longitud.' });
+    }
+    if (data.mostrarMapaEvento && (data.latEvento === undefined || data.lonEvento === undefined)) {
+      context.addIssue({ code: 'custom', path: ['mostrarMapaEvento'], message: 'Para mostrar el mapa primero elegí una ubicación.' });
+    }
   }),
 });
 

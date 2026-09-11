@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SocialEmbed from '../../components/SocialEmbed.astro';
+import EventMap from '../../components/EventMap.astro';
 import { getCollection, render } from 'astro:content';
 import '../../styles/blog-post.css';
 
@@ -20,6 +22,35 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
   month: 'long',
   day: 'numeric',
 });
+const eventDate = data.fechaEvento?.toLocaleDateString('es-AR', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+});
+const eventEndDate = data.fechaFinEvento?.toLocaleDateString('es-AR', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+});
+const eventDateKey = data.fechaEvento?.toISOString().slice(0, 10);
+const eventEndDateKey = data.fechaFinEvento?.toISOString().slice(0, 10);
+const eventStart = eventDateKey && data.horaEvento ? `${eventDateKey}T${data.horaEvento}:00-03:00` : eventDateKey;
+const eventSchema = data.evento && eventStart ? {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: data.titulo,
+  description: data.descripcion,
+  startDate: eventStart,
+  ...(eventEndDateKey ? { endDate: eventEndDateKey } : {}),
+  eventStatus: 'https://schema.org/EventScheduled',
+  url: new URL(`/noticias/${noticia.id}/`, Astro.site).href,
+  ...(data.portada ? { image: [new URL(data.portada, Astro.site).href] } : {}),
+  ...(data.lugarEvento || data.latEvento !== undefined ? {
+    location: {
+      '@type': 'Place',
+      name: data.lugarEvento || 'Villars, Buenos Aires',
+      ...(data.latEvento !== undefined && data.lonEvento !== undefined ? {
+        geo: { '@type': 'GeoCoordinates', latitude: data.latEvento, longitude: data.lonEvento },
+      } : {}),
+    },
+  } : {}),
+} : null;
 ---
 
 <Layout
@@ -40,6 +71,7 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
     { name: data.titulo, url: `/noticias/${noticia.id}/` },
   ]}
 >
+  {eventSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(eventSchema)} />}
   <article class="article-page">
     <a class="article-back" href="/noticias/">← Volver a Noticias</a>
 
@@ -59,6 +91,23 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
       )}
     </header>
 
+    {data.evento && data.fechaEvento && (
+      <aside class="article-event-summary" aria-labelledby="event-summary-title">
+        <div class="article-event-date" aria-hidden="true">
+          <strong>{data.fechaEvento.toLocaleDateString('es-AR', { day: '2-digit', timeZone: 'UTC' })}</strong>
+          <span>{data.fechaEvento.toLocaleDateString('es-AR', { month: 'short', timeZone: 'UTC' }).replace('.', '')}</span>
+        </div>
+        <div>
+          <p>Evento</p>
+          <h2 id="event-summary-title">{eventDate}</h2>
+          {eventEndDate && eventEndDateKey !== eventDateKey && <span>Hasta el {eventEndDate}</span>}
+          {(data.horaEvento || data.lugarEvento) && (
+            <strong>{[data.horaEvento && `${data.horaEvento} h`, data.lugarEvento].filter(Boolean).join(' · ')}</strong>
+          )}
+        </div>
+      </aside>
+    )}
+
     {data.portada && (
       <button
         class="article-hero-button"
@@ -72,8 +121,12 @@ const fecha = data.fecha.toLocaleDateString('es-AR', {
     )}
 
     <div class="article-content prose">
-      <Content />
+      <Content components={{ SocialEmbed }} />
     </div>
+
+    {data.evento && data.mostrarMapaEvento && data.latEvento !== undefined && data.lonEvento !== undefined && (
+      <EventMap lat={data.latEvento} lon={data.lonEvento} place={data.lugarEvento || 'Ubicación del evento'} />
+    )}
 
     {data.imagenes.length > 0 && (
       <section class="article-gallery" aria-labelledby="gallery-title">

@@ -1,0 +1,143 @@
+---
+import { resolveSocialEmbed } from '../utils/social-embed.js';
+
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title } = Astro.props;
+const embed = resolveSocialEmbed(url);
+---
+
+{embed ? (
+  <figure
+    class:list={['social-embed', `social-embed--${embed.layout}`]}
+    data-social-embed
+    data-platform={embed.platform}
+    data-embed-src={embed.embedUrl}
+    data-original-url={embed.originalUrl}
+  >
+    <div class="social-embed__consent" data-social-target>
+      <span class="social-embed__badge">{embed.label}</span>
+      <strong>{title || `Publicación de ${embed.label}`}</strong>
+      <p>El contenido externo se carga sólo cuando lo pedís. Al hacerlo, {embed.label} puede recibir datos técnicos de tu visita.</p>
+      <div>
+        <button type="button" data-social-load>Cargar contenido</button>
+        <a href={embed.originalUrl} target="_blank" rel="noopener noreferrer">Ver publicación original</a>
+      </div>
+    </div>
+    <noscript>
+      <a href={embed.originalUrl} target="_blank" rel="noopener noreferrer">Ver publicación en {embed.label}</a>
+    </noscript>
+  </figure>
+) : (
+  <p class="social-embed social-embed--unsupported">
+    No se pudo incrustar esta URL. <a href={url} target="_blank" rel="noopener noreferrer">Abrir publicación original</a>
+  </p>
+)}
+
+<script>
+  type XWindow = Window & typeof globalThis & {
+    twttr?: { widgets?: { load?: (target?: HTMLElement) => void } };
+  };
+  const xWindow = window as XWindow;
+  const loadXWidget = (target: HTMLElement, url: string) => {
+    const quote = document.createElement('blockquote');
+    quote.className = 'twitter-tweet';
+    const link = document.createElement('a');
+    link.href = url;
+    link.textContent = 'Ver publicación en X';
+    quote.append(link);
+    target.replaceChildren(quote);
+    if (xWindow.twttr?.widgets?.load) {
+      xWindow.twttr.widgets.load(target);
+      return;
+    }
+    let script = document.getElementById('x-widgets-script') as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'x-widgets-script';
+      script.src = 'https://platform.twitter.com/widgets.js';
+      script.async = true;
+      document.head.append(script);
+    }
+    script.addEventListener('load', () => xWindow.twttr?.widgets?.load?.(target), { once: true });
+  };
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-social-load]:not([data-social-ready])')) {
+    button.dataset.socialReady = 'true';
+    button.addEventListener('click', () => {
+      const root = button.closest<HTMLElement>('[data-social-embed]');
+      const target = root?.querySelector<HTMLElement>('[data-social-target]');
+      const source = root?.dataset.embedSrc;
+      const originalUrl = root?.dataset.originalUrl;
+      if (!root || !target || !originalUrl) return;
+      if (root.dataset.platform === 'x') {
+        loadXWidget(target, originalUrl);
+        return;
+      }
+      if (!source) return;
+      const frame = document.createElement('iframe');
+      frame.src = source;
+      frame.title = `Contenido de ${root.dataset.platform || 'red social'}`;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allowFullscreen = true;
+      frame.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+      target.replaceChildren(frame);
+    });
+  }
+</script>
+
+<style>
+  .social-embed {
+    display: grid;
+    width: min(100%, 700px);
+    min-height: 20rem;
+    margin: 1.75rem auto;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+    border-radius: 1rem;
+    background: color-mix(in srgb, currentColor 4%, transparent);
+  }
+  .social-embed--video { aspect-ratio: 16 / 9; min-height: 0; }
+  .social-embed--portrait { width: min(100%, 540px); min-height: 42rem; }
+  .social-embed--post { width: min(100%, 550px); min-height: 24rem; }
+  .social-embed__consent {
+    display: grid;
+    place-content: center;
+    gap: .8rem;
+    min-height: inherit;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    text-align: center;
+  }
+  .social-embed__consent > p { margin: 0; }
+  .social-embed__consent > div { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; }
+  .social-embed__badge {
+    justify-self: center;
+    padding: .25rem .65rem;
+    border-radius: 999px;
+    background: #e9c46a;
+    color: #251a11;
+    font-size: .78rem;
+    font-weight: 800;
+  }
+  button, .social-embed__consent a {
+    padding: .65rem .9rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 750;
+    text-decoration: none;
+  }
+  button { border-color: #e9c46a; background: #e9c46a; color: #251a11; }
+  :global(.social-embed iframe) { width: 100%; height: 100%; min-height: inherit; border: 0; }
+  .social-embed--unsupported { display: block; min-height: 0; padding: 1rem; }
+  @media (max-width: 600px) {
+    .social-embed--portrait { min-height: 36rem; }
+  }
+</style>

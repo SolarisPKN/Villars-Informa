@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Villars Informa · Editor local</title>
+  <link rel="stylesheet" href="/vendor/leaflet.css">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -17,6 +18,11 @@
   </header>
 
   <main>
+    <nav class="workspace-tabs" aria-label="Modo del editor">
+      <button type="button" class="workspace-tab active" data-workspace="compose" aria-pressed="true">Crear o editar</button>
+      <button type="button" class="workspace-tab" data-workspace="library" aria-pressed="false">Publicaciones existentes <span id="post-count"></span></button>
+    </nav>
+
     <form id="news-form" hidden>
       <section class="panel intro">
         <div class="section-heading"><span class="step">01</span><div><h2>Identidad de la noticia</h2><p>Una publicación extensa, con URL propia y metadatos para compartir.</p></div></div>
@@ -32,8 +38,42 @@
         <datalist id="news-tags-list"></datalist>
       </section>
 
+      <section class="panel event-editor-panel">
+        <div class="section-heading"><span class="step">02</span><div><h2>Agenda comunitaria</h2><p>La publicación puede seguir siendo una noticia y, además, aparecer automáticamente como evento.</p></div></div>
+        <label class="toggle-card">
+          <input id="news-event" type="checkbox">
+          <span><strong>Esta noticia es un evento</strong><small>Conserva separadas la fecha de publicación y la fecha en que ocurre.</small></span>
+        </label>
+        <div id="news-event-fields" class="event-fields" hidden>
+          <div class="grid three">
+            <label>Fecha del evento <input id="news-event-date" type="date"></label>
+            <label>Finalización <input id="news-event-end-date" type="date"><small>Opcional; si queda vacío se usa el mismo día.</small></label>
+            <label>Hora <input id="news-event-time" type="time"><small>Opcional.</small></label>
+          </div>
+          <label>Lugar <input id="news-event-place" maxlength="180" placeholder="Plaza de Villars, club, escuela…"></label>
+          <div class="event-location-grid">
+            <div>
+              <div class="grid two">
+                <label>Latitud <input id="news-event-lat" inputmode="decimal" placeholder="-34.831234"></label>
+                <label>Longitud <input id="news-event-lon" inputmode="decimal" placeholder="-58.945678"></label>
+              </div>
+              <label class="toggle-card compact">
+                <input id="news-event-show-map" type="checkbox">
+                <span><strong>Mostrar mapa en la noticia</strong><small>Requiere una ubicación. El mapa usa la cartografía local de Villars Informa.</small></span>
+              </label>
+              <button id="news-event-clear-location" class="button ghost" type="button">Quitar ubicación</button>
+            </div>
+            <div>
+              <p class="map-help">Hacé clic en el mapa para fijar el punto exacto del evento.</p>
+              <div id="news-event-map" class="event-picker-map" aria-label="Selector de ubicación del evento"></div>
+              <p id="news-event-map-status" class="map-status">El mapa se prepara al activar el evento.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="panel">
-        <div class="section-heading"><span class="step">02</span><div><h2>Redacción y vista previa</h2><p>Escribí en Markdown y comprobá el resultado sin salir del editor.</p></div></div>
+        <div class="section-heading"><span class="step">03</span><div><h2>Redacción y vista previa</h2><p>Escribí en Markdown y comprobá el resultado sin salir del editor.</p></div></div>
         <label>Descripción para el listado <textarea id="news-description" rows="2" maxlength="320" required></textarea></label>
         <div class="editor-grid">
           <div>
@@ -45,6 +85,12 @@
               <button type="button" data-link>Enlace</button>
               <button type="button" data-block="code">Código</button>
             </div>
+            <div class="social-insert">
+              <label>Publicación social para incrustar
+                <input id="news-social-url" type="url" placeholder="Pegá una URL de Facebook, Instagram, YouTube, TikTok o X">
+              </label>
+              <button id="news-insert-social" class="button ghost" type="button">Insertar widget privado</button>
+            </div>
             <label>Contenido Markdown <textarea id="news-content" class="content" rows="25" required placeholder="Contá la noticia con contexto, fuentes y datos verificables."></textarea></label>
           </div>
           <div><h3>Vista previa</h3><div id="news-preview" class="preview prose"><p class="empty">La vista previa aparecerá acá.</p></div></div>
@@ -52,7 +98,7 @@
       </section>
 
       <section class="panel">
-        <div class="section-heading"><span class="step">03</span><div><h2>Imágenes</h2><p>La portada encabeza la noticia; la galería aparece al final y se puede ampliar.</p></div></div>
+        <div class="section-heading"><span class="step">04</span><div><h2>Imágenes</h2><p>La portada encabeza la noticia; la galería aparece al final y se puede ampliar.</p></div></div>
         <div class="grid two">
           <label>Portada <input id="news-hero" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo 10 MB.</small></label>
           <label>Galería <input id="news-gallery" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo total 30 MB.</small></label>
@@ -61,9 +107,19 @@
         <div id="news-image-preview" class="image-strip" aria-live="polite"></div>
       </section>
 
+      <section class="panel social-copy-section">
+        <div class="section-heading"><span class="step">05</span><div><h2>Versiones para compartir</h2><p>Texto listo para revisar y copiar. El editor nunca publica por su cuenta.</p></div></div>
+        <div class="social-copy-grid" data-social-copy-channel="news">
+          <article><header><strong>WhatsApp</strong><button type="button" data-copy-target="news-copy-whatsapp">Copiar</button></header><textarea id="news-copy-whatsapp" readonly rows="10"></textarea><small data-count-for="news-copy-whatsapp"></small></article>
+          <article><header><strong>Facebook</strong><button type="button" data-copy-target="news-copy-facebook">Copiar</button></header><textarea id="news-copy-facebook" readonly rows="10"></textarea><small data-count-for="news-copy-facebook"></small></article>
+          <article><header><strong>Instagram</strong><button type="button" data-copy-target="news-copy-instagram">Copiar</button></header><textarea id="news-copy-instagram" readonly rows="10"></textarea><small data-count-for="news-copy-instagram"></small></article>
+        </div>
+      </section>
+
       <section class="panel finish">
-        <div><span class="step">04</span><h2>Crear noticia</h2><p>Se validan rutas, imágenes y metadatos. Nunca se sobrescribe una publicación existente.</p></div>
+        <div><span class="step">06</span><h2 id="news-action-title">Crear noticia</h2><p id="news-action-help">Se validan rutas, imágenes y metadatos. Nunca se sobrescribe una publicación existente.</p></div>
         <button id="news-submit" class="button primary" type="submit">Crear noticia</button>
+        <button id="news-cancel-edit" class="button ghost" type="button" hidden>Cancelar edición</button>
       </section>
     </form>
 
@@ -99,14 +155,37 @@
         </div>
       </section>
 
+      <section class="panel social-copy-section">
+        <div class="section-heading"><span class="step">02</span><div><h2>Versiones para compartir</h2><p>Adaptaciones breves para copiar manualmente en cada canal.</p></div></div>
+        <div class="social-copy-grid" data-social-copy-channel="health">
+          <article><header><strong>WhatsApp</strong><button type="button" data-copy-target="health-copy-whatsapp">Copiar</button></header><textarea id="health-copy-whatsapp" readonly rows="8"></textarea><small data-count-for="health-copy-whatsapp"></small></article>
+          <article><header><strong>Facebook</strong><button type="button" data-copy-target="health-copy-facebook">Copiar</button></header><textarea id="health-copy-facebook" readonly rows="8"></textarea><small data-count-for="health-copy-facebook"></small></article>
+          <article><header><strong>Instagram</strong><button type="button" data-copy-target="health-copy-instagram">Copiar</button></header><textarea id="health-copy-instagram" readonly rows="8"></textarea><small data-count-for="health-copy-instagram"></small></article>
+        </div>
+      </section>
+
       <section class="panel finish">
-        <div><span class="step">02</span><h2>Crear actualización</h2><p>El límite de 500 caracteres se valida otra vez en el servidor y el slug nunca se sobrescribe.</p></div>
+        <div><span class="step">03</span><h2 id="health-action-title">Crear actualización</h2><p id="health-action-help">El límite de 500 caracteres se valida otra vez en el servidor y el slug nunca se sobrescribe.</p></div>
         <button id="health-submit" class="button health-primary" type="submit">Crear actualización</button>
+        <button id="health-cancel-edit" class="button ghost" type="button" hidden>Cancelar edición</button>
       </section>
     </form>
 
+    <section id="library" class="panel library" hidden>
+      <div class="section-heading"><span class="step">↺</span><div><h2>Publicaciones existentes</h2><p>Editá sin pisar cambios externos o mandá una publicación a la papelera recuperable.</p></div></div>
+      <div class="library-tools">
+        <label>Buscar <input id="library-search" type="search" placeholder="Título, fecha o categoría"></label>
+        <button id="library-refresh" class="button ghost" type="button">Actualizar lista</button>
+      </div>
+      <div id="library-list" class="library-list" aria-live="polite"></div>
+    </section>
+
     <div id="status" class="status" aria-live="polite"></div>
   </main>
+  <script src="/vendor/leaflet.js"></script>
+  <script src="/vendor/pmtiles.js"></script>
+  <script src="/vendor/protomaps-leaflet.js"></script>
+  <script src="/event-map-picker.js"></script>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Los PMTiles por partido son binarios versionados; cada archivo queda muy por
+# debajo del límite individual de GitHub y del límite de assets del hosting.
+public/maps/buenos-aires/*.pmtiles -text
+public/maps/buenos-aires/**/*.pmtiles -text

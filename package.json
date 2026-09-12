@@ -17,10 +17,7 @@
     "validate": "npm run test && npm run check && npm run build && npm run validate:dist",
     "data:transport": "node scripts/export-transport-data.mjs",
     "data:transport-map": "node scripts/export-transport-map-data.mjs",
-    "data:transport-live-index": "node scripts/export-transport-live-index.mjs",
-    "worker:transport:dev": "wrangler dev --config workers/transport-live/wrangler.jsonc --test-scheduled",
-    "worker:transport:check": "wrangler deploy --config workers/transport-live/wrangler.jsonc --dry-run",
-    "worker:transport:deploy": "wrangler deploy --config workers/transport-live/wrangler.jsonc",
+    "maps:build": "node scripts/maps/build-buenos-aires-pmtiles.mjs",
     "create-news": "node scripts/content-editor/server.js news",
     "create-health": "node scripts/content-editor/server.js health",
     "create-local": "node scripts/create-local.js",
@@ -40,7 +37,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "typescript": "^6.0.3",
-    "vite": "^8.2.2",
-    "wrangler": "^4.131.1"
+    "vite": "^8.2.2"
   }
 }

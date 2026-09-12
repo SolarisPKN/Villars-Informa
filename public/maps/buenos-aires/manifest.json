@@ -1,0 +1,1783 @@
+{
+  "schemaVersion": 1,
+  "description": "Mapa vectorial de la provincia de Buenos Aires fragmentado por partido",
+  "bounds": [
+    -63.5,
+    -41.3,
+    -56.4,
+    -33
+  ],
+  "minZoom": 0,
+  "maxDataZoom": 15,
+  "maxVisualZoom": 18,
+  "source": {
+    "pmtiles": "https://data.source.coop/opengeos/protomaps/planet/latest.pmtiles",
+    "osmTimestamp": "2026-07-14T04:00:00Z",
+    "georef": "https://infra.datos.gob.ar/georef/departamentos.geojson",
+    "georefSha256": "31afdfe5983b6d7648eba1eafc7a5a8fe3c591abdca4b17c311c08c75d361e92"
+  },
+  "overview": {
+    "file": "overview.pmtiles",
+    "bytes": 3855529,
+    "sha256": "be17b6074de188624b3c8ab38ac994c97725fa4888307d4a39f1f6461f1aa998",
+    "minZoom": 0,
+    "maxZoom": 9
+  },
+  "parties": [
+    {
+      "id": "06007",
+      "name": "Adolfo Alsina",
+      "bounds": [
+        -63.385367,
+        -37.815182,
+        -62.425401,
+        -36.524945
+      ],
+      "file": "partidos/06007-adolfo-alsina.pmtiles",
+      "bytes": 2849161,
+      "sha256": "1952101c3fa0a9a7181fda4dc516b0374ce56a65fed92e3a8ce1551e945c8c96"
+    },
+    {
+      "id": "06014",
+      "name": "Adolfo Gonzales Chaves",
+      "bounds": [
+        -60.845653,
+        -38.280844,
+        -59.641345,
+        -37.601036
+      ],
+      "file": "partidos/06014-adolfo-gonzales-chaves.pmtiles",
+      "bytes": 1688528,
+      "sha256": "9372473985151d31a70d7ed9e72bcd425993f0f4c595882c7b4c97436b240051"
+    },
+    {
+      "id": "06021",
+      "name": "Alberti",
+      "bounds": [
+        -60.487762,
+        -35.295857,
+        -60.021089,
+        -34.761526
+      ],
+      "file": "partidos/06021-alberti.pmtiles",
+      "bytes": 919277,
+      "sha256": "fa321ddd95e2ca5dfc85b0f4e5c8bc3c6a39a0eabb3061a04fdcd961c88e8dc5"
+    },
+    {
+      "id": "06028",
+      "name": "Almirante Brown",
+      "bounds": [
+        -58.447753,
+        -34.909881,
+        -58.292471,
+        -34.758241
+      ],
+      "file": "partidos/06028-almirante-brown.pmtiles",
+      "bytes": 1897432,
+      "sha256": "981be8a10be89d508949838ee50f5703a852faf9bddf561aff2c86a491491184"
+    },
+    {
+      "id": "06035",
+      "name": "Avellaneda",
+      "bounds": [
+        -58.406505,
+        -34.726984,
+        -58.279639,
+        -34.633576
+      ],
+      "file": "partidos/06035-avellaneda.pmtiles",
+      "bytes": 1734762,
+      "sha256": "080722df167bf4b97679e00a90f121409d2e8249c17d9645a4236b5d2d6d2fe0"
+    },
+    {
+      "id": "06042",
+      "name": "Ayacucho",
+      "bounds": [
+        -59.09013,
+        -37.501187,
+        -57.768972,
+        -36.452101
+      ],
+      "file": "partidos/06042-ayacucho.pmtiles",
+      "bytes": 2243549,
+      "sha256": "d0564a117dbd2e45e7985a102cde1c7f6452225731cb14219478b85a23a4b592"
+    },
+    {
+      "id": "06049",
+      "name": "Azul",
+      "bounds": [
+        -60.207603,
+        -37.447512,
+        -59.13842,
+        -36.227528
+      ],
+      "file": "partidos/06049-azul.pmtiles",
+      "bytes": 2947276,
+      "sha256": "bd3f7961705b955c628688c930422560aa7c6d7bd459034b26aac747d0d5fb70"
+    },
+    {
+      "id": "06056",
+      "name": "Bahía Blanca",
+      "bounds": [
+        -62.614458,
+        -38.817059,
+        -61.742365,
+        -38.360879
+      ],
+      "file": "partidos/06056-bahia-blanca.pmtiles",
+      "bytes": 4056285,
+      "sha256": "3383cde972344078b8b1868948980c1a533d480c7f8c8ac53ddc225869c7d8ed"
+    },
+    {
+      "id": "06063",
+      "name": "Balcarce",
+      "bounds": [
+        -58.809127,
+        -38.130861,
+        -57.733569,
+        -37.383977
+      ],
+      "file": "partidos/06063-balcarce.pmtiles",
+      "bytes": 2170778,
+      "sha256": "37685be8339e5080c55bb1ab261e60d4796b900053ee2708714aaff06c0b7435"
+    },
+    {
+      "id": "06070",
+      "name": "Baradero",
+      "bounds": [
+        -59.754392,
+        -34.167967,
+        -59.22272,
+        -33.646053
+      ],
+      "file": "partidos/06070-baradero.pmtiles",
+      "bytes": 1269433,
+      "sha256": "0c489c5d9de2b03a6e4e619aeb183864d800a8c94d60adfc3fb6f9c3beb9f709"
+    },
+    {
+      "id": "06077",
+      "name": "Arrecifes",
+      "bounds": [
+        -60.2376,
+        -34.268608,
+        -59.778715,
+        -33.745477
+      ],
+      "file": "partidos/06077-arrecifes.pmtiles",
+      "bytes": 1988597,
+      "sha256": "0003e520afd2c7491aea4b60a50963b7fcaf67342d7c364aeed5798f102a2f9a"
+    },
+    {
+      "id": "06084",
+      "name": "Benito Juárez",
+      "bounds": [
+        -60.502677,
+        -37.999683,
+        -59.225977,
+        -37.178043
+      ],
+      "file": "partidos/06084-benito-juarez.pmtiles",
+      "bytes": 2447668,
+      "sha256": "0ece9e67d45f103de5c8cb2aaba2ad6d2c19b827a58bdb789a9d49cbc32fcdd6"
+    },
+    {
+      "id": "06091",
+      "name": "Berazategui",
+      "bounds": [
+        -58.267461,
+        -34.951783,
+        -58.017688,
+        -34.738198
+      ],
+      "file": "partidos/06091-berazategui.pmtiles",
+      "bytes": 1387798,
+      "sha256": "461c724a258896cfee073be20f8963fffe0c74f8a3c043f419d018ae6bbeb87e"
+    },
+    {
+      "id": "06098",
+      "name": "Berisso",
+      "bounds": [
+        -57.931845,
+        -34.970663,
+        -57.708224,
+        -34.827722
+      ],
+      "file": "partidos/06098-berisso.pmtiles",
+      "bytes": 650943,
+      "sha256": "0adb4ad75fa06bb6e0009ec53cad5aef1aefbb1fc5f12f94c3f9a555ba78343e"
+    },
+    {
+      "id": "06105",
+      "name": "Bolívar",
+      "bounds": [
+        -61.724667,
+        -36.744068,
+        -60.531116,
+        -35.840008
+      ],
+      "file": "partidos/06105-bolivar.pmtiles",
+      "bytes": 2178532,
+      "sha256": "2822bc0f4cacde9c33f6b22cb0e0705c00cf0bb7e4571f332230354cb33d22f8"
+    },
+    {
+      "id": "06112",
+      "name": "Bragado",
+      "bounds": [
+        -60.872663,
+        -35.410299,
+        -60.315787,
+        -34.647141
+      ],
+      "file": "partidos/06112-bragado.pmtiles",
+      "bytes": 1499074,
+      "sha256": "db2e60f90e0e5b86294cbe8f6dbbb549d1d293f20757fe7b2395b2f00136499c"
+    },
+    {
+      "id": "06119",
+      "name": "Brandsen",
+      "bounds": [
+        -58.446903,
+        -35.420373,
+        -57.890143,
+        -34.971845
+      ],
+      "file": "partidos/06119-brandsen.pmtiles",
+      "bytes": 1411313,
+      "sha256": "4d1a171a6cf9f6a4a87abbcc415bd67bf8c07c26d68f083812859136ba4aa05b"
+    },
+    {
+      "id": "06126",
+      "name": "Campana",
+      "bounds": [
+        -59.105807,
+        -34.381035,
+        -58.6753,
+        -33.942627
+      ],
+      "file": "partidos/06126-campana.pmtiles",
+      "bytes": 1654500,
+      "sha256": "f5f4535ebc031a3232e22ecd0d27326975dc92105899e59dabec88c0d0cab7d4"
+    },
+    {
+      "id": "06134",
+      "name": "Cañuelas",
+      "bounds": [
+        -58.934096,
+        -35.421437,
+        -58.46797,
+        -34.891087
+      ],
+      "file": "partidos/06134-canuelas.pmtiles",
+      "bytes": 1298646,
+      "sha256": "dadaa218aebb4e3d60a5c1be7d1732fe73eb884dedfbebc3365e3a3d2c0058cf"
+    },
+    {
+      "id": "06140",
+      "name": "Capitán Sarmiento",
+      "bounds": [
+        -60.039614,
+        -34.286546,
+        -59.675182,
+        -33.998139
+      ],
+      "file": "partidos/06140-capitan-sarmiento.pmtiles",
+      "bytes": 545748,
+      "sha256": "f3b79e8288a9cf9bea0c8a276022ca8c4d8caca0f6065534a4e7fc0769f53f31"
+    },
+    {
+      "id": "06147",
+      "name": "Carlos Casares",
+      "bounds": [
+        -61.724739,
+        -36.071812,
+        -61.031898,
+        -35.378576
+      ],
+      "file": "partidos/06147-carlos-casares.pmtiles",
+      "bytes": 1595315,
+      "sha256": "d0601f48cdeb64637be0f0d379b3a0a715acd3e43f441cba1bf1f7c77957f1f2"
+    },
+    {
+      "id": "06154",
+      "name": "Carlos Tejedor",
+      "bounds": [
+        -62.899558,
+        -35.784075,
+        -61.906309,
+        -35.010657
+      ],
+      "file": "partidos/06154-carlos-tejedor.pmtiles",
+      "bytes": 1752064,
+      "sha256": "01452b2de2d6debe854de82e96c2ba4f7f3f6812cd722cdbe40d5f9969afd739"
+    },
+    {
+      "id": "06161",
+      "name": "Carmen de Areco",
+      "bounds": [
+        -60.142578,
+        -34.61943,
+        -59.67533,
+        -34.219316
+      ],
+      "file": "partidos/06161-carmen-de-areco.pmtiles",
+      "bytes": 702281,
+      "sha256": "9974b13b14eba6e844fafad68c80bf00c4d105683df5558964a0353fe53c94ef"
+    },
+    {
+      "id": "06168",
+      "name": "Castelli",
+      "bounds": [
+        -58.093219,
+        -36.302138,
+        -57.209226,
+        -35.738077
+      ],
+      "file": "partidos/06168-castelli.pmtiles",
+      "bytes": 1698362,
+      "sha256": "e1b56be0f2e5a7bdba5f1e942227ced814e9ed6424db3a87f3223b633641fd93"
+    },
+    {
+      "id": "06175",
+      "name": "Colón",
+      "bounds": [
+        -61.331409,
+        -34.125642,
+        -60.810809,
+        -33.580894
+      ],
+      "file": "partidos/06175-colon.pmtiles",
+      "bytes": 1104757,
+      "sha256": "bd6bb295d8bdb3b9359cf7e2185761cfa1bd8a549b33b46e141b70c52f403e5a"
+    },
+    {
+      "id": "06182",
+      "name": "Coronel de Marina Leonardo Rosales",
+      "bounds": [
+        -62.181919,
+        -39.003649,
+        -61.45325,
+        -38.627211
+      ],
+      "file": "partidos/06182-coronel-de-marina-leonardo-rosales.pmtiles",
+      "bytes": 1160818,
+      "sha256": "45d720c7ef0a551709ca5fcab2dc17aabb185923b732883a1e8efc60a72edb90"
+    },
+    {
+      "id": "06189",
+      "name": "Coronel Dorrego",
+      "bounds": [
+        -61.728495,
+        -38.99589,
+        -60.497336,
+        -38.290579
+      ],
+      "file": "partidos/06189-coronel-dorrego.pmtiles",
+      "bytes": 2620261,
+      "sha256": "c098fcf95f9f309eaf7a998ac6a25108d49e7a40888d46f35ef261cbf3d0f48e"
+    },
+    {
+      "id": "06196",
+      "name": "Coronel Pringles",
+      "bounds": [
+        -61.795176,
+        -38.657088,
+        -60.676254,
+        -37.680843
+      ],
+      "file": "partidos/06196-coronel-pringles.pmtiles",
+      "bytes": 2673408,
+      "sha256": "54fd95b7e7bcca84cfda637a93ef19b1ad3588744bc99ae48e32b4db7690f681"
+    },
+    {
+      "id": "06203",
+      "name": "Coronel Suárez",
+      "bounds": [
+        -62.425401,
+        -38.17245,
+        -61.44205,
+        -36.907189
+      ],
+      "file": "partidos/06203-coronel-suarez.pmtiles",
+      "bytes": 3445566,
+      "sha256": "11d63aa3e16215321199e90f62c7d327bf492a2481048c864b4322c29e018e62"
+    },
+    {
+      "id": "06210",
+      "name": "Chacabuco",
+      "bounds": [
+        -60.758396,
+        -34.862375,
+        -59.884567,
+        -34.406436
+      ],
+      "file": "partidos/06210-chacabuco.pmtiles",
+      "bytes": 1479446,
+      "sha256": "492da78f298602d39eef3f0e210c36a1db5478900955343d3632c16e035bd4ac"
+    },
+    {
+      "id": "06218",
+      "name": "Chascomús",
+      "bounds": [
+        -58.453639,
+        -35.868074,
+        -57.350418,
+        -35.332376
+      ],
+      "file": "partidos/06218-chascomus.pmtiles",
+      "bytes": 2394026,
+      "sha256": "075c80df8bc0975e68c6ee9126cad2aa2af0058beadc67eb81fa8bbacda717e4"
+    },
+    {
+      "id": "06224",
+      "name": "Chivilcoy",
+      "bounds": [
+        -60.304147,
+        -35.176824,
+        -59.605175,
+        -34.641007
+      ],
+      "file": "partidos/06224-chivilcoy.pmtiles",
+      "bytes": 1761080,
+      "sha256": "1e31cf9b29d0177b4ac43400abd22f254b63f48ad930dd2ac91bf803967ef6f1"
+    },
+    {
+      "id": "06231",
+      "name": "Daireaux",
+      "bounds": [
+        -62.473292,
+        -36.998985,
+        -61.254822,
+        -36.245472
+      ],
+      "file": "partidos/06231-daireaux.pmtiles",
+      "bytes": 1663183,
+      "sha256": "2938e60b16e4d8660873267ca8d03190ab10656abc4ef8ddaae121f5a6c5b094"
+    },
+    {
+      "id": "06238",
+      "name": "Dolores",
+      "bounds": [
+        -57.987317,
+        -36.728099,
+        -57.342985,
+        -36.107086
+      ],
+      "file": "partidos/06238-dolores.pmtiles",
+      "bytes": 1608827,
+      "sha256": "664fd153d27560d44ddb2240e4418109db94082688e8bb0d54884a473c0b75fd"
+    },
+    {
+      "id": "06245",
+      "name": "Ensenada",
+      "bounds": [
+        -58.083632,
+        -34.903461,
+        -57.876953,
+        -34.780357
+      ],
+      "file": "partidos/06245-ensenada.pmtiles",
+      "bytes": 758472,
+      "sha256": "f78a43072a3e013287733754092368bf20ee1286cf67811221c523f9da44b1c3"
+    },
+    {
+      "id": "06252",
+      "name": "Escobar",
+      "bounds": [
+        -58.900643,
+        -34.456416,
+        -58.649515,
+        -34.230221
+      ],
+      "file": "partidos/06252-escobar.pmtiles",
+      "bytes": 2223076,
+      "sha256": "0ebc17c6df2f49c6823c9dc2aeb0076e7bb5192a850bd6c0d2a95e396d38e041"
+    },
+    {
+      "id": "06260",
+      "name": "Esteban Echeverría",
+      "bounds": [
+        -58.524502,
+        -34.927632,
+        -58.413042,
+        -34.722992
+      ],
+      "file": "partidos/06260-esteban-echeverria.pmtiles",
+      "bytes": 1565710,
+      "sha256": "233c2b1c5650cf58b55af57729d12c8fb0f10442ac8f761faef5bf323c838b82"
+    },
+    {
+      "id": "06266",
+      "name": "Exaltación de la Cruz",
+      "bounds": [
+        -59.375263,
+        -34.464318,
+        -58.91853,
+        -34.162043
+      ],
+      "file": "partidos/06266-exaltacion-de-la-cruz.pmtiles",
+      "bytes": 1322653,
+      "sha256": "4ca8e093b3ce7790e188c588eca7d75284fda5c0d60c74f59af426cd9ee79bd0"
+    },
+    {
+      "id": "06270",
+      "name": "Ezeiza",
+      "bounds": [
+        -58.650331,
+        -35.007048,
+        -58.490155,
+        -34.741056
+      ],
+      "file": "partidos/06270-ezeiza.pmtiles",
+      "bytes": 1823039,
+      "sha256": "c8efcd8aec8e1d658838393866095cb41f54ab4f5a652dee22db1c3e0752c033"
+    },
+    {
+      "id": "06274",
+      "name": "Florencio Varela",
+      "bounds": [
+        -58.332806,
+        -35.009418,
+        -58.179871,
+        -34.773646
+      ],
+      "file": "partidos/06274-florencio-varela.pmtiles",
+      "bytes": 1482828,
+      "sha256": "56d1611db348b45048ae710e8270af119d8ed3c8fc9615cc57f6e39e22eb9bce"
+    },
+    {
+      "id": "06277",
+      "name": "Florentino Ameghino",
+      "bounds": [
+        -62.642162,
+        -35.163819,
+        -62.104559,
+        -34.61069
+      ],
+      "file": "partidos/06277-florentino-ameghino.pmtiles",
+      "bytes": 799805,
+      "sha256": "92b0115171e2d35a88f64d73e1e93197c47f73bb51827225899484b1fbe76d5f"
+    },
+    {
+      "id": "06280",
+      "name": "General Alvarado",
+      "bounds": [
+        -58.343611,
+        -38.445854,
+        -57.776631,
+        -37.955622
+      ],
+      "file": "partidos/06280-general-alvarado.pmtiles",
+      "bytes": 1762152,
+      "sha256": "beb8b1ef9dade07479948fe012eb229844f606e52b94f56a2abd3a3c0283834d"
+    },
+    {
+      "id": "06287",
+      "name": "General Alvear",
+      "bounds": [
+        -60.698885,
+        -36.326405,
+        -59.516484,
+        -35.756165
+      ],
+      "file": "partidos/06287-general-alvear.pmtiles",
+      "bytes": 1211883,
+      "sha256": "12fdc66443250943b993ff7f9a5018acd43e4d71e00deceed926507090e98de1"
+    },
+    {
+      "id": "06294",
+      "name": "General Arenales",
+      "bounds": [
+        -61.648388,
+        -34.453145,
+        -60.91725,
+        -34.025678
+      ],
+      "file": "partidos/06294-general-arenales.pmtiles",
+      "bytes": 943476,
+      "sha256": "550fed6ee8230890081cc6163fe3688d1853b75e3c9dad6394ffda6b144a2f93"
+    },
+    {
+      "id": "06301",
+      "name": "General Belgrano",
+      "bounds": [
+        -59.142533,
+        -36.120966,
+        -58.282355,
+        -35.564892
+      ],
+      "file": "partidos/06301-general-belgrano.pmtiles",
+      "bytes": 1090436,
+      "sha256": "cb68247cb9bfe4d4a1b02fa10e48bb2f3578b71c5ccd2132fd88fac0ac1c6e87"
+    },
+    {
+      "id": "06308",
+      "name": "General Guido",
+      "bounds": [
+        -58.286543,
+        -37.075971,
+        -57.660585,
+        -36.277828
+      ],
+      "file": "partidos/06308-general-guido.pmtiles",
+      "bytes": 1076200,
+      "sha256": "8aca35d773af765fecffb76328c3be0d1b089e08130a41e0c5bef67cea7d4e2e"
+    },
+    {
+      "id": "06315",
+      "name": "General Juan Madariaga",
+      "bounds": [
+        -57.674815,
+        -37.533013,
+        -56.819485,
+        -36.784425
+      ],
+      "file": "partidos/06315-general-juan-madariaga.pmtiles",
+      "bytes": 2541588,
+      "sha256": "cde021ec5368ce49bdadb8b1eda8f231b7b3b4401e372058af3925f493f24360"
+    },
+    {
+      "id": "06322",
+      "name": "General La Madrid",
+      "bounds": [
+        -61.750076,
+        -37.939054,
+        -60.878539,
+        -36.864583
+      ],
+      "file": "partidos/06322-general-la-madrid.pmtiles",
+      "bytes": 1709443,
+      "sha256": "c92cc4e8e22163316f42a27f8ff7ca06b76479f8beb02b657e5c5cf0a99b1926"
+    },
+    {
+      "id": "06329",
+      "name": "General Las Heras",
+      "bounds": [
+        -59.218728,
+        -35.103508,
+        -58.777483,
+        -34.71714
+      ],
+      "file": "partidos/06329-general-las-heras.pmtiles",
+      "bytes": 877860,
+      "sha256": "44205af6855c3505c9be25a4096330570b2ac1c0adecae7ac0a69de048ba4a68"
+    },
+    {
+      "id": "06336",
+      "name": "General Lavalle",
+      "bounds": [
+        -57.328779,
+        -37.025201,
+        -56.697922,
+        -36.320934
+      ],
+      "file": "partidos/06336-general-lavalle.pmtiles",
+      "bytes": 2735680,
+      "sha256": "70b88223397f81fc9ccaa4aa9cb9171b33586013cf7195046bc0531e2340110b"
+    },
+    {
+      "id": "06343",
+      "name": "General Paz",
+      "bounds": [
+        -58.582085,
+        -35.733051,
+        -58.152389,
+        -35.216238
+      ],
+      "file": "partidos/06343-general-paz.pmtiles",
+      "bytes": 819772,
+      "sha256": "0a573822148efbc297b853dcbad6b2f078ba4b372d64b622ed92e68e2d375fab"
+    },
+    {
+      "id": "06351",
+      "name": "General Pinto",
+      "bounds": [
+        -62.348165,
+        -34.984689,
+        -61.673472,
+        -34.385601
+      ],
+      "file": "partidos/06351-general-pinto.pmtiles",
+      "bytes": 1215761,
+      "sha256": "cfd5dc5bdbd63dd69281c917a52d9f511e32b6e2ff7fc74015c8591b756a7359"
+    },
+    {
+      "id": "06357",
+      "name": "General Pueyrredón",
+      "bounds": [
+        -58.047284,
+        -38.245516,
+        -57.517779,
+        -37.699552
+      ],
+      "file": "partidos/06357-general-pueyrredon.pmtiles",
+      "bytes": 3956327,
+      "sha256": "f38a71dc10f699b572c1a946e0799730296985660c3b94a90642ae706494db67"
+    },
+    {
+      "id": "06364",
+      "name": "General Rodríguez",
+      "bounds": [
+        -59.133682,
+        -34.763825,
+        -58.863696,
+        -34.516204
+      ],
+      "file": "partidos/06364-general-rodriguez.pmtiles",
+      "bytes": 1385056,
+      "sha256": "43f3b5ac28d6d761c18339dc7c844330869cbe63031318b7476e7b13c255f8a0"
+    },
+    {
+      "id": "06371",
+      "name": "General San Martín",
+      "bounds": [
+        -58.619241,
+        -34.597563,
+        -58.50996,
+        -34.490354
+      ],
+      "file": "partidos/06371-general-san-martin.pmtiles",
+      "bytes": 2440133,
+      "sha256": "e9447b187d6171c46b8208a5a1b1d947123e3e8aaeefed1779b06a01b902e7c5"
+    },
+    {
+      "id": "06385",
+      "name": "General Viamonte",
+      "bounds": [
+        -61.419742,
+        -35.264171,
+        -60.723956,
+        -34.692906
+      ],
+      "file": "partidos/06385-general-viamonte.pmtiles",
+      "bytes": 1098977,
+      "sha256": "2d30fa111f680aff228df6982ea01d48510ad170812388c4281cf333cd7f1319"
+    },
+    {
+      "id": "06392",
+      "name": "General Villegas",
+      "bounds": [
+        -63.385707,
+        -35.369724,
+        -62.269083,
+        -34.385761
+      ],
+      "file": "partidos/06392-general-villegas.pmtiles",
+      "bytes": 2711787,
+      "sha256": "b6ecb5802b0b883a054d6aff4007d4c6fa17317c1af334163bf56143b4bcddca"
+    },
+    {
+      "id": "06399",
+      "name": "Guaminí",
+      "bounds": [
+        -62.970025,
+        -37.348682,
+        -61.8565,
+        -36.457208
+      ],
+      "file": "partidos/06399-guamini.pmtiles",
+      "bytes": 2052449,
+      "sha256": "e39b39cbf3d7506d1f64783d0de0f478433de900816a175e5a8e103f5e1ffed8"
+    },
+    {
+      "id": "06406",
+      "name": "Hipólito Yrigoyen",
+      "bounds": [
+        -62.048248,
+        -36.524946,
+        -61.269755,
+        -36.019098
+      ],
+      "file": "partidos/06406-hipolito-yrigoyen.pmtiles",
+      "bytes": 753511,
+      "sha256": "e0a1889adf1c6cd94f3ad2c87cfb2f44a83ad3c957f2932cae6aa96801e45e89"
+    },
+    {
+      "id": "06408",
+      "name": "Hurlingham",
+      "bounds": [
+        -58.693934,
+        -34.633151,
+        -58.616028,
+        -34.566309
+      ],
+      "file": "partidos/06408-hurlingham.pmtiles",
+      "bytes": 962655,
+      "sha256": "45e24811670dccfcc0e7b38408126d8cab3e5a595c87ce4a75f6d91a0ffb73f4"
+    },
+    {
+      "id": "06410",
+      "name": "Ituzaingó",
+      "bounds": [
+        -58.729025,
+        -34.685988,
+        -58.653486,
+        -34.593742
+      ],
+      "file": "partidos/06410-ituzaingo.pmtiles",
+      "bytes": 1155840,
+      "sha256": "21b9d0926e038e0fa725af03a79072f2d4acc309cd926199f4f4fbe08571909c"
+    },
+    {
+      "id": "06412",
+      "name": "José C. Paz",
+      "bounds": [
+        -58.823584,
+        -34.557058,
+        -58.720899,
+        -34.451956
+      ],
+      "file": "partidos/06412-jose-c-paz.pmtiles",
+      "bytes": 977119,
+      "sha256": "e7434709c62ff6f823018894b6aa46cffbb9bd59b81ae05d904bb8a553e1f35d"
+    },
+    {
+      "id": "06413",
+      "name": "Junín",
+      "bounds": [
+        -61.355509,
+        -34.810841,
+        -60.646701,
+        -34.283292
+      ],
+      "file": "partidos/06413-junin.pmtiles",
+      "bytes": 1715360,
+      "sha256": "bb22929ce0dc056d596498e9ecee996993393f304a3d2ab69e97b3b30be3054b"
+    },
+    {
+      "id": "06420",
+      "name": "La Costa",
+      "bounds": [
+        -56.819314,
+        -37.034131,
+        -56.664991,
+        -36.293083
+      ],
+      "file": "partidos/06420-la-costa.pmtiles",
+      "bytes": 1651324,
+      "sha256": "ab9f8afbefcb7f93cff1f33b9d1648386a26911394e9cb5417d5a54276aa3f70"
+    },
+    {
+      "id": "06427",
+      "name": "La Matanza",
+      "bounds": [
+        -58.773244,
+        -34.912195,
+        -58.461655,
+        -34.637594
+      ],
+      "file": "partidos/06427-la-matanza.pmtiles",
+      "bytes": 5259757,
+      "sha256": "a68ae689f3a01b654979e1fa725116cd961ae940a05600ad681688bb47c7bc09"
+    },
+    {
+      "id": "06434",
+      "name": "Lanús",
+      "bounds": [
+        -58.446915,
+        -34.73984,
+        -58.333505,
+        -34.660135
+      ],
+      "file": "partidos/06434-lanus.pmtiles",
+      "bytes": 1654882,
+      "sha256": "ae020a66b08b461980cd3a325bd4dbca86e873c3f36fb343a5ed20dbdace1283"
+    },
+    {
+      "id": "06441",
+      "name": "La Plata",
+      "bounds": [
+        -58.288398,
+        -35.236827,
+        -57.752355,
+        -34.174939
+      ],
+      "file": "partidos/06441-la-plata.pmtiles",
+      "bytes": 3326642,
+      "sha256": "cf836aa99783536a3e3b6772de592e567e30ce00fbe3f63d550078d5b0f138c9"
+    },
+    {
+      "id": "06448",
+      "name": "Laprida",
+      "bounds": [
+        -61.178034,
+        -37.940792,
+        -60.349195,
+        -37.051239
+      ],
+      "file": "partidos/06448-laprida.pmtiles",
+      "bytes": 1548197,
+      "sha256": "179e9b9dde19d98a327f2fdc8ef07f0f64d213a5d0074e16f0fe261ccbb8ff82"
+    },
+    {
+      "id": "06455",
+      "name": "Las Flores",
+      "bounds": [
+        -59.70006,
+        -36.37464,
+        -58.70753,
+        -35.666246
+      ],
+      "file": "partidos/06455-las-flores.pmtiles",
+      "bytes": 1397931,
+      "sha256": "f5066be4879dab7dc29b546dc3a1e7c020541fb718ba754d951adbda04e2453b"
+    },
+    {
+      "id": "06462",
+      "name": "Leandro N. Alem",
+      "bounds": [
+        -61.983941,
+        -34.683654,
+        -61.275199,
+        -34.303386
+      ],
+      "file": "partidos/06462-leandro-n-alem.pmtiles",
+      "bytes": 1141357,
+      "sha256": "44f322ce802074937e4593eeb59c1a52e43c64d40cb59ab8bbecb7e8e377f81e"
+    },
+    {
+      "id": "06466",
+      "name": "Lezama",
+      "bounds": [
+        -58.164955,
+        -36.043076,
+        -57.488967,
+        -35.686348
+      ],
+      "file": "partidos/06466-lezama.pmtiles",
+      "bytes": 855323,
+      "sha256": "373fd6e5560c0f8491af06709319ee55c3a8228db6e102f3a4028724a7165e12"
+    },
+    {
+      "id": "06469",
+      "name": "Lincoln",
+      "bounds": [
+        -62.270612,
+        -35.585449,
+        -61.127689,
+        -34.592169
+      ],
+      "file": "partidos/06469-lincoln.pmtiles",
+      "bytes": 2534761,
+      "sha256": "0cf7430567cddf56a6b7d5873e53c2fe0ba53e24c893ac4ca2904764d435d5c9"
+    },
+    {
+      "id": "06476",
+      "name": "Lobería",
+      "bounds": [
+        -59.167908,
+        -38.561874,
+        -58.238084,
+        -37.578725
+      ],
+      "file": "partidos/06476-loberia.pmtiles",
+      "bytes": 2607890,
+      "sha256": "efab581e6ac0eb327df8907602a14184646a683467f4d7ebee1feda9870722f2"
+    },
+    {
+      "id": "06483",
+      "name": "Lobos",
+      "bounds": [
+        -59.552533,
+        -35.435902,
+        -58.808586,
+        -34.961245
+      ],
+      "file": "partidos/06483-lobos.pmtiles",
+      "bytes": 1510779,
+      "sha256": "73ecba61cd05c25fa3ecaaac9f00d9f873e2a2972a8c4c497a195478826347ab"
+    },
+    {
+      "id": "06490",
+      "name": "Lomas de Zamora",
+      "bounds": [
+        -58.500797,
+        -34.817248,
+        -58.336639,
+        -34.688777
+      ],
+      "file": "partidos/06490-lomas-de-zamora.pmtiles",
+      "bytes": 2229668,
+      "sha256": "b1ed246739ca2a19afc37db3be3cd71ab5f3b63f57f1c45d7f227e39660d9b8b"
+    },
+    {
+      "id": "06497",
+      "name": "Luján",
+      "bounds": [
+        -59.338525,
+        -34.803469,
+        -58.954201,
+        -34.373654
+      ],
+      "file": "partidos/06497-lujan.pmtiles",
+      "bytes": 3507379,
+      "sha256": "5588af03535a879f24bd30e8b9941478ddba613d4fa05fe0c9d742331120429d"
+    },
+    {
+      "id": "06505",
+      "name": "Magdalena",
+      "bounds": [
+        -58.035428,
+        -35.444921,
+        -57.3037,
+        -34.930806
+      ],
+      "file": "partidos/06505-magdalena.pmtiles",
+      "bytes": 1320376,
+      "sha256": "fb870fa005a7a585b5fa4d181ddab1f354b507ade79039f50f228689bc787eb4"
+    },
+    {
+      "id": "06511",
+      "name": "Maipú",
+      "bounds": [
+        -58.010671,
+        -37.202944,
+        -57.175823,
+        -36.570926
+      ],
+      "file": "partidos/06511-maipu.pmtiles",
+      "bytes": 1466280,
+      "sha256": "6829fb1474bc71089c2f73de347051c26449a07a5f84ce83b7cf435450ed9892"
+    },
+    {
+      "id": "06515",
+      "name": "Malvinas Argentinas",
+      "bounds": [
+        -58.784541,
+        -34.532748,
+        -58.646591,
+        -34.439311
+      ],
+      "file": "partidos/06515-malvinas-argentinas.pmtiles",
+      "bytes": 1576500,
+      "sha256": "a05a79377c42291b5e5cb0d1a5f2b42c222c24aa4e61ed9221ee52ede6dc14bd"
+    },
+    {
+      "id": "06518",
+      "name": "Mar Chiquita",
+      "bounds": [
+        -58.09451,
+        -37.889483,
+        -57.187643,
+        -37.135971
+      ],
+      "file": "partidos/06518-mar-chiquita.pmtiles",
+      "bytes": 2344575,
+      "sha256": "75494823719d39e001211416458e319138ab813b05de15521b0f097129bbce09"
+    },
+    {
+      "id": "06525",
+      "name": "Marcos Paz",
+      "bounds": [
+        -59.03373,
+        -34.958997,
+        -58.694106,
+        -34.685206
+      ],
+      "file": "partidos/06525-marcos-paz.pmtiles",
+      "bytes": 1070418,
+      "sha256": "af3ec0fec571718cd62cfa04f93f6aa1c74545c83c2cd8b5f73d183062beef84"
+    },
+    {
+      "id": "06532",
+      "name": "Mercedes",
+      "bounds": [
+        -59.71641,
+        -34.891129,
+        -59.168089,
+        -34.508458
+      ],
+      "file": "partidos/06532-mercedes.pmtiles",
+      "bytes": 2465646,
+      "sha256": "3499e2cda549967dcc28727a20d13c33ef28d0047fbd534138417b9a8986c52d"
+    },
+    {
+      "id": "06539",
+      "name": "Merlo",
+      "bounds": [
+        -58.864295,
+        -34.778711,
+        -58.636154,
+        -34.634784
+      ],
+      "file": "partidos/06539-merlo.pmtiles",
+      "bytes": 1730970,
+      "sha256": "fbcf7e52ad6045e0be3bf16922739e60fff15bca7c92712846e51c642debbd42"
+    },
+    {
+      "id": "06547",
+      "name": "Monte",
+      "bounds": [
+        -59.120581,
+        -35.75542,
+        -58.470486,
+        -35.242378
+      ],
+      "file": "partidos/06547-monte.pmtiles",
+      "bytes": 1367860,
+      "sha256": "a41fb112e7591d05399aa376898bead736796f5930780858c09d3bbe1ea48993"
+    },
+    {
+      "id": "06553",
+      "name": "Monte Hermoso",
+      "bounds": [
+        -61.45573,
+        -38.99589,
+        -61.105256,
+        -38.915846
+      ],
+      "file": "partidos/06553-monte-hermoso.pmtiles",
+      "bytes": 249811,
+      "sha256": "78716a270aeb51ff95f0dc2c5a8a73f5625e62a2eaea31c051979107756a672e"
+    },
+    {
+      "id": "06560",
+      "name": "Moreno",
+      "bounds": [
+        -58.890951,
+        -34.685589,
+        -58.713374,
+        -34.508367
+      ],
+      "file": "partidos/06560-moreno.pmtiles",
+      "bytes": 1993487,
+      "sha256": "4a2e5008d26872a021e6e6d96a45d82c1996f668ce559530bfa53df4f0f46ec6"
+    },
+    {
+      "id": "06568",
+      "name": "Morón",
+      "bounds": [
+        -58.667381,
+        -34.704543,
+        -58.556107,
+        -34.588705
+      ],
+      "file": "partidos/06568-moron.pmtiles",
+      "bytes": 2022074,
+      "sha256": "07c36d37e65a4392ae4981ad0ba78b8c7dae96f12a24e9f04354b9c059ba5293"
+    },
+    {
+      "id": "06574",
+      "name": "Navarro",
+      "bounds": [
+        -59.822241,
+        -35.254941,
+        -59.071107,
+        -34.796227
+      ],
+      "file": "partidos/06574-navarro.pmtiles",
+      "bytes": 1479959,
+      "sha256": "3054ae83eeafedbe34659ad235af11685bd1141dd0571d825ec3f8dc07691f69"
+    },
+    {
+      "id": "06581",
+      "name": "Necochea",
+      "bounds": [
+        -59.67703,
+        -38.736675,
+        -58.619452,
+        -37.616925
+      ],
+      "file": "partidos/06581-necochea.pmtiles",
+      "bytes": 3304743,
+      "sha256": "0d857a95f70d85b97d7b4477b76f9725280de201df7187425af414a34edc2694"
+    },
+    {
+      "id": "06588",
+      "name": "9 de Julio",
+      "bounds": [
+        -61.531934,
+        -35.926616,
+        -60.444882,
+        -35.145431
+      ],
+      "file": "partidos/06588-9-de-julio.pmtiles",
+      "bytes": 2332838,
+      "sha256": "a80fd405ec9f5ef2dabb59acd4dc3b4b2479ee0098acf8aaf40e3ddb9984f621"
+    },
+    {
+      "id": "06595",
+      "name": "Olavarría",
+      "bounds": [
+        -61.423479,
+        -37.376819,
+        -60.001358,
+        -36.342881
+      ],
+      "file": "partidos/06595-olavarria.pmtiles",
+      "bytes": 3523972,
+      "sha256": "e213473f25e132bcbc3b9e00a431222cfbfe3f84f0b8a1dc7a0227dda5658f65"
+    },
+    {
+      "id": "06602",
+      "name": "Patagones",
+      "bounds": [
+        -63.383269,
+        -41.037765,
+        -62.072147,
+        -39.328492
+      ],
+      "file": "partidos/06602-patagones.pmtiles",
+      "bytes": 5281467,
+      "sha256": "2fd2fd0f13e80534015048d756cd91c3fb808fec71f32530ae52b0bae7f716b1"
+    },
+    {
+      "id": "06609",
+      "name": "Pehuajó",
+      "bounds": [
+        -62.431086,
+        -36.333632,
+        -61.436136,
+        -35.485611
+      ],
+      "file": "partidos/06609-pehuajo.pmtiles",
+      "bytes": 2478596,
+      "sha256": "de31c9ec7fedc06f0349e8e831586cec62147d50482d8ff92a7130755e4a3452"
+    },
+    {
+      "id": "06616",
+      "name": "Pellegrini",
+      "bounds": [
+        -63.385471,
+        -36.607562,
+        -62.939103,
+        -35.883677
+      ],
+      "file": "partidos/06616-pellegrini.pmtiles",
+      "bytes": 725498,
+      "sha256": "0b10f9e5aab66b622f91b17f47444d0bd48b580aa125db29ac1e5972d03767df"
+    },
+    {
+      "id": "06623",
+      "name": "Pergamino",
+      "bounds": [
+        -60.942796,
+        -34.17646,
+        -60.138771,
+        -33.543698
+      ],
+      "file": "partidos/06623-pergamino.pmtiles",
+      "bytes": 10804666,
+      "sha256": "c5efe81c0e121e163137ec0f936b44aca25f79e217306dc1d374c7fa43760b4f"
+    },
+    {
+      "id": "06630",
+      "name": "Pila",
+      "bounds": [
+        -58.841322,
+        -36.62776,
+        -57.959721,
+        -35.823052
+      ],
+      "file": "partidos/06630-pila.pmtiles",
+      "bytes": 1118132,
+      "sha256": "d90df29bcfd9a7b0d38e5df2dba8207997b38bbf50ff985425d0f08afb58b26e"
+    },
+    {
+      "id": "06638",
+      "name": "Pilar",
+      "bounds": [
+        -59.056272,
+        -34.577051,
+        -58.737313,
+        -34.311097
+      ],
+      "file": "partidos/06638-pilar.pmtiles",
+      "bytes": 2773998,
+      "sha256": "5d1f716e723a19771540ef0445341f483b236e15b553ab9f4a7d11d63310868a"
+    },
+    {
+      "id": "06644",
+      "name": "Pinamar",
+      "bounds": [
+        -56.949547,
+        -37.189025,
+        -56.790235,
+        -37.024916
+      ],
+      "file": "partidos/06644-pinamar.pmtiles",
+      "bytes": 562709,
+      "sha256": "456a37b55d3ad9c20b30643f8dfac19e8a129b3238d1199599fb3ffefe5b59a6"
+    },
+    {
+      "id": "06648",
+      "name": "Presidente Perón",
+      "bounds": [
+        -58.49186,
+        -35.011275,
+        -58.274607,
+        -34.873576
+      ],
+      "file": "partidos/06648-presidente-peron.pmtiles",
+      "bytes": 816895,
+      "sha256": "0fb79ad717b90c6feb4ba60575bd3ec04438161c77c37dab5d1e08be0a6d563f"
+    },
+    {
+      "id": "06651",
+      "name": "Puán",
+      "bounds": [
+        -63.385682,
+        -38.829224,
+        -62.581433,
+        -37.373926
+      ],
+      "file": "partidos/06651-puan.pmtiles",
+      "bytes": 3382754,
+      "sha256": "37d9fd653b91fc754c6a92e2370b96c42323edd191a33f2f40fd3d928891f77d"
+    },
+    {
+      "id": "06655",
+      "name": "Punta Indio",
+      "bounds": [
+        -57.796396,
+        -35.715337,
+        -57.127938,
+        -35.197184
+      ],
+      "file": "partidos/06655-punta-indio.pmtiles",
+      "bytes": 1293163,
+      "sha256": "a815d526f91f03654da6a796c1b3d0fa6f0a3b003d7f806a4dfc8f4c72055eaf"
+    },
+    {
+      "id": "06658",
+      "name": "Quilmes",
+      "bounds": [
+        -58.346962,
+        -34.801165,
+        -58.194645,
+        -34.678642
+      ],
+      "file": "partidos/06658-quilmes.pmtiles",
+      "bytes": 1619515,
+      "sha256": "f44f94c228f37d6927053fc77cee1f91ec940d204b513ef33578779e5443a038"
+    },
+    {
+      "id": "06665",
+      "name": "Ramallo",
+      "bounds": [
+        -60.313175,
+        -33.827056,
+        -59.80953,
+        -33.352751
+      ],
+      "file": "partidos/06665-ramallo.pmtiles",
+      "bytes": 3542061,
+      "sha256": "52ab8d155c313fb17db36614ea87d925d24d6dd4001ece6b20b4d177ce3fb940"
+    },
+    {
+      "id": "06672",
+      "name": "Rauch",
+      "bounds": [
+        -59.359311,
+        -37.062779,
+        -58.43724,
+        -36.147677
+      ],
+      "file": "partidos/06672-rauch.pmtiles",
+      "bytes": 1459301,
+      "sha256": "a527fd37aff70a23cac45e56b795d60659aa9d76db1a4ef1d6cc726675e08b87"
+    },
+    {
+      "id": "06679",
+      "name": "Rivadavia",
+      "bounds": [
+        -63.385707,
+        -36.033076,
+        -62.623811,
+        -35.128403
+      ],
+      "file": "partidos/06679-rivadavia.pmtiles",
+      "bytes": 1786812,
+      "sha256": "99d6ad5a3776d855c1472a3cac9fb56618f0eefa60fb4f78f115b0941b134dcc"
+    },
+    {
+      "id": "06686",
+      "name": "Rojas",
+      "bounds": [
+        -61.122081,
+        -34.509355,
+        -60.46989,
+        -33.886616
+      ],
+      "file": "partidos/06686-rojas.pmtiles",
+      "bytes": 1654617,
+      "sha256": "91d2163f266f2b3ef6131b6c5dbdbe03106ee0e3060cd83db60ec32f14e1e000"
+    },
+    {
+      "id": "06693",
+      "name": "Roque Pérez",
+      "bounds": [
+        -59.825442,
+        -35.755506,
+        -59.009343,
+        -35.287301
+      ],
+      "file": "partidos/06693-roque-perez.pmtiles",
+      "bytes": 976609,
+      "sha256": "ea7f38cda10e561049ae769aaab65b22bc94f2bf0c9725a85cba88669544eff1"
+    },
+    {
+      "id": "06700",
+      "name": "Saavedra",
+      "bounds": [
+        -62.895559,
+        -38.136294,
+        -62.04469,
+        -37.348682
+      ],
+      "file": "partidos/06700-saavedra.pmtiles",
+      "bytes": 2166341,
+      "sha256": "864679417b40227e681ef01c0861195b023e2f085a13088756c714baaa20b094"
+    },
+    {
+      "id": "06707",
+      "name": "Saladillo",
+      "bounds": [
+        -60.2186,
+        -35.912586,
+        -59.183348,
+        -35.456402
+      ],
+      "file": "partidos/06707-saladillo.pmtiles",
+      "bytes": 1480392,
+      "sha256": "dfb894e6fc15e66fe504f193dcabb3b10368fb33cbf266bd6b1bb59ec4cb5f7b"
+    },
+    {
+      "id": "06714",
+      "name": "Salto",
+      "bounds": [
+        -60.578268,
+        -34.497194,
+        -59.970773,
+        -34.001454
+      ],
+      "file": "partidos/06714-salto.pmtiles",
+      "bytes": 1548451,
+      "sha256": "0284ac1d0a6fd51c28ed42ede94224ca2c9b88cc257369fcf0ed615e34819cbd"
+    },
+    {
+      "id": "06721",
+      "name": "Salliqueló",
+      "bounds": [
+        -63.282763,
+        -36.863033,
+        -62.813186,
+        -36.479504
+      ],
+      "file": "partidos/06721-salliquelo.pmtiles",
+      "bytes": 612346,
+      "sha256": "6da1a4a4f761c8d2f27f9310c618947095cb8c01fbcf61c5e5a5aa23bc6f563f"
+    },
+    {
+      "id": "06728",
+      "name": "San Andrés de Giles",
+      "bounds": [
+        -59.768409,
+        -34.615017,
+        -59.192601,
+        -34.238726
+      ],
+      "file": "partidos/06728-san-andres-de-giles.pmtiles",
+      "bytes": 1396403,
+      "sha256": "327197336d5c341bdcc6d207629401990cc7eaba315145f2945e34ae2dc07c3c"
+    },
+    {
+      "id": "06735",
+      "name": "San Antonio de Areco",
+      "bounds": [
+        -59.78158,
+        -34.417529,
+        -59.2662,
+        -33.996298
+      ],
+      "file": "partidos/06735-san-antonio-de-areco.pmtiles",
+      "bytes": 860222,
+      "sha256": "a122265503ab484d0a526961e2812f725df16fa876b519a07dd453c8e0251493"
+    },
+    {
+      "id": "06742",
+      "name": "San Cayetano",
+      "bounds": [
+        -59.989967,
+        -38.785837,
+        -59.246237,
+        -38.025151
+      ],
+      "file": "partidos/06742-san-cayetano.pmtiles",
+      "bytes": 2062824,
+      "sha256": "7be3ffd2799a492f31b7eefe27be56fc144cb20aba8203bce4c5c712c8f215cb"
+    },
+    {
+      "id": "06749",
+      "name": "San Fernando",
+      "bounds": [
+        -58.80475,
+        -34.490354,
+        -58.250299,
+        -34.001892
+      ],
+      "file": "partidos/06749-san-fernando.pmtiles",
+      "bytes": 2507341,
+      "sha256": "6805dfda0f3fb85d73db7044c2e23a8eefb429589f80ef3092906060fa09bdc9"
+    },
+    {
+      "id": "06756",
+      "name": "San Isidro",
+      "bounds": [
+        -58.600303,
+        -34.530205,
+        -58.4794,
+        -34.443526
+      ],
+      "file": "partidos/06756-san-isidro.pmtiles",
+      "bytes": 2155516,
+      "sha256": "643efa0c09175836deb056182ec14145bf2264cca6e1854d4c504bba196b4948"
+    },
+    {
+      "id": "06760",
+      "name": "San Miguel",
+      "bounds": [
+        -58.77694,
+        -34.605638,
+        -58.612095,
+        -34.501384
+      ],
+      "file": "partidos/06760-san-miguel.pmtiles",
+      "bytes": 1855440,
+      "sha256": "8470795b5bf6e2c6eb1d5975e0ccaa9eebf69f6cffdab090e0b8733a82c20de4"
+    },
+    {
+      "id": "06763",
+      "name": "San Nicolás",
+      "bounds": [
+        -60.458415,
+        -33.68327,
+        -60.160214,
+        -33.263863
+      ],
+      "file": "partidos/06763-san-nicolas.pmtiles",
+      "bytes": 3002688,
+      "sha256": "764c1ce441a89eda1e0d453c40689113433f68a33fc2ace1eab4e5c2ecb60a16"
+    },
+    {
+      "id": "06770",
+      "name": "San Pedro",
+      "bounds": [
+        -60.072709,
+        -34.013386,
+        -59.489098,
+        -33.581359
+      ],
+      "file": "partidos/06770-san-pedro.pmtiles",
+      "bytes": 1803511,
+      "sha256": "18451b6caefb8f577cf6a235c8f3f6abbdbdcefea24d6dff9209c8d6b701cf2b"
+    },
+    {
+      "id": "06778",
+      "name": "San Vicente",
+      "bounds": [
+        -58.600439,
+        -35.238425,
+        -58.236268,
+        -34.926331
+      ],
+      "file": "partidos/06778-san-vicente.pmtiles",
+      "bytes": 1328404,
+      "sha256": "6038b35868d76614118b230b9bd9986aa33091a76106a72024a62b08f4581af9"
+    },
+    {
+      "id": "06784",
+      "name": "Suipacha",
+      "bounds": [
+        -59.944678,
+        -34.957987,
+        -59.466512,
+        -34.518276
+      ],
+      "file": "partidos/06784-suipacha.pmtiles",
+      "bytes": 767727,
+      "sha256": "38e8aedd856b6bfbb352ff999412187962d0c9e6cf444c0bbd26c067b2fc5c4e"
+    },
+    {
+      "id": "06791",
+      "name": "Tandil",
+      "bounds": [
+        -59.779743,
+        -37.826431,
+        -58.610899,
+        -36.84514
+      ],
+      "file": "partidos/06791-tandil.pmtiles",
+      "bytes": 3586545,
+      "sha256": "c5c2b3f1b5bf161e5d239227f19020592e25a507a350ab341617a0e507b3969d"
+    },
+    {
+      "id": "06798",
+      "name": "Tapalqué",
+      "bounds": [
+        -60.929622,
+        -36.731805,
+        -59.382453,
+        -36.006791
+      ],
+      "file": "partidos/06798-tapalque.pmtiles",
+      "bytes": 1262794,
+      "sha256": "fe0699d2d96889e9538a6a36312a91558f887d771b109e01d577dced13208ee0"
+    },
+    {
+      "id": "06805",
+      "name": "Tigre",
+      "bounds": [
+        -58.734634,
+        -34.534542,
+        -58.436937,
+        -34.266598
+      ],
+      "file": "partidos/06805-tigre.pmtiles",
+      "bytes": 4453876,
+      "sha256": "bad309575b563c1ff4890888120c8f1ed605ad62eab9fce245fa2b5d68f0f8c1"
+    },
+    {
+      "id": "06812",
+      "name": "Tordillo",
+      "bounds": [
+        -57.473263,
+        -36.669157,
+        -57.015488,
+        -36.157623
+      ],
+      "file": "partidos/06812-tordillo.pmtiles",
+      "bytes": 1305967,
+      "sha256": "6b01dc9a83995adc0ed3e019aa3c9398793e18734cea5247de4dd4533cd64fb1"
+    },
+    {
+      "id": "06819",
+      "name": "Tornquist",
+      "bounds": [
+        -62.899669,
+        -38.591618,
+        -61.69692,
+        -37.935446
+      ],
+      "file": "partidos/06819-tornquist.pmtiles",
+      "bytes": 3047473,
+      "sha256": "a080b96e7ce26189197ab97460f90a1c23898becc3a9ccbe3b52df13ec813cf2"
+    },
+    {
+      "id": "06826",
+      "name": "Trenque Lauquen",
+      "bounds": [
+        -63.20373,
+        -36.561423,
+        -62.082437,
+        -35.550743
+      ],
+      "file": "partidos/06826-trenque-lauquen.pmtiles",
+      "bytes": 2867839,
+      "sha256": "088ec672fb6625c03f51ca0552b8209e5db44faaf8f1a0727bc5d5190cd3546c"
+    },
+    {
+      "id": "06833",
+      "name": "Tres Arroyos",
+      "bounds": [
+        -60.746873,
+        -38.928536,
+        -59.625865,
+        -38.016721
+      ],
+      "file": "partidos/06833-tres-arroyos.pmtiles",
+      "bytes": 3464683,
+      "sha256": "2385fea943600acbdf8b185cf2a01514d4113972c9f90dd0814d17f4905331a8"
+    },
+    {
+      "id": "06840",
+      "name": "Tres de Febrero",
+      "bounds": [
+        -58.646336,
+        -34.65464,
+        -58.522972,
+        -34.546574
+      ],
+      "file": "partidos/06840-tres-de-febrero.pmtiles",
+      "bytes": 2490007,
+      "sha256": "19c6667b9217ec5d818dee5c7ae142e57a44ac56849c721f372b981574a976e9"
+    },
+    {
+      "id": "06847",
+      "name": "Tres Lomas",
+      "bounds": [
+        -63.127556,
+        -36.731947,
+        -62.607583,
+        -36.248841
+      ],
+      "file": "partidos/06847-tres-lomas.pmtiles",
+      "bytes": 583790,
+      "sha256": "b0be1d8189f94810c40c1f631df11f501f797bf3c2bef17a793a18b218fa49b1"
+    },
+    {
+      "id": "06854",
+      "name": "25 de Mayo",
+      "bounds": [
+        -60.867915,
+        -36.000561,
+        -59.506062,
+        -35.108035
+      ],
+      "file": "partidos/06854-25-de-mayo.pmtiles",
+      "bytes": 2545114,
+      "sha256": "d5623413671b2dbc76a61297db41ab4a617f721750af63b0d25522b97729b620"
+    },
+    {
+      "id": "06861",
+      "name": "Vicente López",
+      "bounds": [
+        -58.553764,
+        -34.569205,
+        -58.459564,
+        -34.494397
+      ],
+      "file": "partidos/06861-vicente-lopez.pmtiles",
+      "bytes": 1734782,
+      "sha256": "76d4f7ff73db33e212f18bde1e24d70559188372a62604e9e9f29d9ea4567a4e"
+    },
+    {
+      "id": "06868",
+      "name": "Villa Gesell",
+      "bounds": [
+        -57.21112,
+        -37.549754,
+        -56.909127,
+        -37.184577
+      ],
+      "file": "partidos/06868-villa-gesell.pmtiles",
+      "bytes": 462248,
+      "sha256": "ebca91d4f3be3cdc1b6a704e46259a115e2df8a36fa2e21f48184bfd69b0d9be"
+    },
+    {
+      "id": "06875",
+      "name": "Villarino",
+      "bounds": [
+        -63.38424,
+        -39.859106,
+        -61.85207,
+        -38.456661
+      ],
+      "file": "partidos/06875-villarino.pmtiles",
+      "bytes": 7450071,
+      "sha256": "942d8e0647cb560d56280efe886e189c4df372a48140636c7ff5aca704bfe7bd"
+    },
+    {
+      "id": "06882",
+      "name": "Zárate",
+      "bounds": [
+        -59.347137,
+        -34.200122,
+        -58.837201,
+        -33.809387
+      ],
+      "file": "partidos/06882-zarate.pmtiles",
+      "bytes": 1451401,
+      "sha256": "bc1db6b5e78b63b59eef7b35e1613627f77fff1cc5de0e5ec466ee2ed6cd49af"
+    }
+  ]
+}

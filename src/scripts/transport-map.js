@@ -1,11 +1,12 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { PMTiles } from 'pmtiles';
 import baseMapData from '../data/transport-map.json';
 import route136Config from '../data/transport-136-villars.json';
 import transportData from '../data/transport-schedules.json';
 import { route136MapFeatures } from '../utils/transport-route-model.js';
 import { featureIsVisible, filtersForSelection, routeFamily, vehicleDirection, vehicleDirectionVariant } from '../utils/transport-map-live.js';
+import { buildPredictedLiveFeatures, ObservationHistory } from '../utils/transport-live-predictor.js';
+import { addProvincialPmtiles } from '../utils/provincial-pmtiles.js';
 
 const route136Features = route136MapFeatures(route136Config);
 const mapData = {
@@ -21,48 +22,28 @@ const mapData = {
 };
 
 const scheduleRoutes = new Map(transportData.routes.map((route) => [route.id, route]));
-const timetableDirections = new Map(transportData.routes.flatMap((route) => route.schedules.flatMap((grid) => (
-  (grid.services || []).map((service) => [`${route.id}:${grid.id}:${service.id}`, grid.direction])
-))));
-const local136Directions = new Map(route136Config.patterns.map((pattern) => [
-  pattern.id,
-  route136Config.points[pattern.to]?.name || pattern.label.split('→').at(-1)?.trim() || null,
-]));
-
 const liveSnapshotUrl = import.meta.env.PUBLIC_TRANSPORT_LIVE_URL || 'https://transport-data.solarispkn.com.ar/current.json';
-const STALE_AFTER_MS = 120_000;
-const UNAVAILABLE_AFTER_MS = 600_000;
+const mapManifestUrl = import.meta.env.PUBLIC_PM_TILES_MANIFEST_URL || '/maps/buenos-aires/manifest.json';
+const STALE_AFTER_MS = 6 * 60_000;
+const UNAVAILABLE_AFTER_MS = 15 * 60_000;
 let leafletRendererPromise;
-let mapArchivePromise;
 let map;
+let baseMapController;
 let liveLayer;
 let routeLayer;
 let stopLayer;
 let filterController;
 let currentLiveFeatures = [];
 let pollTimer;
+let motionTimer;
 let pollingController;
 let lastEtag;
 let baseMapState = 'loading';
 let liveStatus = { message: 'Conectando con el snapshot de posiciones…', state: 'loading' };
 let hasAutoFocusedLive = false;
 let activeSelection;
-
-class MemoryPmtilesSource {
-  constructor(key, data) {
-    this.key = key;
-    this.data = data;
-  }
-
-  getKey() {
-    return this.key;
-  }
-
-  async getBytes(offset, length, signal) {
-    if (signal?.aborted) throw new DOMException('La carga del mapa fue cancelada', 'AbortError');
-    return { data: this.data.slice(offset, offset + length) };
-  }
-}
+let latestSnapshot;
+const observationHistory = new ObservationHistory(4);
 
 function loadLeafletRenderer() {
   if (!leafletRendererPromise) {
@@ -70,21 +51,6 @@ function loadLeafletRenderer() {
     leafletRendererPromise = import('protomaps-leaflet');
   }
   return leafletRendererPromise;
-}
-
-async function loadMapArchive(url) {
-  if (!mapArchivePromise) {
-    mapArchivePromise = fetch(url, { cache: 'force-cache' })
-      .then(async (response) => {
-        if (!response.ok) throw new Error('No se pudo descargar la cartografía: HTTP ' + response.status);
-        return new PMTiles(new MemoryPmtilesSource(url, await response.arrayBuffer()));
-      })
-      .catch((error) => {
-        mapArchivePromise = undefined;
-        throw error;
-      });
-  }
-  return mapArchivePromise;
 }
 
 function renderStatus() {
@@ -123,44 +89,8 @@ function routeSelectionFromControls() {
   };
 }
 
-function directionForVehicle(vehicle) {
-  if (vehicle.direction || vehicle.destination) return vehicle.direction || vehicle.destination;
-  const timetableDirection = timetableDirections.get(vehicle.tripId);
-  if (timetableDirection) return timetableDirection;
-  const localPattern = String(vehicle.tripId || vehicle.routeId || '').split(':')[0];
-  return local136Directions.get(localPattern) || null;
-}
-
 function liveFeatures(snapshot) {
-  if (!snapshot || snapshot.schemaVersion !== 1 || !Array.isArray(snapshot.vehicles)) throw new Error('Formato de posiciones no reconocido');
-  const now = Date.now();
-  const snapshotAt = new Date(snapshot.generatedAt).getTime();
-  const snapshotStale = !Number.isFinite(snapshotAt) || now - snapshotAt > STALE_AFTER_MS;
-  return snapshot.vehicles
-    .filter((vehicle) => {
-      if (!Number.isFinite(vehicle.lon) || !Number.isFinite(vehicle.lat)) return false;
-      const updatedAt = new Date(vehicle.updatedAt || snapshot.generatedAt).getTime();
-      return Number.isFinite(updatedAt) && now - updatedAt <= UNAVAILABLE_AFTER_MS;
-    })
-    .map((vehicle) => ({
-      type: 'Feature',
-      properties: {
-        id: vehicle.vehicleId,
-        mode: vehicle.mode,
-        routeId: vehicle.routeId || null,
-        lineKey: vehicle.lineKey || null,
-        tripId: vehicle.tripId || null,
-        label: vehicle.label || vehicle.routeId || (vehicle.mode === 'train' ? 'Tren' : 'Colectivo'),
-        direction: directionForVehicle(vehicle),
-        positionKind: vehicle.positionKind || 'unknown',
-        fromStop: vehicle.fromStop || null,
-        toStop: vehicle.toStop || null,
-        scheduledArrivalAt: vehicle.scheduledArrivalAt || null,
-        stale: Boolean(vehicle.stale) || snapshotStale || now - new Date(vehicle.updatedAt || snapshot.generatedAt).getTime() > STALE_AFTER_MS,
-        updatedAt: vehicle.updatedAt || snapshot.generatedAt,
-      },
-      geometry: { type: 'Point', coordinates: [vehicle.lon, vehicle.lat] },
-    }));
+  return buildPredictedLiveFeatures({ schedules: transportData, mapData, snapshot, date: new Date(), history: observationHistory });
 }
 
 function selectedFilters(selector, dataKey) {
@@ -300,11 +230,12 @@ function popupContent(properties, kind) {
     const segment = properties.fromStop && properties.toStop
       ? ` entre ${properties.fromStop} y ${properties.toStop}`
       : '';
-    const source = properties.positionKind === 'predicted'
-      ? `Posición estimada por horario${segment}`
-      : 'GPS informado';
+    const source = properties.positionKind === 'schedule-estimated'
+      ? `Estimación por cronograma${segment}`
+      : properties.positionKind === 'gps-corrected' ? 'Estimación corregida con GPS' : 'GPS informado';
     const direction = vehicleDirection({ properties });
-    description.textContent = `${source}${direction ? ` · Sentido: hacia ${direction}` : ' · Sentido no informado'}${properties.stale ? ' · dato demorado' : ''}`;
+    const delay = Number(properties.delaySeconds);
+    description.textContent = `${source}${direction ? ` · Sentido: hacia ${direction}` : ' · Sentido no informado'}${Number.isFinite(delay) && delay >= 60 ? ` · demora +${Math.round(delay / 60)} min` : ''}${properties.cancelled ? ' · CANCELADO' : ''}${properties.stale ? ' · dato live demorado' : ''}`;
   } else {
     const family = routeFamily({ properties });
     description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : `Parada del colectivo ${family.startsWith('136') ? '136' : '322'}`;
@@ -315,7 +246,7 @@ function popupContent(properties, kind) {
 
 function markerStyle(feature, live = false) {
   const isTrain = feature?.properties?.mode === 'train';
-  const isPredicted = live && feature?.properties?.positionKind === 'predicted';
+  const isPredicted = live && feature?.properties?.positionKind !== 'gps';
   return {
     radius: live ? 8 : 5,
     color: live ? '#ffffff' : '#2c2119',
@@ -328,7 +259,7 @@ function markerStyle(feature, live = false) {
 
 function vehicleMarkerIcon(feature) {
   const isTrain = feature?.properties?.mode === 'train';
-  const isPredicted = feature?.properties?.positionKind === 'predicted';
+  const isPredicted = feature?.properties?.positionKind !== 'gps';
   const directionVariant = vehicleDirectionVariant(feature);
   const color = directionVariant === 'blue' ? '#2376d8' : directionVariant === 'orange' ? '#ed7a32' : '#78838f';
   const glyph = isTrain
@@ -372,26 +303,33 @@ async function updateLiveLayer() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     lastEtag = response.headers.get('etag') || lastEtag;
     const snapshot = await response.json();
+    if (![1, 2].includes(snapshot?.schemaVersion)) throw new Error('Schema live no reconocido');
+    latestSnapshot = snapshot;
     document.dispatchEvent(new CustomEvent('transport-live-update', { detail: snapshot }));
-    const snapshotAt = new Date(snapshot.generatedAt).getTime();
+    const snapshotDateValue = snapshot.updatedAt || snapshot.generatedAt;
+    const snapshotAt = new Date(snapshotDateValue).getTime();
     const snapshotAge = Date.now() - snapshotAt;
     const features = liveFeatures(snapshot);
-    const observedCount = features.filter(({ properties }) => properties.positionKind === 'observed').length;
-    const predictedCount = features.filter(({ properties }) => properties.positionKind === 'predicted').length;
+    const observedCount = features.filter(({ properties }) => properties.positionKind === 'gps').length;
+    const correctedCount = features.filter(({ properties }) => properties.positionKind === 'gps-corrected').length;
+    const predictedCount = features.filter(({ properties }) => properties.positionKind === 'schedule-estimated').length;
     const countLabel = [
       observedCount ? `${observedCount} con GPS` : '',
-      predictedCount ? `${predictedCount} estimadas` : '',
+      correctedCount ? `${correctedCount} corregidas con GPS` : '',
+      predictedCount ? `${predictedCount} por cronograma` : '',
     ].filter(Boolean).join(' · ');
     replaceLiveFeatures(features);
-    const generatedDate = new Date(snapshot.generatedAt);
+    const generatedDate = new Date(snapshotDateValue);
     const generatedAt = generatedDate.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
     const generatedLabel = Number.isFinite(snapshotAt)
       ? generatedDate.toLocaleString('es-AR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
       : 'desconocido';
-    if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || snapshot.status === 'unavailable') {
-      replaceLiveFeatures([]);
-      setLiveStatus(`Actualización de posiciones interrumpida · último dato ${generatedLabel}. El mapa y los horarios programados siguen activos.`, 'error');
-    } else if (snapshot.status === 'degraded' || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
+    const groups = snapshot.schemaVersion === 2 ? [snapshot.trains, snapshot.buses] : [{ status: snapshot.status }];
+    const unavailable = groups.every((group) => group?.status === 'unavailable');
+    const degraded = groups.some((group) => group?.status === 'degraded' || group?.status === 'unavailable');
+    if (!Number.isFinite(snapshotAt) || snapshotAge > UNAVAILABLE_AFTER_MS || unavailable) {
+      setLiveStatus(`Realtime interrumpido · último dato ${generatedLabel}. ${predictedCount} servicios siguen estimados por cronograma.`, 'error');
+    } else if (degraded || snapshotAge > STALE_AFTER_MS || features.some(({ properties }) => properties.stale)) {
       setLiveStatus(features.length
         ? `${countLabel || `${features.length} posiciones`} con datos demorados · última consulta a las ${generatedAt}`
         : `Seguimiento parcial sin unidades informadas · consulta de las ${generatedAt}`,
@@ -403,7 +341,10 @@ async function updateLiveLayer() {
       features.length ? 'live' : 'empty');
     }
   } catch (error) {
-    if (error.name !== 'AbortError') setLiveStatus('El seguimiento en vivo no respondió; el mapa y los horarios programados siguen disponibles.', 'error');
+    if (error.name !== 'AbortError') {
+      replaceLiveFeatures(liveFeatures(latestSnapshot));
+      setLiveStatus('El realtime no respondió; las unidades previstas siguen moviéndose por cronograma.', 'error');
+    }
   }
 }
 
@@ -439,6 +380,8 @@ function addTransportLayers() {
 async function initTransportMap() {
   const container = document.querySelector('[data-transport-map]');
   if (!(container instanceof HTMLElement)) return;
+  baseMapController?.destroy();
+  baseMapController = undefined;
   map?.remove();
   liveLayer = undefined;
   routeLayer = undefined;
@@ -449,11 +392,9 @@ async function initTransportMap() {
   baseMapState = 'loading';
   renderStatus();
 
-  const mapArchiveUrl = new URL('/maps/villars-region.pmtiles', window.location.origin).href;
-  let archive;
   let leafletLayer;
   try {
-    [archive, { leafletLayer }] = await Promise.all([loadMapArchive(mapArchiveUrl), loadLeafletRenderer()]);
+    ({ leafletLayer } = await loadLeafletRenderer());
   } catch (error) {
     console.error('No se pudo preparar la cartografía local.', error);
     baseMapState = 'error';
@@ -465,37 +406,32 @@ async function initTransportMap() {
   map = L.map(container, {
     center: [mapData.center[1], mapData.center[0]],
     zoom: 10,
-    minZoom: 8,
-    maxZoom: 14,
+    minZoom: 5,
+    maxZoom: 18,
     zoomControl: true,
     attributionControl: true,
   });
 
-  const baseLayer = leafletLayer({
-    url: archive,
-    flavor: 'dark',
-    lang: 'es',
-    noWrap: true,
-    minZoom: 8,
-    maxZoom: 14,
-    maxDataZoom: 14,
-    bounds: [[-35.22, -59.32], [-34.48, -58.38]],
-    attribution: '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  });
-  baseLayer.once('load', () => {
+  try {
+    baseMapController = await addProvincialPmtiles({
+      map,
+      leafletLayer,
+      manifestUrl: mapManifestUrl,
+      fallbackUrl: '/maps/villars-region.pmtiles',
+      onTileError: (event) => console.error('No se pudo cargar una tesela de la cartografía local.', event.error),
+    });
     baseMapState = 'ready';
+    if (baseMapController.mode === 'regional-fallback') console.warn('Se usa el mapa regional de emergencia.', baseMapController.error);
     renderStatus();
-  });
-  baseLayer.on('tileerror', (event) => {
-    console.error('No se pudo cargar una tesela de la cartografía local.', event.error);
-    if (baseMapState !== 'ready') {
-      baseMapState = 'error';
-      renderStatus();
-    }
-  });
-  baseLayer.addTo(map);
+  } catch (error) {
+    console.error('No se pudo preparar ninguna cartografía local.', error);
+    baseMapState = 'error';
+    renderStatus();
+  }
   addTransportLayers();
   bindMapFilters();
+  replaceLiveFeatures(liveFeatures(latestSnapshot));
+  motionTimer = window.setInterval(() => replaceLiveFeatures(liveFeatures(latestSnapshot)), 1_000);
 
   if (liveSnapshotUrl) {
     updateLiveLayer();
@@ -510,7 +446,10 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) upda
 document.addEventListener('astro:page-load', initTransportMap);
 document.addEventListener('astro:before-swap', () => {
   window.clearInterval(pollTimer);
+  window.clearInterval(motionTimer);
   pollingController?.abort();
+  baseMapController?.destroy();
+  baseMapController = undefined;
   map?.remove();
   map = undefined;
   liveLayer = undefined;

@@ -1,29 +1,10 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { PMTiles } from 'pmtiles';
+import { addProvincialPmtiles } from '../utils/provincial-pmtiles.js';
 
-const BOUNDS = [[-35.22, -59.32], [-34.48, -58.38]];
 const maps = new Map();
-let archivePromise;
+const basemaps = new Map();
 let rendererPromise;
-
-class MemoryPmtilesSource {
-  constructor(key, data) { this.key = key; this.data = data; }
-  getKey() { return this.key; }
-  async getBytes(offset, length, signal) {
-    if (signal?.aborted) throw new DOMException('Carga cancelada', 'AbortError');
-    return { data: this.data.slice(offset, offset + length) };
-  }
-}
-
-function loadArchive() {
-  const url = new URL('/maps/villars-region.pmtiles', window.location.origin).href;
-  archivePromise ||= fetch(url, { cache: 'force-cache' }).then(async (response) => {
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return new PMTiles(new MemoryPmtilesSource(url, await response.arrayBuffer()));
-  });
-  return archivePromise;
-}
 
 function loadRenderer() {
   window.L = L;
@@ -42,21 +23,18 @@ async function initialize(container) {
     return;
   }
   try {
-    const [archive, { leafletLayer }] = await Promise.all([loadArchive(), loadRenderer()]);
+    const { leafletLayer } = await loadRenderer();
     if (!container.isConnected) return;
-    const map = L.map(container, { center: [lat, lon], zoom: 13, minZoom: 8, maxZoom: 14 });
+    const map = L.map(container, { center: [lat, lon], zoom: 16, minZoom: 5, maxZoom: 18 });
     maps.set(container, map);
-    leafletLayer({
-      url: archive,
-      flavor: 'dark',
-      lang: 'es',
-      noWrap: true,
-      minZoom: 8,
-      maxZoom: 14,
-      maxDataZoom: 14,
-      bounds: BOUNDS,
-      attribution: '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
+    const baseMap = await addProvincialPmtiles({
+      map,
+      leafletLayer,
+      manifestUrl: import.meta.env.PUBLIC_PM_TILES_MANIFEST_URL || '/maps/buenos-aires/manifest.json',
+      fallbackUrl: '/maps/villars-region.pmtiles',
+      onTileError: (event) => console.error('No se pudo cargar una tesela del mapa del evento.', event.error),
+    });
+    basemaps.set(container, baseMap);
     const marker = L.circleMarker([lat, lon], {
       radius: 10, color: '#fff', weight: 2, fillColor: '#e9c46a', fillOpacity: 1,
     }).addTo(map);
@@ -78,6 +56,10 @@ function initEventMaps() {
 
 document.addEventListener('astro:page-load', initEventMaps);
 document.addEventListener('astro:before-swap', () => {
-  for (const map of maps.values()) map.remove();
+  for (const [container, map] of maps) {
+    basemaps.get(container)?.destroy();
+    map.remove();
+  }
   maps.clear();
+  basemaps.clear();
 });

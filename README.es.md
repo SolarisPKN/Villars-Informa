@@ -12,7 +12,7 @@ Sitio publicado: <https://villars.solarispkn.com.ar>
 - JavaScript nativo y progresivo; el contenido esencial se genera en el build.
 - CI con tests, `astro check`, build, auditoría de dependencias y validación del HTML, canonicales, H1, imágenes y grafos JSON-LD generados.
 
-Las decisiones de transporte están documentadas en [`docs/adr/0001-static-transport-snapshot.md`](docs/adr/0001-static-transport-snapshot.md) y [`docs/adr/0002-mapa-estatico-y-posiciones-vivas.md`](docs/adr/0002-mapa-estatico-y-posiciones-vivas.md).
+Las decisiones de transporte están documentadas en [`docs/adr/0001-static-transport-snapshot.md`](docs/adr/0001-static-transport-snapshot.md), el ADR histórico 0002 y [`docs/adr/0003-frontend-de-transporte-y-mapa-por-partidos.md`](docs/adr/0003-frontend-de-transporte-y-mapa-por-partidos.md).
 
 ## Transporte
 
@@ -20,22 +20,19 @@ Las decisiones de transporte están documentadas en [`docs/adr/0001-static-trans
 
 El workflow `sync-transport.yml` se ejecuta una vez al día. Si la base no cambió, no crea commits. Si cambió, regenera los datos, valida todo el proyecto y recién entonces publica el snapshot.
 
-El mapa usa Leaflet sobre `public/maps/villars-region.pmtiles`, un extracto autocontenido de Protomaps/OpenStreetMap que cubre desde Primera Junta y Merlo hasta Navarro y Lobos. La interfaz mantiene visible la atribución “© OpenStreetMap contributors” con enlace a su aviso de copyright. `npm run data:transport-map` renueva las trazas y paradas estáticas de Belgrano Sur, Sarmiento Merlo–Lobos, 136 Rápido y línea 322; si Cuándo SUBO no autoriza la consulta pública de geometría, conserva el último snapshot 322 auditado en vez de generar datos vacíos. El mapa base no se descarga en cada visita desde OpenStreetMap.
+El mapa vectorial cubre toda la provincia de Buenos Aires. `public/maps/buenos-aires/` contiene un overview z0–9 y 135 PMTiles z10–15, uno por partido, generados desde Protomaps/OpenStreetMap y los límites oficiales Georef/IGN. El navegador activa sólo los partidos visibles, solicita rangos HTTP del archivo correspondiente y permite overzoom visual hasta z18; nunca descarga el mapa provincial completo. `public/maps/villars-region.pmtiles` queda únicamente como recuperación degradada si el manifest provincial no está disponible. La interfaz conserva la atribución a Protomaps y OpenStreetMap.
 
-El corredor local del 136 se construyó mediante transcripción manual de horarios y paradas visibles en páginas públicas de Moovit, tratadas como fuente secundaria mientras no exista una publicación primaria equivalente. No se usa una API privada de Moovit ni scraping automatizado. Su geometría vial se calculó previamente con OSRM sobre datos de OpenStreetMap y queda incorporada al bundle: el Worker no consulta Moovit, OSRM ni OpenStreetMap durante la ejecución. Las unidades del 136 se publican exclusivamente como estimaciones `predicted`, nunca como GPS observado.
+`npm run maps:build` descarga un CLI `go-pmtiles` fijado y verificado, obtiene los 135 polígonos oficiales, genera cada archivo y escribe un manifest con tamaños, límites y SHA-256. Los binarios se versionan normalmente en Git porque ningún archivo supera 11 MB. `npm run data:transport-map` renueva las trazas y paradas estáticas de Belgrano Sur, Sarmiento Merlo–Lobos, 136 Rápido y línea 322.
 
-Los horarios mostrados son programados. Las posiciones son una capa separada y sólo se rotulan como vivas cuando existe un snapshot reciente.
+El corredor local del 136 se construyó mediante transcripción manual de horarios y paradas visibles en páginas públicas, tratadas como fuente secundaria mientras no exista una publicación primaria equivalente. No se usa una API privada ni scraping automatizado. Su geometría vial queda incorporada al bundle y la estimación por horario ocurre sólo en el navegador.
 
-## Activar la capa de posiciones
+Los horarios mostrados son programados. El navegador mantiene visibles los servicios previstos aunque falte GPS o caiga un proveedor, interpola sobre el shape real, aplica demoras conocidas y usa observaciones GPS como correcciones suaves. Sólo presenta una cancelación cuando el proveedor aporta evidencia explícita.
 
-El Worker de `workers/transport-live` consulta Cuándo SUBO y SOFSE una vez por minuto y escribe un snapshot consolidado en R2. SOFSE cubre tanto Belgrano Sur González Catán–Lozano como Sarmiento Merlo–Lobos; la 136 Villars y la 136 Rápido se interpolan desde horarios publicados y siempre se rotulan como estimaciones. El cliente distingue posiciones informadas de estimaciones: si SOFSE informa una formación activa pero no entrega GPS, no se presenta como una coordenada medida.
+## Capa realtime
 
-1. Crear los buckets `villars-transport-live` y `villars-transport-live-preview` en Cloudflare R2.
-2. Configurar el CORS del bucket con `workers/transport-live/r2-cors.json` y vincular un dominio personalizado, por ejemplo `transport-data.solarispkn.com.ar`.
-3. Ejecutar `npm run worker:transport:check` y luego `npm run worker:transport:deploy`.
-4. Definir `PUBLIC_TRANSPORT_LIVE_URL=https://transport-data.solarispkn.com.ar/current.json` en el entorno que construye Astro y volver a publicar el sitio.
+Villars Informa ya no compila ni despliega Workers. Consume `current.json` schema v2 generado por la instancia self-hosted de [SolarisPKN Transport](https://github.com/SolarisPKN/SolarisPKN-Transport). El cliente consulta ese objeto cada 60 segundos, usa `ETag`, pausa al ocultarse la pestaña y nunca llama directamente a los proveedores. `PUBLIC_TRANSPORT_LIVE_URL` permite cambiar el snapshot de la instalación sin incorporar secretos al JavaScript.
 
-El cliente consulta ese JSON cada 60 segundos, usa `ETag` y detiene el sondeo cuando la pestaña queda en segundo plano. No llama a los proveedores desde el navegador.
+El código viejo está preservado como evidencia inerte en `backup/transport-live-v1/`; no participa del build. La arquitectura, conectores, cron, bindings, deltas y Registry vigentes se mantienen exclusivamente en SolarisPKN Transport.
 
 ## Desarrollo
 
@@ -59,6 +56,7 @@ Comandos de contenido:
 npm run create-news
 npm run create-health
 npm run create-local
+npm run maps:build
 ```
 
 ## Licencia y contribuciones

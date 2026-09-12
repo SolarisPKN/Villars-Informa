@@ -1,4 +1,5 @@
 import http from 'node:http';
+import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
@@ -31,6 +32,47 @@ const projectAssets = new Map([
   ['/vendor/protomaps-leaflet.js', [path.join(projectRoot, 'node_modules', 'protomaps-leaflet', 'dist', 'protomaps-leaflet.js'), 'text/javascript; charset=utf-8']],
   ['/maps/villars-region.pmtiles', [path.join(projectRoot, 'public', 'maps', 'villars-region.pmtiles'), 'application/vnd.pmtiles']],
 ]);
+
+function configuredMapPath(rootDirectory) {
+  const candidates = [
+    path.join(rootDirectory, 'public', 'maps', 'buenos-aires.pmtiles'),
+    path.join(rootDirectory, '.cache', 'maps', 'buenos-aires.pmtiles'),
+    path.join(rootDirectory, 'public', 'maps', 'villars-region.pmtiles'),
+  ];
+  return candidates.find((candidate) => fs.existsSync(candidate)) || candidates.at(-1);
+}
+
+function provincialMapAsset(rootDirectory, pathname) {
+  const prefix = '/maps/buenos-aires/';
+  if (!pathname.startsWith(prefix)) return null;
+  const relative = decodeURIComponent(pathname.slice(prefix.length)).replaceAll('\\', '/');
+  if (!relative || relative.split('/').some((segment) => !segment || segment === '.' || segment === '..')) return null;
+  const root = path.resolve(rootDirectory, 'public', 'maps', 'buenos-aires');
+  const resolved = path.resolve(root, relative);
+  return resolved.startsWith(`${root}${path.sep}`) ? resolved : null;
+}
+
+export async function serveRangeFile(request, response, filePath, contentType) {
+  const stat = await fsp.stat(filePath);
+  const range = request.headers.range;
+  const common = { 'content-type': contentType, 'accept-ranges': 'bytes', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' };
+  if (!range) {
+    response.writeHead(200, { ...common, 'content-length': stat.size });
+    fs.createReadStream(filePath).pipe(response);
+    return;
+  }
+  const match = /^bytes=(\d+)-(\d*)$/.exec(range);
+  const start = match ? Number(match[1]) : NaN;
+  const end = match && match[2] ? Number(match[2]) : Math.min(stat.size - 1, start + 512 * 1024 - 1);
+  if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 || end < start || start >= stat.size) {
+    response.writeHead(416, { ...common, 'content-range': `bytes */${stat.size}` });
+    response.end();
+    return;
+  }
+  const safeEnd = Math.min(end, stat.size - 1);
+  response.writeHead(206, { ...common, 'content-length': safeEnd - start + 1, 'content-range': `bytes ${start}-${safeEnd}/${stat.size}` });
+  fs.createReadStream(filePath, { start, end: safeEnd }).pipe(response);
+}
 
 function send(response, status, body, contentType = 'application/json; charset=utf-8') {
   response.writeHead(status, {
@@ -102,8 +144,22 @@ export function createEditorServer({ channel, rootDirectory = projectRoot } = {}
       }
       if (request.method === 'GET' && projectAssets.has(url.pathname)) {
         const [filePath, contentType] = projectAssets.get(url.pathname);
-        send(response, 200, await fsp.readFile(filePath), contentType);
+        if (filePath.endsWith('.pmtiles')) await serveRangeFile(request, response, filePath, contentType);
+        else send(response, 200, await fsp.readFile(filePath), contentType);
         return;
+      }
+      if (request.method === 'GET' && url.pathname === '/maps/buenos-aires.pmtiles') {
+        await serveRangeFile(request, response, configuredMapPath(rootDirectory), 'application/vnd.pmtiles');
+        return;
+      }
+      if (request.method === 'GET') {
+        const mapAsset = provincialMapAsset(rootDirectory, url.pathname);
+        if (mapAsset && await fsp.stat(mapAsset).then((entry) => entry.isFile()).catch(() => false)) {
+          if (mapAsset.endsWith('.pmtiles')) await serveRangeFile(request, response, mapAsset, 'application/vnd.pmtiles');
+          else if (mapAsset.endsWith('.json')) send(response, 200, await fsp.readFile(mapAsset), 'application/json; charset=utf-8');
+          else send(response, 404, { error: 'Recurso cartográfico no permitido.' });
+          return;
+        }
       }
 
       if (request.method === 'GET' && url.pathname === '/api/posts') {

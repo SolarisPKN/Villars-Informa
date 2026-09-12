@@ -5,6 +5,7 @@ let previewTimer;
 let bootstrapData;
 let editingPost = null;
 let libraryPosts = [];
+let removedExistingImages = new Set();
 
 function slugify(value) {
   return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim()
@@ -100,20 +101,45 @@ function refreshNewsImages() {
   clearPreviewUrls();
   const hero = byId('news-hero').files[0];
   const gallery = [...byId('news-gallery').files];
+  const existing = editingPost ? [
+    ...(editingPost.heroUrl && !removedExistingImages.has(editingPost.heroUrl) ? [{ url: editingPost.heroUrl, kind: 'Portada' }] : []),
+    ...(editingPost.galleryUrls || []).filter((url) => !removedExistingImages.has(url)).map((url) => ({ url, kind: 'Galería' })),
+  ] : [];
   const files = [hero, ...gallery].filter(Boolean);
-  byId('news-image-summary').textContent = files.length
-    ? files.map((file) => `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`).join(' | ')
+  const total = existing.length + files.length;
+  byId('news-image-summary').textContent = total
+    ? `${existing.length} existentes · ${files.length} nuevas · ${removedExistingImages.size} marcadas para quitar`
     : 'Todavía no seleccionaste imágenes.';
-  byId('news-image-preview').replaceChildren(...files.map((file, index) => {
+  const figures = existing.map(({ url, kind }) => {
     const figure = document.createElement('figure');
     const image = document.createElement('img');
-    image.src = objectUrl(file);
-    image.alt = index === 0 && hero ? 'Vista previa de portada' : `Vista previa de ${file.name}`;
+    image.src = url;
+    image.alt = `${kind} existente`;
     const caption = document.createElement('figcaption');
-    caption.textContent = index === 0 && hero ? `Portada · ${file.name}` : file.name;
-    figure.append(image, caption);
+    caption.textContent = `${kind} · ${url.split('/').at(-1)}`;
+    const remove = document.createElement('button');
+    remove.type = 'button'; remove.className = 'image-remove'; remove.textContent = 'Quitar';
+    remove.addEventListener('click', () => {
+      if (!confirm(`¿Quitar ${url.split('/').at(-1)} de esta publicación? El archivo sólo se borrará si ningún otro contenido lo usa.`)) return;
+      removedExistingImages.add(url); refreshNewsImages();
+    });
+    figure.append(image, caption, remove);
     return figure;
-  }));
+  });
+  files.forEach((file, index) => {
+    const figure = document.createElement('figure'); const image = document.createElement('img');
+    image.src = objectUrl(file); image.alt = index === 0 && hero ? 'Nueva portada' : `Nueva imagen ${file.name}`;
+    const caption = document.createElement('figcaption'); caption.textContent = index === 0 && hero ? `Nueva portada · ${file.name}` : `Nueva galería · ${file.name}`;
+    const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'image-remove'; remove.textContent = 'Quitar';
+    remove.addEventListener('click', () => {
+      const input = index === 0 && hero ? byId('news-hero') : byId('news-gallery');
+      const transfer = new DataTransfer();
+      [...input.files].filter((candidate) => candidate !== file).forEach((candidate) => transfer.items.add(candidate));
+      input.files = transfer.files; refreshNewsImages();
+    });
+    figure.append(image, caption, remove); figures.push(figure);
+  });
+  byId('news-image-preview').replaceChildren(...figures);
 }
 
 function healthDateLabel(value) {
@@ -355,6 +381,7 @@ async function loadLibrary() {
 
 function setEditMode(post) {
   editingPost = post;
+  removedExistingImages = new Set();
   if (post.channel === 'news') {
     byId('news-title').value = post.title;
     byId('news-slug').value = post.slug;
@@ -375,12 +402,13 @@ function setEditMode(post) {
     byId('news-event-show-map').checked = post.showEventMap === true;
     toggleEventFields();
     window.eventMapPicker?.syncInputs();
-    byId('news-hero').disabled = true;
-    byId('news-gallery').disabled = true;
+    byId('news-hero').disabled = false;
+    byId('news-gallery').disabled = false;
     byId('news-action-title').textContent = 'Guardar cambios';
-    byId('news-action-help').textContent = 'El slug y las imágenes se conservan; si el archivo cambió afuera, el guardado se bloquea.';
+    byId('news-action-help').textContent = 'Podés agregar o quitar imágenes. El archivo físico sólo se borra si ningún otro contenido lo referencia.';
     byId('news-submit').textContent = 'Guardar noticia';
     byId('news-cancel-edit').hidden = false;
+    refreshNewsImages();
     refreshNewsPreview();
   } else {
     byId('health-title').value = post.title;
@@ -410,6 +438,7 @@ async function beginEdit(slug) {
 
 function cancelEdit() {
   editingPost = null;
+  removedExistingImages = new Set();
   const channel = bootstrapData.channel;
   const form = byId(channel === 'news' ? 'news-form' : 'health-form');
   form.reset();
@@ -514,6 +543,7 @@ byId('news-form').addEventListener('submit', async (event) => {
       eventLon: byId('news-event-lon').value,
       showEventMap: byId('news-event-show-map').checked,
       revision: editingPost?.revision,
+      removeImages: [...removedExistingImages],
       hero: heroFile ? await readFile(heroFile) : null,
       gallery: await Promise.all(galleryFiles.map(readFile)),
     };
@@ -521,8 +551,8 @@ byId('news-form').addEventListener('submit', async (event) => {
       ? await api('/api/posts/' + editingPost.slug, { method: 'PUT', body: JSON.stringify(payload) })
       : await api('/api/content', { method: 'POST', body: JSON.stringify(payload) });
     if (editingPost) {
-      editingPost = result;
-      setStatus('Noticia guardada sin cambiar el slug ni las imágenes. Revisión: ' + result.revision.slice(0, 12) + '…', 'success');
+      setEditMode(result);
+      setStatus(`Noticia guardada. Se quitaron ${result.deletedImages?.length || 0} archivos sin referencias y se preservaron los compartidos. Revisión: ${result.revision.slice(0, 12)}…`, 'success');
       await loadLibrary();
       return;
     }

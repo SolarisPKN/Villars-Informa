@@ -338,6 +338,43 @@ async function assertCurrentRevision(contentPath, expectedRevision) {
   return { source, parsed: parseJsonFrontmatter(source) };
 }
 
+function normalizedRemovalList(input, currentUrls) {
+  const requested = [...new Set((Array.isArray(input?.removeImages) ? input.removeImages : []).map(String))];
+  const allowed = new Set(currentUrls.filter(Boolean));
+  for (const url of requested) if (!allowed.has(url)) throw new Error(`La imagen ${url} no pertenece a esta publicación.`);
+  return new Set(requested);
+}
+
+async function contentFiles(directory) {
+  const result = [];
+  let entries = [];
+  try { entries = await fsp.readdir(directory, { withFileTypes: true }); } catch { return result; }
+  for (const entry of entries) {
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory()) result.push(...await contentFiles(target));
+    else if (entry.isFile() && /\.(?:mdx|md)$/i.test(entry.name)) result.push(target);
+  }
+  return result;
+}
+
+export async function imageIsReferenced(rootDirectory, publicUrl) {
+  for (const filePath of await contentFiles(inside(rootDirectory, 'src', 'content'))) {
+    if ((await fsp.readFile(filePath, 'utf8')).includes(publicUrl)) return true;
+  }
+  return false;
+}
+
+function publicImagePath(rootDirectory, publicUrl) {
+  if (!String(publicUrl).startsWith('/images/')) throw new Error('Ruta pública de imagen no válida.');
+  return inside(rootDirectory, 'public', ...String(publicUrl).slice(1).split('/'));
+}
+
+function versionedImage(image) {
+  if (!image) return null;
+  const digest = createHash('sha256').update(image.data).digest('hex').slice(0, 12);
+  return { ...image, name: `${digest}-${image.name}` };
+}
+
 export async function updateContent(channel, slug, input, { rootDirectory = projectRoot } = {}) {
   const paths = channelPaths(channel, slug, rootDirectory);
   let current;
@@ -352,7 +389,16 @@ export async function updateContent(channel, slug, input, { rootDirectory = proj
   }
   let source;
   if (channel === 'news') {
-    const news = validateNewsInput({ ...input, slug, hero: null, gallery: [] });
+    const news = validateNewsInput({ ...input, slug });
+    const currentHero = String(current.parsed.data.portada || '');
+    const currentGallery = Array.isArray(current.parsed.data.imagenes) ? current.parsed.data.imagenes.map(String) : [];
+    const removals = normalizedRemovalList(input, [currentHero, ...currentGallery]);
+    const hero = versionedImage(news.hero);
+    const gallery = news.gallery.map(versionedImage);
+    const prefix = `/images/noticias/${slug}/`;
+    const heroUrl = hero ? `${prefix}${hero.name}` : removals.has(currentHero) ? '' : currentHero;
+    const galleryUrls = [...currentGallery.filter((url) => !removals.has(url)), ...gallery.map((image) => `${prefix}${image.name}`)];
+    if (hero && currentHero) removals.add(currentHero);
     const frontmatter = jsonFrontmatter([
       ['titulo', news.title],
       ['descripcion', news.description],
@@ -361,11 +407,34 @@ export async function updateContent(channel, slug, input, { rootDirectory = proj
       ['autor', news.author],
       ['categoria', news.category],
       ['tags', news.tags],
-      ['portada', String(current.parsed.data.portada || '')],
-      ['imagenes', Array.isArray(current.parsed.data.imagenes) ? current.parsed.data.imagenes : []],
+      ['portada', heroUrl],
+      ['imagenes', galleryUrls],
       ...eventFrontmatter(news),
     ]);
     source = `${frontmatter}\n${news.content.trim()}\n`;
+    await fsp.mkdir(paths.imagesDirectory, { recursive: true });
+    const written = [];
+    try {
+      for (const image of [hero, ...gallery].filter(Boolean)) {
+        const filePath = inside(paths.imagesDirectory, image.name);
+        if (fs.existsSync(filePath)) throw new Error(`Ya existe una imagen llamada ${image.name}.`);
+        await atomicWrite(filePath, image.data);
+        written.push(filePath);
+      }
+      await assertCurrentRevision(paths.contentPath, input?.revision);
+      await atomicWrite(paths.contentPath, source);
+    } catch (error) {
+      for (const filePath of written) await fsp.rm(filePath, { force: true });
+      throw error;
+    }
+    const deleted = [];
+    for (const url of removals) {
+      if (!url || await imageIsReferenced(rootDirectory, url)) continue;
+      await fsp.rm(publicImagePath(rootDirectory, url), { force: true });
+      deleted.push(url);
+    }
+    const result = await readContent(channel, slug, { rootDirectory });
+    return { ...result, deletedImages: deleted, files: [path.relative(rootDirectory, paths.contentPath).replaceAll(path.sep, '/'), ...written.map((filePath) => path.relative(rootDirectory, filePath).replaceAll(path.sep, '/'))] };
   } else {
     const update = validateHealthInput({ ...input, slug, image: null });
     const frontmatter = jsonFrontmatter([

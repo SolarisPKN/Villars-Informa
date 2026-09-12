@@ -1,5 +1,7 @@
 # ADR 0002: Mapa autocontenido y posiciones vivas degradables
 
+> Estado: reemplazado por ADR 0003. Se conserva como registro de la primera implementación regional/Worker v1.
+
 ## Contexto
 
 La página de transporte debe seguir siendo útil aunque fallen las APIs externas y, al mismo tiempo, permitir visualizar recorridos y posiciones recientes. Un sitio Astro estático no puede custodiar credenciales ni concentrar consultas a proveedores desde cada navegador. Además, los servidores estándar de mosaicos de OpenStreetMap no permiten descargar masivamente sus tiles para crear un paquete offline.

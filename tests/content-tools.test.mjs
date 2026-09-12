@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { access, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -195,6 +195,69 @@ test('el navegador editorial edita con revisión y archiva de forma recuperable'
     await access(join(directory, archived.recoveryPath, 'content', 'index.mdx'));
     await access(join(directory, archived.recoveryPath, 'images', 'foto.gif'));
   } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('editar permite agregar y quitar imágenes sin borrar archivos compartidos', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'villars-editor-images-'));
+  try {
+    const first = await createNews({ title: 'Primera nota', date: '2026-09-10', description: 'Descripción inicial.', content: 'Contenido.', hero: tinyGif }, { rootDirectory: directory });
+    const original = await readContent('news', first.slug, { rootDirectory: directory });
+    const sharedUrl = original.heroUrl;
+    const second = await createNews({ title: 'Segunda nota', date: '2026-09-10', description: 'Descripción secundaria.', content: `Imagen compartida: ${sharedUrl}` }, { rootDirectory: directory });
+    const updated = await updateContent('news', first.slug, { ...original, revision: original.revision, removeImages: [sharedUrl], gallery: [{ ...tinyGif, name: 'nueva.gif' }] }, { rootDirectory: directory });
+    assert.equal(updated.heroUrl, '');
+    assert.equal(updated.galleryUrls.length, 1);
+    assert.equal(updated.deletedImages.length, 0);
+    await access(join(directory, 'public', sharedUrl.slice(1)));
+    const secondPost = await readContent('news', second.slug, { rootDirectory: directory });
+    await updateContent('news', second.slug, { ...secondPost, revision: secondPost.revision, content: 'Sin imagen compartida.' }, { rootDirectory: directory });
+    const firstAgain = await readContent('news', first.slug, { rootDirectory: directory });
+    const cleanup = await updateContent('news', first.slug, { ...firstAgain, revision: firstAgain.revision }, { rootDirectory: directory });
+    assert.equal(cleanup.galleryUrls.length, 1);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('quitar una imagen exclusiva elimina su referencia y su archivo físico', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'villars-editor-remove-image-'));
+  try {
+    const created = await createNews({ title: 'Nota con foto propia', date: '2026-09-10', description: 'Descripción.', content: 'Contenido.', hero: tinyGif }, { rootDirectory: directory });
+    const original = await readContent('news', created.slug, { rootDirectory: directory });
+    const imagePath = join(directory, 'public', original.heroUrl.slice(1));
+    await access(imagePath);
+    const updated = await updateContent('news', created.slug, { ...original, revision: original.revision, removeImages: [original.heroUrl] }, { rootDirectory: directory });
+    assert.equal(updated.heroUrl, '');
+    assert.deepEqual(updated.deletedImages, [original.heroUrl]);
+    await assert.rejects(() => access(imagePath));
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('el servidor PMTiles responde Range sin enviar el archivo completo', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'villars-editor-range-'));
+  await mkdir(join(directory, 'public/maps'), { recursive: true });
+  await writeFile(join(directory, 'public/maps/villars-region.pmtiles'), Buffer.from('0123456789abcdef'));
+  await mkdir(join(directory, 'public/maps/buenos-aires/partidos'), { recursive: true });
+  await writeFile(join(directory, 'public/maps/buenos-aires/partidos/06525-marcos-paz.pmtiles'), Buffer.from('abcdefghijklmnop'));
+  const server = createEditorServer({ channel: 'news', rootDirectory: directory });
+  await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
+  const address = server.address();
+  try {
+    const response = await fetch(`http://127.0.0.1:${address.port}/maps/buenos-aires.pmtiles`, { headers: { Range: 'bytes=4-7' } });
+    assert.equal(response.status, 206);
+    assert.equal(response.headers.get('accept-ranges'), 'bytes');
+    assert.equal(response.headers.get('content-range'), 'bytes 4-7/16');
+    assert.equal(await response.text(), '4567');
+    const party = await fetch(`http://127.0.0.1:${address.port}/maps/buenos-aires/partidos/06525-marcos-paz.pmtiles`, { headers: { Range: 'bytes=2-5' } });
+    assert.equal(party.status, 206);
+    assert.equal(party.headers.get('content-range'), 'bytes 2-5/16');
+    assert.equal(await party.text(), 'cdef');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
     await rm(directory, { recursive: true, force: true });
   }
 });

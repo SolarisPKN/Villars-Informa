@@ -108,5 +108,20 @@ try {
 } catch {
   errors.push('falta dist/maps/villars-region.pmtiles');
 }
+try {
+  const mapRoot = join(dist, 'maps', 'buenos-aires');
+  const manifest = JSON.parse(await readFile(join(mapRoot, 'manifest.json'), 'utf8'));
+  if (manifest.schemaVersion !== 1) errors.push('manifest PMTiles provincial con schema desconocido');
+  if (manifest.maxDataZoom !== 15 || manifest.maxVisualZoom !== 18) errors.push('zoom PMTiles provincial incorrecto');
+  if (!Array.isArray(manifest.parties) || manifest.parties.length !== 135) errors.push('el mapa no contiene los 135 partidos');
+  const entries = [manifest.overview, ...(manifest.parties || [])];
+  for (const entry of entries) {
+    const file = await stat(join(mapRoot, ...String(entry.file).split('/')));
+    if (file.size !== entry.bytes) errors.push(`tamaño PMTiles incoherente: ${entry.file}`);
+    if (file.size > 25 * 1024 * 1024) errors.push(`PMTiles individual demasiado grande para hosting estático: ${entry.file}`);
+  }
+} catch (error) {
+  errors.push(`mapa provincial ausente o inválido: ${error.message}`);
+}
 if (errors.length) throw new Error(`Validación de dist falló:\n- ${errors.join('\n- ')}`);
 console.log(`HTML validado: ${htmlFiles.length} páginas, enlaces, SEO, JSON-LD, IDs y estructura semántica correctos.`);

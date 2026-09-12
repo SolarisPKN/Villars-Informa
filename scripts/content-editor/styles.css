@@ -150,6 +150,9 @@ input:focus, textarea:focus { border-color: var(--mustard); outline: 3px solid r
 .image-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: .75rem; margin-top: .75rem; }
 .image-strip:empty { display: none; }
 .image-strip figure { overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: .75rem; background: rgba(10,7,5,.6); }
+.image-strip figure { position: relative; }
+.image-remove { position: absolute; top: .5rem; right: .5rem; border: 1px solid rgba(255,154,154,.7); border-radius: 999px; background: rgba(24,8,8,.92); color: #ffd5d5; padding: .35rem .65rem; cursor: pointer; font-weight: 700; }
+.image-remove:hover, .image-remove:focus-visible { background: #7b2525; color: #fff; }
 .image-strip img { width: 100%; height: 9rem; object-fit: cover; }
 .image-strip figcaption { overflow: hidden; padding: .45rem .6rem; color: var(--muted); font-size: .72rem; text-overflow: ellipsis; white-space: nowrap; }
 .finish { display: flex; justify-content: space-between; gap: 2rem; align-items: center; }

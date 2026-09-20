@@ -336,31 +336,18 @@ Si las autoridades ordenan evacuar, hacerlo temprano suele ser mucho más seguro
 | 🚓 Policía | **0220-476-1111** |
 | 🎥 COM | **011-5144-5509** |
 
-<button id="copiar-emergencias" type="button">
-  📋 Copiar contactos de emergencia
-</button>
+## 📞 Contactos de emergencia
 
-<span id="resultado-copia" aria-live="polite"></span>
+> **Guardá estos números a mano.** Ante una situación de riesgo, llamá al servicio correspondiente y evitá circular por zonas inundadas o con cables caídos.
 
-<script is:inline>
-  const boton = document.getElementById("copiar-emergencias");
-  const resultado = document.getElementById("resultado-copia");
-
-  boton?.addEventListener("click", async () => {
-    const contactos =
-      "Bomberos 100 | Defensa Civil 103 | Emergencias 107 | Policía 911 | " +
-      "Bomberos General Las Heras 0220-476-1222 | Hospital 0220-476-1000 | " +
-      "Policía 0220-476-1111 | COM 011-5144-5509";
-
-    try {
-      await navigator.clipboard.writeText(contactos);
-      if (resultado) resultado.textContent = " ✅ Contactos copiados";
-    } catch {
-      if (resultado) resultado.textContent =
-        " 📞 Bomberos 100 · Defensa Civil 103 · Emergencias 107 · Policía 911";
-    }
-  });
-</script>
+- **Bomberos:** 100
+- **Defensa Civil:** 103
+- **Emergencias médicas:** 107
+- **Policía:** 911
+- **Bomberos Voluntarios de General Las Heras:** 0220-476-1222
+- **Hospital de General Las Heras:** 0220-476-1000
+- **Policía de General Las Heras:** 0220-476-1111
+- **COM:** 011-5144-5509
 
 ---
 

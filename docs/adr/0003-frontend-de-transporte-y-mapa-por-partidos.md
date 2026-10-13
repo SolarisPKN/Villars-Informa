@@ -56,3 +56,10 @@ Protomaps Leaflet usa por defecto teselas fuente de 512 px con levelDiff=1. Por 
 Las capas municipales se limitan a su propia caja geográfica, no a todo el rectángulo provincial. El controlador conserva como máximo 12 capas recientes en caché para evitar descargas repetidas cuando se cruza una frontera; carga hasta tres partidos en paralelo y abandona nuevos lotes obsoletos ante un desplazamiento. Si una descarga falla, se conserva la cartografía regional mientras los datos de transporte siguen visibles.
 
 **Límite de cobertura:** los archivos incluidos están recortados a la provincia de Buenos Aires; desplazarse fuera del rectángulo provincial no produce cartografía nueva. Sobre otras provincias haría falta ampliar el inventario de archivos o añadir otro proveedor.
+
+
+### 136 Rápido: trazado vial, no línea recta
+
+El corredor 136 Rápido estaba representado por 23 puntos de referencia unidos de forma recta, atravesando superficies sin calles. El trazado del mapa se regeneró con OSRM usando la red vial de OpenStreetMap (licencia ODbL), obteniendo 2.256 vértices y unos 125 km de recorrido vial, con validación de continuidad entre los vértices. El script reproducible es `scripts/maps/trace-136-rapido.mjs` y no requiere claves ni servicios pagos para el sitio publicado.
+
+**Importante:** OSRM asegura que el camino coincide con calles ruteables, pero **no certifica el itinerario exacto del concesionario de la 136**. Por eso se identifica explícitamente como `road-network-estimate`, y la procedencia se conserva en el GeoJSON. Los recorridos 322 conservan sus trazas detalladas preexistentes.

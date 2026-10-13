@@ -240,9 +240,10 @@ function popupContent(properties, kind) {
     const segment = properties.fromStop && properties.toStop
       ? ` entre ${properties.fromStop} y ${properties.toStop}`
       : '';
-    const source = properties.positionKind === 'schedule-estimated'
-      ? `Estimación por cronograma${segment}`
-      : properties.positionKind === 'gps-corrected' ? 'Estimación corregida con GPS' : 'GPS informado';
+    const source = properties.positionKind === 'gps'
+      ? 'GPS informado'
+      : properties.positionKind === 'gps-corrected' ? 'Posición proyectada desde GPS reciente'
+      : properties.positionKind === 'provider-estimated' ? 'Estimación del operador' : `Estimación por cronograma${segment}`;
     const direction = vehicleDirection({ properties });
     const delay = Number(properties.delaySeconds);
     description.textContent = `${source}${direction ? ` · Sentido: hacia ${direction}` : ' · Sentido no informado'}${Number.isFinite(delay) && delay >= 60 ? ` · demora +${Math.round(delay / 60)} min` : ''}${properties.cancelled ? ' · CANCELADO' : ''}${properties.stale ? ' · dato live demorado' : ''}`;
@@ -332,10 +333,12 @@ async function updateLiveLayer() {
     const observedCount = features.filter(({ properties }) => properties.positionKind === 'gps').length;
     const correctedCount = features.filter(({ properties }) => properties.positionKind === 'gps-corrected').length;
     const predictedCount = features.filter(({ properties }) => properties.positionKind === 'schedule-estimated').length;
+    const providerEstimatedCount = features.filter(({ properties }) => properties.positionKind === 'provider-estimated').length;
     const countLabel = [
       observedCount ? `${observedCount} con GPS` : '',
       correctedCount ? `${correctedCount} corregidas con GPS` : '',
       predictedCount ? `${predictedCount} por cronograma` : '',
+      providerEstimatedCount ? `${providerEstimatedCount} estimadas por operador` : '',
     ].filter(Boolean).join(' · ');
     replaceLiveFeatures(features);
     const generatedDate = new Date(snapshotDateValue);

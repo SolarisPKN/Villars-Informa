@@ -1,0 +1,24 @@
+name: Verificar fondo cartografico en navegador
+on:
+  push:
+    branches: [main, fix/browser-verified-basemap-paint]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-basemap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npm run build
+      - name: Probar render del fondo en Chrome real
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/villars-preview.log 2>&1 &
+          for n in $(seq 1 45); do curl --silent --fail http://127.0.0.1:4321/transporte/ > /dev/null && break; sleep 1; done
+          CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs

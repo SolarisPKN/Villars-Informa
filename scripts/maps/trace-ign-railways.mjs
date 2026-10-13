@@ -76,7 +76,7 @@ function orientedPath(parts,stops) {
  },{meters:Infinity,index:0});
  const first=closest(stops[0]),last=closest(stops.at(-1));
  console.log('IGN station endpoints',JSON.stringify({first,last,total:path.length}));
- if(first.meters>1100||last.meters>1100||first.index>=last.index)throw Error('Rail station endpoints not aligned with official track');
+ if(first.meters>1500||last.meters>1500||first.index>=last.index)throw Error('Rail station endpoints not aligned with official track');
  path=path.slice(first.index,last.index+1);
  for(const [i,point] of stops.entries()) {
   const closestPoint=path.reduce((best,coord)=>{

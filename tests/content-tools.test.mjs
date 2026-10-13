@@ -261,7 +261,7 @@ test('el servidor PMTiles responde Range sin enviar el archivo completo', async 
     await rm(directory, { recursive: true, force: true });
   }
 });
-test('Salud usa un único JSON editable y admite varios teléfonos inicialmente vacíos', async () => {
+test('Salud usa un único JSON editable y teléfonos verificables con datos pendientes explícitos', async () => {
   const [page, data] = await Promise.all([
     readFile(new URL('../src/pages/salud.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/locales/salud.json', import.meta.url), 'utf8').then(JSON.parse),
@@ -277,9 +277,13 @@ test('Salud usa un único JSON editable y admite varios teléfonos inicialmente 
   assert.match(page, /validPhones/);
   assert.match(page, /phoneHref/);
   assert.match(page, /id="pharmacy-select"/);
-  assert.equal(data.atencion.serviciosPrincipales[1].nombre, 'CAPS Villars');
-  assert.equal(data.farmacias.lista.length, 5);
+  assert.ok(data.atencion.serviciosPrincipales.some((entry) => entry.nombre.includes('CAPS Villars')));
+  assert.ok(data.atencion.serviciosPrincipales.some((entry) => entry.nombre.includes('CAPS General Hornos')));
+  assert.equal(data.farmacias.lista.length, 6);
   assert.ok(entries.every((entry) => Array.isArray(entry.telefonos)));
   assert.ok(entries.some((entry) => entry.telefonos.length > 1));
-  assert.ok(entries.flatMap((entry) => entry.telefonos).every((phone) => phone.numero === ''));
+  assert.ok(entries.flatMap((entry) => entry.telefonos).every((phone) => Boolean(phone.numero) && /^\\+?[\\d\\s-]+$/.test(phone.numero)));
+  assert.ok(entries.every((entry) => typeof entry.fuenteUrl === 'string'));
+  assert.ok(data.atencion.serviciosPrincipales.some((entry) => entry.nombre.includes('Hornos') && entry.telefonos.length === 0),
+    'Un nuevo CAPS sin número confirmado debe quedar explícitamente pendiente');
 });

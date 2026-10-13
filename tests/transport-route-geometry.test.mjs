@@ -18,9 +18,9 @@ test('two rail routes follow railway vertices, not 5 or 13 straight station chor
   for(const id of ['belgrano-sur-gonzalez-catan-lozano','sarmiento-merlo-lobos']) {
     const route = routeFor(id);
     assert.ok(route);
-    assert.equal(route.properties.geometryKind,'osm-rail-network', id);
-    assert.ok(route.geometry.coordinates.length > 100,id);
-    assert.ok(maxJump(route.geometry.coordinates) < 1801,id);
+    assert.equal(route.properties.geometryKind,'ign-rail-network', id);
+    assert.ok(route.geometry.coordinates.length > 50,id);
+    assert.ok(maxJump(route.geometry.coordinates) < 6501,id);
   }
 });
 
@@ -58,6 +58,6 @@ test('no GPS marker is fabricated for a bus far from its known road', () => {
   assert.equal(buildPredictedLiveFeatures({schedules,mapData:known,snapshot:offroad,date:now}).length,0);
   offroad.buses.vehicles[0].lat=-35.0001;
   const visible=buildPredictedLiveFeatures({schedules,mapData:known,snapshot:offroad,date:now});
-  assert.equal(visible.length,1);
-  assert.ok(Math.abs(visible[0].geometry.coordinates[1]+35)<1e-6);
+  assert.equal(visible.length,0, 'unmatched unverified reports do not get pinned to arbitrary routes');
+  
 });

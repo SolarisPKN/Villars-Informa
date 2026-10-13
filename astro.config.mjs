@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import normalizeNewsHeadings from './scripts/remark-news-headings.mjs';
 
 export default defineConfig({
   // Keep Astro 4's HTML-aware whitespace behavior during the migration.
@@ -23,7 +24,7 @@ export default defineConfig({
         !page.includes('/404') &&
         !page.includes('/under-construction'),
     }),
-    mdx(),
+    mdx({ remarkPlugins: [normalizeNewsHeadings] }),
   ],
   vite: {
     resolve: {

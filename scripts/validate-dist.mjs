@@ -1,4 +1,4 @@
-import { access, readdir, readFile, stat } from 'node:fs/promises';
+import { access, open, readdir, readFile, stat } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
 
 const dist = resolve('dist');
@@ -119,6 +119,14 @@ try {
     const file = await stat(join(mapRoot, ...String(entry.file).split('/')));
     if (file.size !== entry.bytes) errors.push(`tamaño PMTiles incoherente: ${entry.file}`);
     if (file.size > 25 * 1024 * 1024) errors.push(`PMTiles individual demasiado grande para hosting estático: ${entry.file}`);
+    const handle = await open(join(mapRoot, ...String(entry.file).split('/')), 'r');
+    try {
+      const magic = Buffer.alloc(7);
+      const { bytesRead } = await handle.read(magic, 0, magic.length, 0);
+      if (bytesRead !== 7 || magic.toString() !== 'PMTiles') errors.push(`Cabecera PMTiles inválida: ${entry.file}`);
+    } finally {
+      await handle.close();
+    }
   }
 } catch (error) {
   errors.push(`mapa provincial ausente o inválido: ${error.message}`);

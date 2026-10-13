@@ -1,0 +1,20 @@
+name: Verificar cartografía publicada
+
+on:
+  schedule:
+    - cron: '15 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  map-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node scripts/check-live-map.mjs

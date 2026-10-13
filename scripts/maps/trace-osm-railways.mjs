@@ -19,8 +19,8 @@ const ENDPOINTS = [
   'https://overpass.nchc.org.tw/api/interpreter',
 ];
 const PATHS = [
-  { key: 'belgrano-sur', bbox: [-34.91, -59.12, -34.71, -58.58] },
-  { key: 'sarmiento-merlo-lobos', bbox: [-35.24, -59.16, -34.61, -58.64] },
+  { key: 'belgrano-sur' },
+  { key: 'sarmiento-merlo-lobos' },
 ];
 
 const radians = (n) => n * Math.PI / 180;
@@ -33,8 +33,11 @@ function meters(a, b) {
 }
 const length = (coords) => coords.slice(1).reduce((s, p, i) => s + meters(p, coords[i]), 0);
 
-async function queryRailways(bbox) {
-  const query = '[out:json][timeout:150];way["railway"="rail"](' + bbox.join(',') + ');out geom;';
+async function queryRailways(stations) {
+  // A corridor around ordered stations greatly reduces load versus fetching
+  // every railway in a huge province-wide bounding rectangle (HTTP 504).
+  const corridor = stations.map(([lon, lat]) => lat + ',' + lon).join(',');
+  const query = '[out:json][timeout:120];way["railway"="rail"](around:6000,' + corridor + ');out geom;';
   const errors = [];
   for (const endpoint of ENDPOINTS) {
     try {
@@ -162,7 +165,7 @@ function bestRailLeg(graph, a, b) {
 
 const map = JSON.parse(await readFile(FILE, 'utf8'));
 let changed = false;
-for (const { key, bbox } of PATHS) {
+for (const { key } of PATHS) {
   const track = map.routes.features.find((feature) => feature.properties.lineKey === key);
   if (!track || track.geometry.type !== 'LineString') throw new Error('Missing existing railway ' + key);
   if (track.properties.geometryKind === 'osm-rail-network' && !process.argv.includes('--force')) {
@@ -173,7 +176,7 @@ for (const { key, bbox } of PATHS) {
     .filter((feature) => feature.properties.mode === 'train' && feature.properties.lineKey === key)
     .map((feature) => feature.geometry.coordinates);
   if (stations.length < 4) throw new Error('Insufficient train stations: ' + key);
-  const graph = graphOf(await queryRailways(bbox));
+  const graph = graphOf(await queryRailways(stations));
   const coordinates = [];
   for (let i = 1; i < stations.length; i++) {
     const leg = bestRailLeg(graph, stations[i - 1], stations[i]);

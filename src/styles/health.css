@@ -68,6 +68,36 @@
   font-size: 0.8rem;
 }
 
+.health-quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.health-quick-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid rgba(184, 211, 173, 0.42);
+  border-radius: 999px;
+  color: #e8f4df;
+  background: rgba(28, 45, 30, 0.75);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+.health-quick-nav a:focus-visible, .health-source-link:focus-visible {
+  outline: 3px solid #f3ce8c;
+  outline-offset: 3px;
+}
+
+#atencion, #farmacias, #urgencias { scroll-margin-top: 5rem; }
+
 .health-section {
   margin-top: 1.15rem;
   padding: clamp(1.1rem, 3vw, 2.2rem);
@@ -254,6 +284,30 @@
   color: rgba(242, 228, 207, 0.48);
 }
 
+.service-note {
+  color: rgba(242, 228, 207, 0.73);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.8rem 0 0.35rem;
+}
+
+.health-source-link {
+  display: inline-flex;
+  justify-self: start;
+  width: fit-content;
+  align-self: end;
+  margin-top: 0.55rem;
+  color: #b8d3ad;
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.emergency-note {
+  color: rgba(242, 228, 207, 0.73);
+  line-height: 1.45;
+}
+
 .service-card a,
 .center-card a,
 .pharmacy-card a {
@@ -424,6 +478,7 @@
 
 .pharmacy-results {
   display: grid;
+  gap: 0.85rem;
 }
 
 .pharmacy-card {
@@ -432,7 +487,7 @@
 
 .emergency-section {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1.2fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.2rem;
   align-items: center;
   border-color: rgba(224, 138, 125, 0.32);
@@ -445,7 +500,7 @@
 
 .emergency-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: 0.65rem;
 }
 

@@ -284,6 +284,8 @@ test('Salud usa un único JSON editable y teléfonos verificables con datos pend
   assert.ok(entries.some((entry) => entry.telefonos.length > 1));
   assert.ok(entries.flatMap((entry) => entry.telefonos).every((phone) => Boolean(phone.numero) && /^[+0-9 -]+$/.test(phone.numero)));
   assert.ok(entries.every((entry) => typeof entry.fuenteUrl === 'string'));
-  assert.ok(data.atencion.serviciosPrincipales.some((entry) => entry.nombre.includes('Hornos') && entry.telefonos.length === 0),
-    'Un nuevo CAPS sin número confirmado debe quedar explícitamente pendiente');
+  assert.ok(data.atencion.serviciosPrincipales.some((entry) =>
+    entry.nombre.includes('Hornos') && entry.telefonos.length === 1 &&
+    entry.telefonos[0].etiqueta.includes('vigencia sin confirmar')),
+    'El número guardado para Hornos debe figurar como pendiente de confirmación institucional');
 });

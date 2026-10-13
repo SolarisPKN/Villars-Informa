@@ -29,7 +29,13 @@ test('los teléfonos de salud tienen enlaces marcables válidos, fuente y no son
     }
   }
   const hornos = services.find((x) => x.nombre === 'CAPS General Hornos');
-  assert.deepEqual(phoneNumbers(hornos), [], 'no asociar automáticamente el número de un CAPS anterior al nuevo');
+  assert.deepEqual(phoneNumbers(hornos), ['11 2326-3500']);
+  assert.match(hornos.telefonos[0].etiqueta, /vigencia sin confirmar/);
+  assert.match(hornos.nota, /no se encontró corroboración institucional pública/);
+  const villars = services.find((x) => x.nombre.includes('CAPS Villars'));
+  assert.deepEqual(phoneNumbers(villars), ['11 3601-9261']);
+  const usam = services.find((x) => x.nombre.startsWith('USAM'));
+  assert.deepEqual(phoneNumbers(usam), ['11 2279-5553', '11 2279-2887']);
 });
 
 test('SAME, bomberos, policía, hospital y salud mental están publicados', () => {

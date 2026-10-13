@@ -50,8 +50,13 @@
         "localidad": "General Hornos",
         "direccion": "2 de Abril s/n, General Hornos (ubicación provincial; confirmar acceso)",
         "horarios": "De 8 a 17 h, con enfermería, según anuncio de inauguración municipal. Confirmá antes de asistir.",
-        "telefonos": [],
-        "nota": "El municipio informó sector de guardia, shockroom y atención primaria. No se encontró un teléfono actualizado verificado para este nuevo centro.",
+        "telefonos": [
+          {
+            "etiqueta": "Agenda comunitaria · vigencia sin confirmar",
+            "numero": "11 2326-3500"
+          }
+        ],
+        "nota": "El municipio informó sector de guardia, shockroom y atención primaria. El teléfono 11 2326-3500 figura en una agenda local como «Salita Caps Hornos», pero no se encontró corroboración institucional pública; confirmá que siga vigente antes de usarlo. Para emergencias llamá al 107 o 911.",
         "fuenteUrl": "https://gobiernodelasheras.com/destacados/inauguracion-del-centro-de-atencion-primaria-de-la-salud-de-hornos/",
         "tipo": "Atención primaria",
         "estado": "Ver contacto y horarios",
@@ -408,7 +413,7 @@
   },
   "fuentes": {
     "titulo": "Fuentes y vigencia de los datos",
-    "aviso": "Fuentes consultadas el 13 de octubre de 2026. Algunos teléfonos y horarios de CAPS provienen de una guía de abril de 2022: no significa que hayan sido confirmados telefónicamente hoy. Confirmá antes de viajar. Los turnos de farmacias no se actualizan en vivo.",
+    "aviso": "Fuentes públicas consultadas el 13 de octubre de 2026. Algunos teléfonos y horarios de CAPS provienen de una guía de abril de 2022. El teléfono de CAPS Hornos procede de una agenda comunitaria, no de una confirmación institucional pública; se identifica como pendiente de verificación. Confirmá antes de viajar. Los turnos de farmacias no se actualizan en vivo.",
     "lista": [
       {
         "etiqueta": "Provincia de Buenos Aires · Guía de salud General Las Heras (datos de abril de 2022)",

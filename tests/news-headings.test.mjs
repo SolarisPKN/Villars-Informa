@@ -1,22 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import normalizeNewsHeadings from '../scripts/remark-news-headings.mjs';
+import { readdir, readFile } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
+import { normalizeNewsBody } from '../scripts/lib/news-headings.mjs';
 
-test('news MDX does not produce two H1 headings', () => {
-  const tree = { children: [
-    { type: 'yaml', value: 'titulo: Ejemplo' },
-    { type: 'heading', depth: 1, children: [{ type: 'text', value: 'Ejemplo' }] },
-    { type: 'paragraph', children: [{ type: 'text', value: 'Cuerpo' }] },
-    { type: 'heading', depth: 1, children: [{ type: 'text', value: 'Sección' }] },
-  ] };
-  normalizeNewsHeadings()(tree, { path: '/repo/src/content/noticias/ejemplo/index.mdx' });
-  assert.equal(tree.children.length, 3);
-  assert.equal(tree.children[1].type, 'paragraph');
-  assert.equal(tree.children[2].depth, 2);
+test('editor strips duplicate leading title and demotes later H1', () => {
+  const normalized = normalizeNewsBody('# Noticia titular\n\nCuerpo.\n\n# Subsección\n');
+  assert.equal(normalized, 'Cuerpo.\n\n## Subsección');
 });
-
-test('other MDX content is untouched', () => {
-  const tree = { children: [{ type: 'heading', depth: 1 }] };
-  normalizeNewsHeadings()(tree, { path: '/repo/src/locales/home-descripcion.mdx' });
-  assert.equal(tree.children[0].depth, 1);
+test('editor does not rewrite code fences', () => {
+  assert.equal(normalizeNewsBody('Texto\n\n```sh\n# comentario\n```'), 'Texto\n\n```sh\n# comentario\n```');
+});
+test('every article uses the layout as its only H1', async () => {
+  const folder = resolve('src/content/noticias');
+  for (const item of await readdir(folder, { withFileTypes: true })) {
+    if (!item.isDirectory()) continue;
+    const mdx = await readFile(join(folder, item.name, 'index.mdx'), 'utf8');
+    const body = mdx.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+    assert.doesNotMatch(body, /^#\s+/m, item.name);
+  }
 });

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { normalizeNewsBody } from './lib/news-headings.mjs';
 import fsp from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
@@ -411,7 +412,7 @@ export async function updateContent(channel, slug, input, { rootDirectory = proj
       ['imagenes', galleryUrls],
       ...eventFrontmatter(news),
     ]);
-    source = `${frontmatter}\n${news.content.trim()}\n`;
+    source = `${frontmatter}\n${normalizeNewsBody(news.content)}\n`;
     await fsp.mkdir(paths.imagesDirectory, { recursive: true });
     const written = [];
     try {
@@ -569,7 +570,7 @@ export async function createNews(input, { rootDirectory = projectRoot } = {}) {
     ...eventFrontmatter(news),
   ]);
   const contentPath = inside(contentDirectory, 'index.mdx');
-  const writes = [[contentPath, `${frontmatter}\n${news.content.trim()}\n`]];
+  const writes = [[contentPath, `${frontmatter}\n${normalizeNewsBody(news.content)}\n`]];
   for (const image of [news.hero, ...news.gallery].filter(Boolean)) {
     writes.push([inside(imagesDirectory, image.name), image.data]);
   }

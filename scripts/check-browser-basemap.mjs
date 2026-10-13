@@ -6,6 +6,10 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, de
 const errors = [];
 const consoleErrors = [];
 const requests = [];
+const failLocalTiles = process.env.MAP_BREAK_PMTILES === '1';
+if (failLocalTiles) {
+  await page.route(/\.pmtiles(?:$|\?)/, (route) => route.fulfill({ status: 503, body: 'simulated-PMTiles-down' }));
+}
 page.on('pageerror', (error) => errors.push(String(error)));
 page.on('console', (msg) => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
 page.on('response', (response) => {
@@ -14,7 +18,7 @@ page.on('response', (response) => {
 try {
   await page.goto(new URL('/transporte/', origin).href, { waitUntil: 'domcontentloaded', timeout: 35_000 });
   await page.waitForSelector('.leaflet-container', { timeout: 35_000 });
-  await page.waitForTimeout(8000);
+  await page.waitForTimeout(failLocalTiles ? 5500 : 8000);
   const details = await page.evaluate(() => {
     const canvases = [...document.querySelectorAll('canvas.leaflet-tile')];
     const data = [];
@@ -34,10 +38,19 @@ try {
       }
       data.push({ zoom: canvas.parentElement?.className, width: canvas.width, height: canvas.height, alpha, dark, colors: colors.size, loaded: canvas.classList.contains('leaflet-tile-loaded') });
     }
-    return { status: document.querySelector('[data-live-map-status]')?.textContent, canvasCount: canvases.length, data, routeLines: document.querySelectorAll('.leaflet-overlay-pane path').length };
+    return {
+      status: document.querySelector('[data-live-map-status]')?.textContent,
+      alternateButton: document.querySelector('[data-map-alternate]')?.textContent,
+      backupImages: document.querySelectorAll('.leaflet-tile-pane img.leaflet-tile').length,
+      canvasCount: canvases.length, data,
+      routeLines: document.querySelectorAll('.leaflet-overlay-pane path').length,
+    };
   });
   console.log('BROWSER_BASEMAP_DIAGNOSTICS ' + JSON.stringify({ details, errors, consoleErrors, requests }).slice(0, 25000));
-  if (process.env.MAP_REPORT_ONLY !== '1' && !details.data.some((tile) => tile.loaded && tile.alpha > 50 && tile.colors >= 4)) {
+  if (failLocalTiles && (details.backupImages === 0 || !details.status.includes('OpenStreetMap'))) {
+    throw new Error('PMTiles failure did not activate OSM raster backup while retaining routes');
+  }
+  if (process.env.MAP_REPORT_ONLY !== '1' && !failLocalTiles && !details.data.some((tile) => tile.loaded && tile.alpha > 50 && tile.colors >= 4)) {
     throw new Error('Browser rendered no recognizable non-empty basemap canvas, despite PMTiles healthchecks');
   }
   if (process.env.MAP_REPORT_ONLY !== '1' && errors.length) throw new Error('Browser JS errors: ' + errors.join(' | '));

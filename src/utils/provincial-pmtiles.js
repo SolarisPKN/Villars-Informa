@@ -47,20 +47,33 @@ export function partiesForViewport(manifest, bounds) {
   return manifest.parties.filter((party) => boundsIntersect(party.bounds, bounds));
 }
 
-async function archiveLayer(leafletLayer, fileUrl, options, expectedBytes) {
+// Protomaps works with 512px data tiles by default (levelDiff=1).
+// An archive starting at source z10 first becomes visible at display z11.
+export const PARTY_MIN_DISPLAY_ZOOM = 11;
+const MAX_CACHED_PARTY_LAYERS = 12;
+const LOAD_CONCURRENCY = 3;
+
+export function latLngBoundsFromGeoBounds(bounds) {
+  if (!validBounds(bounds)) throw new Error('Invalid PMTiles geographic bounds');
+  return [[bounds[1], bounds[0]], [bounds[3], bounds[2]]];
+}
+
+async function archiveLayer(leafletLayer, fileUrl, options, expectedBytes, transparent = false) {
   const opened = await openPmtilesSource(fileUrl, { expectedBytes });
   const archive = new PMTiles(opened.source);
   const header = await archive.getHeader();
-  return {
-    header,
-    deliveryMode: opened.mode,
-    layer: leafletLayer({
-      ...DEFAULT_OPTIONS,
-      ...options,
-      url: archive,
-      maxDataZoom: Math.min(Number(options.maxDataZoom), Number(header.maxZoom)),
-    }),
-  };
+  const layer = leafletLayer({
+    ...DEFAULT_OPTIONS,
+    ...options,
+    url: archive,
+    maxDataZoom: Math.min(Number(options.maxDataZoom), Number(header.maxZoom)),
+  });
+  // protomaps-leaflet 5.x paints a full opaque background for EACH layer
+  // when "flavor" is set. A separate background per partido hides all the
+  // previously rendered neighboring partidos, including on empty tiles.
+  // Keep its paint/label rules, but make individual partido canvases transparent.
+  if (transparent) layer.backgroundColor = undefined;
+  return { header, deliveryMode: opened.mode, layer };
 }
 
 export async function addProvincialPmtiles({
@@ -69,52 +82,106 @@ export async function addProvincialPmtiles({
   manifestUrl = '/maps/buenos-aires/manifest.json',
   fallbackUrl = '/maps/villars-region.pmtiles',
   onTileError = () => {},
+  manifestLoader = readProvinceMapManifest,
+  archiveLayerFactory = archiveLayer,
 } = {}) {
   try {
-    const loaded = await readProvinceMapManifest(manifestUrl);
-    const common = { bounds: [[loaded.manifest.bounds[1], loaded.manifest.bounds[0]], [loaded.manifest.bounds[3], loaded.manifest.bounds[2]]] };
-    const overview = await archiveLayer(leafletLayer, resolveFile(loaded.url, loaded.manifest.overview.file), {
-      ...common,
-      minZoom: 5,
-      maxZoom: 9,
-      maxDataZoom: 9,
-    }, loaded.manifest.overview.bytes);
+    const loaded = await manifestLoader(manifestUrl);
+    const provinceBounds = latLngBoundsFromGeoBounds(loaded.manifest.bounds);
+    // Never remove the overview on zoom: it provides continuous ground below
+    // partido detail, while partido files download or near archive boundaries.
+    const overview = await archiveLayerFactory(
+      leafletLayer,
+      resolveFile(loaded.url, loaded.manifest.overview.file),
+      { bounds: provinceBounds, minZoom: 5, maxZoom: 18, maxDataZoom: 9 },
+      loaded.manifest.overview.bytes,
+      false,
+    );
     overview.layer.on('tileerror', onTileError).addTo(map);
-    const partyLayers = new Map();
+
+    const active = new Map();
+    // A limited, reusable layer cache prevents downloading the same large
+    // archive again each time someone pans across a municipality border.
+    const cache = new Map();
     let generation = 0;
+    let destroyed = false;
+
+    function trimCache() {
+      for (const id of cache.keys()) {
+        if (cache.size <= MAX_CACHED_PARTY_LAYERS) break;
+        if (!active.has(id)) cache.delete(id);
+      }
+    }
+
+    function getParty(party) {
+      let task = cache.get(party.id);
+      if (task) {
+        cache.delete(party.id);
+        cache.set(party.id, task);
+        return task;
+      }
+      task = archiveLayerFactory(
+        leafletLayer,
+        resolveFile(loaded.url, party.file),
+        {
+          bounds: latLngBoundsFromGeoBounds(party.bounds),
+          minZoom: PARTY_MIN_DISPLAY_ZOOM,
+          maxZoom: Number(loaded.manifest.maxVisualZoom || 18),
+          maxDataZoom: Number(loaded.manifest.maxDataZoom || 15),
+        },
+        party.bytes,
+        true,
+      ).then((entry) => {
+        entry.layer.on('tileerror', onTileError);
+        return entry;
+      }).catch((error) => {
+        // Failed downloads are retryable, not cached as permanent blank regions.
+        if (cache.get(party.id) === task) cache.delete(party.id);
+        throw error;
+      });
+      cache.set(party.id, task);
+      trimCache();
+      return task;
+    }
 
     async function update() {
       const currentGeneration = ++generation;
-      const wanted = map.getZoom() >= 10
+      const wanted = map.getZoom() >= PARTY_MIN_DISPLAY_ZOOM
         ? new Set(partiesForViewport(loaded.manifest, viewportBounds(map)).map(({ id }) => id))
         : new Set();
-      for (const [id, entry] of partyLayers) {
+
+      for (const [id, entry] of active) {
         if (!wanted.has(id)) {
           map.removeLayer(entry.layer);
-          partyLayers.delete(id);
+          active.delete(id);
         }
       }
-      const missing = loaded.manifest.parties.filter((party) => wanted.has(party.id) && !partyLayers.has(party.id));
-      let failures = 0;
-      await Promise.all(missing.map(async (party) => {
-        try {
-          const entry = await archiveLayer(leafletLayer, resolveFile(loaded.url, party.file), {
-            ...common,
-            minZoom: 10,
-            maxZoom: Number(loaded.manifest.maxVisualZoom || 18),
-            maxDataZoom: Number(loaded.manifest.maxDataZoom || 15),
-          }, party.bytes);
-          if (currentGeneration !== generation || !wanted.has(party.id)) return;
-          entry.layer.on('tileerror', onTileError).addTo(map);
-          partyLayers.set(party.id, entry);
-        } catch (error) {
-          failures += 1;
-          onTileError({ error, file: party.file });
-        }
-      }));
-      if (missing.length > 0 && failures === missing.length && partyLayers.size === 0) {
-        throw new Error('Ningún archivo PMTiles del área visible respondió con rangos válidos.');
+      trimCache();
+
+      const missing = loaded.manifest.parties.filter(
+        (party) => wanted.has(party.id) && !active.has(party.id),
+      );
+      // Panning cancels the remaining batches; otherwise a fast pan at z11
+      // can fetch tens of HTTP-200 archives for a viewport no longer visible.
+      for (let i = 0; i < missing.length; i += LOAD_CONCURRENCY) {
+        if (destroyed || currentGeneration !== generation) return;
+        await Promise.all(missing.slice(i, i + LOAD_CONCURRENCY).map(async (party) => {
+          try {
+            const entry = await getParty(party);
+            if (destroyed || currentGeneration !== generation || !wanted.has(party.id)) return;
+            if (!active.has(party.id)) {
+              entry.layer.addTo(map);
+              active.set(party.id, entry);
+            }
+          } catch (error) {
+            if (!destroyed && currentGeneration === generation) {
+              onTileError({ error, file: party.file });
+            }
+          }
+        }));
       }
+      trimCache();
+      // On failure, overview remains visible; do NOT remove the whole map.
     }
 
     const handleMove = () => { void update().catch((error) => onTileError({ error })); };
@@ -124,24 +191,31 @@ export async function addProvincialPmtiles({
     } catch (error) {
       map.off('moveend zoomend', handleMove);
       map.removeLayer(overview.layer);
-      for (const { layer } of partyLayers.values()) map.removeLayer(layer);
+      for (const { layer } of active.values()) map.removeLayer(layer);
+      cache.clear();
       throw error;
     }
+
     return {
       mode: 'parties',
       deliveryMode: overview.deliveryMode,
       manifest: loaded.manifest,
       destroy() {
+        destroyed = true;
         generation += 1;
         map.off('moveend zoomend', handleMove);
         map.removeLayer(overview.layer);
-        for (const { layer } of partyLayers.values()) map.removeLayer(layer);
-        partyLayers.clear();
+        for (const { layer } of active.values()) map.removeLayer(layer);
+        active.clear();
+        cache.clear();
       },
     };
   } catch (manifestError) {
     const absoluteFallback = new URL(fallbackUrl, globalThis.location?.href || 'http://localhost/').href;
-    const fallback = await archiveLayer(leafletLayer, absoluteFallback, { minZoom: 5, maxZoom: 18, maxDataZoom: 14 });
+    const fallback = await archiveLayerFactory(
+      leafletLayer, absoluteFallback,
+      { minZoom: 5, maxZoom: 18, maxDataZoom: 14 },
+    );
     fallback.layer.on('tileerror', onTileError).addTo(map);
     return {
       mode: 'regional-fallback',

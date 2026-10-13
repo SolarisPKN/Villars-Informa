@@ -45,3 +45,14 @@ de emergencia, no como cartografía principal.
 ### Compatibilidad con alojamiento sin rangos HTTP
 
 PMTiles conserva acceso aleatorio con HTTP 206 si el host lo soporta. Si Cloudflare Pages responde HTTP 200, el cliente descarga el archivo solicitado (overview o partido necesario), limitado a 25 MiB, verifica firma/tamaño y lo expone mediante un Source de memoria. No se descarga toda la provincia; la solución es completamente estática y gratuita. En hosting sin Range el consumo de datos es mayor.
+
+
+### Continuidad visual al mover o ampliar el mapa
+
+La vista regional permanece montada y hace *overzoom* de la información z0–9 hasta z18. Los archivos por partido son **superposiciones con fondo transparente**: no deben tapar los municipios vecinos ni dejar en gris una tesela para la que todavía no llegó un archivo de detalle.
+
+Protomaps Leaflet usa por defecto teselas fuente de 512 px con levelDiff=1. Por eso el primer nivel **visual** que puede usar los PMTiles municipales con datos mínimos z10 es **z11**; a z10 aún corresponde usar la vista regional (datos z9). Activarlos a z10 era un error de nivel fuente y dejaba huecos.
+
+Las capas municipales se limitan a su propia caja geográfica, no a todo el rectángulo provincial. El controlador conserva como máximo 12 capas recientes en caché para evitar descargas repetidas cuando se cruza una frontera; carga hasta tres partidos en paralelo y abandona nuevos lotes obsoletos ante un desplazamiento. Si una descarga falla, se conserva la cartografía regional mientras los datos de transporte siguen visibles.
+
+**Límite de cobertura:** los archivos incluidos están recortados a la provincia de Buenos Aires; desplazarse fuera del rectángulo provincial no produce cartografía nueva. Sobre otras provincias haría falta ampliar el inventario de archivos o añadir otro proveedor.

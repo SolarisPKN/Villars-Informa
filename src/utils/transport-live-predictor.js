@@ -1,4 +1,5 @@
 const METERS_PER_DEGREE = 111_320;
+const MAX_GPS_DISTANCE_FROM_ROUTE_METERS = 1200;
 
 export const normalizeLiveName = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
@@ -65,28 +66,56 @@ export function snapshotVehicles(snapshot) {
 
 const serviceNumber = (value) => String(value || '').match(/\b\d{3,6}\b/)?.[0] || String(value || '');
 
+export function normalizedStationKey(family, name) {
+  let key = normalizeLiveName(name)
+    .replace(/^estacion /, '')
+    .replace(/^terminal /, '')
+    .replace(/ rp \d+.*$/, '')
+    .replace(/ \bbelgrano\b$/, '');
+  // Timetables and OSM feature labels differ for the same platforms.
+  const aliases = {
+    'a ferrari': 'agustin ferrari',
+    'maquinista r cal': 'maquinista ricardo cal',
+    'hornos': 'general hornos',
+    'las heras': 'general las heras',
+    'general hornos': 'general hornos',
+    'general las heras': 'general las heras',
+  };
+  key = aliases[key] || key;
+  return family + ':' + key;
+}
+
+
 function indexes(mapData) {
   const stations = new Map();
   for (const feature of mapData.stops.features || []) {
-    const family = feature.properties?.lineKey; const name = normalizeLiveName(feature.properties?.name);
-    if (family && name && feature.geometry?.type === 'Point') stations.set(`${family}:${name}`, feature.geometry.coordinates);
+    const family = feature.properties?.lineKey; const name = feature.properties?.name;
+    if (family && name && feature.geometry?.type === 'Point') stations.set(normalizedStationKey(family, name), feature.geometry.coordinates);
   }
   return stations;
 }
 
 function selectShape(mapData, family, service, stations) {
   const candidates = (mapData.routes.features || []).filter((feature) => feature.properties?.lineKey === family && feature.geometry?.type === 'LineString');
-  const first = stations.get(`${family}:${normalizeLiveName(service.stops?.[0]?.station)}`);
-  const last = stations.get(`${family}:${normalizeLiveName(service.stops?.at(-1)?.station)}`);
+  const first = stations.get(normalizedStationKey(family, service.stops?.[0]?.station));
+  const last = stations.get(normalizedStationKey(family, service.stops?.at(-1)?.station));
   let best = null;
   for (const feature of candidates) {
+    // Ignore a deliberately unverified stop-to-stop corridor. A route used
+    // for vehicle placement must contain road/rail geometry, not chords.
+    if (feature.properties?.geometryKind === 'unverified-reference') continue;
     let coordinates = feature.geometry.coordinates;
     let score = 0;
-    if (first && last) {
-      const direct = distance(first, coordinates[0]) + distance(last, coordinates.at(-1));
-      const reverse = distance(first, coordinates.at(-1)) + distance(last, coordinates[0]);
+    if (first || last) {
+      const direct = (first ? distance(first, coordinates[0]) : 0)
+        + (last ? distance(last, coordinates.at(-1)) : 0);
+      const reverse = (first ? distance(first, coordinates.at(-1)) : 0)
+        + (last ? distance(last, coordinates[0]) : 0);
       if (reverse < direct) coordinates = [...coordinates].reverse();
       score = Math.min(direct, reverse);
+    } else {
+      // An unmatched service cannot be assigned a random 136 branch.
+      continue;
     }
     if (!best || score < best.score) best = { feature, coordinates, score };
   }
@@ -100,8 +129,8 @@ function scheduledPosition(service, shape, stations, nowMinutes, delayMinutes) {
   let index = stops.findIndex((stop, stopIndex) => stopIndex < stops.length - 1 && adjusted >= stop.minutes && adjusted <= stops[stopIndex + 1].minutes);
   if (index < 0) index = stops.length - 2;
   const from = stops[index]; const to = stops[index + 1]; const full = metrics(shape.coordinates);
-  const fromPoint = stations.get(`${shape.feature.properties.lineKey}:${normalizeLiveName(from.station)}`);
-  const toPoint = stations.get(`${shape.feature.properties.lineKey}:${normalizeLiveName(to.station)}`);
+  const fromPoint = stations.get(normalizedStationKey(shape.feature.properties.lineKey, from.station));
+  const toPoint = stations.get(normalizedStationKey(shape.feature.properties.lineKey, to.station));
   const fromAlong = fromPoint ? projectPointToLine(fromPoint, shape.coordinates).along : full.total * index / (stops.length - 1);
   const toAlong = toPoint ? projectPointToLine(toPoint, shape.coordinates).along : full.total * (index + 1) / (stops.length - 1);
   const ratio = (adjusted - from.minutes) / (to.minutes - from.minutes || 1);
@@ -137,17 +166,31 @@ export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date 
     if (!planned && !Number.isFinite(live?.lat)) continue;
     let coordinates = planned?.coordinates; let positionKind = 'schedule-estimated'; let speedKmh = live?.speedKmh;
     if (Number.isFinite(live?.lon) && Number.isFinite(live?.lat)) {
-      const projected = projectPointToLine([live.lon, live.lat], shape.coordinates); const identity = live.vehicleId || live.tripId || service.name;
+      const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
+      // A GPS report far from the selected corridor is not trustworthy. Never
+      // teleport it onto an unrelated road or draw a dot floating in a field.
+      if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) {
+        matched.add(live);
+      } else {
+      const identity = live.vehicleId || live.tripId || service.name;
       const observedAt = new Date(live.observedAt || live.sourceTimestamp || live.checkedAt || date).getTime(); history.push(identity, { at: observedAt, along: projected.along });
       const calculated = history.metersPerSecond(identity); const velocity = Number.isFinite(Number(speedKmh)) ? Number(speedKmh) / 3.6 : calculated;
       const age = Math.max(0, Math.min(240, (date.getTime() - observedAt) / 1000)); coordinates = pointAlongLine(shape.coordinates, projected.along + (Number.isFinite(velocity) ? velocity * age : 0));
       positionKind = age < 15 ? 'gps' : 'gps-corrected'; if (!Number.isFinite(Number(speedKmh)) && Number.isFinite(calculated)) speedKmh = Math.abs(calculated * 3.6); matched.add(live);
+      }
     }
     if (!coordinates) continue;
     features.push(feature({ id: live?.vehicleId || `schedule:${route.id}:${grid.id}:${service.id}`, mode: route.type, routeId: live?.routeId || route.id, lineKey: route.lineKey, tripId: live?.tripId || `${route.id}:${grid.id}:${service.id}`, serviceNumber: serviceNumber(service.name), label: `${route.type === 'train' ? 'Tren' : 'Colectivo'} ${service.name} · ${service.destination}`, direction: service.destination, positionKind, positionSource: live?.positionSource || 'schedule-estimated', fromStop: live?.previousStop || planned?.fromStop, toStop: live?.nextStop || planned?.toStop, status: live?.status || 'scheduled', delaySeconds, speedKmh, stale: Boolean(live?.stale), cancelled: live?.status === 'cancelled', updatedAt: live?.confirmedAt || live?.checkedAt || snapshot?.updatedAt || date.toISOString() }, coordinates));
   }
   for (const live of realtime.filter((item) => !matched.has(item) && Number.isFinite(item.lon) && Number.isFinite(item.lat))) {
-    const family = routeFamilyForLive(live); const shape = selectShape(mapData, family, { stops: [] }, stations); const coordinates = shape ? projectPointToLine([live.lon, live.lat], shape.coordinates).point : [live.lon, live.lat];
+    const family = routeFamilyForLive(live);
+    const shape = selectShape(mapData, family, { stops: [] }, stations);
+    // Unknown routes and remote coordinates must not appear as if they were
+    // verified positions on the road/rails.
+    if (!shape) continue;
+    const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
+    if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) continue;
+    const coordinates = projected.point;
     features.push(feature({ id: live.vehicleId || live.tripId, mode: live.mode, routeId: live.routeId, lineKey: family, tripId: live.tripId, serviceNumber: live.serviceNumber, label: live.destination || live.routeId, direction: live.destination, positionKind: 'gps', positionSource: live.positionSource, status: live.status, delaySeconds: live.delaySeconds, stale: live.stale, cancelled: live.status === 'cancelled', updatedAt: live.confirmedAt || live.checkedAt || live.sourceTimestamp }, coordinates));
   }
   return features;

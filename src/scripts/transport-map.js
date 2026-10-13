@@ -13,7 +13,7 @@ const mapData = {
   ...baseMapData,
   routes: {
     ...baseMapData.routes,
-    features: [...baseMapData.routes.features, route136Features.route],
+    features: [...baseMapData.routes.features, route136Features.route, ...route136Features.patterns],
   },
   stops: {
     ...baseMapData.stops,
@@ -164,7 +164,7 @@ function renderFilteredLayers() {
     if (filters.layers.has('routes')) {
       routeLayer.addData({
         type: 'FeatureCollection',
-        features: mapData.routes.features.filter((feature) => featureIsVisible(feature, filters)),
+        features: mapData.routes.features.filter((feature) => !feature.properties?.positionOnly && featureIsVisible(feature, filters)),
       });
     }
   }

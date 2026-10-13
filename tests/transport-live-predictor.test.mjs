@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { buildPredictedLiveFeatures, ObservationHistory, projectPointToLine, usableLiveReports } from '../src/utils/transport-live-predictor.js';
+import { buildPredictedLiveFeatures, ObservationHistory, projectPointToLine, usableLiveReports, gpsGapDisplay, GPS_UNKNOWN_AFTER_MS } from '../src/utils/transport-live-predictor.js';
 import { partiesForViewport, readProvinceMapManifest } from '../src/utils/provincial-pmtiles.js';
 
 const schedules = { timezone: 'America/Argentina/Buenos_Aires', routes: [{ id: 'route', type: 'train', lineKey: 'belgrano-sur', schedules: [{ id: 1, day: { key: 'weekday' }, services: [{ id: 1, name: '5112', destination: 'B', stops: [{ station: 'A', minutes: 600 }, { station: 'B', minutes: 660 }] }] }] }] };
@@ -121,4 +121,55 @@ test('live updates do not repaint every train, bus and stop layer each second', 
   assert.match(mapScript, /renderFilteredLayers\(\{ liveOnly: true \}\)/);
   assert.match(mapScript, /renderFilteredLayers\(\{ liveOnly = false \} = \{\}\)/);
   assert.match(mapScript, /liveFeatures\(latestSnapshot\)\), 10_000/);
+});
+
+
+test('dotted GPS indicator starts at exactly ten minutes without a known GPS position', () => {
+  const date = new Date('2026-09-14T13:30:00Z'); // 10:30 Argentina
+  for (const secondsWithoutGps of [0, 15, 120, 599]) {
+    const gap = gpsGapDisplay({
+      lastGpsAt: new Date(date.getTime() - secondsWithoutGps * 1000).toISOString(),
+      serviceStartMinutes: 600, nowMinutes: 630, date,
+    });
+    assert.equal(gap.dashed, false, 'at ' + secondsWithoutGps + 's still solid');
+  }
+  const gap = gpsGapDisplay({
+    lastGpsAt: new Date(date.getTime() - 600_000).toISOString(),
+    serviceStartMinutes: 600, nowMinutes: 630, date,
+  });
+  assert.equal(gap.unknownForMs, GPS_UNKNOWN_AFTER_MS);
+  assert.equal(gap.dashed, true);
+});
+
+test('without any previous GPS, start showing dots ten minutes after service starts', () => {
+  const date = new Date('2026-09-14T13:30:00Z');
+  assert.equal(gpsGapDisplay({ lastGpsAt: null, serviceStartMinutes: 625, nowMinutes: 630, date }).dashed, false);
+  assert.equal(gpsGapDisplay({ lastGpsAt: null, serviceStartMinutes: 620, nowMinutes: 630, date }).dashed, true);
+  assert.equal(gpsGapDisplay({ lastGpsAt: null, serviceStartMinutes: 621, nowMinutes: 630, date }).dashed, false);
+});
+
+test('actual schedule marker stays solid while recent GPS is interpolated, then gets dotted', () => {
+  const snapAt = new Date('2026-09-14T13:29:30Z');
+  const oneReport = observedTrain({ observedAt: snapAt.toISOString() });
+  const recent = trainSnapshot([oneReport]);
+  const history = new ObservationHistory();
+  const first = buildPredictedLiveFeatures({ schedules, mapData, snapshot: recent, date: now, history });
+  assert.equal(first.length, 1);
+  assert.equal(first[0].properties.gpsDashed, false);
+  const later = new Date(now.getTime() + 10 * 60_000 + 1000);
+  const noNewReport = trainSnapshot([], later.toISOString());
+  noNewReport.updatedAt = later.toISOString();
+  const second = buildPredictedLiveFeatures({ schedules, mapData, snapshot: noNewReport, date: later, history });
+  assert.equal(second.length, 1);
+  assert.equal(second[0].properties.gpsDashed, true);
+  assert.equal(second[0].properties.positionKind, 'schedule-estimated');
+});
+
+test('UI uses gpsDashed instead of confusing every non-GPS estimate with 10min GPS silence', async () => {
+  const client = await readFile(new URL('../src/scripts/transport-map.js', import.meta.url), 'utf8');
+  const page = await readFile(new URL('../src/pages/transporte.astro', import.meta.url), 'utf8');
+  assert.match(client, /const gpsDashed = feature\?\.properties\?\.gpsDashed === true/);
+  assert.match(client, /properties\.positionKind, properties\.status, properties\.gpsDashed/);
+  assert.match(page, /Borde punteado · 10 min sin GPS nuevo/);
+  assert.doesNotMatch(page, /is-estimated\) \{[^}]*border-style: dashed/);
 });

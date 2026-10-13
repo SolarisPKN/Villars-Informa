@@ -37,7 +37,7 @@ async function queryRailways(stations) {
   // A corridor around ordered stations greatly reduces load versus fetching
   // every railway in a huge province-wide bounding rectangle (HTTP 504).
   const corridor = stations.map(([lon, lat]) => lat + ',' + lon).join(',');
-  const query = '[out:json][timeout:120];way["railway"="rail"](around:6000,' + corridor + ');out geom;';
+  const query = '[out:json][timeout:120];way["railway"~"^(rail|disused)$"](around:6000,' + corridor + ');out geom;';
   const errors = [];
   for (const endpoint of ENDPOINTS) {
     try {
@@ -90,7 +90,7 @@ function graphOf(ways) {
   return { nodes, edges };
 }
 
-function nearestNodes(graph, target, count = 18, radius = 1200) {
+function nearestNodes(graph, target, count = 80, radius = 1800) {
   const nearby = [];
   for (const [id, coordinates] of graph.nodes) {
     const d = meters(target, coordinates);
@@ -150,7 +150,7 @@ function bestRailLeg(graph, a, b) {
       }
     }
   }
-  if (finish === null) throw new Error('Railway disconnected between stations: ' + a + ' / ' + b);
+  if (finish === null) throw new Error('Railway disconnected between stations: ' + a + ' / ' + b + '; candidates ' + origins.length + ' / ' + goals.length + '; graph nodes ' + graph.nodes.size);
   const ids = [];
   for (let id = finish; id !== null; id = previous.get(id) ?? null) ids.push(id);
   ids.reverse();

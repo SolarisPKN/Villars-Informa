@@ -108,7 +108,7 @@ test('two verified, separated trains remain distinct and are not force-capped to
     observedTrain(),
     observedTrain({
       vehicleId: 'formation-8', tripId: 'turn-8', serviceNumber: '5222',
-      lon: -58.30, lat: -35.0001,
+      lon: -58.40, lat: -35.0001,
     }),
   ]);
   const pins = buildPredictedLiveFeatures({ schedules, mapData, snapshot, date: now });

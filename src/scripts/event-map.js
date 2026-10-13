@@ -27,21 +27,30 @@ async function initialize(container) {
     if (!container.isConnected) return;
     const map = L.map(container, { center: [lat, lon], zoom: 16, minZoom: 5, maxZoom: 18 });
     maps.set(container, map);
-    const baseMap = await addProvincialPmtiles({
-      map,
-      leafletLayer,
-      manifestUrl: import.meta.env.PUBLIC_PM_TILES_MANIFEST_URL || '/maps/buenos-aires/manifest.json',
-      fallbackUrl: '/maps/villars-region.pmtiles',
-      onTileError: (event) => console.error('No se pudo cargar una tesela del mapa del evento.', event.error),
-    });
-    basemaps.set(container, baseMap);
+    // Keep the location visible even when the basemap CDN cannot serve byte ranges.
     const marker = L.circleMarker([lat, lon], {
       radius: 10, color: '#fff', weight: 2, fillColor: '#e9c46a', fillOpacity: 1,
     }).addTo(map);
     const popup = document.createElement('strong');
     popup.textContent = place;
     marker.bindPopup(popup).openPopup();
-    if (status) { status.textContent = 'Mapa local interactivo · acercá, alejá o movelo libremente.'; status.dataset.state = 'ready'; }
+    let tileFailed = false;
+    const baseMap = await addProvincialPmtiles({
+      map,
+      leafletLayer,
+      manifestUrl: import.meta.env.PUBLIC_PM_TILES_MANIFEST_URL || '/maps/buenos-aires/manifest.json',
+      fallbackUrl: '/maps/villars-region.pmtiles',
+      onTileError: (event) => {
+        tileFailed = true;
+        console.error('No se pudo cargar una tesela del mapa del evento.', event.error);
+        if (status) { status.textContent = 'Cartografía incompleta; el marcador del evento sigue visible. Podés abrir la ubicación en Google Maps.'; status.dataset.state = 'error'; }
+      },
+    });
+    if (!container.isConnected) { baseMap.destroy(); map.remove(); maps.delete(container); return; }
+    basemaps.set(container, baseMap);
+    if (status && !tileFailed) { status.textContent = baseMap.mode === 'regional-fallback'
+      ? 'Mapa regional de respaldo · acercá, alejá o movelo.'
+      : 'Mapa local interactivo · acercá, alejá o movelo libremente.'; status.dataset.state = 'ready'; }
   } catch (error) {
     console.error('No se pudo cargar el mapa del evento.', error);
     if (status) { status.textContent = 'El mapa local no respondió. Usá el botón para abrir la ubicación.'; status.dataset.state = 'error'; }

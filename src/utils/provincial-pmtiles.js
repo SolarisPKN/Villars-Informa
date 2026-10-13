@@ -1,4 +1,5 @@
 import { PMTiles } from 'pmtiles';
+import { probePmtilesByteServing } from './pmtiles-health.js';
 
 const DEFAULT_OPTIONS = {
   flavor: 'dark',
@@ -30,7 +31,7 @@ function resolveFile(manifestUrl, file) {
 
 export async function readProvinceMapManifest(url, fetchImpl = fetch) {
   const absolute = new URL(url, globalThis.location?.href || 'http://localhost/').href;
-  const response = await fetchImpl(absolute, { headers: { Accept: 'application/json' }, cache: 'force-cache' });
+  const response = await fetchImpl(absolute, { headers: { Accept: 'application/json' }, cache: 'no-cache' });
   if (!response.ok) throw new Error(`Manifest PMTiles HTTP ${response.status}`);
   const manifest = await response.json();
   if (manifest?.schemaVersion !== 1 || !manifest.overview?.file || !Array.isArray(manifest.parties) || !validBounds(manifest.bounds)) {
@@ -47,6 +48,8 @@ export function partiesForViewport(manifest, bounds) {
 }
 
 async function archiveLayer(leafletLayer, fileUrl, options) {
+  // A valid file in dist is not enough: the production host must serve exact HTTP byte ranges.
+  await probePmtilesByteServing(fileUrl);
   const archive = new PMTiles(fileUrl);
   const header = await archive.getHeader();
   return {
@@ -92,27 +95,44 @@ export async function addProvincialPmtiles({
         }
       }
       const missing = loaded.manifest.parties.filter((party) => wanted.has(party.id) && !partyLayers.has(party.id));
+      let failures = 0;
       await Promise.all(missing.map(async (party) => {
-        const entry = await archiveLayer(leafletLayer, resolveFile(loaded.url, party.file), {
-          ...common,
-          minZoom: 10,
-          maxZoom: Number(loaded.manifest.maxVisualZoom || 18),
-          maxDataZoom: Number(loaded.manifest.maxDataZoom || 15),
-        });
-        if (currentGeneration !== generation || !wanted.has(party.id)) return;
-        entry.layer.on('tileerror', onTileError).addTo(map);
-        partyLayers.set(party.id, entry);
+        try {
+          const entry = await archiveLayer(leafletLayer, resolveFile(loaded.url, party.file), {
+            ...common,
+            minZoom: 10,
+            maxZoom: Number(loaded.manifest.maxVisualZoom || 18),
+            maxDataZoom: Number(loaded.manifest.maxDataZoom || 15),
+          });
+          if (currentGeneration !== generation || !wanted.has(party.id)) return;
+          entry.layer.on('tileerror', onTileError).addTo(map);
+          partyLayers.set(party.id, entry);
+        } catch (error) {
+          failures += 1;
+          onTileError({ error, file: party.file });
+        }
       }));
+      if (missing.length > 0 && failures === missing.length && partyLayers.size === 0) {
+        throw new Error('Ningún archivo PMTiles del área visible respondió con rangos válidos.');
+      }
     }
 
-    map.on('moveend zoomend', update);
-    await update();
+    const handleMove = () => { void update().catch((error) => onTileError({ error })); };
+    map.on('moveend zoomend', handleMove);
+    try {
+      await update();
+    } catch (error) {
+      map.off('moveend zoomend', handleMove);
+      map.removeLayer(overview.layer);
+      for (const { layer } of partyLayers.values()) map.removeLayer(layer);
+      throw error;
+    }
     return {
       mode: 'parties',
       manifest: loaded.manifest,
       destroy() {
         generation += 1;
-        map.off('moveend zoomend', update);
+        map.off('moveend zoomend', handleMove);
         map.removeLayer(overview.layer);
         for (const { layer } of partyLayers.values()) map.removeLayer(layer);
         partyLayers.clear();

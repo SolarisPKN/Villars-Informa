@@ -39,6 +39,8 @@ let motionTimer;
 let pollingController;
 let lastEtag;
 let baseMapState = 'loading';
+let hasTileFailure = false;
+let initGeneration = 0;
 let liveStatus = { message: 'Conectando con el snapshot de posiciones…', state: 'loading' };
 let hasAutoFocusedLive = false;
 let activeSelection;
@@ -55,6 +57,8 @@ function loadLeafletRenderer() {
 
 function renderStatus() {
   const node = document.querySelector('[data-live-map-status]');
+  const retry = document.querySelector('[data-map-retry]');
+  if (retry instanceof HTMLButtonElement) retry.hidden = baseMapState === 'loading' || (baseMapState !== 'error' && !hasTileFailure);
   if (!node) return;
   if (baseMapState === 'loading') {
     node.textContent = 'Cargando la cartografía local…';
@@ -63,6 +67,11 @@ function renderStatus() {
   }
   if (baseMapState === 'error') {
     node.textContent = 'No se pudo abrir la cartografía local. Los horarios siguen disponibles.';
+    node.dataset.state = 'error';
+    return;
+  }
+  if (hasTileFailure) {
+    node.textContent = 'Cartografía incompleta: el servidor no entregó todas las teselas. Los recorridos y posiciones siguen disponibles.';
     node.dataset.state = 'error';
     return;
   }
@@ -380,6 +389,11 @@ function addTransportLayers() {
 async function initTransportMap() {
   const container = document.querySelector('[data-transport-map]');
   if (!(container instanceof HTMLElement)) return;
+  const generation = ++initGeneration;
+  window.clearInterval(pollTimer);
+  window.clearInterval(motionTimer);
+  pollingController?.abort();
+  filterController?.abort();
   baseMapController?.destroy();
   baseMapController = undefined;
   map?.remove();
@@ -390,6 +404,7 @@ async function initTransportMap() {
   hasAutoFocusedLive = false;
   activeSelection ||= routeSelectionFromControls();
   baseMapState = 'loading';
+  hasTileFailure = false;
   renderStatus();
 
   let leafletLayer;
@@ -401,7 +416,7 @@ async function initTransportMap() {
     renderStatus();
     return;
   }
-  if (!container.isConnected) return;
+  if (!container.isConnected || generation !== initGeneration) return;
 
   map = L.map(container, {
     center: [mapData.center[1], mapData.center[0]],
@@ -413,13 +428,20 @@ async function initTransportMap() {
   });
 
   try {
-    baseMapController = await addProvincialPmtiles({
+    const controller = await addProvincialPmtiles({
       map,
       leafletLayer,
       manifestUrl: mapManifestUrl,
       fallbackUrl: '/maps/villars-region.pmtiles',
-      onTileError: (event) => console.error('No se pudo cargar una tesela de la cartografía local.', event.error),
+      onTileError: (event) => {
+        if (generation !== initGeneration) return;
+        hasTileFailure = true;
+        renderStatus();
+        console.error('No se pudo cargar una tesela de la cartografía local.', event.error);
+      },
     });
+    if (generation !== initGeneration) { controller.destroy(); return; }
+    baseMapController = controller;
     baseMapState = 'ready';
     if (baseMapController.mode === 'regional-fallback') console.warn('Se usa el mapa regional de emergencia.', baseMapController.error);
     renderStatus();
@@ -441,10 +463,14 @@ async function initTransportMap() {
   }
 }
 
+document.addEventListener('click', (event) => {
+  if (event.target instanceof Element && event.target.closest('[data-map-retry]')) void initTransportMap();
+});
 document.addEventListener('transport-route-selection', applyRouteSelection);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) updateLiveLayer(); });
 document.addEventListener('astro:page-load', initTransportMap);
 document.addEventListener('astro:before-swap', () => {
+  initGeneration += 1;
   window.clearInterval(pollTimer);
   window.clearInterval(motionTimer);
   pollingController?.abort();

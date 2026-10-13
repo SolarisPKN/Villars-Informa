@@ -170,7 +170,10 @@ const updatedAt = transportData.source.updatedAt
     <section class="map-panel" aria-labelledby="transport-map-title">
       <div class="map-heading">
         <div><p class="eyebrow">Mapa provincial autocontenido</p><h2 id="transport-map-title">Trenes y colectivos alrededor de Villars</h2></div>
-        <p data-live-map-status data-state="static" aria-live="polite">Cargando la cartografía local…</p>
+        <div class="map-status-tools">
+          <p data-live-map-status data-state="static" aria-live="polite">Cargando la cartografía local…</p>
+          <button type="button" data-map-retry hidden>Reintentar mapa</button>
+        </div>
       </div>
       <div class="map-layout">
         <div class="map-stage">
@@ -258,7 +261,7 @@ const updatedAt = transportData.source.updatedAt
   :global(.schedule-table tbody .service-confirmed-row td) { background: rgba(33,109,137,.3); }:global(.schedule-table tbody .service-confirmed-row .formation-column) { background: #215b70; }:global(.schedule-table tbody .service-in-progress-row td) { background: rgba(29,113,70,.42); }:global(.schedule-table tbody .service-in-progress-row .formation-column) { background: #185b39; }:global(.schedule-table tbody .service-delayed-row td) { color: #fff7d1; background: rgba(196,145,8,.34); }:global(.schedule-table tbody .service-delayed-row .formation-column) { background: #7a5b08; }:global(.schedule-table tbody .service-scheduled-active-row td) { background: rgba(168,111,25,.28); }:global(.schedule-table tbody .service-scheduled-active-row .formation-column) { background: #74501d; }:global(.schedule-table tbody .service-cancelled-row td) { color: #fff1f1; background: rgba(159,39,39,.42); }:global(.schedule-table tbody .service-cancelled-row .formation-column) { background: #791f1f; }
   .route-meta { display: flex; gap: .75rem 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(212,163,115,.2); color: var(--text-muted); font-size: .85rem; }.route-meta p { margin: 0; }
   .data-note { margin-top: 1.25rem; background: rgba(44,33,25,.5); }.data-note h2 { font-size: 1.15rem; }.data-note p { margin: .4rem 0; color: var(--text-muted); font-size: .9rem; }.data-note code { word-break: break-all; }
-  .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-heading > p { max-width: 32rem; margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-heading > p[data-state='live'] { color: #9ed7b0; }.map-heading > p[data-state='error'] { color: #f4a261; }
+  .map-panel { margin-top: 1.25rem; }.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }.map-heading h2 { margin: .25rem 0 0; }.map-status-tools { display: grid; gap: .5rem; justify-items: end; max-width: 32rem; }.map-status-tools p { margin: 0; color: var(--text-muted); font-size: .85rem; text-align: right; }.map-status-tools p[data-state='live'] { color: #9ed7b0; }.map-status-tools p[data-state='error'] { color: #f4a261; }.map-status-tools button { cursor: pointer; padding: .35rem .7rem; background: transparent; color: #f4a261; border: 1px solid currentColor; border-radius: .5rem; }.map-status-tools button[hidden] { display: none; }
   .map-layout { display: grid; grid-template-columns: minmax(0,1fr) 17.5rem; gap: 1rem; align-items: stretch; margin-top: 1rem; }.map-stage { min-width: 0; }.transport-map { min-height: 34rem; height: 100%; overflow: hidden; border: 1px solid rgba(233,196,106,.25); border-radius: 1rem; background: #17110d; }
   :global(.transport-vehicle-icon) { background: transparent; border: 0; }
   :global(.transport-vehicle-pin) { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; box-sizing: border-box; border: 2px solid #fff; border-radius: 999px; color: #fff; background: var(--vehicle-color); box-shadow: 0 0 0 3px rgba(23,17,13,.58), 0 .2rem .65rem rgba(0,0,0,.38); }
@@ -279,7 +282,7 @@ const updatedAt = transportData.source.updatedAt
     .next-service { grid-template-columns: 1fr; }
     .next-service strong { grid-column: 1; grid-row: auto; }
     .schedule-heading, .map-heading { align-items: start; flex-direction: column; }
-    .schedule-heading > p, .map-heading > p { text-align: left; }
+    .schedule-heading > p, .map-status-tools, .map-status-tools p { text-align: left; justify-items: start; }
     .direction-picker { grid-template-columns: 1fr; }
     .direction-picker > p { grid-column: auto; }
     .desktop-grid-hint { display: none; }

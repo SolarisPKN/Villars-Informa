@@ -18,3 +18,9 @@
 
 /under-construction/*
   X-Robots-Tag: noindex, follow
+
+# Evitar transformaciones de compresión sobre archivos que PMTiles lee por Range.
+/maps/*
+  Cache-Control: public, max-age=3600, no-transform
+  Content-Type: application/octet-stream
+  Accept-Ranges: bytes

@@ -101,6 +101,47 @@ async function queryRailways(stations) {
   throw new Error('No available Overpass endpoint:\n' + errors.join('\n'));
 }
 
+async function railwaysFromOsmMap(left, right) {
+  // Target only the precise missing interval; OpenStreetMap's main map API
+  // includes neighboring rail segments without relying on overloaded Overpass.
+  const xmin = Math.min(left[0], right[0]) - 0.012;
+  const xmax = Math.max(left[0], right[0]) + 0.012;
+  const ymin = Math.min(left[1], right[1]) - 0.012;
+  const ymax = Math.max(left[1], right[1]) + 0.012;
+  if ((xmax - xmin) * (ymax - ymin) > 0.2) throw new Error('Rail repair bbox too large');
+  const url = 'https://api.openstreetmap.org/api/0.6/map?bbox=' + [xmin,ymin,xmax,ymax].join(',');
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(80_000),
+    headers: { Accept: 'application/xml', 'User-Agent': 'VillarsInformaRailAudit/1.0 (OSM ODbL)' },
+  });
+  if (!response.ok) throw new Error('OSM map segment HTTP ' + response.status);
+  const xml = await response.text();
+  if (xml.length > 50_000_000) throw new Error('OSM map segment too large');
+  const attrs = src => Object.fromEntries([...src.matchAll(/([\w:-]+)="([^"]*)"/g)]
+    .map(m => [m[1],m[2]]));
+  const nodes = new Map();
+  for (const m of xml.matchAll(/<node\b([^>]*)>/g)) {
+    const a = attrs(m[1]);
+    if (a.id && Number.isFinite(Number(a.lon)) && Number.isFinite(Number(a.lat))) {
+      nodes.set(Number(a.id), {lon:Number(a.lon),lat:Number(a.lat)});
+    }
+  }
+  const ways=[];
+  for (const m of xml.matchAll(/<way\b([^>]*)>([\s\S]*?)<\/way>/g)) {
+    const a=attrs(m[1]), body=m[2], tags={};
+    for (const t of body.matchAll(/<tag\b([^>]*)\/>/g)) {
+      const pair=attrs(t[1]); tags[pair.k]=pair.v;
+    }
+    if (!['rail','disused','construction'].includes(tags.railway)) continue;
+    const ids=[...body.matchAll(/<nd\b([^>]*)\/>/g)].map(t=>Number(attrs(t[1]).ref));
+    if(ids.length < 2 || ids.some(id=>!nodes.has(id))) continue;
+    ways.push({id:Number(a.id), nodes:ids, geometry:ids.map(id=>nodes.get(id)), tags});
+  }
+  console.log('OSM map patch',JSON.stringify([xmin,ymin,xmax,ymax]),'rail ways',ways.length,'xml bytes',xml.length);
+  if (!ways.length) throw new Error('No real railway segments in OSM map patch');
+  return ways;
+}
+
 function graphOf(ways) {
   const edges = new Map();
   const nodes = new Map();
@@ -204,9 +245,11 @@ function bestRailLeg(graph, a, b) {
       const m = meters(graph.nodes.get(id), graph.nodes.get(other));
       if (m < nearest.meters) nearest = { meters: m, a: graph.nodes.get(id), b: graph.nodes.get(other) };
     }
-    throw new Error('Railway disconnected: ' + a + ' / ' + b + '; nearest gap ' +
+    const error = new Error('Railway disconnected: ' + a + ' / ' + b + '; nearest gap ' +
       nearest.meters.toFixed(1) + 'm at ' + JSON.stringify(nearest.a) + ' -> ' + JSON.stringify(nearest.b) +
       '; candidates ' + origins.length + ' / ' + goals.length + '; graph nodes ' + graph.nodes.size);
+    error.gap = nearest;
+    throw error;
   }
   const ids = [];
   for (let id = finish; id !== null; id = previous.get(id) ?? null) ids.push(id);
@@ -240,10 +283,29 @@ for (const { key } of PATHS) {
     console.warn('Rail relation unavailable, using Overpass corridor:', error.message);
     ways = await queryRailways(stations);
   }
-  const graph = graphOf(ways);
+  let graph = graphOf(ways);
   const coordinates = [];
+  const patchedIntervals = new Set();
   for (let i = 1; i < stations.length; i++) {
-    const leg = bestRailLeg(graph, stations[i - 1], stations[i]);
+    let leg;
+    for (let attempt = 0; attempt < 6; attempt++) {
+      try {
+        leg = bestRailLeg(graph, stations[i - 1], stations[i]);
+        break;
+      } catch (error) {
+        if (!error.gap || error.gap.meters > 9000) throw error;
+        const patchKey = [error.gap.a, error.gap.b].map(point => point.map(n => n.toFixed(3)).join(',')).join(':');
+        if (patchedIntervals.has(patchKey)) throw error;
+        patchedIntervals.add(patchKey);
+        const patch = await railwaysFromOsmMap(error.gap.a, error.gap.b);
+        const byId = new Map([...ways, ...patch].map(way => [way.id,way]));
+        if (byId.size === ways.length) throw new Error('Missing rail patch did not add new rail nodes');
+        ways = [...byId.values()];
+        graph = graphOf(ways);
+        console.log('Rail graph extended after OSM map patch; ways:', ways.length);
+      }
+    }
+    if (!leg) throw new Error('Could not find continuous rail path after local OSM patches');
     if (coordinates.length && leg.coordinates.length && meters(coordinates.at(-1), leg.coordinates[0]) < 70) {
       leg.coordinates.shift();
     } else if (coordinates.length && meters(coordinates.at(-1), leg.coordinates[0]) > 250) {

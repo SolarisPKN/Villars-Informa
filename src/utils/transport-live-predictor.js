@@ -66,28 +66,56 @@ export function snapshotVehicles(snapshot) {
 
 const serviceNumber = (value) => String(value || '').match(/\b\d{3,6}\b/)?.[0] || String(value || '');
 
+export function normalizedStationKey(family, name) {
+  let key = normalizeLiveName(name)
+    .replace(/^estacion /, '')
+    .replace(/^terminal /, '')
+    .replace(/ rp \d+.*$/, '')
+    .replace(/ \bbelgrano\b$/, '');
+  // Timetables and OSM feature labels differ for the same platforms.
+  const aliases = {
+    'a ferrari': 'agustin ferrari',
+    'maquinista r cal': 'maquinista ricardo cal',
+    'hornos': 'general hornos',
+    'las heras': 'general las heras',
+    'general hornos': 'general hornos',
+    'general las heras': 'general las heras',
+  };
+  key = aliases[key] || key;
+  return family + ':' + key;
+}
+
+
 function indexes(mapData) {
   const stations = new Map();
   for (const feature of mapData.stops.features || []) {
-    const family = feature.properties?.lineKey; const name = normalizeLiveName(feature.properties?.name);
-    if (family && name && feature.geometry?.type === 'Point') stations.set(`${family}:${name}`, feature.geometry.coordinates);
+    const family = feature.properties?.lineKey; const name = feature.properties?.name;
+    if (family && name && feature.geometry?.type === 'Point') stations.set(normalizedStationKey(family, name), feature.geometry.coordinates);
   }
   return stations;
 }
 
 function selectShape(mapData, family, service, stations) {
   const candidates = (mapData.routes.features || []).filter((feature) => feature.properties?.lineKey === family && feature.geometry?.type === 'LineString');
-  const first = stations.get(`${family}:${normalizeLiveName(service.stops?.[0]?.station)}`);
-  const last = stations.get(`${family}:${normalizeLiveName(service.stops?.at(-1)?.station)}`);
+  const first = stations.get(normalizedStationKey(family, service.stops?.[0]?.station));
+  const last = stations.get(normalizedStationKey(family, service.stops?.at(-1)?.station));
   let best = null;
   for (const feature of candidates) {
+    // Ignore a deliberately unverified stop-to-stop corridor. A route used
+    // for vehicle placement must contain road/rail geometry, not chords.
+    if (feature.properties?.geometryKind === 'unverified-reference') continue;
     let coordinates = feature.geometry.coordinates;
     let score = 0;
-    if (first && last) {
-      const direct = distance(first, coordinates[0]) + distance(last, coordinates.at(-1));
-      const reverse = distance(first, coordinates.at(-1)) + distance(last, coordinates[0]);
+    if (first || last) {
+      const direct = (first ? distance(first, coordinates[0]) : 0)
+        + (last ? distance(last, coordinates.at(-1)) : 0);
+      const reverse = (first ? distance(first, coordinates.at(-1)) : 0)
+        + (last ? distance(last, coordinates[0]) : 0);
       if (reverse < direct) coordinates = [...coordinates].reverse();
       score = Math.min(direct, reverse);
+    } else {
+      // An unmatched service cannot be assigned a random 136 branch.
+      continue;
     }
     if (!best || score < best.score) best = { feature, coordinates, score };
   }
@@ -101,8 +129,8 @@ function scheduledPosition(service, shape, stations, nowMinutes, delayMinutes) {
   let index = stops.findIndex((stop, stopIndex) => stopIndex < stops.length - 1 && adjusted >= stop.minutes && adjusted <= stops[stopIndex + 1].minutes);
   if (index < 0) index = stops.length - 2;
   const from = stops[index]; const to = stops[index + 1]; const full = metrics(shape.coordinates);
-  const fromPoint = stations.get(`${shape.feature.properties.lineKey}:${normalizeLiveName(from.station)}`);
-  const toPoint = stations.get(`${shape.feature.properties.lineKey}:${normalizeLiveName(to.station)}`);
+  const fromPoint = stations.get(normalizedStationKey(shape.feature.properties.lineKey, from.station));
+  const toPoint = stations.get(normalizedStationKey(shape.feature.properties.lineKey, to.station));
   const fromAlong = fromPoint ? projectPointToLine(fromPoint, shape.coordinates).along : full.total * index / (stops.length - 1);
   const toAlong = toPoint ? projectPointToLine(toPoint, shape.coordinates).along : full.total * (index + 1) / (stops.length - 1);
   const ratio = (adjusted - from.minutes) / (to.minutes - from.minutes || 1);

@@ -244,9 +244,11 @@ function popupContent(properties, kind) {
       ? 'GPS informado'
       : properties.positionKind === 'gps-corrected' ? 'Posición proyectada desde GPS reciente'
       : properties.positionKind === 'provider-estimated' ? 'Estimación del operador' : `Estimación por cronograma${segment}`;
+    const gpsGap = properties.gpsDashed
+      ? ' · Más de 10 minutos sin posición GPS nueva' : '';
     const direction = vehicleDirection({ properties });
     const delay = Number(properties.delaySeconds);
-    description.textContent = `${source}${direction ? ` · Sentido: hacia ${direction}` : ' · Sentido no informado'}${Number.isFinite(delay) && delay >= 60 ? ` · demora +${Math.round(delay / 60)} min` : ''}${properties.cancelled ? ' · CANCELADO' : ''}${properties.stale ? ' · dato live demorado' : ''}`;
+    description.textContent = `${source}${gpsGap}${direction ? ` · Sentido: hacia ${direction}` : ' · Sentido no informado'}${Number.isFinite(delay) && delay >= 60 ? ` · demora +${Math.round(delay / 60)} min` : ''}${properties.cancelled ? ' · CANCELADO' : ''}${properties.stale ? ' · dato live demorado' : ''}`;
   } else {
     const family = routeFamily({ properties });
     description.textContent = properties.mode === 'train' ? 'Estación ferroviaria' : `Parada del colectivo ${family.startsWith('136') ? '136' : '322'}`;
@@ -257,7 +259,7 @@ function popupContent(properties, kind) {
 
 function markerStyle(feature, live = false) {
   const isTrain = feature?.properties?.mode === 'train';
-  const isPredicted = live && feature?.properties?.positionKind !== 'gps';
+  const isPredicted = live && feature?.properties?.gpsDashed === true;
   return {
     radius: live ? 8 : 5,
     color: live ? '#ffffff' : '#2c2119',
@@ -271,6 +273,7 @@ function markerStyle(feature, live = false) {
 function vehicleMarkerIcon(feature) {
   const isTrain = feature?.properties?.mode === 'train';
   const isPredicted = feature?.properties?.positionKind !== 'gps';
+  const gpsDashed = feature?.properties?.gpsDashed === true;
   const directionVariant = vehicleDirectionVariant(feature);
   const color = directionVariant === 'blue' ? '#2376d8' : directionVariant === 'orange' ? '#ed7a32' : '#78838f';
   const glyph = isTrain
@@ -279,6 +282,7 @@ function vehicleMarkerIcon(feature) {
   const stateClass = [
     `direction-${directionVariant}`,
     isPredicted ? 'is-estimated' : 'is-observed',
+    gpsDashed ? 'is-gps-unavailable' : 'is-gps-recent',
     feature?.properties?.stale ? 'is-stale' : '',
   ].filter(Boolean).join(' ');
   return L.divIcon({
@@ -295,7 +299,7 @@ function replaceLiveFeatures(features) {
   // heavy canvas/layout churn during PMTiles panning and zooming. Only update
   // the position overlay when its visible coordinates or statuses change.
   const signature = JSON.stringify(features.map(({ geometry, properties }) => [
-    properties.id, properties.positionKind, properties.status,
+    properties.id, properties.positionKind, properties.status, properties.gpsDashed,
     properties.stale, properties.direction, geometry.coordinates.map((n) => Math.round(n * 1e5)),
   ]));
   if (signature === liveFeatureSignature) return;
@@ -452,6 +456,11 @@ async function initTransportMap() {
         hasTileFailure = true;
         renderStatus();
         console.error('No se pudo cargar una tesela de la cartografía local.', event.error);
+      },
+      onTileRecovered: () => {
+        if (generation !== initGeneration || !hasTileFailure) return;
+        hasTileFailure = false;
+        renderStatus();
       },
     });
     if (generation !== initGeneration) { controller.destroy(); return; }

@@ -92,6 +92,7 @@ export async function addProvincialPmtiles({
   fallbackUrl = '/maps/villars-region.pmtiles',
   regionalDetailBounds = REGIONAL_DETAIL_BOUNDS,
   onTileError = () => {},
+  onTileRecovered = () => {},
   manifestLoader = readProvinceMapManifest,
   archiveLayerFactory = archiveLayer,
 } = {}) {
@@ -107,7 +108,7 @@ export async function addProvincialPmtiles({
       loaded.manifest.overview.bytes,
       false,
     );
-    overview.layer.on('tileerror', onTileError).addTo(map);
+    overview.layer.on('tileerror', onTileError).on('load', onTileRecovered).addTo(map);
 
     const active = new Map();
     // A limited, reusable layer cache prevents downloading the same large
@@ -116,6 +117,7 @@ export async function addProvincialPmtiles({
     let generation = 0;
     let destroyed = false;
     let regionalTask;
+    let regionalEntry;
     let regionalActive = false;
 
     function trimCache() {
@@ -144,7 +146,7 @@ export async function addProvincialPmtiles({
         party.bytes,
         true,
       ).then((entry) => {
-        entry.layer.on('tileerror', onTileError);
+        entry.layer.on('tileerror', onTileError).on('load', onTileRecovered);
         return entry;
       }).catch((error) => {
         // Failed downloads are retryable, not cached as permanent blank regions.
@@ -164,10 +166,12 @@ export async function addProvincialPmtiles({
             minZoom: PARTY_MIN_DISPLAY_ZOOM, maxZoom: 18, maxDataZoom: 14 },
           undefined, true,
         ).then((entry) => {
-          entry.layer.on('tileerror', onTileError);
+          regionalEntry = entry;
+          entry.layer.on('tileerror', onTileError).on('load', onTileRecovered);
           return entry;
         }).catch((error) => {
           regionalTask = undefined;
+          regionalEntry = undefined;
           throw error;
         });
       }
@@ -178,30 +182,31 @@ export async function addProvincialPmtiles({
       const currentGeneration = ++generation;
       const bounds = viewportBounds(map);
       const detailed = map.getZoom() >= PARTY_MIN_DISPLAY_ZOOM;
-      let useRegional = detailed && validBounds(regionalDetailBounds)
-        && boundsContain(regionalDetailBounds, bounds);
-      if (useRegional) {
+      // Keep regional layer mounted once loaded. Mounting/unmounting Canvas
+      // tile layers while Leaflet is animating a zoom can leave gray/blank
+      // canvases, even when the PMTiles bytes are valid. Its own geographic
+      // bounds and minZoom prevent requests outside the covered region.
+      const intersectsRegional = detailed && validBounds(regionalDetailBounds)
+        && boundsIntersect(regionalDetailBounds, bounds);
+      let regionalReady = regionalActive;
+      if (intersectsRegional && !regionalActive) {
         try {
           const entry = await regionalLayer();
           if (destroyed || currentGeneration !== generation) return;
-          if (!regionalActive) {
-            entry.layer.addTo(map);
-            regionalActive = true;
-          }
+          entry.layer.addTo(map);
+          regionalActive = true;
+          regionalReady = true;
         } catch (error) {
-          useRegional = false;
           if (!destroyed && currentGeneration === generation) onTileError({ error, file: fallbackUrl });
         }
       }
-      const wanted = detailed && !useRegional
+      // At regional edges load the surrounding municipalities without first
+      // removing the regional tiles. Never take away coverage before the
+      // replacement is available.
+      const fullyRegional = regionalReady && boundsContain(regionalDetailBounds, bounds);
+      const wanted = detailed && !fullyRegional
         ? new Set(partiesForViewport(loaded.manifest, bounds).map(({ id }) => id))
         : new Set();
-      if (!useRegional && regionalActive) {
-        const entry = await regionalTask;
-        if (destroyed || currentGeneration !== generation) return;
-        map.removeLayer(entry.layer);
-        regionalActive = false;
-      }
 
       for (const [id, entry] of active) {
         if (!wanted.has(id)) {
@@ -264,11 +269,10 @@ export async function addProvincialPmtiles({
         map.removeLayer(overview.layer);
         for (const { layer } of active.values()) map.removeLayer(layer);
         active.clear();
-        if (regionalActive && regionalTask) {
-          void regionalTask.then((entry) => map.removeLayer(entry.layer));
-        }
+        if (regionalActive && regionalEntry) map.removeLayer(regionalEntry.layer);
         regionalActive = false;
         regionalTask = undefined;
+        regionalEntry = undefined;
         cache.clear();
       },
     };
@@ -278,7 +282,7 @@ export async function addProvincialPmtiles({
       leafletLayer, absoluteFallback,
       { minZoom: 5, maxZoom: 18, maxDataZoom: 14 },
     );
-    fallback.layer.on('tileerror', onTileError).addTo(map);
+    fallback.layer.on('tileerror', onTileError).on('load', onTileRecovered).addTo(map);
     return {
       mode: 'regional-fallback',
       error: manifestError,

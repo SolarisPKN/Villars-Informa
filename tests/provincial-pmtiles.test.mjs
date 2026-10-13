@@ -173,9 +173,35 @@ test('local transport viewport keeps one stable regional PMTiles layer during pa
 
   map.move([-59.4, -35.2, -59.1, -34.8], 13);
   await settle();
-  assert.ok(!map.layers.has(regional), 'municipal coverage returns outside regional bounds');
+  assert.ok(map.layers.has(regional), 'regional tile canvas stays mounted, avoiding pan/zoom flashes');
   assert.ok(map.layers.has(overview));
   assert.ok(calls.some((call) => call.url.includes('/partidos/')));
+  map.move([-59.04, -34.95, -58.80, -34.72], 15);
+  await settle();
+  assert.ok(map.layers.has(regional));
+  assert.equal(calls.filter((call) => call.url.endsWith('villars-region.pmtiles')).length, 1);
   controller.destroy();
   assert.equal(map.layers.size, 0);
+});
+
+
+test('a tile load after temporary failure clears map error callback', async () => {
+  const map = fakeMap(10);
+  let recovered = 0;
+  const factory = async (_, url) => {
+    const handlers = new Map();
+    const layer = {
+      url,
+      on(name, cb) { handlers.set(name, cb); return this; },
+      addTo(target) { target.layers.add(this); return this; },
+      emit(name) { handlers.get(name)?.(); },
+    };
+    return { layer, deliveryMode: 'memory', header: { maxZoom: 14 } };
+  };
+  const { options } = fixture(map, factory);
+  options.onTileRecovered = () => { recovered++; };
+  const controller = await addProvincialPmtiles(options);
+  [...map.layers][0].emit('load');
+  assert.equal(recovered, 1);
+  controller.destroy();
 });

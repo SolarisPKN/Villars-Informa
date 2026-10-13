@@ -1,5 +1,5 @@
 import { PMTiles } from 'pmtiles';
-import { probePmtilesByteServing } from './pmtiles-health.js';
+import { openPmtilesSource } from './pmtiles-source.js';
 
 const DEFAULT_OPTIONS = {
   flavor: 'dark',
@@ -47,13 +47,13 @@ export function partiesForViewport(manifest, bounds) {
   return manifest.parties.filter((party) => boundsIntersect(party.bounds, bounds));
 }
 
-async function archiveLayer(leafletLayer, fileUrl, options) {
-  // A valid file in dist is not enough: the production host must serve exact HTTP byte ranges.
-  await probePmtilesByteServing(fileUrl);
-  const archive = new PMTiles(fileUrl);
+async function archiveLayer(leafletLayer, fileUrl, options, expectedBytes) {
+  const opened = await openPmtilesSource(fileUrl, { expectedBytes });
+  const archive = new PMTiles(opened.source);
   const header = await archive.getHeader();
   return {
     header,
+    deliveryMode: opened.mode,
     layer: leafletLayer({
       ...DEFAULT_OPTIONS,
       ...options,
@@ -78,7 +78,7 @@ export async function addProvincialPmtiles({
       minZoom: 5,
       maxZoom: 9,
       maxDataZoom: 9,
-    });
+    }, loaded.manifest.overview.bytes);
     overview.layer.on('tileerror', onTileError).addTo(map);
     const partyLayers = new Map();
     let generation = 0;
@@ -103,7 +103,7 @@ export async function addProvincialPmtiles({
             minZoom: 10,
             maxZoom: Number(loaded.manifest.maxVisualZoom || 18),
             maxDataZoom: Number(loaded.manifest.maxDataZoom || 15),
-          });
+          }, party.bytes);
           if (currentGeneration !== generation || !wanted.has(party.id)) return;
           entry.layer.on('tileerror', onTileError).addTo(map);
           partyLayers.set(party.id, entry);
@@ -129,6 +129,7 @@ export async function addProvincialPmtiles({
     }
     return {
       mode: 'parties',
+      deliveryMode: overview.deliveryMode,
       manifest: loaded.manifest,
       destroy() {
         generation += 1;

@@ -41,3 +41,7 @@ de emergencia, no como cartografía principal.
 - Un fallo realtime degrada precisión pero no elimina servicios programados.
 - El mapa es autocontenido en GitHub y no usa R2, Google Maps ni tiles raster públicos.
 - Actualizar cartografía es una operación explícita, reproducible y revisable por diff del manifest.
+
+### Compatibilidad con alojamiento sin rangos HTTP
+
+PMTiles conserva acceso aleatorio con HTTP 206 si el host lo soporta. Si Cloudflare Pages responde HTTP 200, el cliente descarga el archivo solicitado (overview o partido necesario), limitado a 25 MiB, verifica firma/tamaño y lo expone mediante un Source de memoria. No se descarga toda la provincia; la solución es completamente estática y gratuita. En hosting sin Range el consumo de datos es mayor.

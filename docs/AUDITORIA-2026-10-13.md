@@ -26,3 +26,11 @@ Revisión estática del repositorio público (rama main), manifest cartográfico
 - `node scripts/check-live-map.mjs`: valida respuestas de producción sin claves.
 - Workflow `Verificar cartografía publicada`: diario, 11:15 UTC, alarma por GitHub Actions sin servicio pago.
 - Si el healthcheck falla con 200, 206 truncado o Content-Range erróneo, revisar compresión/CDN y respuesta a Range; no añadir APIs de pago.
+
+## Reparación de hosting estático, 13 de octubre
+
+El monitor de producción confirmó la causa: la CDN respondió HTTP 200 sin Content-Range a Range: bytes=0-15 para archivos PMTiles. La lectura aleatoria del mapa no estaba disponible.
+
+Se agregó un Source compatible con PMTiles que prefiere HTTP 206, pero para HTTP 200 descarga en streaming limitado el único archivo local que se necesita (overview o partido visible), valida firma y cantidad de bytes contra el manifest y lo lee en memoria. Nunca se descarga el mapa provincial completo. Se mantiene un tope de 25 MiB por archivo. El healthcheck ahora valida ambos mecanismos abriendo la cabecera PMTiles real.
+
+**Costo técnico:** en este hosting cada partido se descarga completo en vez de pedir bloques. Aumenta transferencia/memoria del navegador, pero no necesita R2, backend o APIs pagas. Un monitor HTTP verde no sustituye un test E2E visual en navegador.

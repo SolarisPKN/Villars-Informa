@@ -49,8 +49,15 @@ function orientedPath(parts,stops) {
  for(const f of parts) {
   if(!f||f.geometry?.type!=='LineString'||f.geometry.coordinates.length<2) throw Error('Invalid official segment');
   let coords=f.geometry.coordinates;
-  const from=path.length?path.at(-1):stops[0];
-  if(meters(from,coords[0])>meters(from,coords.at(-1))) coords=[...coords].reverse();
+  if (!path.length && parts.length > 1) {
+    const next=parts[1].geometry.coordinates;
+    const nearestToNext=(p)=>Math.min(meters(p,next[0]),meters(p,next.at(-1)));
+    // First segment must END at the connection to segment two, even if
+    // its other endpoint is far beyond the first station.
+    if(nearestToNext(coords[0])<nearestToNext(coords.at(-1))) coords=[...coords].reverse();
+  } else if(path.length && meters(path.at(-1),coords[0])>meters(path.at(-1),coords.at(-1))) {
+    coords=[...coords].reverse();
+  }
   if(path.length) {
     const gap=meters(path.at(-1),coords[0]);
     if(gap>120)throw Error('IGN rail not connected near '+f.properties.nam_1+': '+gap.toFixed(1)+'m');

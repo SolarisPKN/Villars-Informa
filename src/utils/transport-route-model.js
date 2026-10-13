@@ -66,7 +66,23 @@ export function route136MapFeatures(config) {
     },
     geometry: { type: 'Point', coordinates: point.coordinates },
   }));
-  return { route, stops };
+  // Each pattern is already routed along an OSRM road polyline. Expose these
+  // as individual LineStrings so the live predictor does not interpolate 136
+  // buses across a MultiLineString or directly between rural stop coordinates.
+  const patterns = config.patterns.map((pattern) => ({
+    type: 'Feature',
+    properties: {
+      id: pattern.id,
+      name: pattern.label,
+      mode: 'bus',
+      routeId: config.network.id,
+      lineKey: '136-villars',
+      positionOnly: true,
+      geometryKind: 'road-routed',
+    },
+    geometry: { type: 'LineString', coordinates: pathCoordinates(config, pattern.path) },
+  }));
+  return { route, stops, patterns };
 }
 
 function radians(value) {

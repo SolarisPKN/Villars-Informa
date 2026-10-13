@@ -22,3 +22,4 @@ jobs:
           npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/villars-preview.log 2>&1 &
           for n in $(seq 1 45); do curl --silent --fail http://127.0.0.1:4321/transporte/ > /dev/null && break; sleep 1; done
           CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs
+          MAP_REPORT_ONLY=1 MAP_ORIGIN=https://villars.solarispkn.com.ar CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs

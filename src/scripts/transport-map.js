@@ -7,6 +7,7 @@ import { route136MapFeatures } from '../utils/transport-route-model.js';
 import { featureIsVisible, filtersForSelection, routeFamily, vehicleDirection, vehicleDirectionVariant } from '../utils/transport-map-live.js';
 import { buildPredictedLiveFeatures, ObservationHistory } from '../utils/transport-live-predictor.js';
 import { addProvincialPmtiles } from '../utils/provincial-pmtiles.js';
+import { basemapCanvasHasDetail } from '../utils/basemap-visibility.js';
 
 const route136Features = route136MapFeatures(route136Config);
 const mapData = {
@@ -29,6 +30,8 @@ const UNAVAILABLE_AFTER_MS = 15 * 60_000;
 let leafletRendererPromise;
 let map;
 let baseMapController;
+let backupMapLayer;
+let basemapWatchTimer;
 let liveLayer;
 let routeLayer;
 let stopLayer;
@@ -59,11 +62,21 @@ function loadLeafletRenderer() {
 function renderStatus() {
   const node = document.querySelector('[data-live-map-status]');
   const retry = document.querySelector('[data-map-retry]');
-  if (retry instanceof HTMLButtonElement) retry.hidden = baseMapState === 'loading' || (baseMapState !== 'error' && !hasTileFailure);
+  const alternate = document.querySelector('[data-map-alternate]');
+  if (retry instanceof HTMLButtonElement) retry.hidden = baseMapState === 'loading' || (baseMapState !== 'error' && baseMapState !== 'fallback' && !hasTileFailure);
+  if (alternate instanceof HTMLButtonElement) {
+    alternate.textContent = baseMapState === 'fallback' ? 'Restaurar mapa local' : 'Usar mapa alternativo';
+    alternate.setAttribute('aria-pressed', String(baseMapState === 'fallback'));
+  }
   if (!node) return;
   if (baseMapState === 'loading') {
     node.textContent = 'Cargando la cartografía local…';
     node.dataset.state = 'loading';
+    return;
+  }
+  if (baseMapState === 'fallback') {
+    node.textContent = 'Mapa alternativo de OpenStreetMap activo · recorridos y posiciones disponibles.';
+    node.dataset.state = 'stale';
     return;
   }
   if (baseMapState === 'error') {
@@ -374,6 +387,44 @@ async function updateLiveLayer() {
   }
 }
 
+// Standard raster tiles are a free, attributed emergency fallback. They are
+// requested only when the site's own PMTiles renderer fails or when the
+// visitor explicitly chooses the alternative. GeoJSON tracks remain above it.
+function switchToBackupBasemap(reason = 'manual') {
+  if (!map || backupMapLayer) return;
+  window.clearTimeout(basemapWatchTimer);
+  const originalState = baseMapState;
+  backupMapLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+    maxZoom: 18,
+    maxNativeZoom: 19,
+    updateWhenIdle: true,
+    keepBuffer: 1,
+    zIndex: 350,
+  }).on('tileerror', (event) => {
+    console.warn('No se pudo cargar una tesela del fondo cartográfico alternativo.', event.error);
+  }).addTo(map);
+  baseMapState = 'fallback';
+  hasTileFailure = false;
+  renderStatus();
+  console.warn('Se activó cartografía alterna gratuita:', reason, 'estado anterior:', originalState);
+}
+
+function verifyBasemapCanvas(generation) {
+  if (generation !== initGeneration || !map || backupMapLayer || document.hidden) return;
+  const root = map.getContainer();
+  if (basemapCanvasHasDetail(root)) return;
+  switchToBackupBasemap('El renderizador PMTiles no produjo teselas visibles');
+}
+
+function scheduleBasemapCheck(generation) {
+  window.clearTimeout(basemapWatchTimer);
+  if (backupMapLayer || baseMapState === 'loading') return;
+  // Allow time for the 14 MB regional archive on slow connections; Leaflet
+  // raster fallback begins automatically only if no actual map pixels exist.
+  basemapWatchTimer = window.setTimeout(() => verifyBasemapCanvas(generation), 12_000);
+}
+
 function addTransportLayers() {
   routeLayer = L.geoJSON({ type: 'FeatureCollection', features: [] }, {
     style: (feature) => ({
@@ -409,10 +460,13 @@ async function initTransportMap() {
   const generation = ++initGeneration;
   window.clearInterval(pollTimer);
   window.clearInterval(motionTimer);
+  window.clearTimeout(basemapWatchTimer);
   pollingController?.abort();
   filterController?.abort();
   baseMapController?.destroy();
   baseMapController = undefined;
+  if (backupMapLayer && map) map.removeLayer(backupMapLayer);
+  backupMapLayer = undefined;
   map?.remove();
   liveLayer = undefined;
   routeLayer = undefined;
@@ -456,6 +510,7 @@ async function initTransportMap() {
         hasTileFailure = true;
         renderStatus();
         console.error('No se pudo cargar una tesela de la cartografía local.', event.error);
+        scheduleBasemapCheck(generation);
       },
       onTileRecovered: () => {
         if (generation !== initGeneration || !hasTileFailure) return;
@@ -475,6 +530,9 @@ async function initTransportMap() {
   }
   addTransportLayers();
   bindMapFilters();
+  if (baseMapState === 'error') switchToBackupBasemap('La cartografía local no abrió');
+  else scheduleBasemapCheck(generation);
+  map.on('moveend', () => scheduleBasemapCheck(generation));
   replaceLiveFeatures(liveFeatures(latestSnapshot));
   motionTimer = window.setInterval(() => replaceLiveFeatures(liveFeatures(latestSnapshot)), 10_000);
 
@@ -487,18 +545,26 @@ async function initTransportMap() {
 }
 
 document.addEventListener('click', (event) => {
-  if (event.target instanceof Element && event.target.closest('[data-map-retry]')) void initTransportMap();
+  if (!(event.target instanceof Element)) return;
+  if (event.target.closest('[data-map-retry]')) void initTransportMap();
+  else if (event.target.closest('[data-map-alternate]')) {
+    if (baseMapState === 'fallback') void initTransportMap();
+    else switchToBackupBasemap('Elección del visitante');
+  }
 });
 document.addEventListener('transport-route-selection', applyRouteSelection);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) updateLiveLayer(); });
 document.addEventListener('astro:page-load', initTransportMap);
 document.addEventListener('astro:before-swap', () => {
   initGeneration += 1;
+  window.clearTimeout(basemapWatchTimer);
   window.clearInterval(pollTimer);
   window.clearInterval(motionTimer);
   pollingController?.abort();
   baseMapController?.destroy();
   baseMapController = undefined;
+  if (backupMapLayer && map) map.removeLayer(backupMapLayer);
+  backupMapLayer = undefined;
   map?.remove();
   map = undefined;
   liveLayer = undefined;

@@ -63,3 +63,16 @@ Las capas municipales se limitan a su propia caja geográfica, no a todo el rect
 El corredor 136 Rápido estaba representado por 23 puntos de referencia unidos de forma recta, atravesando superficies sin calles. El trazado del mapa se regeneró con OSRM usando la red vial de OpenStreetMap (licencia ODbL), obteniendo 2.256 vértices y unos 125 km de recorrido vial, con validación de continuidad entre los vértices. El script reproducible es `scripts/maps/trace-136-rapido.mjs` y no requiere claves ni servicios pagos para el sitio publicado.
 
 **Importante:** OSRM asegura que el camino coincide con calles ruteables, pero **no certifica el itinerario exacto del concesionario de la 136**. Por eso se identifica explícitamente como `road-network-estimate`, y la procedencia se conserva en el GeoJSON. Los recorridos 322 conservan sus trazas detalladas preexistentes.
+
+
+### Alineación ferroviaria de Belgrano Sur y Sarmiento
+
+En la auditoría de 2026-10-13 se detectó que ambos trenes estaban representados por líneas rectas entre estaciones (5 puntos en González Catán–Lozano y 13 en Merlo–Lobos). Se reemplazaron por las polilíneas de la **Red ferrocarriles - Nacional** del IGN/Ministerio de Transporte (ArcGIS FeatureServer 0, edición de mayo de 2026). El script reproducible de solo desarrollo scripts/maps/trace-ign-railways.mjs verifica uniones de segmentos, estaciones y geometrías; no realiza consultas del navegador al servidor oficial.
+
+- Belgrano Sur: segmentos IGN OBJECTID 305, 292 y 288 (ramal G/G4), 62 vértices ferroviarios entre González Catán y Lozano.
+- Sarmiento: segmentos IGN 346, 334, 309, 291, 225 y 861 (S3 y empalme hacia Lobos), 72 vértices ferroviarios.
+- Los datos conservan geometryKind: ign-rail-network, geometrySource y geometrySourceIds para auditoría. Las posiciones estimadas se interpolan **sobre la polilínea**, no en recta entre estaciones. Una actualización de cronogramas conserva estos recorridos.
+
+**Precisión y límites:** la cobertura geográfica oficial disponible está generalizada: algunos vértices quedan separados hasta ~4,8 km y algunas estaciones históricas del sitio se encuentran a ~1,2 km de la polilínea más cercana. Por eso el resultado es *una traza ferroviaria oficial de referencia*, no una geometría de alta resolución apta para afirmar la ubicación métrica exacta de una formación. No sustituye una revisión de campo ni GPS real. Para mejorar la precisión se requiere otra fuente de geometría más detallada, sin interpolar rectas sobre el terreno.
+
+**Ferromapas:** el archivo KMZ original no se pudo obtener de una fuente verificable en esta auditoría, por lo que **no se afirmó ni registró que esta geometría proviniera de Ferromapas**. Se prefirió la cartografía pública oficial con procedencia explícita y sin claves ni costes operativos.

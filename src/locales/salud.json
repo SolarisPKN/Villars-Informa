@@ -1,8 +1,8 @@
 {
-  "titulo": "Salud en Villars",
-  "descripcionSeo": "Avisos sanitarios, CAPS Villars, centros de salud y farmacias para la comunidad.",
-  "subtitulo": "Avisos breves, contactos y lugares de atención reunidos en una sola página.",
-  "verificadoEl": "",
+  "titulo": "Salud en Villars y General Las Heras",
+  "descripcionSeo": "CAPS de Villars, Hornos, Plomer y La Choza; USAM, Hospital Arozarena, farmacias, teléfonos y emergencias de General Las Heras.",
+  "subtitulo": "Centros de salud, atención médica, farmacias y números útiles de Villars, Hornos y General Las Heras. Datos con fuentes para consultar antes de viajar.",
+  "verificadoEl": "2026-10-13",
   "ayudaEdicion": {
     "telefonos": "Cada campo telefonos es una lista. Para agregar más de un número, duplicá el objeto y completá etiqueta y numero. La web genera automáticamente el enlace tel:.",
     "camposTelefono": {
@@ -11,8 +11,8 @@
     }
   },
   "textos": {
-    "datoPendiente": "Dato a completar",
-    "telefonoPendiente": "Teléfono a completar",
+    "datoPendiente": "Confirmar con el establecimiento",
+    "telefonoPendiente": "Teléfono actualizado no confirmado",
     "llamar": "Llamar",
     "fuente": "Fuente:",
     "maximoAvisos": "Máximo 5 avisos"
@@ -23,226 +23,436 @@
     "sinActualizaciones": "Todavía no se publicaron avisos sanitarios."
   },
   "atencion": {
-    "seccion": "A mano",
-    "titulo": "Atención y farmacia",
-    "mostrarOtros": "Mostrar otros centros de salud",
-    "resumenOtros": "Hospital, CAPS y Salud Comunitaria",
+    "seccion": "Centros cercanos",
+    "titulo": "Dónde atenderte",
+    "mostrarOtros": "Ver centros de salud de todo el partido",
+    "resumenOtros": "Plomer, La Choza y Salud Comunitaria",
     "serviciosPrincipales": [
       {
-        "tipo": "Farmacia",
-        "nombre": "Farmacia",
-        "direccion": "",
-        "horarios": "",
-        "estado": "Ver farmacias disponibles",
-        "destino": "#farmacias",
-        "destacado": false,
-        "telefonos": [
-          {
-            "etiqueta": "Principal",
-            "numero": ""
-          }
-        ]
-      },
-      {
-        "tipo": "Salita",
-        "nombre": "CAPS Villars",
-        "direccion": "Belgrano y Boulogne Sur Mer, Villars",
-        "horarios": "Enfermería las 24 horas, según la guía provincial actualizada a abril de 2022.",
+        "tipo": "Atención primaria",
+        "nombre": "CAPS Villars «Lucila Lili Alonso»",
+        "direccion": "Belgrano y Boulogne Sur Mer, Villars (guía provincial: Moreno esq. Belgrano)",
+        "horarios": "Enfermería y atención general: 24 h, según guía provincial de abril de 2022. Consultá antes de ir por especialidades, vacunación y turnos.",
         "estado": "Atención local",
         "destino": "",
         "destacado": true,
         "telefonos": [
           {
+            "etiqueta": "Contacto publicado en 2022",
+            "numero": "11 3601-9261"
+          }
+        ],
+        "nota": "CAPS con medicina general, pediatría, obstetricia, psicología, vacunación y otras especialidades según la guía de 2022. La atención de especialidades NO es las 24 h.",
+        "fuenteUrl": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
+      },
+      {
+        "nombre": "CAPS General Hornos",
+        "localidad": "General Hornos",
+        "direccion": "2 de Abril s/n, General Hornos (ubicación provincial; confirmar acceso)",
+        "horarios": "De 8 a 17 h, con enfermería, según anuncio de inauguración municipal. Confirmá antes de asistir.",
+        "telefonos": [],
+        "nota": "El municipio informó sector de guardia, shockroom y atención primaria. No se encontró un teléfono actualizado verificado para este nuevo centro.",
+        "fuenteUrl": "https://gobiernodelasheras.com/destacados/inauguracion-del-centro-de-atencion-primaria-de-la-salud-de-hornos/",
+        "tipo": "Atención primaria",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
+      },
+      {
+        "nombre": "Hospital Municipal Dr. Pedro Arozarena",
+        "localidad": "General Las Heras",
+        "direccion": "Av. Chiocconi 321, General Las Heras",
+        "horarios": "Guardia hospitalaria. Confirmá turnos y especialidades al llamar; los horarios de cada consultorio pueden cambiar.",
+        "telefonos": [
+          {
             "etiqueta": "Principal",
-            "numero": ""
+            "numero": "0220-476-1000"
           },
           {
-            "etiqueta": "Guardia",
-            "numero": ""
+            "etiqueta": "Otro contacto (guía 2022)",
+            "numero": "0220-476-2335"
+          },
+          {
+            "etiqueta": "Secretaría de Salud (guía 2022)",
+            "numero": "0220-476-3857"
           }
-        ]
+        ],
+        "nota": "En una urgencia médica también podés llamar al 107.",
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/",
+        "tipo": "Hospital municipal",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
+      },
+      {
+        "nombre": "USAM / Consultorios Municipales Dr. Marcos Langan",
+        "localidad": "General Las Heras",
+        "direccion": "Neuquén 98, General Las Heras",
+        "horarios": "Consultas, especialidades, vacunatorio y turnos según la nómina municipal. Pedí confirmación de profesional, día y horario por teléfono.",
+        "telefonos": [
+          {
+            "etiqueta": "Consultorios",
+            "numero": "11 2279-5553"
+          },
+          {
+            "etiqueta": "Segundo contacto",
+            "numero": "11 2279-2887"
+          }
+        ],
+        "nota": "La Municipalidad publica turnos de especialidades y vacunatorio. No todos los profesionales atienden todos los días.",
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/usam/",
+        "tipo": "Especialidades y consultorios",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
+      },
+      {
+        "tipo": "Farmacia",
+        "nombre": "Farmacia Healy (Villars)",
+        "direccion": "Bv. Independencia 900, Villars (ubicación informada por medio local)",
+        "horarios": "Lunes a viernes de 8:30 a 12:30 y de 16 a 20; sábados de 9 a 13, según directorio comercial. Confirmá el horario por teléfono.",
+        "estado": "Ver todas las farmacias",
+        "destino": "#farmacias",
+        "destacado": false,
+        "telefonos": [
+          {
+            "etiqueta": "Contacto / WhatsApp (directorio)",
+            "numero": "+54 9 2227 402920"
+          }
+        ],
+        "nota": "El Colegio de Farmacéuticos bonaerense confirmó la nueva farmacia en septiembre de 2026. Dirección informada por medio local; teléfono y horarios publicados por directorio comercial, confirmar antes de viajar.",
+        "fuenteUrl": "https://colfarma.org.ar/noticias-colfarma-7-de-septiembre-de-2026/"
       }
     ],
     "otrosCentros": [
       {
-        "nombre": "Hospital Municipal Dr. Pedro Arozarena",
-        "localidad": "General Las Heras",
-        "direccion": "Av. Chiocconi 321",
-        "horarios": "Guardia hospitalaria. Confirmá especialidades y turnos antes de viajar.",
-        "telefonos": [
-          {
-            "etiqueta": "Principal",
-            "numero": ""
-          },
-          {
-            "etiqueta": "Guardia",
-            "numero": ""
-          }
-        ]
-      },
-      {
         "nombre": "CAPS Plomer",
         "localidad": "Plomer",
-        "direccion": "Zona rural",
-        "horarios": "Lunes a viernes de 08 a 17; sábados y domingos de 08 a 20, según guía de abril de 2022.",
+        "direccion": "Los Álamos y Los Acacios s/n, Plomer",
+        "horarios": "Lunes a viernes de 8 a 17; sábados y domingos de 8 a 20, según guía provincial de abril de 2022.",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
+            "etiqueta": "Contacto publicado en 2022",
+            "numero": "11 3646-4549"
           }
-        ]
+        ],
+        "nota": "Medicina general, enfermería, psicología y vacunación informadas en la guía de 2022.",
+        "fuenteUrl": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
       },
       {
         "nombre": "CAPS La Choza",
         "localidad": "La Choza",
-        "direccion": "Martín de Güemes s/n",
-        "horarios": "Lunes a viernes de 08 a 17, según guía de abril de 2022.",
+        "direccion": "Martín de Güemes s/n, La Choza",
+        "horarios": "Lunes a viernes de 13 a 17, según cuadro principal de la guía provincial de abril de 2022; confirmar antes de viajar.",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
+            "etiqueta": "Contacto publicado en 2022",
+            "numero": "0220-403-6093"
           }
-        ]
+        ],
+        "nota": "Atención primaria y vacunatorio según guía provincial. La misma guía presenta franjas distintas en el detalle de especialidades: consultá por teléfono.",
+        "fuenteUrl": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
       },
       {
         "nombre": "Dirección de Salud Comunitaria",
         "localidad": "General Las Heras",
-        "direccion": "Las Heras 1065",
-        "horarios": "Lunes a viernes de 08 a 15.",
+        "direccion": "Las Heras 1065, General Las Heras (domicilio publicado previamente; reconfirmar)",
+        "horarios": "Horario y teléfono directos sin confirmación actual. Consultá mediante la Municipalidad.",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
+            "etiqueta": "Municipalidad / derivaciones",
+            "numero": "0220-476-2260"
           }
-        ]
+        ],
+        "nota": "El número corresponde a la central municipal, no a una línea directa exclusiva del área.",
+        "fuenteUrl": "https://gobiernodelasheras.com/contacto/"
       }
     ]
   },
   "farmacias": {
-    "seccion": "Antes de viajar",
-    "titulo": "Farmacias de turno",
-    "selector": "Elegí una farmacia",
-    "advertencia": "Confirmá por teléfono qué farmacia está de turno y su horario antes de salir.",
+    "seccion": "Farmacias de la zona",
+    "titulo": "Farmacias y teléfonos",
+    "selector": "Filtrar farmacias",
+    "advertencia": "Este listado NO indica quién está de turno hoy. Llamá para confirmar horario, disponibilidad y guardia antes de salir.",
     "lista": [
+      {
+        "nombre": "Farmacia Healy",
+        "localidad": "Villars",
+        "direccion": "Bv. Independencia 900, Villars (numeración informada por medio local)",
+        "horarios": "Lunes a viernes 8:30–12:30 y 16–20; sábados 9–13 (directorio comercial; sujeto a cambios).",
+        "telefonos": [
+          {
+            "etiqueta": "Teléfono / WhatsApp",
+            "numero": "+54 9 2227 402920"
+          }
+        ],
+        "nota": "Nueva farmacia confirmada por COLFARMA en septiembre de 2026. Dirección y horarios de directorios locales.",
+        "fuenteUrl": "https://www.farmaciasafinidadsocial.com.ar/farmacia-healy/"
+      },
       {
         "nombre": "Farmacia Campos",
         "localidad": "General Las Heras",
         "direccion": "Av. Villamayor 512",
-        "horarios": "",
+        "horarios": "Consultá horario y guardia antes de ir.",
         "telefonos": [
           {
             "etiqueta": "Principal",
-            "numero": ""
-          },
-          {
-            "etiqueta": "WhatsApp",
-            "numero": ""
+            "numero": "0220-476-1828"
           }
-        ]
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
         "nombre": "Farmacia Custer",
         "localidad": "General Las Heras",
         "direccion": "Las Heras 948",
-        "horarios": "",
+        "horarios": "Consultá horario y guardia antes de ir.",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
+            "etiqueta": "Municipalidad",
+            "numero": "0220-476-1563"
           }
-        ]
+        ],
+        "nota": "Algunos directorios privados publican otro teléfono; se muestra el que publica la Municipalidad.",
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
         "nombre": "Farmacia del Pueblo",
         "localidad": "General Las Heras",
         "direccion": "25 de Mayo 965",
-        "horarios": "",
+        "horarios": "Consultá horario y guardia antes de ir.",
         "telefonos": [
           {
             "etiqueta": "Principal",
-            "numero": ""
+            "numero": "0220-476-1028"
           }
-        ]
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
-        "nombre": "Farmacia Las Heras",
+        "nombre": "Farmacia Las Heras / Mendibil",
         "localidad": "General Las Heras",
-        "direccion": "Las Heras y Belgrano",
-        "horarios": "",
+        "direccion": "Las Heras y Belgrano (domicilio del directorio municipal; confirmar ubicación)",
+        "horarios": "Consultá horario y guardia antes de ir.",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
+            "etiqueta": "Municipalidad",
+            "numero": "0220-476-1514"
           }
-        ]
+        ],
+        "nota": "El establecimiento aparece con nombres/domicilios diferentes según directorios; confirmar antes de trasladarte.",
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
-        "nombre": "Farmacia Salinas",
+        "nombre": "Farmacia Salinas (La Botica)",
         "localidad": "General Las Heras",
         "direccion": "Av. Chiocconi 152",
-        "horarios": "",
+        "horarios": "Consultá horario y guardia antes de ir.",
         "telefonos": [
           {
             "etiqueta": "Principal",
-            "numero": ""
+            "numero": "0220-476-1313"
           }
-        ]
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       }
     ]
   },
   "urgencias": {
-    "seccion": "Urgencias",
-    "titulo": "Si necesitás ayuda inmediata",
-    "aviso": "Esta página es informativa y no reemplaza la atención profesional.",
+    "seccion": "Llamadas de emergencia",
+    "titulo": "Teléfonos útiles y urgencias",
+    "aviso": "En una emergencia, llamá al 911 o al servicio correspondiente. Los teléfonos locales se toman de directorios públicos y pueden cambiar. El 107 es la línea de emergencias médicas operativa en General Las Heras.",
     "contactos": [
       {
-        "nombre": "SAME",
+        "nombre": "Emergencias / Policía",
         "telefonos": [
           {
-            "etiqueta": "Emergencias",
-            "numero": ""
+            "etiqueta": "Emergencias generales · 24 h",
+            "numero": "911"
           }
-        ]
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/tema/emergencias"
       },
       {
-        "nombre": "Policía y emergencias",
+        "nombre": "SAME – Emergencias médicas",
         "telefonos": [
           {
-            "etiqueta": "Emergencias",
-            "numero": ""
+            "etiqueta": "Solicitar ambulancia",
+            "numero": "107"
           }
-        ]
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/noticias/salud/puesta-en-marcha-de-la-linea-107-del-same/"
+      },
+      {
+        "nombre": "Bomberos",
+        "telefonos": [
+          {
+            "etiqueta": "Emergencia por incendio",
+            "numero": "100"
+          }
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/tema/emergencias"
+      },
+      {
+        "nombre": "Bomberos Voluntarios de Villars",
+        "telefonos": [
+          {
+            "etiqueta": "Cuartel · directorio nacional",
+            "numero": "0220-496-2047"
+          }
+        ],
+        "nota": "Victoria y Circunvalación, Villars. Si no responde ante una emergencia, llamá al 100 o 911.",
+        "fuenteUrl": "https://www.bomberosra.org.ar/bomberos/946-bomberos-voluntarios-de-villars"
+      },
+      {
+        "nombre": "Bomberos Voluntarios de General Las Heras",
+        "telefonos": [
+          {
+            "etiqueta": "Cuartel",
+            "numero": "0220-476-1222"
+          }
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
         "nombre": "Hospital Arozarena",
         "telefonos": [
           {
-            "etiqueta": "Principal",
-            "numero": ""
-          },
-          {
-            "etiqueta": "Guardia",
-            "numero": ""
+            "etiqueta": "Central / hospital",
+            "numero": "0220-476-1000"
           }
-        ]
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "nombre": "Policía – General Las Heras",
+        "telefonos": [
+          {
+            "etiqueta": "Dependencia local",
+            "numero": "0220-476-1111"
+          }
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "nombre": "Defensa Civil",
+        "telefonos": [
+          {
+            "etiqueta": "Inundaciones y desastres",
+            "numero": "103"
+          }
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/tema/emergencias"
+      },
+      {
+        "nombre": "Centro de Operaciones Municipales (COM)",
+        "telefonos": [
+          {
+            "etiqueta": "Central publicada",
+            "numero": "011-5144-5509"
+          }
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "nombre": "Patrulla Rural",
+        "telefonos": [
+          {
+            "etiqueta": "General Las Heras",
+            "numero": "0220-476-3479"
+          }
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "nombre": "Atención a la víctima",
+        "telefonos": [
+          {
+            "etiqueta": "General Las Heras",
+            "numero": "0220-476-3671"
+          }
+        ],
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+      },
+      {
+        "nombre": "Urgencias en salud mental",
+        "telefonos": [
+          {
+            "etiqueta": "Gratis, 24 h",
+            "numero": "0800-999-0091"
+          }
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/noticias/la-linea-nacional-de-orientacion-y-apoyo-en-la-urgencia-de-salud-mental-funciona-las-24"
+      },
+      {
+        "nombre": "Orientación de salud",
+        "telefonos": [
+          {
+            "etiqueta": "Salud Responde",
+            "numero": "0800-222-1002"
+          }
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/node/9283"
+      },
+      {
+        "nombre": "Violencia de género",
+        "telefonos": [
+          {
+            "etiqueta": "Orientación",
+            "numero": "144"
+          }
+        ],
+        "fuenteUrl": "https://www.argentina.gob.ar/tema/emergencias"
       }
     ]
   },
   "fuentes": {
     "titulo": "Fuentes y vigencia de los datos",
-    "aviso": "Los horarios pueden cambiar. Revisá y actualizá la fecha de verificación cuando confirmes los datos.",
+    "aviso": "Fuentes consultadas el 13 de octubre de 2026. Algunos teléfonos y horarios de CAPS provienen de una guía de abril de 2022: no significa que hayan sido confirmados telefónicamente hoy. Confirmá antes de viajar. Los turnos de farmacias no se actualizan en vivo.",
     "lista": [
       {
-        "etiqueta": "Guía provincial de servicios de salud de General Las Heras (abril de 2022)",
+        "etiqueta": "Provincia de Buenos Aires · Guía de salud General Las Heras (datos de abril de 2022)",
         "url": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
       },
       {
-        "etiqueta": "Directorio de teléfonos útiles de la Municipalidad de General Las Heras",
+        "etiqueta": "Municipalidad · Teléfonos útiles",
         "url": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
       },
       {
-        "etiqueta": "Dirección municipal de Salud Comunitaria",
-        "url": "https://gobiernodelasheras.com/noticias/gobierno/presentacion-de-la-direccion-de-salud-comunitario/"
+        "etiqueta": "Municipalidad · CAPS General Hornos, inauguración y horarios publicados",
+        "url": "https://gobiernodelasheras.com/destacados/inauguracion-del-centro-de-atencion-primaria-de-la-salud-de-hornos/"
+      },
+      {
+        "etiqueta": "Municipalidad · Consultorios Municipales / USAM",
+        "url": "https://gobiernodelasheras.com/la-ciudad/usam/"
+      },
+      {
+        "etiqueta": "Provincia de Buenos Aires · Vacunatorios (ubicación CAPS Hornos y Villars)",
+        "url": "https://portal-coronavirus.gba.gob.ar/vacunatorios-de-la-campana-covid-19"
+      },
+      {
+        "etiqueta": "Colegio de Farmacéuticos · apertura de Farmacia Healy, septiembre 2026",
+        "url": "https://colfarma.org.ar/noticias-colfarma-7-de-septiembre-de-2026/"
+      },
+      {
+        "etiqueta": "Medio local · Inauguración de Farmacia Healy en Bv. Independencia 900, Villars",
+        "url": "https://www.facebook.com/infolasheras2013/posts/-villars-tiene-farmaciaeste-jueves-fue-la-inauguraci%C3%B3n-y-desde-el-viernes-ya-fun/1605180494943721/"
+      },
+      {
+        "etiqueta": "Directorio comercial · Farmacia Healy (contacto y horario orientativos)",
+        "url": "https://www.farmaciasafinidadsocial.com.ar/farmacia-healy/"
+      },
+      {
+        "etiqueta": "Asociación de Bomberos Voluntarios · Cuartel de Villars",
+        "url": "https://www.bomberosra.org.ar/bomberos/946-bomberos-voluntarios-de-villars"
+      },
+      {
+        "etiqueta": "Argentina.gob.ar · Emergencias nacionales",
+        "url": "https://www.argentina.gob.ar/tema/emergencias"
+      },
+      {
+        "etiqueta": "Ministerio de Salud de la Nación · Línea de salud mental",
+        "url": "https://www.argentina.gob.ar/noticias/la-linea-nacional-de-orientacion-y-apoyo-en-la-urgencia-de-salud-mental-funciona-las-24"
       }
     ]
   }

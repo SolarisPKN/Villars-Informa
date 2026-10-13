@@ -26,3 +26,4 @@ jobs:
           MAP_TEST_CSP=1 MAP_BREAK_PMTILES=1 CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs
           MAP_TEST_CSP=1 MAP_FORCE_ALTERNATE=1 CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs
           MAP_REPORT_ONLY=1 MAP_ORIGIN=https://villars.solarispkn.com.ar CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-basemap.mjs
+          CHROME_BIN=/usr/bin/google-chrome node scripts/check-browser-health.mjs

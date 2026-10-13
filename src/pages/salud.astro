@@ -40,10 +40,15 @@ const healthSeoItems = [
       <p>{salud.subtitulo}</p>
       {salud.verificadoEl && (
         <p class="health-verified">
-          Datos fijos revisados el
+          Fuentes públicas consultadas el
           <time datetime={salud.verificadoEl}>{formatDate(new Date(salud.verificadoEl + 'T12:00:00'))}</time>.
         </p>
       )}
+      <nav class="health-quick-nav" aria-label="Ir a información útil">
+        <a href="#atencion">Centros de salud</a>
+        <a href="#farmacias">Farmacias</a>
+        <a href="#urgencias">Urgencias y teléfonos</a>
+      </nav>
     </header>
 
     <section class="health-section updates-section" aria-labelledby="updates-title">
@@ -99,7 +104,7 @@ const healthSeoItems = [
       </div>
     </section>
 
-    <section class="health-section" aria-labelledby="villars-care-title">
+    <section id="atencion" class="health-section" aria-labelledby="villars-care-title">
       <div class="section-heading">
         <div>
           <p class="section-kicker">{salud.atencion.seccion}</p>
@@ -132,6 +137,8 @@ const healthSeoItems = [
                   </dd>
                 </div>
               </dl>
+              {service.nota && <p class="service-note">{service.nota}</p>}
+              {service.fuenteUrl && <a class="health-source-link" href={service.fuenteUrl} target="_blank" rel="noopener noreferrer">Consultar fuente ↗</a>}
               {service.destino
                 ? <a class="card-action" href={service.destino}>{service.estado} ↓</a>
                 : <span class="status-chip">{service.estado}</span>}
@@ -161,6 +168,8 @@ const healthSeoItems = [
                     ))}
                   </ul>
                 ) : <span class="missing-contact">{salud.textos.telefonoPendiente}</span>}
+                {center.nota && <p class="service-note">{center.nota}</p>}
+                {center.fuenteUrl && <a class="health-source-link" href={center.fuenteUrl} target="_blank" rel="noopener noreferrer">Consultar fuente ↗</a>}
               </article>
             );
           })}
@@ -180,8 +189,9 @@ const healthSeoItems = [
         <div class="pharmacy-selector">
           <label for="pharmacy-select">{salud.farmacias.selector}</label>
           <select id="pharmacy-select">
+            <option value="all">Todas las farmacias ({salud.farmacias.lista.length})</option>
             {salud.farmacias.lista.map((pharmacy, index) => (
-              <option value={index}>{pharmacy.nombre}</option>
+              <option value={index}>{pharmacy.nombre} · {pharmacy.localidad}</option>
             ))}
           </select>
           <p class="turn-warning">{salud.farmacias.advertencia}</p>
@@ -190,7 +200,7 @@ const healthSeoItems = [
           {salud.farmacias.lista.map((pharmacy, index) => {
             const phones = validPhones(pharmacy.telefonos);
             return (
-              <article class="pharmacy-card" data-pharmacy-card={index} hidden={index !== 0}>
+              <article class="pharmacy-card" data-pharmacy-card={index}>
                 <p class="service-kind">{pharmacy.localidad}</p>
                 <h3>{pharmacy.nombre}</h3>
                 <address class:list={{ 'pending-data': !pharmacy.direccion }}>{valueOrPending(pharmacy.direccion)}</address>
@@ -202,6 +212,8 @@ const healthSeoItems = [
                     ))}
                   </ul>
                 ) : <span class="missing-contact">{salud.textos.telefonoPendiente}</span>}
+                {pharmacy.nota && <p class="service-note">{pharmacy.nota}</p>}
+                {pharmacy.fuenteUrl && <a class="health-source-link" href={pharmacy.fuenteUrl} target="_blank" rel="noopener noreferrer">Consultar fuente ↗</a>}
               </article>
             );
           })}
@@ -209,7 +221,7 @@ const healthSeoItems = [
       </div>
     </section>
 
-    <section class="health-section emergency-section" aria-labelledby="emergency-title">
+    <section id="urgencias" class="health-section emergency-section" aria-labelledby="emergency-title">
       <div>
         <p class="section-kicker">{salud.urgencias.seccion}</p>
         <h2 id="emergency-title">{salud.urgencias.titulo}</h2>
@@ -228,6 +240,8 @@ const healthSeoItems = [
                   ))}
                 </ul>
               ) : <strong class="pending-data">{salud.textos.telefonoPendiente}</strong>}
+              {contact.nota && <small class="emergency-note">{contact.nota}</small>}
+              {contact.fuenteUrl && <a class="health-source-link" href={contact.fuenteUrl} target="_blank" rel="noopener noreferrer">Fuente ↗</a>}
             </article>
           );
         })}

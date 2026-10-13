@@ -190,7 +190,24 @@ function bestRailLeg(graph, a, b) {
       }
     }
   }
-  if (finish === null) throw new Error('Railway disconnected between stations: ' + a + ' / ' + b + '; candidates ' + origins.length + ' / ' + goals.length + '; graph nodes ' + graph.nodes.size);
+  if (finish === null) {
+    const accessible = [...dist.keys()];
+    const far = new Set(goals.map(g => g.id));
+    const pending = [...far];
+    while (pending.length) {
+      const id = pending.pop();
+      for (const [next] of graph.edges.get(id) || []) if (!far.has(next)) { far.add(next); pending.push(next); }
+    }
+    let nearest = { meters: Infinity, a: null, b: null };
+    // Report where the mapped rail graph is broken; never bridge silently.
+    for (const id of accessible) for (const other of far) {
+      const m = meters(graph.nodes.get(id), graph.nodes.get(other));
+      if (m < nearest.meters) nearest = { meters: m, a: graph.nodes.get(id), b: graph.nodes.get(other) };
+    }
+    throw new Error('Railway disconnected: ' + a + ' / ' + b + '; nearest gap ' +
+      nearest.meters.toFixed(1) + 'm at ' + JSON.stringify(nearest.a) + ' -> ' + JSON.stringify(nearest.b) +
+      '; candidates ' + origins.length + ' / ' + goals.length + '; graph nodes ' + graph.nodes.size);
+  }
   const ids = [];
   for (let id = finish; id !== null; id = previous.get(id) ?? null) ids.push(id);
   ids.reverse();

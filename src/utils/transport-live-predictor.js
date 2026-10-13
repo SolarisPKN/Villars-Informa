@@ -142,7 +142,18 @@ function scheduledPosition(service, shape, stations, nowMinutes, delayMinutes) {
 }
 
 export class ObservationHistory {
-  constructor(limit = 4) { this.limit = limit; this.items = new Map(); }
+  constructor(limit = 4) { this.limit = limit; this.items = new Map(); this.gpsReports = new Map(); }
+  observeGps(identity, reportedAt) {
+    if (!identity || !Number.isFinite(reportedAt)) return;
+    const previous = this.gpsReports.get(identity) || 0;
+    if (reportedAt > previous) this.gpsReports.set(identity, reportedAt);
+    if (this.gpsReports.size > 500) {
+      for (const [key, stamp] of this.gpsReports) {
+        if (reportedAt - stamp > 2 * 24 * 60 * 60_000) this.gpsReports.delete(key);
+      }
+    }
+  }
+  lastGpsAt(identity) { return this.gpsReports.get(identity) || null; }
   push(identity, value) {
     const values = this.items.get(identity) || [];
     if (!values.some((item) => item.at === value.at && item.along === value.along)) values.push(value);
@@ -159,7 +170,21 @@ export class ObservationHistory {
 const feature = (properties, coordinates) => ({ type: 'Feature', properties, geometry: { type: 'Point', coordinates } });
 
 
-const MAX_GPS_AGE_MS = 10 * 60_000;
+export const GPS_UNKNOWN_AFTER_MS = 10 * 60_000;
+const MAX_GPS_AGE_MS = GPS_UNKNOWN_AFTER_MS;
+
+export function gpsGapDisplay({ lastGpsAt, serviceStartMinutes, nowMinutes, date }) {
+  const last = lastGpsAt ? new Date(lastGpsAt).getTime() : NaN;
+  // A GPS position from a previous day's formation must never count as a
+  // current report for a service whose trip number was reused today.
+  const startAge = Number.isFinite(serviceStartMinutes)
+    ? Math.max(0, (nowMinutes - serviceStartMinutes) * 60_000) : 0;
+  const age = Number.isFinite(last) && last <= date.getTime() &&
+    (startAge === 0 || date.getTime() - last <= startAge + 60_000)
+    ? date.getTime() - last : startAge;
+  return { unknownForMs: age, dashed: age >= GPS_UNKNOWN_AFTER_MS };
+}
+
 const MAX_FUTURE_GPS_MS = 90_000;
 const TERMINAL_STATES = new Set(['completed', 'cancelled']);
 
@@ -246,6 +271,14 @@ function deduplicateTrainPins(features) {
 export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date = new Date(), history = new ObservationHistory() }) {
   const clock = argentinaClock(date, schedules.timezone || 'America/Argentina/Buenos_Aires');
   const stations = indexes(mapData);
+  const reports = snapshotVehicles(snapshot);
+  for (const report of reports) {
+    if (report.positionSource !== 'gps' || !Number.isFinite(report.lon) || !Number.isFinite(report.lat)) continue;
+    const at = new Date(report.observedAt || report.sourceTimestamp).getTime();
+    if (!Number.isFinite(at) || at > date.getTime() + MAX_FUTURE_GPS_MS) continue;
+    if (report.serviceNumber) history.observeGps(
+      routeFamilyForLive(report) + ':' + serviceNumber(report.serviceNumber), at);
+  }
   const realtime = usableLiveReports(snapshot, date);
   const matched = new Set();
   const features = [];
@@ -293,6 +326,11 @@ export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date 
           }
         }
         if (!coordinates) continue;
+        const gpsGap = gpsGapDisplay({
+          lastGpsAt: history.lastGpsAt(serviceKey),
+          serviceStartMinutes: service.stops?.find((stop) => Number.isFinite(stop.minutes))?.minutes,
+          nowMinutes: clock.minutes, date,
+        });
         features.push(feature({
           id: live?.vehicleId || 'schedule:' + route.id + ':' + grid.id + ':' + service.id,
           mode: route.type, routeId: live?.routeId || route.id, lineKey: route.lineKey,
@@ -304,6 +342,8 @@ export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date 
           toStop: live?.nextStop || planned?.toStop,
           status: live?.status || 'scheduled', delaySeconds, speedKmh,
           stale: false, cancelled: false,
+          gpsUnknownForMs: gpsGap.unknownForMs, gpsDashed: gpsGap.dashed,
+          lastGpsAt: history.lastGpsAt(serviceKey) ? new Date(history.lastGpsAt(serviceKey)).toISOString() : null,
           updatedAt: live?.observedAt || live?.checkedAt || date.toISOString(),
         }, coordinates));
       }
@@ -326,6 +366,9 @@ export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date 
       positionSource: reading.kind,
       status: live.status, delaySeconds: live.delaySeconds,
       stale: false, cancelled: false,
+      gpsUnknownForMs: reading.age,
+      gpsDashed: reading.kind !== 'gps' && reading.age >= GPS_UNKNOWN_AFTER_MS,
+      lastGpsAt: reading.kind === 'gps' ? live.observedAt || live.sourceTimestamp : null,
       updatedAt: live.observedAt || live.checkedAt || live.sourceTimestamp,
     }, projected.point));
   }

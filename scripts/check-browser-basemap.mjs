@@ -37,10 +37,10 @@ try {
     return { status: document.querySelector('[data-live-map-status]')?.textContent, canvasCount: canvases.length, data, routeLines: document.querySelectorAll('.leaflet-overlay-pane path').length };
   });
   console.log('BROWSER_BASEMAP_DIAGNOSTICS ' + JSON.stringify({ details, errors, consoleErrors, requests }).slice(0, 25000));
-  if (!details.data.some((tile) => tile.loaded && tile.alpha > 50 && tile.colors >= 4)) {
+  if (process.env.MAP_REPORT_ONLY !== '1' && !details.data.some((tile) => tile.loaded && tile.alpha > 50 && tile.colors >= 4)) {
     throw new Error('Browser rendered no recognizable non-empty basemap canvas, despite PMTiles healthchecks');
   }
-  if (errors.length) throw new Error('Browser JS errors: ' + errors.join(' | '));
+  if (process.env.MAP_REPORT_ONLY !== '1' && errors.length) throw new Error('Browser JS errors: ' + errors.join(' | '));
 } finally {
   await browser.close();
 }

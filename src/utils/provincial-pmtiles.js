@@ -31,7 +31,7 @@ function resolveFile(manifestUrl, file) {
 
 export async function readProvinceMapManifest(url, fetchImpl = fetch) {
   const absolute = new URL(url, globalThis.location?.href || 'http://localhost/').href;
-  const response = await fetchImpl(absolute, { headers: { Accept: 'application/json' }, cache: 'force-cache' });
+  const response = await fetchImpl(absolute, { headers: { Accept: 'application/json' }, cache: 'no-cache' });
   if (!response.ok) throw new Error(`Manifest PMTiles HTTP ${response.status}`);
   const manifest = await response.json();
   if (manifest?.schemaVersion !== 1 || !manifest.overview?.file || !Array.isArray(manifest.parties) || !validBounds(manifest.bounds)) {

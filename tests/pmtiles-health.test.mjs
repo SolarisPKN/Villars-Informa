@@ -26,3 +26,17 @@ test('rejects whole-file response, truncated range and corrupted magic', async (
   await assert.rejects(() => probePmtilesByteServing('/map', async () => makeResponse(206, 'bytes 0-15/100', new Uint8Array(0))));
   await assert.rejects(() => probePmtilesByteServing('/map', async () => makeResponse(206, 'bytes 0-15/100', new Uint8Array(16))));
 });
+
+test('rejects ignored ranges without buffering entire archive', async () => {
+  let cancelled = false;
+  let buffered = false;
+  const response = {
+    status: 200,
+    headers: new Headers(),
+    body: { async cancel() { cancelled = true; } },
+    async arrayBuffer() { buffered = true; throw new Error('Must not read full file'); },
+  };
+  await assert.rejects(() => probePmtilesByteServing('/huge.pmtiles', async () => response), /lectura parcial segura/);
+  assert.equal(cancelled, true);
+  assert.equal(buffered, false);
+});

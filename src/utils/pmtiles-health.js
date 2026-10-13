@@ -25,6 +25,15 @@ export async function probePmtilesByteServing(url, fetchImpl = fetch) {
     headers: { Range: 'bytes=0-15' },
     cache: 'no-store',
   });
+  // Check response metadata BEFORE buffering: some static hosts ignore Range and
+  // return a whole multi-megabyte archive with HTTP 200.
+  const range = response.headers.get('content-range') || '';
+  const validRange = /^bytes 0-15\\/(\\d+)$/i.test(range.trim());
+  const advertisedLength = response.headers.get('content-length');
+  if (response.status !== 206 || !validRange || (advertisedLength !== null && Number(advertisedLength) !== 16)) {
+    await response.body?.cancel?.();
+    throw new Error(`PMTiles no admite lectura parcial segura (HTTP ${response.status}, Content-Range: ${range || '(ausente)'}).`);
+  }
   const bytes = new Uint8Array(await response.arrayBuffer());
   return validatePmtilesRangeResponse(response, bytes);
 }

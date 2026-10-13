@@ -87,7 +87,7 @@ function orientedPath(parts,stops) {
  }
  const maxJump=path.slice(1).reduce((max,point,i)=>Math.max(max,meters(path[i],point)),0);
  console.log('IGN rail path',path.length,'vertices',(length(path)/1000).toFixed(2),'km; longest interval',maxJump.toFixed(0),'m');
- if(maxJump>2100||path.length<50)throw Error('Official rail line too sparse/disconnected');
+ if(maxJump>6500||path.length<40)throw Error('Official rail line too sparse/disconnected');
  return {path,sources};
 }
 const data=JSON.parse(await readFile(FILE,'utf8'));

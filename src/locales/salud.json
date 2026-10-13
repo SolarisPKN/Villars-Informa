@@ -26,7 +26,7 @@
     "seccion": "Centros cercanos",
     "titulo": "Dónde atenderte",
     "mostrarOtros": "Ver centros de salud de todo el partido",
-    "resumenOtros": "Hospital, CAPS Hornos, Plomer, La Choza, USAM y Salud Comunitaria",
+    "resumenOtros": "Plomer, La Choza y Salud Comunitaria",
     "serviciosPrincipales": [
       {
         "tipo": "Atención primaria",
@@ -46,32 +46,17 @@
         "fuenteUrl": "https://www.ms.gba.gov.ar/sitios/wp-content/uploads/sites/236/2024/03/GENERAL-LAS-HERAS-Guia-de-servicios-de-salud_actualizada-a-abril-2022.pdf"
       },
       {
-        "tipo": "Farmacia",
-        "nombre": "Farmacia Healy (Villars)",
-        "direccion": "Bv. Independencia 900, Villars (ubicación informada por medio local)",
-        "horarios": "Lunes a viernes de 8:30 a 12:30 y de 16 a 20; sábados de 9 a 13, según directorio comercial. Confirmá el horario por teléfono.",
-        "estado": "Ver todas las farmacias",
-        "destino": "#farmacias",
-        "destacado": false,
-        "telefonos": [
-          {
-            "etiqueta": "Contacto / WhatsApp (directorio)",
-            "numero": "+54 9 2227 402920"
-          }
-        ],
-        "nota": "Nueva farmacia local. El Colegio de Farmacéuticos bonaerense informó su establecimiento en septiembre de 2026.",
-        "fuenteUrl": "https://colfarma.org.ar/noticias-colfarma-7-de-septiembre-de-2026/"
-      }
-    ],
-    "otrosCentros": [
-      {
         "nombre": "CAPS General Hornos",
         "localidad": "General Hornos",
         "direccion": "2 de Abril s/n, General Hornos (ubicación provincial; confirmar acceso)",
         "horarios": "De 8 a 17 h, con enfermería, según anuncio de inauguración municipal. Confirmá antes de asistir.",
         "telefonos": [],
         "nota": "El municipio informó sector de guardia, shockroom y atención primaria. No se encontró un teléfono actualizado verificado para este nuevo centro.",
-        "fuenteUrl": "https://gobiernodelasheras.com/destacados/inauguracion-del-centro-de-atencion-primaria-de-la-salud-de-hornos/"
+        "fuenteUrl": "https://gobiernodelasheras.com/destacados/inauguracion-del-centro-de-atencion-primaria-de-la-salud-de-hornos/",
+        "tipo": "Atención primaria",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
       },
       {
         "nombre": "Hospital Municipal Dr. Pedro Arozarena",
@@ -93,7 +78,11 @@
           }
         ],
         "nota": "En una urgencia médica también podés llamar al 107.",
-        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/"
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/",
+        "tipo": "Hospital municipal",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
       },
       {
         "nombre": "USAM / Consultorios Municipales Dr. Marcos Langan",
@@ -111,8 +100,31 @@
           }
         ],
         "nota": "La Municipalidad publica turnos de especialidades y vacunatorio. No todos los profesionales atienden todos los días.",
-        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/usam/"
+        "fuenteUrl": "https://gobiernodelasheras.com/la-ciudad/usam/",
+        "tipo": "Especialidades y consultorios",
+        "estado": "Ver contacto y horarios",
+        "destino": "",
+        "destacado": false
       },
+      {
+        "tipo": "Farmacia",
+        "nombre": "Farmacia Healy (Villars)",
+        "direccion": "Bv. Independencia 900, Villars (ubicación informada por medio local)",
+        "horarios": "Lunes a viernes de 8:30 a 12:30 y de 16 a 20; sábados de 9 a 13, según directorio comercial. Confirmá el horario por teléfono.",
+        "estado": "Ver todas las farmacias",
+        "destino": "#farmacias",
+        "destacado": false,
+        "telefonos": [
+          {
+            "etiqueta": "Contacto / WhatsApp (directorio)",
+            "numero": "+54 9 2227 402920"
+          }
+        ],
+        "nota": "Nueva farmacia local. El Colegio de Farmacéuticos bonaerense informó su establecimiento en septiembre de 2026.",
+        "fuenteUrl": "https://colfarma.org.ar/noticias-colfarma-7-de-septiembre-de-2026/"
+      }
+    ],
+    "otrosCentros": [
       {
         "nombre": "CAPS Plomer",
         "localidad": "Plomer",
@@ -160,7 +172,7 @@
   "farmacias": {
     "seccion": "Farmacias de la zona",
     "titulo": "Farmacias y teléfonos",
-    "selector": "Buscá una farmacia",
+    "selector": "Filtrar farmacias",
     "advertencia": "Este listado NO indica quién está de turno hoy. Llamá para confirmar horario, disponibilidad y guardia antes de salir.",
     "lista": [
       {

@@ -1,7 +1,8 @@
 name: Verificar fondo cartografico en navegador
 on:
   push:
-    branches: [main, fix/browser-verified-basemap-paint]
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read

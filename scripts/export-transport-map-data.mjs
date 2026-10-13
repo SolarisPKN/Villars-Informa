@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { retainVerifiedRoute } from './lib/retain-verified-route.mjs';
 
 const outputPath = resolve(process.argv[2] || 'src/data/transport-map.json');
 const oneBusAwayBaseUrl = 'https://cuandosubo.sube.gob.ar/onebusaway-api-webapp/api/where';
@@ -201,15 +202,6 @@ const busData = await Promise.all(busRoutes.map(async (route) => {
     return reference;
   }
 }));
-function retainVerifiedRoute(route, kind) {
-  const previous = previousMap?.routes?.features?.find((feature) => feature.properties?.id === route.properties.id);
-  if (!previous || !([].concat(kind).includes(previous.properties?.geometryKind)) ||
-      previous.geometry?.type !== 'LineString' || previous.geometry.coordinates.length < 100) return route;
-  return { ...route, properties: { ...route.properties, geometryKind: kind,
-    geometrySource: previous.properties.geometrySource, geometryCheckedAt: previous.properties.geometryCheckedAt },
-    geometry: previous.geometry };
-}
-
 const trainRoute = {
   type: 'Feature',
   properties: { id: 'belgrano-sur-gonzalez-catan-lozano', name: 'Belgrano Sur · González Catán–Lozano', lineKey: 'belgrano-sur', mode: 'train' },
@@ -224,9 +216,9 @@ const sarmientoRoute = { type: 'Feature', properties: { id: 'sarmiento-merlo-lob
 const sarmientoStops = sarmientoStations.map((station) => ({ type: 'Feature', properties: { id: `train-sarmiento-${station.name}`, name: station.name, lineKey: 'sarmiento-merlo-lobos', mode: 'train' }, geometry: { type: 'Point', coordinates: station.coordinates } }));
 const rapid136Route = { type: 'Feature', properties: { id: '136-rapido-primera-junta-navarro', name: '136 Rápido · Primera Junta–Navarro (corredor de referencia)', lineKey: '136-rapido', mode: 'bus' }, geometry: { type: 'LineString', coordinates: rapid136Stations.map(({ coordinates }) => coordinates) } };
 const rapid136Stops = rapid136Stations.map((station) => ({ type: 'Feature', properties: { id: `136-rapido-${station.name}`, name: station.name, lineKey: '136-rapido', mode: 'bus' }, geometry: { type: 'Point', coordinates: station.coordinates } }));
-const verifiedBelgrano = retainVerifiedRoute(trainRoute, ['ign-rail-network', 'osm-rail-network']);
-const verifiedSarmiento = retainVerifiedRoute(sarmientoRoute, ['ign-rail-network', 'osm-rail-network']);
-const roadBased136 = retainVerifiedRoute(rapid136Route, 'road-network-estimate');
+const verifiedBelgrano = retainVerifiedRoute(trainRoute, ['ign-rail-network', 'osm-rail-network'], previousMap);
+const verifiedSarmiento = retainVerifiedRoute(sarmientoRoute, ['ign-rail-network', 'osm-rail-network'], previousMap);
+const roadBased136 = retainVerifiedRoute(rapid136Route, 'road-network-estimate', previousMap);
 
 const payload = {
   schemaVersion: 1,
@@ -238,7 +230,7 @@ const payload = {
     bus: `${oneBusAwayBaseUrl}/stops-for-route/{routeId}.json`,
     trainStations: 'OpenStreetMap y coordenadas públicas de Estación Lozano',
     ...(['ign-rail-network', 'osm-rail-network'].includes(verifiedBelgrano.properties.geometryKind)
-      ? { trainTrackGeometry: previousMap?.sources?.trainTrackGeometry || 'OpenStreetMap railway tracks (ODbL)' } : {}),
+      ? { trainTrackGeometry: previousMap?.sources?.trainTrackGeometry || 'IGN / Ministerio de Transporte - Red ferroviaria nacional' } : {}),
     ...(roadBased136.properties.geometryKind === 'road-network-estimate'
       ? { rapid136Geometry: previousMap?.sources?.rapid136Geometry || 'OSRM over OSM roads (estimated)' } : {}),
   },

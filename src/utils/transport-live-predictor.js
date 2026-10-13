@@ -1,4 +1,5 @@
 const METERS_PER_DEGREE = 111_320;
+const MAX_GPS_DISTANCE_FROM_ROUTE_METERS = 1200;
 
 export const normalizeLiveName = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
@@ -137,17 +138,31 @@ export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date 
     if (!planned && !Number.isFinite(live?.lat)) continue;
     let coordinates = planned?.coordinates; let positionKind = 'schedule-estimated'; let speedKmh = live?.speedKmh;
     if (Number.isFinite(live?.lon) && Number.isFinite(live?.lat)) {
-      const projected = projectPointToLine([live.lon, live.lat], shape.coordinates); const identity = live.vehicleId || live.tripId || service.name;
+      const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
+      // A GPS report far from the selected corridor is not trustworthy. Never
+      // teleport it onto an unrelated road or draw a dot floating in a field.
+      if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) {
+        matched.add(live);
+      } else {
+      const identity = live.vehicleId || live.tripId || service.name;
       const observedAt = new Date(live.observedAt || live.sourceTimestamp || live.checkedAt || date).getTime(); history.push(identity, { at: observedAt, along: projected.along });
       const calculated = history.metersPerSecond(identity); const velocity = Number.isFinite(Number(speedKmh)) ? Number(speedKmh) / 3.6 : calculated;
       const age = Math.max(0, Math.min(240, (date.getTime() - observedAt) / 1000)); coordinates = pointAlongLine(shape.coordinates, projected.along + (Number.isFinite(velocity) ? velocity * age : 0));
       positionKind = age < 15 ? 'gps' : 'gps-corrected'; if (!Number.isFinite(Number(speedKmh)) && Number.isFinite(calculated)) speedKmh = Math.abs(calculated * 3.6); matched.add(live);
+      }
     }
     if (!coordinates) continue;
     features.push(feature({ id: live?.vehicleId || `schedule:${route.id}:${grid.id}:${service.id}`, mode: route.type, routeId: live?.routeId || route.id, lineKey: route.lineKey, tripId: live?.tripId || `${route.id}:${grid.id}:${service.id}`, serviceNumber: serviceNumber(service.name), label: `${route.type === 'train' ? 'Tren' : 'Colectivo'} ${service.name} · ${service.destination}`, direction: service.destination, positionKind, positionSource: live?.positionSource || 'schedule-estimated', fromStop: live?.previousStop || planned?.fromStop, toStop: live?.nextStop || planned?.toStop, status: live?.status || 'scheduled', delaySeconds, speedKmh, stale: Boolean(live?.stale), cancelled: live?.status === 'cancelled', updatedAt: live?.confirmedAt || live?.checkedAt || snapshot?.updatedAt || date.toISOString() }, coordinates));
   }
   for (const live of realtime.filter((item) => !matched.has(item) && Number.isFinite(item.lon) && Number.isFinite(item.lat))) {
-    const family = routeFamilyForLive(live); const shape = selectShape(mapData, family, { stops: [] }, stations); const coordinates = shape ? projectPointToLine([live.lon, live.lat], shape.coordinates).point : [live.lon, live.lat];
+    const family = routeFamilyForLive(live);
+    const shape = selectShape(mapData, family, { stops: [] }, stations);
+    // Unknown routes and remote coordinates must not appear as if they were
+    // verified positions on the road/rails.
+    if (!shape) continue;
+    const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
+    if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) continue;
+    const coordinates = projected.point;
     features.push(feature({ id: live.vehicleId || live.tripId, mode: live.mode, routeId: live.routeId, lineKey: family, tripId: live.tripId, serviceNumber: live.serviceNumber, label: live.destination || live.routeId, direction: live.destination, positionKind: 'gps', positionSource: live.positionSource, status: live.status, delaySeconds: live.delaySeconds, stale: live.stale, cancelled: live.status === 'cancelled', updatedAt: live.confirmedAt || live.checkedAt || live.sourceTimestamp }, coordinates));
   }
   return features;

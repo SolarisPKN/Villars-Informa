@@ -19,4 +19,5 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
+      - run: npm ci
       - run: node scripts/check-live-map.mjs

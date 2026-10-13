@@ -34,6 +34,7 @@ let routeLayer;
 let stopLayer;
 let filterController;
 let currentLiveFeatures = [];
+let liveFeatureSignature = '';
 let pollTimer;
 let motionTimer;
 let pollingController;
@@ -157,9 +158,9 @@ function applyRouteSelection(event) {
   if (changed) focusSelectedRoute();
 }
 
-function renderFilteredLayers() {
+function renderFilteredLayers({ liveOnly = false } = {}) {
   const filters = currentFilterState();
-  if (routeLayer) {
+  if (!liveOnly && routeLayer) {
     routeLayer.clearLayers();
     if (filters.layers.has('routes')) {
       routeLayer.addData({
@@ -168,7 +169,7 @@ function renderFilteredLayers() {
       });
     }
   }
-  if (stopLayer) {
+  if (!liveOnly && stopLayer) {
     stopLayer.clearLayers();
     if (filters.layers.has('stops')) {
       stopLayer.addData({
@@ -289,8 +290,17 @@ function vehicleMarkerIcon(feature) {
 }
 
 function replaceLiveFeatures(features) {
+  // Redrawing every route and station on each 1-second position tick caused
+  // heavy canvas/layout churn during PMTiles panning and zooming. Only update
+  // the position overlay when its visible coordinates or statuses change.
+  const signature = JSON.stringify(features.map(({ geometry, properties }) => [
+    properties.id, properties.positionKind, properties.status,
+    properties.stale, properties.direction, geometry.coordinates.map((n) => Math.round(n * 1e5)),
+  ]));
+  if (signature === liveFeatureSignature) return;
+  liveFeatureSignature = signature;
   currentLiveFeatures = features;
-  renderFilteredLayers();
+  renderFilteredLayers({ liveOnly: true });
   if (!hasAutoFocusedLive && map && features.length > 0) {
     const bounds = map.getBounds();
     const anyVisibleInViewport = visibleLiveFeatures().some(({ geometry }) => (
@@ -401,6 +411,7 @@ async function initTransportMap() {
   routeLayer = undefined;
   stopLayer = undefined;
   currentLiveFeatures = [];
+  liveFeatureSignature = '';
   hasAutoFocusedLive = false;
   activeSelection ||= routeSelectionFromControls();
   baseMapState = 'loading';
@@ -453,7 +464,7 @@ async function initTransportMap() {
   addTransportLayers();
   bindMapFilters();
   replaceLiveFeatures(liveFeatures(latestSnapshot));
-  motionTimer = window.setInterval(() => replaceLiveFeatures(liveFeatures(latestSnapshot)), 1_000);
+  motionTimer = window.setInterval(() => replaceLiveFeatures(liveFeatures(latestSnapshot)), 10_000);
 
   if (liveSnapshotUrl) {
     updateLiveLayer();

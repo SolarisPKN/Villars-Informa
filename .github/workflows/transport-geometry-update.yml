@@ -1,0 +1,44 @@
+name: Generar recorridos reales (OSM)
+
+on:
+  push:
+    branches: [fix/transport-real-geometry]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trace-transport-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  trace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Trazar ambos trenes sobre vías reales
+        run: node scripts/maps/trace-osm-railways.mjs
+      - name: Ajustar corredor vial del 136 Rápido
+        run: node scripts/maps/trace-136-rapido.mjs
+      - name: Validar cambios
+        run: |
+          npm ci
+          npm run validate
+      - name: Publicar geometrías auditadas en esta rama
+        run: |
+          if git diff --quiet -- src/data/transport-map.json; then
+            echo "Sin cambios de geometría"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/transport-map.json
+          git commit -m 'data(map): replace station chords with validated rail and road geometries'
+          git push origin HEAD:fix/transport-real-geometry

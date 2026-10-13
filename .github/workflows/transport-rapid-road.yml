@@ -1,0 +1,29 @@
+name: Validar geometría vial 136 Rápido
+
+on:
+  push:
+    branches: [fix/transport-rapid-road-geometry]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node scripts/maps/trace-136-rapido.mjs
+      - name: Guardar trazado vial validado
+        run: |
+          if git diff --quiet -- src/data/transport-map.json; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/transport-map.json
+          git commit -m 'data(bus): use road-routed geometry for 136 Rápido'
+          git push origin HEAD:fix/transport-rapid-road-geometry

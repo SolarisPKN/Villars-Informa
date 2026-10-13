@@ -97,6 +97,9 @@ function indexes(mapData) {
 
 function selectShape(mapData, family, service, stations) {
   const candidates = (mapData.routes.features || []).filter((feature) => feature.properties?.lineKey === family && feature.geometry?.type === 'LineString');
+  if (!service.stops?.length && candidates.length === 1) {
+    return { feature: candidates[0], coordinates: candidates[0].geometry.coordinates, score: 0 };
+  }
   const first = stations.get(normalizedStationKey(family, service.stops?.[0]?.station));
   const last = stations.get(normalizedStationKey(family, service.stops?.at(-1)?.station));
   let best = null;
@@ -155,45 +158,178 @@ export class ObservationHistory {
 
 const feature = (properties, coordinates) => ({ type: 'Feature', properties, geometry: { type: 'Point', coordinates } });
 
+
+const MAX_GPS_AGE_MS = 10 * 60_000;
+const MAX_FUTURE_GPS_MS = 90_000;
+const TERMINAL_STATES = new Set(['completed', 'cancelled']);
+
+function validRecentTime(value, date, maxAge = MAX_GPS_AGE_MS) {
+  const stamp = new Date(value).getTime();
+  if (!value || !Number.isFinite(stamp)) return null;
+  const age = date.getTime() - stamp;
+  return age >= -MAX_FUTURE_GPS_MS && age <= maxAge ? { stamp, age: Math.max(0, age) } : null;
+}
+
+function snapshotGroupFresh(snapshot, mode, date) {
+  const group = mode === 'train' ? snapshot?.trains : snapshot?.buses;
+  const checkedAt = group?.checkedAt || snapshot?.updatedAt;
+  // A new bus poll does not make an old rail observation current.
+  return Boolean(validRecentTime(checkedAt, date, 15 * 60_000));
+}
+
+function reportLocation(report, snapshot, date) {
+  if (!Number.isFinite(report?.lon) || !Number.isFinite(report?.lat)) return null;
+  if (report.stale || TERMINAL_STATES.has(report.status)) return null;
+  if (!snapshotGroupFresh(snapshot, report.mode, date)) return null;
+  if (report.positionSource !== 'gps' && report.positionSource !== 'provider-estimated') return null;
+  const time = validRecentTime(report.observedAt || report.sourceTimestamp, date);
+  return time ? { ...time, kind: report.positionSource } : null;
+}
+
+export function usableLiveReports(snapshot, date = new Date()) {
+  // A SOFSE vehicle is physical, not one per timetable service. A single
+  // formation can be reported under several trip IDs around a turnaround.
+  const reported = snapshotVehicles(snapshot);
+  const unique = new Map();
+  for (const item of reported) {
+    if (TERMINAL_STATES.has(item.status) || item.stale) continue;
+    const reading = reportLocation(item, snapshot, date);
+    if (!reading) continue;
+    const family = routeFamilyForLive(item);
+    const identity = item.vehicleId
+      ? 'vehicle:' + String(item.vehicleId)
+      : item.tripId ? 'trip:' + String(item.tripId)
+      : item.serviceNumber ? 'service:' + serviceNumber(item.serviceNumber) : null;
+    if (!identity) continue;
+    const key = family + ':' + identity;
+    const previous = unique.get(key);
+    if (!previous || reading.stamp > previous.reading.stamp ||
+        (reading.stamp === previous.reading.stamp && reading.kind === 'gps' && previous.reading.kind !== 'gps')) {
+      unique.set(key, { item, reading });
+    }
+  }
+  // Two reports for one timetable service can carry different identities.
+  const byService = new Map();
+  for (const entry of unique.values()) {
+    const service = entry.item.serviceNumber;
+    const key = service ? routeFamilyForLive(entry.item) + ':' + serviceNumber(service) : null;
+    if (!key) continue;
+    const previous = byService.get(key);
+    if (!previous || entry.reading.stamp > previous.reading.stamp) byService.set(key, entry);
+  }
+  return [...unique.values()].filter((entry) => {
+    const key = entry.item.serviceNumber
+      ? routeFamilyForLive(entry.item) + ':' + serviceNumber(entry.item.serviceNumber) : null;
+    return !key || byService.get(key) === entry;
+  }).map(({ item }) => item);
+}
+
+function deduplicateTrainPins(features) {
+  // Suppress coincident pins on the same track, but never enforce an arbitrary
+  // one-train maximum: separated and independently identifiable trains survive.
+  const result = [];
+  const quality = (properties) => properties.positionKind === 'gps' ? 3
+    : properties.positionKind === 'gps-corrected' ? 2 : 1;
+  for (const feature of features) {
+    if (feature.properties.mode !== 'train') { result.push(feature); continue; }
+    const index = result.findIndex((previous) =>
+      previous.properties.mode === 'train' &&
+      previous.properties.lineKey === feature.properties.lineKey &&
+      distance(previous.geometry.coordinates, feature.geometry.coordinates) < 80
+    );
+    if (index < 0) result.push(feature);
+    else if (quality(feature.properties) > quality(result[index].properties)) result[index] = feature;
+  }
+  return result;
+}
+
 export function buildPredictedLiveFeatures({ schedules, mapData, snapshot, date = new Date(), history = new ObservationHistory() }) {
   const clock = argentinaClock(date, schedules.timezone || 'America/Argentina/Buenos_Aires');
-  const stations = indexes(mapData); const realtime = snapshotVehicles(snapshot); const matched = new Set(); const features = [];
-  const byService = new Map(realtime.filter((item) => item.serviceNumber).map((item) => [`${routeFamilyForLive(item)}:${serviceNumber(item.serviceNumber)}`, item]));
-  for (const route of schedules.routes || []) for (const grid of (route.schedules || []).filter((item) => item.day?.key === clock.day)) for (const service of grid.services || []) {
-    const shape = selectShape(mapData, route.lineKey, service, stations); if (!shape) continue;
-    const live = byService.get(`${route.lineKey}:${serviceNumber(service.name)}`); const delaySeconds = Number(live?.delaySeconds || live?.scheduleDeviation || 0);
-    const planned = scheduledPosition(service, shape, stations, clock.minutes, delaySeconds / 60);
-    if (!planned && !Number.isFinite(live?.lat)) continue;
-    let coordinates = planned?.coordinates; let positionKind = 'schedule-estimated'; let speedKmh = live?.speedKmh;
-    if (Number.isFinite(live?.lon) && Number.isFinite(live?.lat)) {
-      const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
-      // A GPS report far from the selected corridor is not trustworthy. Never
-      // teleport it onto an unrelated road or draw a dot floating in a field.
-      if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) {
-        matched.add(live);
-      } else {
-      const identity = live.vehicleId || live.tripId || service.name;
-      const observedAt = new Date(live.observedAt || live.sourceTimestamp || live.checkedAt || date).getTime(); history.push(identity, { at: observedAt, along: projected.along });
-      const calculated = history.metersPerSecond(identity); const velocity = Number.isFinite(Number(speedKmh)) ? Number(speedKmh) / 3.6 : calculated;
-      const age = Math.max(0, Math.min(240, (date.getTime() - observedAt) / 1000)); coordinates = pointAlongLine(shape.coordinates, projected.along + (Number.isFinite(velocity) ? velocity * age : 0));
-      positionKind = age < 15 ? 'gps' : 'gps-corrected'; if (!Number.isFinite(Number(speedKmh)) && Number.isFinite(calculated)) speedKmh = Math.abs(calculated * 3.6); matched.add(live);
+  const stations = indexes(mapData);
+  const realtime = usableLiveReports(snapshot, date);
+  const matched = new Set();
+  const features = [];
+  const byService = new Map(realtime.filter((item) => item.serviceNumber)
+    .map((item) => [routeFamilyForLive(item) + ':' + serviceNumber(item.serviceNumber), item]));
+  const terminal = new Set(snapshotVehicles(snapshot)
+    .filter((item) => TERMINAL_STATES.has(item.status) && !item.stale &&
+      snapshotGroupFresh(snapshot, item.mode, date) && item.serviceNumber)
+    .map((item) => routeFamilyForLive(item) + ':' + serviceNumber(item.serviceNumber)));
+  const seenScheduled = new Set();
+
+  for (const route of schedules.routes || []) {
+    for (const grid of (route.schedules || []).filter((item) => item.day?.key === clock.day)) {
+      for (const service of grid.services || []) {
+        const serviceKey = route.lineKey + ':' + serviceNumber(service.name);
+        if (terminal.has(serviceKey) || seenScheduled.has(route.id + ':' + serviceKey)) continue;
+        seenScheduled.add(route.id + ':' + serviceKey);
+        const shape = selectShape(mapData, route.lineKey, service, stations);
+        if (!shape) continue;
+        const live = byService.get(serviceKey);
+        const delaySeconds = Number(live?.delaySeconds || live?.scheduleDeviation || 0);
+        const planned = scheduledPosition(service, shape, stations, clock.minutes, delaySeconds / 60);
+        if (!planned && !live) continue;
+        let coordinates = planned?.coordinates;
+        let positionKind = 'schedule-estimated';
+        let positionSource = 'schedule-estimated';
+        let speedKmh = live?.speedKmh;
+        if (live) {
+          const observed = reportLocation(live, snapshot, date);
+          const projected = observed && projectPointToLine([live.lon, live.lat], shape.coordinates);
+          if (projected && projected.distance <= MAX_GPS_DISTANCE_FROM_ROUTE_METERS) {
+            const identity = live.vehicleId || live.tripId || service.name;
+            history.push(identity, { at: observed.stamp, along: projected.along });
+            const calculated = history.metersPerSecond(identity);
+            const velocity = Number.isFinite(Number(speedKmh)) ? Number(speedKmh) / 3.6 : calculated;
+            // Never extrapolate an old report over several kilometers.
+            const driftSeconds = Math.min(120, observed.age / 1000);
+            coordinates = pointAlongLine(shape.coordinates,
+              projected.along + (Number.isFinite(velocity) ? velocity * driftSeconds : 0));
+            positionKind = observed.kind === 'gps'
+              ? (observed.age < 15_000 ? 'gps' : 'gps-corrected') : 'provider-estimated';
+            positionSource = observed.kind;
+            if (!Number.isFinite(Number(speedKmh)) && Number.isFinite(calculated)) speedKmh = Math.abs(calculated * 3.6);
+            matched.add(live);
+          }
+        }
+        if (!coordinates) continue;
+        features.push(feature({
+          id: live?.vehicleId || 'schedule:' + route.id + ':' + grid.id + ':' + service.id,
+          mode: route.type, routeId: live?.routeId || route.id, lineKey: route.lineKey,
+          tripId: live?.tripId || route.id + ':' + grid.id + ':' + service.id,
+          serviceNumber: serviceNumber(service.name),
+          label: (route.type === 'train' ? 'Tren ' : 'Colectivo ') + service.name + ' · ' + service.destination,
+          direction: service.destination, positionKind, positionSource,
+          fromStop: live?.previousStop || planned?.fromStop,
+          toStop: live?.nextStop || planned?.toStop,
+          status: live?.status || 'scheduled', delaySeconds, speedKmh,
+          stale: false, cancelled: false,
+          updatedAt: live?.observedAt || live?.checkedAt || date.toISOString(),
+        }, coordinates));
       }
     }
-    if (!coordinates) continue;
-    features.push(feature({ id: live?.vehicleId || `schedule:${route.id}:${grid.id}:${service.id}`, mode: route.type, routeId: live?.routeId || route.id, lineKey: route.lineKey, tripId: live?.tripId || `${route.id}:${grid.id}:${service.id}`, serviceNumber: serviceNumber(service.name), label: `${route.type === 'train' ? 'Tren' : 'Colectivo'} ${service.name} · ${service.destination}`, direction: service.destination, positionKind, positionSource: live?.positionSource || 'schedule-estimated', fromStop: live?.previousStop || planned?.fromStop, toStop: live?.nextStop || planned?.toStop, status: live?.status || 'scheduled', delaySeconds, speedKmh, stale: Boolean(live?.stale), cancelled: live?.status === 'cancelled', updatedAt: live?.confirmedAt || live?.checkedAt || snapshot?.updatedAt || date.toISOString() }, coordinates));
   }
-  for (const live of realtime.filter((item) => !matched.has(item) && Number.isFinite(item.lon) && Number.isFinite(item.lat))) {
+  for (const live of realtime.filter((item) => !matched.has(item))) {
     const family = routeFamilyForLive(live);
     const shape = selectShape(mapData, family, { stops: [] }, stations);
-    // Unknown routes and remote coordinates must not appear as if they were
-    // verified positions on the road/rails.
     if (!shape) continue;
     const projected = projectPointToLine([live.lon, live.lat], shape.coordinates);
     if (projected.distance > MAX_GPS_DISTANCE_FROM_ROUTE_METERS) continue;
-    const coordinates = projected.point;
-    features.push(feature({ id: live.vehicleId || live.tripId, mode: live.mode, routeId: live.routeId, lineKey: family, tripId: live.tripId, serviceNumber: live.serviceNumber, label: live.destination || live.routeId, direction: live.destination, positionKind: 'gps', positionSource: live.positionSource, status: live.status, delaySeconds: live.delaySeconds, stale: live.stale, cancelled: live.status === 'cancelled', updatedAt: live.confirmedAt || live.checkedAt || live.sourceTimestamp }, coordinates));
+    const reading = reportLocation(live, snapshot, date);
+    if (!reading) continue;
+    features.push(feature({
+      id: live.vehicleId || live.tripId, mode: live.mode, routeId: live.routeId,
+      lineKey: family, tripId: live.tripId, serviceNumber: live.serviceNumber,
+      label: live.destination || live.routeId, direction: live.destination,
+      positionKind: reading.kind === 'gps'
+        ? (reading.age < 15_000 ? 'gps' : 'gps-corrected') : 'provider-estimated',
+      positionSource: reading.kind,
+      status: live.status, delaySeconds: live.delaySeconds,
+      stale: false, cancelled: false,
+      updatedAt: live.observedAt || live.checkedAt || live.sourceTimestamp,
+    }, projected.point));
   }
-  return features;
+  return deduplicateTrainPins(features);
 }
 
 export function statusRecordForService(snapshot, route, service) {

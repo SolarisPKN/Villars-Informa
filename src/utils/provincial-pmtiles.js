@@ -50,6 +50,15 @@ export function partiesForViewport(manifest, bounds) {
 // Protomaps works with 512px data tiles by default (levelDiff=1).
 // An archive starting at source z10 first becomes visible at display z11.
 export const PARTY_MIN_DISPLAY_ZOOM = 11;
+// The 14 MB local PMTiles archive covers all transport services around Villars
+// without swapping municipal tile layers as the map pans or zooms.
+export const REGIONAL_DETAIL_BOUNDS = [-59.32, -35.22, -58.38, -34.48];
+
+export function boundsContain(container, inner) {
+  return validBounds(container) && validBounds(inner)
+    && container[0] <= inner[0] && container[1] <= inner[1]
+    && container[2] >= inner[2] && container[3] >= inner[3];
+}
 const MAX_CACHED_PARTY_LAYERS = 12;
 const LOAD_CONCURRENCY = 3;
 
@@ -81,6 +90,7 @@ export async function addProvincialPmtiles({
   leafletLayer,
   manifestUrl = '/maps/buenos-aires/manifest.json',
   fallbackUrl = '/maps/villars-region.pmtiles',
+  regionalDetailBounds = REGIONAL_DETAIL_BOUNDS,
   onTileError = () => {},
   manifestLoader = readProvinceMapManifest,
   archiveLayerFactory = archiveLayer,
@@ -105,6 +115,8 @@ export async function addProvincialPmtiles({
     const cache = new Map();
     let generation = 0;
     let destroyed = false;
+    let regionalTask;
+    let regionalActive = false;
 
     function trimCache() {
       for (const id of cache.keys()) {
@@ -144,11 +156,52 @@ export async function addProvincialPmtiles({
       return task;
     }
 
+    function regionalLayer() {
+      if (!regionalTask) {
+        regionalTask = archiveLayerFactory(
+          leafletLayer, new URL(fallbackUrl, loaded.url).href,
+          { bounds: latLngBoundsFromGeoBounds(regionalDetailBounds),
+            minZoom: PARTY_MIN_DISPLAY_ZOOM, maxZoom: 18, maxDataZoom: 14 },
+          undefined, true,
+        ).then((entry) => {
+          entry.layer.on('tileerror', onTileError);
+          return entry;
+        }).catch((error) => {
+          regionalTask = undefined;
+          throw error;
+        });
+      }
+      return regionalTask;
+    }
+
     async function update() {
       const currentGeneration = ++generation;
-      const wanted = map.getZoom() >= PARTY_MIN_DISPLAY_ZOOM
-        ? new Set(partiesForViewport(loaded.manifest, viewportBounds(map)).map(({ id }) => id))
+      const bounds = viewportBounds(map);
+      const detailed = map.getZoom() >= PARTY_MIN_DISPLAY_ZOOM;
+      let useRegional = detailed && validBounds(regionalDetailBounds)
+        && boundsContain(regionalDetailBounds, bounds);
+      if (useRegional) {
+        try {
+          const entry = await regionalLayer();
+          if (destroyed || currentGeneration !== generation) return;
+          if (!regionalActive) {
+            entry.layer.addTo(map);
+            regionalActive = true;
+          }
+        } catch (error) {
+          useRegional = false;
+          if (!destroyed && currentGeneration === generation) onTileError({ error, file: fallbackUrl });
+        }
+      }
+      const wanted = detailed && !useRegional
+        ? new Set(partiesForViewport(loaded.manifest, bounds).map(({ id }) => id))
         : new Set();
+      if (!useRegional && regionalActive) {
+        const entry = await regionalTask;
+        if (destroyed || currentGeneration !== generation) return;
+        map.removeLayer(entry.layer);
+        regionalActive = false;
+      }
 
       for (const [id, entry] of active) {
         if (!wanted.has(id)) {
@@ -193,6 +246,10 @@ export async function addProvincialPmtiles({
       map.removeLayer(overview.layer);
       for (const { layer } of active.values()) map.removeLayer(layer);
       cache.clear();
+      if (regionalActive && regionalTask) {
+        const entry = await regionalTask;
+        map.removeLayer(entry.layer);
+      }
       throw error;
     }
 
@@ -207,6 +264,11 @@ export async function addProvincialPmtiles({
         map.removeLayer(overview.layer);
         for (const { layer } of active.values()) map.removeLayer(layer);
         active.clear();
+        if (regionalActive && regionalTask) {
+          void regionalTask.then((entry) => map.removeLayer(entry.layer));
+        }
+        regionalActive = false;
+        regionalTask = undefined;
         cache.clear();
       },
     };

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  PARTY_MIN_DISPLAY_ZOOM, addProvincialPmtiles, latLngBoundsFromGeoBounds,
+  PARTY_MIN_DISPLAY_ZOOM, REGIONAL_DETAIL_BOUNDS, boundsContain, addProvincialPmtiles, latLngBoundsFromGeoBounds,
   partiesForViewport,
 } from '../src/utils/provincial-pmtiles.js';
 
@@ -67,6 +67,7 @@ function fixture(map, customFactory) {
       map, leafletLayer: () => {},
       manifestLoader: async () => ({ manifest, url: 'https://example.test/maps/manifest.json' }),
       archiveLayerFactory,
+      regionalDetailBounds: null, // Existing municipal-cache tests exercise that specific path.
       onTileError: (event) => { throw event.error; },
     },
   };
@@ -142,4 +143,39 @@ test('stale asynchronous party downloads cannot paint outside the latest viewpor
   assert.equal([...map.layers].filter((layer) => layer.url.endsWith('a.pmtiles')).length, 0);
   assert.equal([...map.layers].filter((layer) => layer.url.endsWith('b.pmtiles')).length, 1);
   controller.destroy();
+});
+
+
+test('local transport viewport keeps one stable regional PMTiles layer during pan and zoom', async () => {
+  const map = fakeMap(10, [-59.04, -34.95, -58.80, -34.72]);
+  const { calls, options } = fixture(map);
+  options.regionalDetailBounds = REGIONAL_DETAIL_BOUNDS;
+  assert.equal(boundsContain(REGIONAL_DETAIL_BOUNDS, map.bounds), true);
+  const controller = await addProvincialPmtiles(options);
+  const overview = [...map.layers][0];
+  assert.equal(map.layers.size, 1);
+  map.move([-59.04, -34.95, -58.80, -34.72], 12);
+  await settle();
+  assert.equal(map.layers.size, 2);
+  const regional = [...map.layers].find((entry) => entry !== overview);
+  assert.ok(regional?.url?.endsWith('/maps/villars-region.pmtiles'));
+  assert.equal(calls.filter((call) => call.url.includes('/partidos/')).length, 0);
+  assert.equal(calls.find((call) => call.url.endsWith('villars-region.pmtiles')).transparent, true);
+
+  map.move([-59.08, -34.96, -58.78, -34.75], 14);
+  await settle();
+  assert.ok(map.layers.has(regional), 'no replacement or extra party archive during a local pan');
+  assert.equal(calls.filter((call) => call.url.endsWith('villars-region.pmtiles')).length, 1);
+  map.move([-59.04, -34.95, -58.80, -34.72], 18);
+  await settle();
+  assert.ok(map.layers.has(overview) && map.layers.has(regional));
+  assert.equal(map.layers.size, 2);
+
+  map.move([-59.4, -35.2, -59.1, -34.8], 13);
+  await settle();
+  assert.ok(!map.layers.has(regional), 'municipal coverage returns outside regional bounds');
+  assert.ok(map.layers.has(overview));
+  assert.ok(calls.some((call) => call.url.includes('/partidos/')));
+  controller.destroy();
+  assert.equal(map.layers.size, 0);
 });

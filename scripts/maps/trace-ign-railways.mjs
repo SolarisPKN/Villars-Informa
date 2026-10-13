@@ -8,7 +8,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const FILE = resolve('src/data/transport-map.json');
-const URL = 'https://services1.arcgis.com/gKFHG0iKXPnKkg1l/ArcGIS/rest/services/Transporte_Nacional/FeatureServer/0/query';
+const API_URL = 'https://services1.arcgis.com/gKFHG0iKXPnKkg1l/ArcGIS/rest/services/Transporte_Nacional/FeatureServer/0/query';
 const GEOMETRIES = [
   {
     routeId:'belgrano-sur-gonzalez-catan-lozano',
@@ -32,7 +32,7 @@ function meters(a,b) {
 }
 function length(line) {return line.slice(1).reduce((s,point,i)=>s+meters(line[i],point),0);}
 async function query(ids) {
- const url = new URL(URL);
+ const url = new URL(API_URL);
  const args={where:'OBJECTID IN ('+ids.join(',')+')',outFields:'OBJECTID,nam_1,fna_1,fdc_1',
   outSR:'4326',returnGeometry:'true',f:'geojson'};
  for(const [k,v] of Object.entries(args)) url.searchParams.set(k,v);

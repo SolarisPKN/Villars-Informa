@@ -42,7 +42,7 @@ test('SAME, bomberos, policía, hospital y salud mental están publicados', () =
   assert.ok(contacts.some((x) => x.numbers.includes('0800-999-0091')));
 });
 
-test('farmacias no se rotulan como turnos en vivo y se incluye la farmacia nueva de Villars', () => {
+test('farmacias no se rotulan como turnos en vivo y se incluye la farmacia nueva de Villars', async () => {
   assert.equal(salud.farmacias.lista.length, 6);
   assert.ok(salud.farmacias.lista.some((x) => x.nombre === 'Farmacia Healy' && x.localidad === 'Villars'));
   assert.match(salud.farmacias.advertencia, /NO indica quién está de turno/);

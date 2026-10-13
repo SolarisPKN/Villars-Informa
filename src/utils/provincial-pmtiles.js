@@ -117,6 +117,7 @@ export async function addProvincialPmtiles({
     let generation = 0;
     let destroyed = false;
     let regionalTask;
+    let regionalEntry;
     let regionalActive = false;
 
     function trimCache() {
@@ -165,10 +166,12 @@ export async function addProvincialPmtiles({
             minZoom: PARTY_MIN_DISPLAY_ZOOM, maxZoom: 18, maxDataZoom: 14 },
           undefined, true,
         ).then((entry) => {
+          regionalEntry = entry;
           entry.layer.on('tileerror', onTileError).on('load', onTileRecovered);
           return entry;
         }).catch((error) => {
           regionalTask = undefined;
+          regionalEntry = undefined;
           throw error;
         });
       }
@@ -266,11 +269,10 @@ export async function addProvincialPmtiles({
         map.removeLayer(overview.layer);
         for (const { layer } of active.values()) map.removeLayer(layer);
         active.clear();
-        if (regionalActive && regionalTask) {
-          void regionalTask.then((entry) => map.removeLayer(entry.layer));
-        }
+        if (regionalActive && regionalEntry) map.removeLayer(regionalEntry.layer);
         regionalActive = false;
         regionalTask = undefined;
+        regionalEntry = undefined;
         cache.clear();
       },
     };

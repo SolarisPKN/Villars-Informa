@@ -33,6 +33,46 @@ function meters(a, b) {
 }
 const length = (coords) => coords.slice(1).reduce((s, p, i) => s + meters(p, coords[i]), 0);
 
+async function railwaysFromOsmRelation(relationId, stations) {
+  // OpenStreetMap's main versioned data API is independent from Overpass.
+  // Query the specific documented track relation instead of a huge bbox.
+  const url = 'https://api.openstreetmap.org/api/0.6/relation/' + relationId + '/full';
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(70_000),
+    headers: { Accept: 'application/xml', 'User-Agent': 'VillarsInformaRailAudit/1.0 (OSM ODbL)' },
+  });
+  if (!response.ok) throw new Error('OSM relation ' + relationId + ' HTTP ' + response.status);
+  const xml = await response.text();
+  if (xml.length > 60_000_000) throw new Error('Relation too large');
+  const attrs = (src) => Object.fromEntries([...src.matchAll(/([\w:-]+)="([^"]*)"/g)]
+    .map((m) => [m[1], m[2]]));
+  const nodes = new Map();
+  for (const m of xml.matchAll(/<node\b([^>]*)>/g)) {
+    const a = attrs(m[1]);
+    if (a.id && Number.isFinite(Number(a.lon)) && Number.isFinite(Number(a.lat))) {
+      nodes.set(Number(a.id), { lon: Number(a.lon), lat: Number(a.lat) });
+    }
+  }
+  const ways = [];
+  for (const m of xml.matchAll(/<way\b([^>]*)>([\s\S]*?)<\/way>/g)) {
+    const a = attrs(m[1]), body = m[2], tags = {};
+    for (const t of body.matchAll(/<tag\b([^>]*)\/>/g)) {
+      const pair = attrs(t[1]); tags[pair.k] = pair.v;
+    }
+    if (!['rail', 'disused'].includes(tags.railway)) continue;
+    const ids = [...body.matchAll(/<nd\b([^>]*)\/>/g)].map(t => Number(attrs(t[1]).ref));
+    if (ids.length < 2 || ids.some(id => !nodes.has(id))) continue;
+    const geometry = ids.map(id => nodes.get(id));
+    // Keep lines close to the rail corridor, not a giant national relation.
+    const useful = geometry.some(p => stations.some(([lon,lat]) =>
+      Math.abs(p.lon - lon) < 0.24 && Math.abs(p.lat - lat) < 0.17));
+    if (useful) ways.push({ id: Number(a.id), nodes: ids, geometry, tags });
+  }
+  console.log('OSM main API relation', relationId, 'xml bytes', xml.length, 'rail ways', ways.length);
+  if (ways.length < 10) throw new Error('Relation includes too few rail segments');
+  return ways;
+}
+
 async function queryRailways(stations) {
   // A corridor around ordered stations greatly reduces load versus fetching
   // every railway in a huge province-wide bounding rectangle (HTTP 504).
@@ -176,7 +216,14 @@ for (const { key } of PATHS) {
     .filter((feature) => feature.properties.mode === 'train' && feature.properties.lineKey === key)
     .map((feature) => feature.geometry.coordinates);
   if (stations.length < 4) throw new Error('Insufficient train stations: ' + key);
-  const graph = graphOf(await queryRailways(stations));
+  let ways;
+  try {
+    ways = await railwaysFromOsmRelation(key === 'belgrano-sur' ? 2694441 : 7451008, stations);
+  } catch (error) {
+    console.warn('Rail relation unavailable, using Overpass corridor:', error.message);
+    ways = await queryRailways(stations);
+  }
+  const graph = graphOf(ways);
   const coordinates = [];
   for (let i = 1; i < stations.length; i++) {
     const leg = bestRailLeg(graph, stations[i - 1], stations[i]);

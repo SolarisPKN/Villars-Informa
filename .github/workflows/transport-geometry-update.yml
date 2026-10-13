@@ -25,8 +25,8 @@ jobs:
           node-version: 24
       - name: Diagnóstico de red ferroviaria geográfica nacional
         run: node scripts/maps/probe-rail-api.mjs
-      - name: Trazar ambos trenes sobre vías reales
-        run: node scripts/maps/trace-osm-railways.mjs
+      - name: Trazar ambos trenes sobre vías oficiales IGN
+        run: node scripts/maps/trace-ign-railways.mjs
       - name: Ajustar corredor vial del 136 Rápido
         run: node scripts/maps/trace-136-rapido.mjs
       - name: Validar cambios

@@ -10,7 +10,7 @@ function initHealthPage() {
   if (select instanceof HTMLSelectElement) {
     const showPharmacy = () => {
       pharmacyCards.forEach((card) => {
-        if (card instanceof HTMLElement) card.hidden = card.dataset.pharmacyCard !== select.value;
+        if (card instanceof HTMLElement) card.hidden = select.value !== 'all' && card.dataset.pharmacyCard !== select.value;
       });
     };
     select.addEventListener('change', showPharmacy, { signal });

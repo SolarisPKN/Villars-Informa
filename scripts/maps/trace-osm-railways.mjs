@@ -14,9 +14,9 @@ import { resolve } from 'node:path';
 
 const FILE = resolve('src/data/transport-map.json');
 const ENDPOINTS = [
+  'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
   'https://overpass.nchc.org.tw/api/interpreter',
-  'https://overpass-api.de/api/interpreter',
 ];
 const PATHS = [
   { key: 'belgrano-sur', bbox: [-34.91, -59.12, -34.71, -58.58] },

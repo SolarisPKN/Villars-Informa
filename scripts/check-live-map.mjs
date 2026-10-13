@@ -4,6 +4,7 @@
  */
 import { openPmtilesSource } from '../src/utils/pmtiles-source.js';
 import { PMTiles } from 'pmtiles';
+import { stat } from 'node:fs/promises';
 
 const origin = process.env.MAP_ORIGIN || 'https://villars.solarispkn.com.ar';
 const manifestUrl = new URL('maps/buenos-aires/manifest.json', new URL('/', origin));
@@ -24,3 +25,19 @@ for (const entry of [manifest.overview, lasHeras]) {
     ' bytes, zoom ' + header.minZoom + '-' + header.maxZoom);
 }
 console.log('Deployed PMTiles compatible: HTTP 206 or bounded HTTP 200.');
+
+
+// A previous healthcheck only opened the provincial overview + Las Heras.
+// The primary regional canvas used in Villars was untested in production.
+const regionalFile = new URL('../public/maps/villars-region.pmtiles', import.meta.url);
+const regionalSize = (await stat(regionalFile)).size;
+const regionalUrl = new URL('/maps/villars-region.pmtiles', new URL('/', origin)).href;
+const regional = await openPmtilesSource(regionalUrl, { expectedBytes: regionalSize });
+const regionalHeader = await new PMTiles(regional.source).getHeader();
+if (regionalHeader.maxZoom < 14 ||
+    regionalHeader.minLon >= -58.9384 || regionalHeader.maxLon <= -58.9384 ||
+    regionalHeader.minLat >= -34.8289 || regionalHeader.maxLat <= -34.8289) {
+  throw new Error('Regional PMTiles archive does not cover Villars at expected zoom');
+}
+console.log('OK Villars regional PMTiles: ' + regional.mode + ', ' + regional.archiveBytes +
+  ' bytes, zoom ' + regionalHeader.minZoom + '-' + regionalHeader.maxZoom);

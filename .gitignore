@@ -48,3 +48,11 @@ desktop.ini
 *.db
 *.db-journal
 !data/transport/horarios.db
+
+# WhatsApp Web: never version live sessions or collected status drafts
+.wwebjs_auth/
+.wwebjs_cache/
+**/.wwebjs_auth/
+**/.wwebjs_cache/
+health-status-state/
+**/health-status-state/

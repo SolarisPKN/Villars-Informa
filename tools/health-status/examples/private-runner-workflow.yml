@@ -1,0 +1,31 @@
+# EJEMPLO. Copiar a .github/workflows/health-status.yml SOLO en un repositorio PRIVADO
+# con un runner propio etiquetado "salud-wa". NO colocar en el repositorio publico.
+# Instalar dependencias y escanear QR manualmente primero en el equipo persistente.
+name: Revisar estados autorizados de Salud
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: health-status-private
+  cancel-in-progress: false
+jobs:
+  statuses:
+    runs-on: [self-hosted, windows, salud-wa]
+    timeout-minutes: 8
+    steps:
+      - name: Consultar solo fuentes expresamente autorizadas
+        shell: pwsh
+        env:
+          WA_STATUS_CONSENT: ${{ secrets.WA_STATUS_CONSENT }}
+          WA_ALLOWED_CONTACTS: ${{ secrets.WA_ALLOWED_CONTACTS }}
+          WA_STATE_DIR: ${{ secrets.WA_STATE_DIR }}
+          WA_SOURCE_LABEL: CAPS Villars
+          WA_COLLECTOR_SCRIPT: ${{ secrets.WA_COLLECTOR_SCRIPT }}
+        run: |
+          if ($env:WA_STATUS_CONSENT -ne 'yes') { throw 'Consent is required.' }
+          if (-not (Test-Path $env:WA_COLLECTOR_SCRIPT)) { throw 'Collector not installed locally.' }
+          & node $env:WA_COLLECTOR_SCRIPT
+          if ($LASTEXITCODE -ne 0) { throw 'Collector failed.' }

@@ -4,10 +4,10 @@
  * No collected statuses, WhatsApp account identifiers or auth files enter the public repository.
  */
 import fs from 'node:fs/promises';
-import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
-import { Client, LocalAuth } from 'whatsapp-web.js';
+import whatsappWeb from 'whatsapp-web.js';
+const { Client, LocalAuth } = whatsappWeb;
 import qrcode from 'qrcode-terminal';
 import { allowedPhoneSet, assessStatus, normalizePhone, statusKey, trimmedText } from './logic.mjs';
 

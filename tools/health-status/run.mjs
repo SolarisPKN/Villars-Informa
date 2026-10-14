@@ -94,7 +94,9 @@ const inbox = path.join(state, 'inbox');
 await fs.mkdir(inbox, { recursive: true, mode: 0o700 });
 const client = new Client({
   authStrategy: new LocalAuth({ clientId: 'villars-health', dataPath: path.join(state, 'auth') }),
-  puppeteer: { headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] },
+  // Keep Chromium sandbox enabled on Windows and normal Linux users.
+  // Disabling it is an explicit last resort for an isolated Linux container.
+  puppeteer: { headless: true, args: process.env.WA_CHROME_NO_SANDBOX === 'yes' ? ['--no-sandbox'] : [] },
 });
 
 let settled = false;

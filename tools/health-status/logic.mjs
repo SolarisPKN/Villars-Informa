@@ -5,7 +5,7 @@ const FUTURE_SKEW_MS = 5 * 60 * 1000;
 
 // Compare exact phone numbers, not profile names. Never discover/ingest arbitrary contacts.
 export function normalizePhone(value) {
-  return String(value || '').replace(/\\D/g, '');
+  return String(value || '').replace(/[^0-9]/g, '');
 }
 
 export function allowedPhoneSet(raw) {
@@ -38,5 +38,5 @@ export function assessStatus(message, nowMs = Date.now()) {
 }
 
 export function trimmedText(value) {
-  return String(value || '').replace(/\\u0000/g, '').trim().slice(0, 1600);
+  return String(value || '').split(String.fromCharCode(0)).join('').trim().slice(0, 1600);
 }

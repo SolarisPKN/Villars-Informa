@@ -1,0 +1,1 @@
+Prueba temporal de escritura de ChatGPT para diagnosticar el conector. Se elimina inmediatamente.

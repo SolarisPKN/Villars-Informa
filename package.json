@@ -14,14 +14,15 @@
     "preview": "astro preview",
     "test": "node --test tests/*.test.mjs",
     "validate:dist": "node scripts/validate-dist.mjs",
-    "validate": "npm run test && npm run check && npm run build && npm run validate:dist",
+    "validate": "npm run test && npm run check && npm run build && npm run validate:dist && npm run validate:editorial",
     "data:transport": "node scripts/export-transport-data.mjs",
     "data:transport-map": "node scripts/export-transport-map-data.mjs",
     "maps:build": "node scripts/maps/build-buenos-aires-pmtiles.mjs",
     "create-news": "node scripts/content-editor/server.js news",
     "create-health": "node scripts/content-editor/server.js health",
     "create-local": "node scripts/create-local.js",
-    "create-post": "npm run create-news"
+    "create-post": "npm run create-news",
+    "validate:editorial": "node scripts/validate-editorial.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",

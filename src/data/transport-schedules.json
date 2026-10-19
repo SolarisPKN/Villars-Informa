@@ -4,8 +4,8 @@
   "source": {
     "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
     "databasePath": "horarios.db",
-    "databaseSha256": "48b417d0abaf5c079225e2fc7aca45c94b6486000a679fa19e5aca68437bc917",
-    "updatedAt": "2026-10-12T19:06:56Z"
+    "databaseSha256": "844a7f2e5fe5cc98934e1dc1e758332745010f3971e63e54f4c163eebb2d86bb",
+    "updatedAt": "2026-10-19T16:31:16Z"
   },
   "stats": {
     "routes": 6,
@@ -31,7 +31,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 185,
@@ -172,7 +172,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 189,
@@ -299,7 +299,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 193,
@@ -486,7 +486,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 199,
@@ -659,7 +659,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 205,
@@ -800,7 +800,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 209,
@@ -942,7 +942,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 213,
@@ -1079,7 +1079,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 215,
@@ -1202,7 +1202,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 217,
@@ -1413,7 +1413,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 221,
@@ -1568,7 +1568,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 225,
@@ -1705,7 +1705,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 227,
@@ -1843,7 +1843,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 1,
@@ -4568,7 +4568,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 16,
@@ -7081,7 +7081,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 31,
@@ -10656,7 +10656,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 51,
@@ -13949,7 +13949,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 71,
@@ -17331,7 +17331,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 90,
@@ -20452,7 +20452,7 @@
       "company": "Trenes Argentinos",
       "websiteUrl": "https://www.argentina.gob.ar/transporte/trenes-argentinos/horarios-tarifas-y-recorridos-de-trenes/gonzalez-catan-lozano",
       "sourceUrl": "https://api-servicios.sofse.gob.ar/v1/arribos/estacion/154",
-      "validFrom": "2026-10-17",
+      "validFrom": "2026-10-24",
       "schedules": [
         {
           "id": 45,
@@ -20462,7 +20462,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 229,
@@ -20659,7 +20659,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 233,
@@ -20856,7 +20856,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 237,
@@ -21040,7 +21040,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 243,
@@ -21224,7 +21224,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 249,
@@ -21421,7 +21421,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 253,
@@ -21633,7 +21633,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 257,
@@ -22778,7 +22778,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 273,
@@ -23719,7 +23719,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 285,
@@ -24936,7 +24936,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 302,
@@ -25949,7 +25949,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 315,
@@ -27166,7 +27166,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 332,
@@ -28211,7 +28211,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:15Z",
           "services": [
             {
               "id": 109,
@@ -29241,7 +29241,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 113,
@@ -30476,7 +30476,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 128,
@@ -32121,7 +32121,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 135,
@@ -33561,7 +33561,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 166,
@@ -34591,7 +34591,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 170,
@@ -35826,7 +35826,7 @@
           },
           "direction": "Mariano Acosta",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 165,
@@ -35917,7 +35917,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 118,
@@ -36789,7 +36789,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 120,
@@ -37358,7 +37358,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 141,
@@ -38230,7 +38230,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 143,
@@ -39645,7 +39645,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 175,
@@ -40517,7 +40517,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 177,
@@ -41086,7 +41086,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 121,
@@ -41559,7 +41559,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 123,
@@ -42032,7 +42032,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 147,
@@ -42973,7 +42973,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 152,
@@ -44226,7 +44226,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 178,
@@ -44699,7 +44699,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 180,
@@ -45172,7 +45172,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 125,
@@ -45643,7 +45643,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 126,
@@ -46305,7 +46305,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 159,
@@ -47242,7 +47242,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 162,
@@ -47904,7 +47904,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 182,
@@ -48375,7 +48375,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 183,
@@ -49037,7 +49037,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-12T19:06:56Z",
+          "updatedAt": "2026-10-19T16:31:16Z",
           "services": [
             {
               "id": 164,

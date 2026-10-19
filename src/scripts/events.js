@@ -25,4 +25,12 @@ function classifyEvents() {
   if (pastEmpty instanceof HTMLElement) pastEmpty.hidden = past.children.length > 0;
 }
 
+// Las páginas generadas estáticamente pueden conservar tarjetas vencidas hasta el próximo build.
+// Reclasificar al cargar, durante la navegación Astro y si la pestaña queda abierta.
 document.addEventListener('astro:page-load', classifyEvents);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', classifyEvents, { once: true });
+} else {
+  classifyEvents();
+}
+setInterval(classifyEvents, 60_000);

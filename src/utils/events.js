@@ -27,5 +27,5 @@ export function eventBucket({ start, end }, today = argentinaDateKey()) {
   const startKey = dateKey(start);
   if (!startKey) return 'invalid';
   const endKey = dateKey(end) || startKey;
-  return today > addCalendarDays(endKey, 1) ? 'past' : 'upcoming';
+  return today > endKey ? 'past' : 'upcoming';
 }

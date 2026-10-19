@@ -1,0 +1,511 @@
+{
+  "fechaIndice": "2026-10-19",
+  "refMain": "4741401cd187674f5fd595e22b3496210998786a",
+  "criterio": "Índice de todos los archivos index.mdx de noticias: ruta, slug, clave normalizada, SHA Git y URL. La deduplicación semántica exige además revisar título, fecha, sede y fuentes; claves similares NO prueban duplicación.",
+  "total": 68,
+  "gruposClaveIgual": [],
+  "eventosFuturosVerificados": [
+    {
+      "slug": "general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera",
+      "fecha": "2026-10-19",
+      "fin": "2026-10-23",
+      "estado": "YA PUBLICADO"
+    },
+    {
+      "slug": "daniel-agostini-marcos-paz-octubre-2026",
+      "fecha": "2026-10-25",
+      "fin": "2026-10-25",
+      "estado": "ACTUALIZADO"
+    },
+    {
+      "slug": "lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre",
+      "fecha": "2026-11-11",
+      "fin": "2026-11-11",
+      "estado": "ACTUALIZADO - SUJETO A CRONOGRAMA"
+    },
+    {
+      "slug": "maraton-zabala-2026-marcos-paz",
+      "fecha": "2026-11-15",
+      "fin": "2026-11-15",
+      "estado": "ACTUALIZADO"
+    }
+  ],
+  "articulos": [
+    {
+      "slug": "71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares",
+      "clave": "71 escrituras mas familias de general las heras avanzan con la propiedad legal de sus hogares",
+      "mdx": "src/content/noticias/71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares/index.mdx",
+      "sha": "8cea06afb9a548f85768d38aff731963de1cacb2",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares/index.mdx"
+    },
+    {
+      "slug": "a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria",
+      "clave": "a 50 anos de la noche de los lapices estudiantes de gastronomia de las heras pintaron un mural para construir memoria",
+      "mdx": "src/content/noticias/a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria/index.mdx",
+      "sha": "cf88d7d884dd3598f6d99fa2d25ee466d5a9df9d",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria/index.mdx"
+    },
+    {
+      "slug": "abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras",
+      "clave": "abrieron las inscripciones para la diplomatura en procesamiento agroalimentario en general las heras",
+      "mdx": "src/content/noticias/abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras/index.mdx",
+      "sha": "d767a92b54532f3c1e7ed53a52bc04f0fa6660ec",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras/index.mdx"
+    },
+    {
+      "slug": "anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses",
+      "clave": "anses recordo el paso clave para incorporar familiares a la obra social primero hay que revisar los datos en mi anses",
+      "mdx": "src/content/noticias/anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses/index.mdx",
+      "sha": "7d09a91ecccc50242bc21378347c89d86850315c",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses/index.mdx"
+    },
+    {
+      "slug": "aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua",
+      "clave": "aprehendieron a un hombre tras ingresar a una vivienda en general las heras fue liberado y la causa continua",
+      "mdx": "src/content/noticias/aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua/index.mdx",
+      "sha": "94cb43bd640a6e857a66ee127205cfb5c2255ead",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua/index.mdx"
+    },
+    {
+      "slug": "auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido",
+      "clave": "auh salud y escolaridad se acreditaran automaticamente para cobrar el 20 retenido",
+      "mdx": "src/content/noticias/auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido/index.mdx",
+      "sha": "69f95cf15dcf6c15415c6f7a9ba531a28cf91dae",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido/index.mdx"
+    },
+    {
+      "slug": "auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo",
+      "clave": "auh y asignaciones familiares aumentan 2 11 en septiembre cuanto se cobra por hijo",
+      "mdx": "src/content/noticias/auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo/index.mdx",
+      "sha": "e664c5af8801761381a41d340d0a2db150c8e301",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo/index.mdx"
+    },
+    {
+      "slug": "bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados",
+      "clave": "bomberos voluntarios hicieron sonar las sirenas en todo el pais para reclamar fondos adeudados",
+      "mdx": "src/content/noticias/bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados/index.mdx",
+      "sha": "cc3deda94227b0e237eee2e38104c5b5afb3de14",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados/index.mdx"
+    },
+    {
+      "slug": "buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100",
+      "clave": "buscan prohibir fumar y vapear al volante en la provincia con la uf de septiembre la multa llegaria a 228 100",
+      "mdx": "src/content/noticias/buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100/index.mdx",
+      "sha": "45f219ecedaa63a83711d3bbb3bb812c94b67b87",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100/index.mdx"
+    },
+    {
+      "slug": "carolina-centurion-20-anos-musica-marcos-paz",
+      "clave": "carolina centurion 20 anos musica marcos paz",
+      "mdx": "src/content/noticias/carolina-centurion-20-anos-musica-marcos-paz/index.mdx",
+      "sha": "2f202e4de6469f83c51178403ede5ba28235ce66",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/carolina-centurion-20-anos-musica-marcos-paz/index.mdx"
+    },
+    {
+      "slug": "choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves",
+      "clave": "choque por alcance en la ruta 40 dejo cinco personas con lesiones leves",
+      "mdx": "src/content/noticias/choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves/index.mdx",
+      "sha": "fc1dc41bf35b2f0baef4c2639c358a54d8025dee",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves/index.mdx"
+    },
+    {
+      "slug": "continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon",
+      "clave": "continua el plan de bacheo en general las heras hay cortes por trabajos con hormigon",
+      "mdx": "src/content/noticias/continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon/index.mdx",
+      "sha": "72c9b505ebee73364c8f8740bb065b0254909094",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon/index.mdx"
+    },
+    {
+      "slug": "copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars",
+      "clave": "copsa dono cinco pares de botas y permitio equipar a los nuevos bomberos voluntarios de villars",
+      "mdx": "src/content/noticias/copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars/index.mdx",
+      "sha": "602eb79276950395d582db17e7902978798c45d7",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars/index.mdx"
+    },
+    {
+      "slug": "daniel-agostini-marcos-paz-octubre-2026",
+      "clave": "daniel agostini marcos paz octubre",
+      "mdx": "src/content/noticias/daniel-agostini-marcos-paz-octubre-2026/index.mdx",
+      "sha": "2a3f6a69a1116f3609b5a876d6f080c258ee6227",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/daniel-agostini-marcos-paz-octubre-2026/index.mdx"
+    },
+    {
+      "slug": "docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada",
+      "clave": "docentes bonaerenses vuelven a reclamar paritarias la canasta subio mas que la inflacion y septiembre sigue sin una nueva suba confirmada",
+      "mdx": "src/content/noticias/docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada/index.mdx",
+      "sha": "0a02a5e86b3d5708308f7920aa6561255aa6428e",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada/index.mdx"
+    },
+    {
+      "slug": "dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba",
+      "clave": "dos camioneros fueron sancionados en provincia uno sobrepaso con doble linea amarilla y el otro lo filmo mientras manejaba",
+      "mdx": "src/content/noticias/dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba/index.mdx",
+      "sha": "3371d1a00cb3f7904eed1d29a3d071e8d21e17bc",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba/index.mdx"
+    },
+    {
+      "slug": "el-hombre-inesperado-centro-cultural-roma-marcos-paz",
+      "clave": "el hombre inesperado centro cultural roma marcos paz",
+      "mdx": "src/content/noticias/el-hombre-inesperado-centro-cultural-roma-marcos-paz/index.mdx",
+      "sha": "bd3fa54d0a14fe0ee8671d93292e368fa0bc6436",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-hombre-inesperado-centro-cultural-roma-marcos-paz/index.mdx"
+    },
+    {
+      "slug": "el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural",
+      "clave": "el nino se fortalece como prepararse ante lluvias intensas en villars las heras y la zona rural",
+      "mdx": "src/content/noticias/el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural/index.mdx",
+      "sha": "e3be62504656924482fa8bdbf8c229cf8415e495",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural/index.mdx"
+    },
+    {
+      "slug": "el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar",
+      "clave": "el nuevo control de alcoholemia de trenes argentinos genero demoras y llego al congreso que cambio y que falta explicar",
+      "mdx": "src/content/noticias/el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar/index.mdx",
+      "sha": "10086e6b3040483fa0b424fcc26a183dc9e0b4b3",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar/index.mdx"
+    },
+    {
+      "slug": "estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria",
+      "clave": "estudiantes de la ees n 1 visitaron la primaria n 8 de villars para acompanar el paso a la secundaria",
+      "mdx": "src/content/noticias/estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria/index.mdx",
+      "sha": "3737112489eec902b6517fd85526730d525505be",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria/index.mdx"
+    },
+    {
+      "slug": "expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita",
+      "clave": "expo herense entra en su ultima jornada feria gastronomia produccion local y espectaculos con entrada gratuita",
+      "mdx": "src/content/noticias/expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita/index.mdx",
+      "sha": "c5d8b7d33739c1f82c242a2af31783bc63af893f",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita/index.mdx"
+    },
+    {
+      "slug": "feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre",
+      "clave": "feria del libro de marcos paz sera del 7 al 9 de octubre",
+      "mdx": "src/content/noticias/feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre/index.mdx",
+      "sha": "9a99bf578d7ba3b555f8e9eb1af8e61734ba0d5a",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre/index.mdx"
+    },
+    {
+      "slug": "festival-n-escena-las-heras-2026-balance-teatro-musica",
+      "clave": "festival n escena las heras balance teatro musica",
+      "mdx": "src/content/noticias/festival-n-escena-las-heras-2026-balance-teatro-musica/index.mdx",
+      "sha": "17ac42141f1ed36cd104024f26f8c0d0f52287cb",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/festival-n-escena-las-heras-2026-balance-teatro-musica/index.mdx"
+    },
+    {
+      "slug": "fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026",
+      "clave": "fiesta nacional del jamon y cerveza artesanal marcos paz",
+      "mdx": "src/content/noticias/fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026/index.mdx",
+      "sha": "fde37042a71cd0fa87472ec2777ea57c8df7444f",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026/index.mdx"
+    },
+    {
+      "slug": "folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo",
+      "clave": "folklore en la estacion vuelve a marcos paz pena gastronomia y feria de emprendedores este domingo",
+      "mdx": "src/content/noticias/folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo/index.mdx",
+      "sha": "e04cf55c1f204d7f7c09eafa504e6201087f10e4",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo/index.mdx"
+    },
+    {
+      "slug": "general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero",
+      "clave": "general las heras adhirio al programa provincial que brinda asistencia economica y acompanamiento para salir de situaciones de violencia de genero",
+      "mdx": "src/content/noticias/general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero/index.mdx",
+      "sha": "61cd6e34e0d6bf613708fa8be9eac3703daf3f77",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero/index.mdx"
+    },
+    {
+      "slug": "general-las-heras-banco-provincia-herramientas-financieras",
+      "clave": "general las heras banco provincia herramientas financieras",
+      "mdx": "src/content/noticias/general-las-heras-banco-provincia-herramientas-financieras/index.mdx",
+      "sha": "055b0d7c9eda02203ea67c8602f3df3ed283252f",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-banco-provincia-herramientas-financieras/index.mdx"
+    },
+    {
+      "slug": "general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose",
+      "clave": "general las heras extendio el recambio led sobre la ruta 40 trabajos en zamudio nutricion hornos y san jose",
+      "mdx": "src/content/noticias/general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose/index.mdx",
+      "sha": "b866de671fbc3bdbece7f6414bf32a8fa6c90e63",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose/index.mdx"
+    },
+    {
+      "slug": "general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino",
+      "clave": "general las heras refuerza obras de drenaje ante la posible llegada de el nino",
+      "mdx": "src/content/noticias/general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino/index.mdx",
+      "sha": "07c2f7e530370bcc680e0a2822936a8c9cdac933",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino/index.mdx"
+    },
+    {
+      "slug": "general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera",
+      "clave": "general las heras ya tiene seis atletas clasificados a mar del plata y tres equipos de futbol pcd siguen en carrera",
+      "mdx": "src/content/noticias/general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera/index.mdx",
+      "sha": "7066839ef193d663528ec71cc9e3265cb2a9f577",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera/index.mdx"
+    },
+    {
+      "slug": "gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo",
+      "clave": "gimnasia acrobatica del instituto san luis gonzaga clasifico a la final provincial de los jebo",
+      "mdx": "src/content/noticias/gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo/index.mdx",
+      "sha": "73b76c1862231a85fe6a718f5ba6638f83411b3f",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo/index.mdx"
+    },
+    {
+      "slug": "handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal",
+      "clave": "handball de general las heras cerro una gran temporada en femebal",
+      "mdx": "src/content/noticias/handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal/index.mdx",
+      "sha": "2006589a284bb047fdf9cecc17fab6150c3d8d9a",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal/index.mdx"
+    },
+    {
+      "slug": "hcd-marcos-paz-lineas-136-163",
+      "clave": "hcd marcos paz lineas 136 163",
+      "mdx": "src/content/noticias/hcd-marcos-paz-lineas-136-163/index.mdx",
+      "sha": "6f82e4a414d812aa87f68787d55bf3b57af380eb",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/hcd-marcos-paz-lineas-136-163/index.mdx"
+    },
+    {
+      "slug": "jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios",
+      "clave": "jubilaciones suben 2 11 pero la minima sigue perdiendo poder de compra que ayudas existen en provincia y municipios",
+      "mdx": "src/content/noticias/jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios/index.mdx",
+      "sha": "19a44ee2610de092a4b452f12ca4d9f8da815a59",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios/index.mdx"
+    },
+    {
+      "slug": "las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela",
+      "clave": "las heras bike dono otra bicicleta para que una estudiante pueda llegar mejor a la escuela",
+      "mdx": "src/content/noticias/las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela/index.mdx",
+      "sha": "8978ed337c0c2a3a170e54efe26cb3dc83bb35ec",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela/index.mdx"
+    },
+    {
+      "slug": "las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad",
+      "clave": "las heras marcos paz navarro reclamos linea 136 peaje ruta 6 seguridad",
+      "mdx": "src/content/noticias/las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad/index.mdx",
+      "sha": "6a519faabf50fe2b36508f8e6224076cf0fdc175",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad/index.mdx"
+    },
+    {
+      "slug": "laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis",
+      "clave": "laureano de giorgi clasifico a la final provincial de los juegos bonaerenses en tenis",
+      "mdx": "src/content/noticias/laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis/index.mdx",
+      "sha": "69c00536f55ad61b381ea6dc23453210cbb3fba9",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis/index.mdx"
+    },
+    {
+      "slug": "llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio",
+      "clave": "llegaron 338 ruedas nuevas para trenes del amba que mejora y que falta para que se note en el servicio",
+      "mdx": "src/content/noticias/llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio/index.mdx",
+      "sha": "e07a0ee8a86df327030e5733c3c29620248b2b8d",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio/index.mdx"
+    },
+    {
+      "slug": "lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre",
+      "clave": "lujan se prepara para recibir al papa leon xiv en noviembre",
+      "mdx": "src/content/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/index.mdx",
+      "sha": "1db594eeb11a0d1e9b89a45845a908f70a3a3f75",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/index.mdx"
+    },
+    {
+      "slug": "macondo-cumple-98-anos-en-villars",
+      "clave": "macondo cumple 98 anos en villars",
+      "mdx": "src/content/noticias/macondo-cumple-98-anos-en-villars/index.mdx",
+      "sha": "bcd948469017b7f82ca9fcb894a08e5c9c2af4c0",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/macondo-cumple-98-anos-en-villars/index.mdx"
+    },
+    {
+      "slug": "maraton-zabala-2026-marcos-paz",
+      "clave": "maraton zabala marcos paz",
+      "mdx": "src/content/noticias/maraton-zabala-2026-marcos-paz/index.mdx",
+      "sha": "3cf0e3bba68976ed695ac904ca3a19e209f8b106",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/maraton-zabala-2026-marcos-paz/index.mdx"
+    },
+    {
+      "slug": "marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico",
+      "clave": "marcos paz avanza con la colectora presidente peron pavimento luminarias y un futuro desvio del transporte publico",
+      "mdx": "src/content/noticias/marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico/index.mdx",
+      "sha": "9bffdcfc6518b768c91f656e5c837030edd77f96",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico/index.mdx"
+    },
+    {
+      "slug": "marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria",
+      "clave": "marcos paz recibe este domingo el 3 encuentro multimarcas con una jornada solidaria",
+      "mdx": "src/content/noticias/marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria/index.mdx",
+      "sha": "a0643c996ee98996bdedcc6c342bf83aaf38933b",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria/index.mdx"
+    },
+    {
+      "slug": "marcos-paz-registro-murgas-carnaval-2027",
+      "clave": "marcos paz registro murgas carnaval",
+      "mdx": "src/content/noticias/marcos-paz-registro-murgas-carnaval-2027/index.mdx",
+      "sha": "0632baf4a9a25fce07cae0c6a394f95db54bee56",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-registro-murgas-carnaval-2027/index.mdx"
+    },
+    {
+      "slug": "marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense",
+      "clave": "marcos paz sortea dos carritos de compras en el mercado fijo bonaerense",
+      "mdx": "src/content/noticias/marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense/index.mdx",
+      "sha": "29b6d6e1e83beddcf61951683366091e81657b07",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense/index.mdx"
+    },
+    {
+      "slug": "mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region",
+      "clave": "mas de 2 000 cadetes juraron a la bandera que significa para la seguridad bonaerense y que puede llegar a nuestra region",
+      "mdx": "src/content/noticias/mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region/index.mdx",
+      "sha": "6413fab1d7745338cd2bbaf55a9d5239803c2d38",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region/index.mdx"
+    },
+    {
+      "slug": "mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro",
+      "clave": "mercedes diz dejo su marca en el mundial sub 20 doblete historico octavos de final y orgullo para navarro",
+      "mdx": "src/content/noticias/mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro/index.mdx",
+      "sha": "bbd41341f068cd282b2e2c0b10dc7f2d54bb3e05",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro/index.mdx"
+    },
+    {
+      "slug": "nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar",
+      "clave": "nuevo aumento del transporte otro golpe al bolsillo de quienes necesitan viajar",
+      "mdx": "src/content/noticias/nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar/index.mdx",
+      "sha": "baf61c18fb268fdb2166654edf47f7141fff7664",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar/index.mdx"
+    },
+    {
+      "slug": "prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta",
+      "clave": "prevencion que puede salvar vidas finalizo la campana gratuita para detectar aneurismas en el hospital cuenca alta",
+      "mdx": "src/content/noticias/prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta/index.mdx",
+      "sha": "3ca6202040d961df7cdf1bee0ee7847750ac05df",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta/index.mdx"
+    },
+    {
+      "slug": "prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos",
+      "clave": "prorrogan 120 dias las licencias profesionales ante las demoras para conseguir turnos",
+      "mdx": "src/content/noticias/prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos/index.mdx",
+      "sha": "78b7c4d820aab0ed43e1ef5f9982a0b171b1a7c6",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos/index.mdx"
+    },
+    {
+      "slug": "provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses",
+      "clave": "provincia destina 2 125 millones a los municipios para sostener la etapa regional de los juegos bonaerenses",
+      "mdx": "src/content/noticias/provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses/index.mdx",
+      "sha": "2319d9188960eb8ef9a531ffa71d3e8f46298105",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses/index.mdx"
+    },
+    {
+      "slug": "provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios",
+      "clave": "provincia presento un plan de prevencion del suicidio mas profesionales atencion 24 horas y apoyo a municipios",
+      "mdx": "src/content/noticias/provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios/index.mdx",
+      "sha": "ed40573eda4fcb0f848c09c1ae71e84890f52b18",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios/index.mdx"
+    },
+    {
+      "slug": "recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes",
+      "clave": "recuperaron en la ruta 6 una hilux robada en lomas estaba abandonada y sin patentes",
+      "mdx": "src/content/noticias/recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes/index.mdx",
+      "sha": "8afc17897e2c17949b1327a9c409ec652ad294b6",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes/index.mdx"
+    },
+    {
+      "slug": "ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras",
+      "clave": "ruta 6 la provincia avanza con obras sobre 140 kilometros y el plan tambien alcanza a general las heras",
+      "mdx": "src/content/noticias/ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras/index.mdx",
+      "sha": "a3fcb46acdeac7752f3a2e7e3183c532366c2b4e",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras/index.mdx"
+    },
+    {
+      "slug": "ruta-6-peaje-electronico-general-las-heras",
+      "clave": "ruta 6 peaje electronico general las heras",
+      "mdx": "src/content/noticias/ruta-6-peaje-electronico-general-las-heras/index.mdx",
+      "sha": "0a47733330fe4729c54e27a62647bc15b2686018",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ruta-6-peaje-electronico-general-las-heras/index.mdx"
+    },
+    {
+      "slug": "san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal",
+      "clave": "san cipriano recorrio las calles de general las heras en una nueva procesion patronal",
+      "mdx": "src/content/noticias/san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal/index.mdx",
+      "sha": "37a91dcd15d9d7ac01a2f80081df4adddb059518",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal/index.mdx"
+    },
+    {
+      "slug": "senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027",
+      "clave": "senasa digitaliza la documentacion equina y hara obligatorio el microchip para mover caballos desde marzo de",
+      "mdx": "src/content/noticias/senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027/index.mdx",
+      "sha": "ed770c31cd372a0ca439917e658bddbc97e2ec2a",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027/index.mdx"
+    },
+    {
+      "slug": "tercera-gran-jineteada-en-campo-la-lucia",
+      "clave": "tercera gran jineteada en campo la lucia",
+      "mdx": "src/content/noticias/tercera-gran-jineteada-en-campo-la-lucia/index.mdx",
+      "sha": "09f5bd6d53a9586cc5906bbabb3f21826eab7784",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tercera-gran-jineteada-en-campo-la-lucia/index.mdx"
+    },
+    {
+      "slug": "trasnoche-paranormal-en-vivo-marcos-paz",
+      "clave": "trasnoche paranormal en vivo marcos paz",
+      "mdx": "src/content/noticias/trasnoche-paranormal-en-vivo-marcos-paz/index.mdx",
+      "sha": "4c91b21f07d2a5f01e95a21b7d9fe9b037fbe71f",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/trasnoche-paranormal-en-vivo-marcos-paz/index.mdx"
+    },
+    {
+      "slug": "tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras",
+      "clave": "tren sarmiento reanudo servicios 13 octubre merlo las heras",
+      "mdx": "src/content/noticias/tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras/index.mdx",
+      "sha": "86dad47403320d101cf775af756830586ff4dbbf",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras/index.mdx"
+    },
+    {
+      "slug": "trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas",
+      "clave": "trenes argentinos prueba una caja negra para vigilar pasos a nivel del sarmiento las 24 horas",
+      "mdx": "src/content/noticias/trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas/index.mdx",
+      "sha": "3755479f9b2e52e7e1600e0fc6ba05c02e1d5b66",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas/index.mdx"
+    },
+    {
+      "slug": "tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural",
+      "clave": "tres emergencias en un fin de semana bomberos de villars actuaron en una vivienda ruta 6 y un camino rural",
+      "mdx": "src/content/noticias/tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural/index.mdx",
+      "sha": "012a45b8c6a61d852e1dbedba754f7ea78cba7d1",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural/index.mdx"
+    },
+    {
+      "slug": "tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano",
+      "clave": "tus zapas dejan huellas jovenes de confirmacion entregaron calzado donado junto a caritas san cipriano",
+      "mdx": "src/content/noticias/tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano/index.mdx",
+      "sha": "83ca09aca939a1394c084e14b033a6dcd4e928dd",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano/index.mdx"
+    },
+    {
+      "slug": "un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars",
+      "clave": "un camion termino en un arroyo en la ruta 6 varios siniestros encendieron la alerta en el corredor de villars",
+      "mdx": "src/content/noticias/un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars/index.mdx",
+      "sha": "ce53eef48dca486cc386abea620a9200adc60a98",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars/index.mdx"
+    },
+    {
+      "slug": "universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios",
+      "clave": "universitarios marcharan el 15 de octubre por financiamiento becas y salarios",
+      "mdx": "src/content/noticias/universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios/index.mdx",
+      "sha": "d94082c348eb4636665a8134328021c97900c77c",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios/index.mdx"
+    },
+    {
+      "slug": "vtv-aumento-octubre-2026-buenos-aires",
+      "clave": "vtv aumento octubre buenos aires",
+      "mdx": "src/content/noticias/vtv-aumento-octubre-2026-buenos-aires/index.mdx",
+      "sha": "6ee1facb609a27cc91946a84e952af8705865415",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/vtv-aumento-octubre-2026-buenos-aires/index.mdx"
+    },
+    {
+      "slug": "ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble",
+      "clave": "ya funcionan los totems de pago electronico en los peajes sin telepase se paga el doble",
+      "mdx": "src/content/noticias/ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble/index.mdx",
+      "sha": "046ff48dc378b30932129cec3193a1845c0a359d",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble/index.mdx"
+    },
+    {
+      "slug": "zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz",
+      "clave": "zona fria ley 27828 cambia descuento gas las heras marcos paz",
+      "mdx": "src/content/noticias/zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz/index.mdx",
+      "sha": "2726e76641b50e7d6a055c14ba9372b1d4da3eb9",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz/index.mdx"
+    }
+  ]
+}

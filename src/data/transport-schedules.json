@@ -4,13 +4,13 @@
   "source": {
     "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
     "databasePath": "horarios.db",
-    "databaseSha256": "844a7f2e5fe5cc98934e1dc1e758332745010f3971e63e54f4c163eebb2d86bb",
-    "updatedAt": "2026-10-19T16:31:16Z"
+    "databaseSha256": "a5cfc7be329557e2f48265b2fb8729155694d10d9e5bffe38276a86d72354518",
+    "updatedAt": "2026-10-21T14:32:21Z"
   },
   "stats": {
     "routes": 6,
     "schedules": 56,
-    "times": 5514
+    "times": 5530
   },
   "routes": [
     {
@@ -31,7 +31,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 185,
@@ -172,7 +172,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 189,
@@ -299,7 +299,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 193,
@@ -486,7 +486,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 199,
@@ -659,7 +659,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 205,
@@ -800,7 +800,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 209,
@@ -942,7 +942,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 213,
@@ -1079,7 +1079,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 215,
@@ -1202,7 +1202,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 217,
@@ -1413,7 +1413,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 221,
@@ -1568,7 +1568,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 225,
@@ -1705,7 +1705,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 227,
@@ -1843,7 +1843,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 1,
@@ -4568,7 +4568,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 16,
@@ -7081,7 +7081,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 31,
@@ -10656,7 +10656,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 51,
@@ -13949,7 +13949,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 71,
@@ -17331,7 +17331,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 90,
@@ -20462,7 +20462,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 229,
@@ -20659,7 +20659,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 233,
@@ -20856,132 +20856,180 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 237,
-              "name": "59002",
+              "name": "5102",
               "order": 1,
               "stops": [
+                {
+                  "station": "Villars",
+                  "normalizedStation": "villars",
+                  "order": 2,
+                  "minutes": 613
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 643
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 565
+                  "minutes": 666
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 584
+                  "minutes": 686
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Villars",
               "destination": "González Catán"
             },
             {
               "id": 238,
-              "name": "59004",
+              "name": "5004",
               "order": 2,
               "stops": [
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 751
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 656
+                  "minutes": 774
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 675
+                  "minutes": 794
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Marcos Paz",
               "destination": "González Catán"
             },
             {
               "id": 239,
-              "name": "59006",
+              "name": "5006",
               "order": 3,
               "stops": [
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 863
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 740
+                  "minutes": 886
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 759
+                  "minutes": 906
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Marcos Paz",
               "destination": "González Catán"
             },
             {
               "id": 240,
-              "name": "59008",
+              "name": "5008",
               "order": 4,
               "stops": [
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 975
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 1039
+                  "minutes": 998
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 1058
+                  "minutes": 1018
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Marcos Paz",
               "destination": "González Catán"
             },
             {
               "id": 241,
-              "name": "59010",
+              "name": "5010",
               "order": 5,
               "stops": [
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 1090
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 1129
+                  "minutes": 1113
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 1148
+                  "minutes": 1133
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Marcos Paz",
               "destination": "González Catán"
             },
             {
               "id": 242,
-              "name": "59012",
+              "name": "5112",
               "order": 6,
               "stops": [
+                {
+                  "station": "Villars",
+                  "normalizedStation": "villars",
+                  "order": 2,
+                  "minutes": 1224
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 1254
+                },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 4,
-                  "minutes": 1251
+                  "minutes": 1277
                 },
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 5,
-                  "minutes": 1270
+                  "minutes": 1297
                 }
               ],
-              "origin": "20 de Junio",
+              "origin": "Villars",
               "destination": "González Catán"
             }
           ],
@@ -20996,25 +21044,35 @@
               "name": "Villars",
               "normalizedName": "villars",
               "order": 2,
-              "times": []
+              "times": [
+                613,
+                1224
+              ]
             },
             {
               "name": "Marcos Paz",
               "normalizedName": "marcos paz",
               "order": 3,
-              "times": []
+              "times": [
+                643,
+                751,
+                863,
+                975,
+                1090,
+                1254
+              ]
             },
             {
               "name": "20 de Junio",
               "normalizedName": "20 de junio",
               "order": 4,
               "times": [
-                565,
-                656,
-                740,
-                1039,
-                1129,
-                1251
+                666,
+                774,
+                886,
+                998,
+                1113,
+                1277
               ]
             },
             {
@@ -21022,12 +21080,12 @@
               "normalizedName": "gonzalez catan",
               "order": 5,
               "times": [
-                584,
-                675,
-                759,
-                1058,
-                1148,
-                1270
+                686,
+                794,
+                906,
+                1018,
+                1133,
+                1297
               ]
             }
           ]
@@ -21040,11 +21098,11 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 243,
-              "name": "59001",
+              "name": "5101",
               "order": 1,
               "stops": [
                 {
@@ -21057,116 +21115,164 @@
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 546
+                  "minutes": 547
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 570
+                },
+                {
+                  "station": "Villars",
+                  "normalizedStation": "villars",
+                  "order": 4,
+                  "minutes": 600
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Villars"
             },
             {
               "id": 244,
-              "name": "59003",
+              "name": "5003",
               "order": 2,
               "stops": [
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 1,
-                  "minutes": 617
+                  "minutes": 699
                 },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 636
+                  "minutes": 719
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 742
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Marcos Paz"
             },
             {
               "id": 245,
-              "name": "59005",
+              "name": "5005",
               "order": 3,
               "stops": [
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 1,
-                  "minutes": 698
+                  "minutes": 807
                 },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 717
+                  "minutes": 827
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 850
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Marcos Paz"
             },
             {
               "id": 246,
-              "name": "59007",
+              "name": "5007",
               "order": 4,
               "stops": [
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 1,
-                  "minutes": 1000
+                  "minutes": 920
                 },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 1019
+                  "minutes": 940
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 963
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Marcos Paz"
             },
             {
               "id": 247,
-              "name": "59009",
+              "name": "5009",
               "order": 5,
               "stops": [
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 1,
-                  "minutes": 1090
+                  "minutes": 1030
                 },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 1109
+                  "minutes": 1050
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 1073
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Marcos Paz"
             },
             {
               "id": 248,
-              "name": "59011",
+              "name": "5111",
               "order": 6,
               "stops": [
                 {
                   "station": "González Catán",
                   "normalizedStation": "gonzalez catan",
                   "order": 1,
-                  "minutes": 1209
+                  "minutes": 1142
                 },
                 {
                   "station": "20 de Junio",
                   "normalizedStation": "20 de junio",
                   "order": 2,
-                  "minutes": 1228
+                  "minutes": 1162
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 3,
+                  "minutes": 1185
+                },
+                {
+                  "station": "Villars",
+                  "normalizedStation": "villars",
+                  "order": 4,
+                  "minutes": 1215
                 }
               ],
               "origin": "González Catán",
-              "destination": "20 de Junio"
+              "destination": "Villars"
             }
           ],
           "stations": [
@@ -21176,11 +21282,11 @@
               "order": 1,
               "times": [
                 527,
-                617,
-                698,
-                1000,
-                1090,
-                1209
+                699,
+                807,
+                920,
+                1030,
+                1142
               ]
             },
             {
@@ -21188,25 +21294,35 @@
               "normalizedName": "20 de junio",
               "order": 2,
               "times": [
-                546,
-                636,
-                717,
-                1019,
-                1109,
-                1228
+                547,
+                719,
+                827,
+                940,
+                1050,
+                1162
               ]
             },
             {
               "name": "Marcos Paz",
               "normalizedName": "marcos paz",
               "order": 3,
-              "times": []
+              "times": [
+                570,
+                742,
+                850,
+                963,
+                1073,
+                1185
+              ]
             },
             {
               "name": "Villars",
               "normalizedName": "villars",
               "order": 4,
-              "times": []
+              "times": [
+                600,
+                1215
+              ]
             },
             {
               "name": "Lozano",
@@ -21224,7 +21340,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 249,
@@ -21421,7 +21537,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 253,
@@ -21633,7 +21749,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 257,
@@ -22778,7 +22894,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 273,
@@ -23719,7 +23835,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 285,
@@ -24936,7 +25052,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 302,
@@ -25949,7 +26065,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 315,
@@ -27166,7 +27282,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 332,
@@ -28211,7 +28327,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:15Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 109,
@@ -29241,7 +29357,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 113,
@@ -30476,7 +30592,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 128,
@@ -32121,7 +32237,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 135,
@@ -33561,7 +33677,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 166,
@@ -34591,7 +34707,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 170,
@@ -35826,7 +35942,7 @@
           },
           "direction": "Mariano Acosta",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 165,
@@ -35917,7 +36033,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 118,
@@ -36789,7 +36905,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 120,
@@ -37358,7 +37474,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 141,
@@ -38230,7 +38346,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 143,
@@ -39645,7 +39761,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 175,
@@ -40517,7 +40633,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 177,
@@ -41086,7 +41202,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 121,
@@ -41559,7 +41675,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 123,
@@ -42032,7 +42148,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 147,
@@ -42973,7 +43089,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 152,
@@ -44226,7 +44342,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 178,
@@ -44699,7 +44815,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 180,
@@ -45172,7 +45288,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 125,
@@ -45643,7 +45759,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 126,
@@ -46305,7 +46421,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 159,
@@ -47242,7 +47358,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 162,
@@ -47904,7 +48020,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 182,
@@ -48375,7 +48491,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:21Z",
           "services": [
             {
               "id": 183,
@@ -49037,7 +49153,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Manual",
-          "updatedAt": "2026-10-19T16:31:16Z",
+          "updatedAt": "2026-10-21T14:32:20Z",
           "services": [
             {
               "id": 164,

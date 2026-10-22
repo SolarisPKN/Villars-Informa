@@ -42,7 +42,7 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         uses: actions/setup-node@v5
         with:
-          node-version: 24
+          node-version: '24.22.1'
           cache: npm
       - name: Regenerar y validar el sitio
         if: steps.changes.outputs.changed == 'true'

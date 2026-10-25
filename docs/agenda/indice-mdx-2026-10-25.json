@@ -1,0 +1,3400 @@
+{
+  "descripcion": "Índice completo de los 73 MDX presentes en main al inicio de la auditoría semanal del 25/10/2026, con actualización editorial del artículo del 148.º aniversario incluida en el mismo commit. Los SHA se cotejaron contra el árbol Git; coincidencias de fecha, lugar o fuente solo generan candidatos a deduplicar.",
+  "fechaIndice": "2026-10-25",
+  "baseMain": "3d17a451eab66d415be80e8e3e69cfc3e150bc79",
+  "cantidad": 73,
+  "conteoEventos": 22,
+  "eventosFuturos": [
+    {
+      "slug": "fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026",
+      "fechaEvento": "2026-10-24",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "10:00",
+      "lugar": "Campo de Pato de General Las Heras, General Las Heras",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026/index.mdx"
+    },
+    {
+      "slug": "daniel-agostini-marcos-paz-octubre-2026",
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "20:30",
+      "lugar": "Centro Cultural Roma, Avellaneda 1950, Marcos Paz",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/daniel-agostini-marcos-paz-octubre-2026/index.mdx"
+    },
+    {
+      "slug": "marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026",
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": null,
+      "horaEvento": "10:00",
+      "lugar": "Centro de Marcos Paz y Espacio Quinta Devoto, Ruta 40 km 50",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026/index.mdx"
+    },
+    {
+      "slug": "pedaleada-rosa-2026-marcos-paz-lujan",
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "06:30",
+      "lugar": "Iglesia de Marcos Paz (punto exacto de salida a confirmar con Rosita Team)",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/pedaleada-rosa-2026-marcos-paz-lujan/index.mdx"
+    },
+    {
+      "slug": "taller-jardineria-7-noviembre-2026-marcos-paz",
+      "fechaEvento": "2026-11-07",
+      "fechaFinEvento": "2026-11-07",
+      "horaEvento": null,
+      "lugar": "Casa de la Cultura, Marcos Paz",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/taller-jardineria-7-noviembre-2026-marcos-paz/index.mdx"
+    },
+    {
+      "slug": "lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre",
+      "fechaEvento": "2026-11-11",
+      "fechaFinEvento": "2026-11-11",
+      "horaEvento": "10:00",
+      "lugar": "Plaza frente a la Basílica Nuestra Señora de Luján, Luján",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/index.mdx"
+    },
+    {
+      "slug": "maraton-zabala-2026-marcos-paz",
+      "fechaEvento": "2026-11-15",
+      "fechaFinEvento": "2026-11-15",
+      "horaEvento": "09:00",
+      "lugar": "Espacio Quinta Devoto, Marcos Paz",
+      "estado": "YA PUBLICADO (contenido en main; artículo de aniversario actualizado en este commit)",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/maraton-zabala-2026-marcos-paz/index.mdx"
+    }
+  ],
+  "alertas": [
+    "El 25/10 se incluyen eventos del mismo día, aunque su horario de inicio ya puede haber pasado; no tratarlos automáticamente como convocatorias futuras.",
+    "Canto Bonaerense 30/10–01/11: solo se corroboró programación específica en un medio secundario; falta anuncio primario de Las Heras/Instituto Cultural y formulario válido. No publicado.",
+    "Fiesta del Inmigrante, Encuentro de Motos, Marcos Paz Tango y bingo de la Cooperadora del Hospital: referencias a noviembre sin fecha precisa de 2026.",
+    "El cierre del concurso de jardines del 12/12 está integrado en la nota del taller del 07/11; no duplicar sin novedades concretas.",
+    "Visita papal 11/11: programa de la Santa Sede vigente al 25/10; verificar cambios y accesos antes de asistir.",
+    "Portada de la nota de aniversario: ilustración rasterizada original existente, acreditada SolarisPKN Arts; no se incorporaron fotos ni coordenadas nuevas."
+  ],
+  "articulos": [
+    {
+      "slug": "71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares",
+      "titulo": "71 escrituras: más familias de General Las Heras avanzan con la propiedad legal de sus hogares",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Vivienda y Hábitat",
+      "tags": [
+        "General Las Heras",
+        "Villars",
+        "vivienda",
+        "escrituras",
+        "regularización dominial",
+        "Ley 10.830",
+        "Ley 14.449",
+        "Provincia de Buenos Aires",
+        "hábitat",
+        "familias"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares/799172792_1431243215771398_6713358753940918649_n_resultado.webp",
+      "fuentes": [
+        "https://www.gba.gob.ar/node/10286",
+        "https://www.gba.gob.ar/escribaniageneral/escrituracion_social/operatorias_vinculadas_la_egg",
+        "https://www.gba.gob.ar/static/escribania_general/docs/Requisitos.pdf",
+        "https://www.argentina.gob.ar/normativa/provincial/ley-14449-123456789-0abc-defg-944-4100bvorpyel/actualizacion",
+        "https://hcdlasheras.com/ordenanzas/",
+        "https://www.gba.gob.ar/node/51676",
+        "https://www.codigobaires.com.ar/2026-06-26/general-las-heras-avanza-con-la-entrega-de-escrituras-de-viviendas-249179/",
+        "https://www.argentina.gob.ar/noticias/el-gobierno-dispuso-la-disolucion-del-fondo-fiduciario-publico-procrear",
+        "https://www.argentina.gob.ar/noticias/se-completo-la-disolucion-de-la-secretaria-de-desarrollo-territorial-habitat-y-vivienda",
+        "https://www.gba.gob.ar/escribaniageneral/noticias/kicillof_entreg%C3%B3_m%C3%A1s_de_1500_escrituras_familias_de_almirante_brown",
+        "https://www.gba.gob.ar/node/2195"
+      ],
+      "sha": "8cea06afb9a548f85768d38aff731963de1cacb2",
+      "path": "src/content/noticias/71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/71-escrituras-mas-familias-de-general-las-heras-avanzan-con-la-propiedad-legal-de-sus-hogares/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Vivienda y Hábitat",
+      "entidades": [
+        "Ley 10.830",
+        "Ley 14.449",
+        "Provincia de Buenos Aires"
+      ]
+    },
+    {
+      "slug": "a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria",
+      "titulo": "A 50 años de La Noche de los Lápices, estudiantes de Gastronomía de Las Heras pintaron un mural para construir memoria",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "General Las Heras",
+        "Noche de los Lápices",
+        "Jóvenes y Memoria",
+        "Derechos Humanos",
+        "Memoria",
+        "Juventudes",
+        "Educación Pública",
+        "Comisión Provincial por la Memoria",
+        "EPS Gastronomía"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria/813546231_901244676189928_5112284790686556008_n_resultado.webp",
+      "fuentes": [
+        "https://www.comisionporlamemoria.org/jovenesymemoria/el-programa/",
+        "https://www.facebook.com/LHN.Noticias/",
+        "https://www.comisionporlamemoria.org/project/la-noche-de-los-lapices-guia-de-recursos-para-docentes/",
+        "https://www.comisionporlamemoria.org/jovenesymemoria/convocatoria/",
+        "https://derechoshumanos.mjus.gba.gob.ar/recursos-pedagogicos/",
+        "https://gba.gob.ar/transporte/noticias/el_ministerio_de_transporte_reafirma_su_compromiso_con_el_boleto_estudiantil",
+        "https://www.argentina.gob.ar/node/398624",
+        "https://www.argentina.gob.ar/node/337174",
+        "https://www.pagina12.com.ar/2026/09/17/la-noche-no-pudo-impedir-que-los-lapices-siguieran-escribiendo/",
+        "https://www.clarin.com/informacion-general/50-anos-noche-lapices-paso-16-septiembre-1976_0_Y38G9f4a9B.html",
+        "https://www.lanacion.com.ar/cultura/se-cumplen-50-anos-de-la-noche-de-los-lapices-este-miercoles-16-de-septiembre-nid16092026/"
+      ],
+      "sha": "cf88d7d884dd3598f6d99fa2d25ee466d5a9df9d",
+      "path": "src/content/noticias/a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/a-50-anos-de-la-noche-de-los-lapices-estudiantes-de-gastronomia-de-las-heras-pintaron-un-mural-para-construir-memoria/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "Noche de los Lápices",
+        "Jóvenes y Memoria",
+        "Derechos Humanos",
+        "Memoria",
+        "Juventudes",
+        "Educación Pública",
+        "Comisión Provincial por la Memoria",
+        "EPS Gastronomía"
+      ]
+    },
+    {
+      "slug": "abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras",
+      "titulo": "Abrieron las inscripciones para la Diplomatura en Procesamiento Agroalimentario en General Las Heras",
+      "fecha": "2026-09-05",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "General Las Heras",
+        "UNLZ",
+        "Polo Universitario",
+        "Educación",
+        "Diplomatura",
+        "Agroalimentos",
+        "Formación",
+        "Universidad"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-05",
+      "fechaFinEvento": "2026-09-16",
+      "horaEvento": null,
+      "lugarEvento": "Polo Universitario General Las Heras - Casey 830",
+      "portada": "/images/noticias/abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras/ULH.webp",
+      "fuentes": [
+        "https://docs.google.com/forms/d/e/1FAIpQLSde9Kleal02zwRk8BWoznhHGEfYvhGKg00NFA-BWpC_etcoAw/viewform?usp=publish-editor"
+      ],
+      "sha": "d767a92b54532f3c1e7ed53a52bc04f0fa6660ec",
+      "path": "src/content/noticias/abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/abrieron-las-inscripciones-para-la-diplomatura-en-procesamiento-agroalimentario-en-general-las-heras/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "UNLZ",
+        "Polo Universitario",
+        "Diplomatura",
+        "Agroalimentos",
+        "Formación",
+        "Universidad"
+      ]
+    },
+    {
+      "slug": "anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses",
+      "titulo": "ANSES recordó el paso clave para incorporar familiares a la obra social: primero hay que revisar los datos en mi ANSES",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "ANSES",
+        "Obra Social",
+        "CODEM",
+        "Salud",
+        "Trabajadores",
+        "Jubilados",
+        "Familia",
+        "Atención Virtual",
+        "Trámites"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses/73ca765f-dffa-493b-be48-48586bb84825.webp",
+      "fuentes": [
+        "https://www.anses.gob.ar/mi-anses",
+        "https://www.argentina.gob.ar/node/39087",
+        "https://www.anses.gob.ar/trabajo/obra-social-para-trabajadores-en-relacion-de-dependencia",
+        "https://www.anses.gob.ar/jubilaciones-y-pensiones/consultas-y-tramites-frecuentes-para-jubilados/obras-sociales-y-mutuales/obra-social-para-jubilados-y-pensionados",
+        "https://www.anses.gob.ar/consultas/obra-social-codem",
+        "https://www.argentina.gob.ar/node/38478",
+        "https://www.argentina.gob.ar/sssalud/usuarios/mi-obra-social"
+      ],
+      "sha": "7d09a91ecccc50242bc21378347c89d86850315c",
+      "path": "src/content/noticias/anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/anses-recordo-el-paso-clave-para-incorporar-familiares-a-la-obra-social-primero-hay-que-revisar-los-datos-en-mi-anses/index.mdx",
+      "localidades": [],
+      "tema": "Servicios",
+      "entidades": [
+        "ANSES",
+        "Obra Social",
+        "CODEM",
+        "Salud",
+        "Trabajadores",
+        "Jubilados",
+        "Familia",
+        "Atención Virtual",
+        "Trámites"
+      ]
+    },
+    {
+      "slug": "aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua",
+      "titulo": "Aprehendieron a un hombre tras ingresar a una vivienda en General Las Heras: fue liberado y la causa continúa",
+      "fecha": "2026-09-19",
+      "modificada": null,
+      "categoria": "Policiales",
+      "tags": [
+        "General Las Heras",
+        "Seguridad",
+        "Policía Comunal",
+        "Violación de domicilio",
+        "UFI Mercedes",
+        "COM",
+        "Prevención",
+        "Vecinos",
+        "Justicia"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua/799784594_1063412733051350_5194855000546781311_n.webp",
+      "fuentes": [
+        "https://servicios.infoleg.gob.ar/infolegInternet/anexos/15000-19999/16546/texact.htm",
+        "https://www.argentina.gob.ar/normativa/provincial/ley-11922-123456789-0abc-defg-229-1100bvorpyel/actualizacion",
+        "https://gobiernodelasheras.com/2026/08/",
+        "https://hcdlasheras.com/ordenanzas/",
+        "https://gobiernodelasheras.com/noticias/gobierno/",
+        "https://gobiernodelasheras.com/",
+        "https://fm1047elherense.wixsite.com/argentina/post/parte-de-prensa-28-29-y-30-estaci%C3%B3n-de-polic%C3%ADa-de-seguridad-comunal-general-las-heras"
+      ],
+      "sha": "94cb43bd640a6e857a66ee127205cfb5c2255ead",
+      "path": "src/content/noticias/aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/aprehendieron-a-un-hombre-tras-ingresar-a-una-vivienda-en-general-las-heras-fue-liberado-y-la-causa-continua/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Policiales",
+      "entidades": [
+        "Policía Comunal",
+        "Violación de domicilio",
+        "UFI Mercedes",
+        "COM",
+        "Prevención",
+        "Vecinos",
+        "Justicia"
+      ]
+    },
+    {
+      "slug": "auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido",
+      "titulo": "AUH: salud y escolaridad se acreditarán automáticamente para cobrar el 20% retenido",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Economía",
+      "tags": [
+        "AUH",
+        "ANSES",
+        "Capital Humano",
+        "familias",
+        "trabajadores",
+        "escolaridad",
+        "salud",
+        "Prestación Alimentar",
+        "Cuenta DNI",
+        "General Las Heras"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido/d57e95d9-38ae-4f14-a3b0-caa1873e53f2_resultado.webp",
+      "fuentes": [
+        "https://www.argentina.gob.ar/normativa/nacional/norma-430200/texto",
+        "https://www.boletinoficial.gob.ar/detalleAviso/primera/347574/20260917",
+        "https://www.argentina.gob.ar/noticias/la-acreditacion-de-salud-y-escolaridad-de-la-auh-se-realizara-de-forma-automatica",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-429461/texto",
+        "https://www.boletinoficial.gob.ar/detalleAviso/primera/346684/20260901?anexos=1",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-425565/texto",
+        "https://www.argentina.gob.ar/capital-humano/prestacion-alimentar",
+        "https://www.bancoprovincia.com.ar/cuentadni/buscadores/garrafas",
+        "https://www.infobae.com/sociedad/2026/09/17/cambia-la-libreta-auh-como-se-acreditaran-los-certificados-de-salud-y-escolaridad-a-partir-de-ahora/",
+        "https://www.lanacion.com.ar/economia/cambios-en-la-libreta-auh-las-acreditaciones-de-la-asignacion-universal-seran-automaticas-y-ya-no-nid17092026/",
+        "https://www.eldestapeweb.com/economia/auh-gobierno-implemento-cambio-clave-libreta-cobro-20-2026917113257",
+        "https://www.iprofesional.com/actualidad/464739-auh-que-cambia-realmente-con-la-nueva-acreditacion.amp",
+        "https://noticiasargentinas.com/economia/el-gobierno-automatiza-la-verificacion-de-controles-de-salud-y-escolaridad-para-el-cobro-de-la-auh_a6aabc473e7a604f2d6f7c419"
+      ],
+      "sha": "69f95cf15dcf6c15415c6f7a9ba531a28cf91dae",
+      "path": "src/content/noticias/auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/auh-salud-y-escolaridad-se-acreditaran-automaticamente-para-cobrar-el-20-retenido/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Economía",
+      "entidades": [
+        "AUH",
+        "ANSES",
+        "Capital Humano",
+        "Prestación Alimentar",
+        "Cuenta DNI"
+      ]
+    },
+    {
+      "slug": "auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo",
+      "titulo": "AUH y asignaciones familiares aumentan 2,11% en septiembre: cuánto se cobra por hijo",
+      "fecha": "2026-09-04",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "ANSES",
+        "AUH",
+        "Asignaciones Familiares",
+        "SUAF",
+        "Familias",
+        "Economía",
+        "Septiembre 2026"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo/1ac48719-ff03-429b-b163-9a94998ce2c2.webp",
+      "fuentes": [],
+      "sha": "e664c5af8801761381a41d340d0a2db150c8e301",
+      "path": "src/content/noticias/auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/auh-y-asignaciones-familiares-aumentan-2-11-en-septiembre-cuanto-se-cobra-por-hijo/index.mdx",
+      "localidades": [],
+      "tema": "Servicios",
+      "entidades": [
+        "ANSES",
+        "AUH",
+        "Asignaciones Familiares",
+        "SUAF",
+        "Familias",
+        "Septiembre 2026"
+      ]
+    },
+    {
+      "slug": "bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados",
+      "titulo": "Bomberos Voluntarios hicieron sonar las sirenas en todo el país para reclamar fondos adeudados",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "Bomberos Voluntarios",
+        "General Las Heras",
+        "Villars",
+        "Reclamo Nacional",
+        "Ley 25.054",
+        "Fondos",
+        "Emergencias",
+        "Sistema Nacional"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados/cartucho.webp",
+      "fuentes": [
+        "https://www.bomberosra.org.ar/2026/09/03/sirenazo-de-bomberos-voluntarios-en-todo-el-pais.html",
+        "https://www.argentina.gob.ar/seguridad/bomberosvoluntarios/normas",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-410326/texto",
+        "https://www.argentina.gob.ar/noticias/incendios-en-la-patagonia-el-gobierno-nacional-destina-mas-de-129000-millones-para",
+        "https://www.argentina.gob.ar/seguridad/bomberosvoluntarios/resoluciones-de-pago"
+      ],
+      "sha": "cc3deda94227b0e237eee2e38104c5b5afb3de14",
+      "path": "src/content/noticias/bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/bomberos-voluntarios-hicieron-sonar-las-sirenas-en-todo-el-pais-para-reclamar-fondos-adeudados/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Bomberos Voluntarios",
+        "Reclamo Nacional",
+        "Ley 25.054",
+        "Fondos",
+        "Emergencias",
+        "Sistema Nacional"
+      ]
+    },
+    {
+      "slug": "buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100",
+      "titulo": "Buscan prohibir fumar y vapear al volante en la Provincia: con la UF de septiembre, la multa llegaría a $228.100",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Seguridad Vial",
+      "tags": [
+        "Provincia de Buenos Aires",
+        "Seguridad Vial",
+        "Multas",
+        "Fumar al Volante",
+        "Vapeadores",
+        "Legislatura Bonaerense",
+        "Ruta 40",
+        "Ruta 6",
+        "Conductores"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100/c5a3a788-fc01-4102-9f0e-598fb8c1b33b_resultado.webp",
+      "fuentes": [
+        "https://www.hcdiputados-ba.gov.ar/",
+        "https://www.lasherasnoticias.com/buscan-prohibir-fumar-al-volante-en-la-provincia-y-las-multas-podrian-superar-los-227-mil/",
+        "https://www.0221.com.ar/provincia/buscan-sancionar-quienes-fumen-al-volante-multas-transito-227100-n133440",
+        "https://infocronos.com.ar/nota/57572/fumar-al-volante-podria-costar-caro-la-multa-que-analizan-en-diputados-bonaerense/",
+        "https://tn.com.ar/autos/novedades/2026/09/02/cuanto-cuestan-las-multas-de-transito-en-provincia-de-buenos-aires-en-septiembre-2026/",
+        "https://www.argentina.gob.ar/normativa/provincial/ley-13927-123456789-0abc-defg-729-3100bvorpyel/actualizacion",
+        "https://www.argentina.gob.ar/node/490109",
+        "https://www.argentina.gob.ar/normativa/provincial/ley-8560-123456789-0abc-defg-065-8001ovorpyel/actualizacion"
+      ],
+      "sha": "45f219ecedaa63a83711d3bbb3bb812c94b67b87",
+      "path": "src/content/noticias/buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/buscan-prohibir-fumar-y-vapear-al-volante-en-la-provincia-con-la-uf-de-septiembre-la-multa-llegaria-a-228-100/index.mdx",
+      "localidades": [],
+      "tema": "Seguridad Vial",
+      "entidades": [
+        "Provincia de Buenos Aires",
+        "Seguridad Vial",
+        "Multas",
+        "Fumar al Volante",
+        "Vapeadores",
+        "Legislatura Bonaerense",
+        "Ruta 40",
+        "Ruta 6",
+        "Conductores"
+      ]
+    },
+    {
+      "slug": "carolina-centurion-20-anos-musica-marcos-paz",
+      "titulo": "Carolina Centurión celebra 20 años de música en Marcos Paz",
+      "fecha": "2026-10-05",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Carolina Centurión",
+        "Centro Cultural Roma",
+        "música",
+        "agenda"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-17",
+      "fechaFinEvento": null,
+      "horaEvento": "20:00",
+      "lugarEvento": "Centro Cultural Roma, Marcos Paz",
+      "portada": null,
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/",
+        "https://www.quehacemos.com.ar/eventos/carolina-centurion-en-concierto-celebrando-20-anos-de-musica-55182"
+      ],
+      "sha": "2f202e4de6469f83c51178403ede5ba28235ce66",
+      "path": "src/content/noticias/carolina-centurion-20-anos-musica-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/carolina-centurion-20-anos-musica-marcos-paz/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Carolina Centurión",
+        "Centro Cultural Roma"
+      ]
+    },
+    {
+      "slug": "choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves",
+      "titulo": "Choque por alcance en la Ruta 40 dejó cinco personas con lesiones leves",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Seguridad Vial",
+      "tags": [
+        "Ruta 40",
+        "General Las Heras",
+        "Accidente",
+        "Bomberos Voluntarios",
+        "Hospital Municipal",
+        "Seguridad Vial",
+        "Ruta 6",
+        "Emergencias",
+        "Tránsito"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves/PORALCANCE-2-556x768.webp",
+      "fuentes": [
+        "https://www.elnavarrero.com.ar/noticias/",
+        "https://infolasheras.ar/trabajos-en-las-banquinas-de-ruta-40/",
+        "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/",
+        "https://irct.incucai.gov.ar/public/ConsultaEstablecimiento.do?idEstablecimiento=31457&volverA=CONSULTA_ETX",
+        "https://www.argentina.gob.ar/normativa/nacional/818/actualizacion"
+      ],
+      "sha": "fc1dc41bf35b2f0baef4c2639c358a54d8025dee",
+      "path": "src/content/noticias/choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/choque-por-alcance-en-la-ruta-40-dejo-cinco-personas-con-lesiones-leves/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Seguridad Vial",
+      "entidades": [
+        "Ruta 40",
+        "Accidente",
+        "Bomberos Voluntarios",
+        "Hospital Municipal",
+        "Seguridad Vial",
+        "Ruta 6",
+        "Emergencias",
+        "Tránsito"
+      ]
+    },
+    {
+      "slug": "continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon",
+      "titulo": "Continúa el plan de bacheo en General Las Heras: hay cortes por trabajos con hormigón",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "General Las Heras",
+        "Bacheo",
+        "Obras Públicas",
+        "Tránsito",
+        "Calles",
+        "Infraestructura",
+        "Seguridad Vial",
+        "Servicios Públicos",
+        "Vecinos"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon/a89b2e09-cc50-4b28-ba4c-21348b06e794.webp",
+      "fuentes": [
+        "https://gobiernodelasheras.com/noticias/obras-y-servicios-publicos/",
+        "https://www.lasherasnoticias.com/avanza-el-programa-de-bacheo-en-la-calle-estrada/",
+        "https://grupolaprovincia.com/contenido/595967/general-lasherassumomasefectivospolicialesypusoenmarchaunplandebacheo",
+        "https://www.vialidad.gba.gob.ar/noticiadvba.php?id_noticia=2570&pagina=link_noticia"
+      ],
+      "sha": "72c9b505ebee73364c8f8740bb065b0254909094",
+      "path": "src/content/noticias/continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/continua-el-plan-de-bacheo-en-general-las-heras-hay-cortes-por-trabajos-con-hormigon/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Servicios",
+      "entidades": [
+        "Bacheo",
+        "Obras Públicas",
+        "Tránsito",
+        "Calles",
+        "Infraestructura",
+        "Seguridad Vial",
+        "Servicios Públicos",
+        "Vecinos"
+      ]
+    },
+    {
+      "slug": "copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars",
+      "titulo": "COPSA donó cinco pares de botas y permitió equipar a los nuevos Bomberos Voluntarios de Villars",
+      "fecha": "2026-09-19",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "Villars",
+        "Bomberos Voluntarios",
+        "COPSA",
+        "Solidaridad",
+        "General Las Heras",
+        "Seguridad",
+        "Comunidad",
+        "Instituciones",
+        "Empresas locales"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars/792176892_1620409896272831_2363071236949701833_n.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/fin-de-semana-de-intenso-trabajo-para-los-bomberos-voluntarios-de-villars/",
+        "https://lafederacion.org.ar/"
+      ],
+      "sha": "602eb79276950395d582db17e7902978798c45d7",
+      "path": "src/content/noticias/copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/copsa-dono-cinco-pares-de-botas-y-permitio-equipar-a-los-nuevos-bomberos-voluntarios-de-villars/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Bomberos Voluntarios",
+        "COPSA",
+        "Solidaridad",
+        "Comunidad",
+        "Instituciones",
+        "Empresas locales"
+      ]
+    },
+    {
+      "slug": "daniel-agostini-marcos-paz-octubre-2026",
+      "titulo": "Daniel Agostini en Marcos Paz: fecha, horario y entradas del show en el Roma",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Daniel Agostini",
+        "Centro Cultural Roma",
+        "Música",
+        "Agenda"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "20:30",
+      "lugarEvento": "Centro Cultural Roma, Avellaneda 1950, Marcos Paz",
+      "portada": "/images/noticias/daniel-agostini-marcos-paz-octubre-2026/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://saleplan.ar/buenos-aires/marcos-paz/planes/FK983NJJP32V/daniel-agostini-marcos-paz",
+        "https://www.passline.com/eventos/daniel-agostini-marcos-paz",
+        "https://www.quehacemos.com.ar/eventos/daniel-agostini-marcos-paz-57207"
+      ],
+      "sha": "2a3f6a69a1116f3609b5a876d6f080c258ee6227",
+      "path": "src/content/noticias/daniel-agostini-marcos-paz-octubre-2026/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/daniel-agostini-marcos-paz-octubre-2026/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Daniel Agostini",
+        "Centro Cultural Roma",
+        "Música",
+        "Agenda"
+      ]
+    },
+    {
+      "slug": "docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada",
+      "titulo": "Docentes bonaerenses vuelven a reclamar paritarias: la canasta subió más que la inflación y septiembre sigue sin una nueva suba confirmada",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "Docentes Bonaerenses",
+        "Paritarias",
+        "Salarios",
+        "Educación Pública",
+        "Provincia de Buenos Aires",
+        "Inflación",
+        "Canasta Básica",
+        "IOMA",
+        "IPS",
+        "General Las Heras"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada/7367811603620724845_resultado.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/docentes-bonaerenses-reclaman-reabrir-las-paritarias-la-inflacion-y-el-costo-de-vida-presionan-sobre-los-salarios/",
+        "https://www.suteba.org.ar/el-fudb-solicito-la-reapertura-de-la-paritaria-docente-24595.html",
+        "https://gba.gob.ar/node/53737",
+        "https://www.gba.gob.ar/node/52435",
+        "https://www.gba.gob.ar/node/50792",
+        "https://www.indec.gob.ar/Nivel4/Tema/3/5/31",
+        "https://www.indec.gob.ar/",
+        "https://www.lanacion.com.ar/economia/una-familia-tipo-necesito-en-agosto-1605497-para-no-ser-pobre-nid10092026/",
+        "https://tn.com.ar/economia/2026/09/10/la-canasta-basica-aumento-un-26-en-agosto-una-familia-necesito-mas-de-1600000-para-no-ser-pobre/",
+        "https://www.latecla.info/169809-docentes-bonaerenses-vuelven-a-la-carga-y-exigen-reabrir-la-paritaria",
+        "https://www.eldia.com/politica-y-economia/paritarias-bonaerenses-en-septiembre-no-habria-suba-salarial-a-estatales-y-docentes-politica-y-economia_1789600980",
+        "https://www.bancoprovincia.com.ar/cuentadni/buscadores/comerciosdebarrio",
+        "https://www.bancoprovincia.com.ar/cuentadni/buscadores/especialgastronomia"
+      ],
+      "sha": "0a02a5e86b3d5708308f7920aa6561255aa6428e",
+      "path": "src/content/noticias/docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/docentes-bonaerenses-vuelven-a-reclamar-paritarias-la-canasta-subio-mas-que-la-inflacion-y-septiembre-sigue-sin-una-nueva-suba-confirmada/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "Docentes Bonaerenses",
+        "Paritarias",
+        "Salarios",
+        "Educación Pública",
+        "Provincia de Buenos Aires",
+        "Inflación",
+        "Canasta Básica",
+        "IOMA",
+        "IPS"
+      ]
+    },
+    {
+      "slug": "dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba",
+      "titulo": "Dos camioneros fueron sancionados en Provincia: uno sobrepasó con doble línea amarilla y el otro lo filmó mientras manejaba",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Seguridad Vial",
+      "tags": [
+        "Seguridad Vial",
+        "Camioneros",
+        "Transporte",
+        "Provincia de Buenos Aires",
+        "Rutas",
+        "Doble Línea Amarilla",
+        "Celular al Volante",
+        "Trabajadores",
+        "Zona Rural"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba/803226532_1379711174351264_2034529365932847854_n.webp",
+      "fuentes": [
+        "https://www.gba.gob.ar/seguridadvial/noticias/inhabilitados_uno_sobrepas%C3%B3_con_doble_l%C3%ADnea_amarilla_y_el_otro_lo_film%C3%B3",
+        "https://normas.gba.gob.ar/documentos/BMyLOCaB.pdf",
+        "https://www.argentina.gob.ar/normativa/nacional/818/actualizacion",
+        "https://www.argentina.gob.ar/node/490109",
+        "https://www.argentina.gob.ar/node/376874",
+        "https://www.infocielo.com/sociedad/ruta-bonaerense-quiso-escrachar-a-un-camionero-por-una-maniobra-peligrosa-y-termino-sancionado-tambien",
+        "https://www.todoprovincial.com/camionero-hizo-un-sobrepaso-en-doble-linea-amarilla-y-el-otro-lo-filmo-les-sacaron-el-carnet-a-los-dos/"
+      ],
+      "sha": "3371d1a00cb3f7904eed1d29a3d071e8d21e17bc",
+      "path": "src/content/noticias/dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/dos-camioneros-fueron-sancionados-en-provincia-uno-sobrepaso-con-doble-linea-amarilla-y-el-otro-lo-filmo-mientras-manejaba/index.mdx",
+      "localidades": [],
+      "tema": "Seguridad Vial",
+      "entidades": [
+        "Seguridad Vial",
+        "Camioneros",
+        "Transporte",
+        "Provincia de Buenos Aires",
+        "Rutas",
+        "Doble Línea Amarilla",
+        "Celular al Volante",
+        "Trabajadores",
+        "Zona Rural"
+      ]
+    },
+    {
+      "slug": "el-hombre-inesperado-centro-cultural-roma-marcos-paz",
+      "titulo": "El hombre inesperado llega al Centro Cultural Roma de Marcos Paz",
+      "fecha": "2026-10-05",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Centro Cultural Roma",
+        "teatro",
+        "El hombre inesperado",
+        "agenda"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-11",
+      "fechaFinEvento": null,
+      "horaEvento": "21:00",
+      "lugarEvento": "Centro Cultural Roma - Avellaneda 1950, Marcos Paz",
+      "portada": null,
+      "fuentes": [
+        "https://saleplan.ar/buenos-aires/marcos-paz/planes/KE70YGSHH2RT/el-hombre-inesperado-marcos-paz"
+      ],
+      "sha": "bd3fa54d0a14fe0ee8671d93292e368fa0bc6436",
+      "path": "src/content/noticias/el-hombre-inesperado-centro-cultural-roma-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-hombre-inesperado-centro-cultural-roma-marcos-paz/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Centro Cultural Roma",
+        "El hombre inesperado"
+      ]
+    },
+    {
+      "slug": "el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural",
+      "titulo": "El Niño se fortalece: cómo prepararse ante lluvias intensas en Villars, Las Heras y la zona rural",
+      "fecha": "2026-09-19",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "El Niño",
+        "Villars",
+        "General Las Heras",
+        "Inundaciones",
+        "Salud",
+        "Defensa Civil",
+        "Bomberos",
+        "Zona rural",
+        "Provincia de Buenos Aires",
+        "Prevención"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural/797452276_18143973091581339_7846144381137609938_n.webp",
+      "fuentes": [
+        "https://sistemas.ms.gba.gov.ar/redatencion/"
+      ],
+      "sha": "e3be62504656924482fa8bdbf8c229cf8415e495",
+      "path": "src/content/noticias/el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-nino-se-fortalece-como-prepararse-ante-lluvias-intensas-en-villars-las-heras-y-la-zona-rural/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Servicios",
+      "entidades": [
+        "El Niño",
+        "Inundaciones",
+        "Salud",
+        "Defensa Civil",
+        "Bomberos",
+        "Zona rural",
+        "Provincia de Buenos Aires",
+        "Prevención"
+      ]
+    },
+    {
+      "slug": "el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar",
+      "titulo": "El nuevo control de alcoholemia de Trenes Argentinos generó demoras y llegó al Congreso: qué cambió y qué falta explicar",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Transporte",
+      "tags": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Transporte público",
+        "Ferrocarriles",
+        "Trabajadores ferroviarios",
+        "Usuarios",
+        "Seguridad ferroviaria",
+        "General Las Heras",
+        "Villars"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar/24af1289-62c4-40fc-8ad8-36a2ec5c7737.webp",
+      "fuentes": [],
+      "sha": "10086e6b3040483fa0b424fcc26a183dc9e0b4b3",
+      "path": "src/content/noticias/el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/el-nuevo-control-de-alcoholemia-de-trenes-argentinos-genero-demoras-y-llego-al-congreso-que-cambio-y-que-falta-explicar/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Transporte público",
+        "Ferrocarriles",
+        "Trabajadores ferroviarios",
+        "Usuarios",
+        "Seguridad ferroviaria"
+      ]
+    },
+    {
+      "slug": "estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria",
+      "titulo": "Estudiantes de la EES Nº 1 visitaron la Primaria Nº 8 de Villars para acompañar el paso a la secundaria",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "Villars",
+        "General Las Heras",
+        "EES Nº 1",
+        "Escuela Primaria Nº 8",
+        "Educación Pública",
+        "Articulación Educativa",
+        "Secundaria",
+        "Estudiantes",
+        "Comunidad Educativa"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria/814728923_1390838383260482_303602984698163399_n_resultado.webp",
+      "fuentes": [
+        "https://continuemosestudiando.abc.gob.ar/contenido/tramo-de-inicio-acompanado-para-ingresantes-al-nivel-secundario/",
+        "https://continuemosestudiando.abc.gob.ar/contenido/propuestas-pedagogicas-para-recibir-a-las-y-los-estudiantes-de-primer-ano/",
+        "https://continuemosestudiando.abc.gob.ar/contenido/propuesta-pedagogica-para-la-articulacion-entre-el-nivel-primario-y-el-nivel-secundario/",
+        "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/",
+        "https://epn8villars.blogspot.com/"
+      ],
+      "sha": "3737112489eec902b6517fd85526730d525505be",
+      "path": "src/content/noticias/estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/estudiantes-de-la-ees-n-1-visitaron-la-primaria-n-8-de-villars-para-acompanar-el-paso-a-la-secundaria/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "EES Nº 1",
+        "Escuela Primaria Nº 8",
+        "Educación Pública",
+        "Articulación Educativa",
+        "Secundaria",
+        "Estudiantes",
+        "Comunidad Educativa"
+      ]
+    },
+    {
+      "slug": "expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita",
+      "titulo": "Expo Herense entra en su última jornada: feria, gastronomía, producción local y espectáculos con entrada gratuita",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Eventos",
+      "tags": [
+        "Expo Herense",
+        "General Las Heras",
+        "Eventos",
+        "Cultura",
+        "Emprendedores",
+        "Producción local",
+        "Gastronomía",
+        "Turismo",
+        "Provincia de Buenos Aires"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-18",
+      "fechaFinEvento": "2026-09-20",
+      "horaEvento": null,
+      "lugarEvento": "Estadio Municipal “El Gigante” - Juan Manuel de Rosas 507, General Las Heras",
+      "portada": "/images/noticias/expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita/images.webp",
+      "fuentes": [
+        "https://gba.gob.ar/node/52289",
+        "https://www.instagram.com/expoherense/",
+        "https://www.instagram.com/gobiernodelasheras/",
+        "https://www.facebook.com/muniglh",
+        "https://www.gba.gob.ar/node/52288",
+        "https://canuelasdigital.com/expo-herense-2026-general-las-heras-se-prepara-para-tres-jornadas-de-feria-gastronomia-y-espectaculos/",
+        "https://diariolaprimera.com.ar/contenido/10666/las-heras-se-prepara-para-la-expo-herense-tres-dias-de-propuestas-gastronomia-y-",
+        "https://lapaginacanuelas.com/turismo/expoherense-2026-general-las-heras-fin-de-semana-actividades/"
+      ],
+      "sha": "c5d8b7d33739c1f82c242a2af31783bc63af893f",
+      "path": "src/content/noticias/expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/expo-herense-entra-en-su-ultima-jornada-feria-gastronomia-produccion-local-y-espectaculos-con-entrada-gratuita/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Eventos",
+      "entidades": [
+        "Expo Herense",
+        "Eventos",
+        "Emprendedores",
+        "Producción local",
+        "Gastronomía",
+        "Provincia de Buenos Aires"
+      ]
+    },
+    {
+      "slug": "feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre",
+      "titulo": "La Feria del Libro de Marcos Paz 2026 será del 7 al 9 de octubre",
+      "fecha": "2026-09-24",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Feria del Libro",
+        "Cine Teatro Roma",
+        "cultura",
+        "educación",
+        "memoria",
+        "Isol",
+        "eventos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-07",
+      "fechaFinEvento": "2026-10-09",
+      "horaEvento": "09:00",
+      "lugarEvento": "Cine Teatro Roma, Marcos Paz",
+      "portada": null,
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/2026/09/24/el-municipio-brindo-una-ayuda-economica-a-la-organizacion-de-la-feria-del-libro/"
+      ],
+      "sha": "9a99bf578d7ba3b555f8e9eb1af8e61734ba0d5a",
+      "path": "src/content/noticias/feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/feria-del-libro-de-marcos-paz-2026-sera-del-7-al-9-de-octubre/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Feria del Libro",
+        "Cine Teatro Roma",
+        "Isol"
+      ]
+    },
+    {
+      "slug": "festival-n-escena-las-heras-2026-balance-teatro-musica",
+      "titulo": "Festival N-Escena: dos noches de teatro breve y música en General Las Heras",
+      "fecha": "2026-10-15",
+      "modificada": "2026-10-19",
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "General Las Heras",
+        "Villars",
+        "Festival N-Escena",
+        "Teatro",
+        "Sociedad Española",
+        "Cultura",
+        "La Bici de Hofman"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-10",
+      "fechaFinEvento": "2026-10-11",
+      "horaEvento": "20:00",
+      "lugarEvento": "Cine Teatro de la Sociedad Española, Rivadavia 50, General Las Heras",
+      "portada": "/images/noticias/festival-n-escena-las-heras-2026-balance-teatro-musica/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/el-cine-teatro-de-la-sociedad-espanola-fue-escenario-del-primer-festival-de-teatro-de-obras-breves/",
+        "https://www.alternativateatral.com.ar/obra103530-festival-de-teatro-nescena-2026-obras-breves"
+      ],
+      "sha": "b52917aef5676a0a16e9d59806adbaf510b060d4",
+      "path": "src/content/noticias/festival-n-escena-las-heras-2026-balance-teatro-musica/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/festival-n-escena-las-heras-2026-balance-teatro-musica/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Festival N-Escena",
+        "Sociedad Española",
+        "La Bici de Hofman"
+      ]
+    },
+    {
+      "slug": "fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026",
+      "titulo": "General Las Heras celebra la Fiesta de la Capital Nacional del Pato el 24 y 25 de octubre",
+      "fecha": "2026-10-22",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "General Las Heras",
+        "Villars",
+        "Plomer",
+        "Pato",
+        "Fiesta de la Capital Nacional del Pato",
+        "Deporte nacional",
+        "Turismo",
+        "Agenda",
+        "Cultura"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-24",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "10:00",
+      "lugarEvento": "Campo de Pato de General Las Heras, General Las Heras",
+      "portada": "/images/noticias/fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026/portada-ilustracion.jpg",
+      "fuentes": [
+        "https://viajandoporargentina.com.ar/2026/10/19/calendario-de-eventos-turisticos-provincia-de-buenos-aires-del-jueves-22-al-jueves-29-de-octubre-de-2026/",
+        "https://diariobonaerense.com.ar/contenido/7292/general-las-heras-celebra-la-fiesta-de-la-capital-nacional-del-pato-y-sus-162-an",
+        "https://www.argentina.gob.ar/normativa/nacional/ley-27367-275963/texto",
+        "https://www.argentina.gob.ar/normativa/nacional/ley-27368-275967/texto",
+        "https://www.argentina.gob.ar/node/213030",
+        "https://www.instagram.com/campodepatolh/",
+        "https://www.instagram.com/gobiernodelasheras/",
+        "https://dib.com.ar/adn-bonaerense/fin-semana-aniversarios-las-fiestas-del-asado-tira-y-la-frutilla-y-el-mejor-pato-n56659"
+      ],
+      "sha": "8f18589f83d61fbb9552dfaccf2dcf41fe369275",
+      "path": "src/content/noticias/fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/fiesta-capital-nacional-pato-las-heras-24-25-octubre-2026/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Pato",
+        "Fiesta de la Capital Nacional del Pato"
+      ]
+    },
+    {
+      "slug": "fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026",
+      "titulo": "Fiesta del Jamón y la Cerveza en Marcos Paz: balance y cambio de sede por el tiempo",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Fiesta Nacional del Jamón",
+        "Cerveza Artesanal",
+        "Paseo de la Estación",
+        "Quinta Devoto",
+        "Gastronomía",
+        "Producción local"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-10",
+      "fechaFinEvento": "2026-10-11",
+      "horaEvento": null,
+      "lugarEvento": "Paseo de la Estación, Belgrano y 25 de Mayo, Marcos Paz",
+      "portada": "/images/noticias/fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.marcospaz.gov.ar/noticias/item/11074-se-viene-la-xvi-fiesta-nacional-del-jam%C3%B3n-y-la-11%C2%AA-fiesta-de-la-cerveza-artesanal-en-marcos-paz.html",
+        "https://destino.marcospaz.gov.ar/index.php/fiesta/fiesta-del-jamon-en-marcos-paz/",
+        "https://noticias.marcospazconectada.com/2026/10/13/destacada-convocatoria-en-la-fiesta-nacional-del-jamon-y-la-cerveza-artesanal/"
+      ],
+      "sha": "19e853ee248e0f322adadfb88c90be99377e18a7",
+      "path": "src/content/noticias/fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/fiesta-nacional-del-jamon-y-cerveza-artesanal-marcos-paz-2026/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Fiesta Nacional del Jamón",
+        "Cerveza Artesanal",
+        "Quinta Devoto"
+      ]
+    },
+    {
+      "slug": "folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo",
+      "titulo": "Folklore en la Estación vuelve a Marcos Paz: peña, gastronomía y feria de emprendedores este domingo",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Cultura",
+      "tags": [
+        "Marcos Paz",
+        "Folklore",
+        "Paseo de la Estación",
+        "Cultura Popular",
+        "Artesanos",
+        "Emprendedores",
+        "Gastronomía",
+        "Música en Vivo",
+        "Economía Local"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-27",
+      "fechaFinEvento": null,
+      "horaEvento": "15:00",
+      "lugarEvento": "Paseo de la Estación - Belgrano y 25 de Mayo, Marcos Paz",
+      "portada": "/images/noticias/folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo/819483074_1875410016757584_7661789105810373692_n_resultado.webp",
+      "fuentes": [
+        "https://destino.marcospaz.gov.ar/index.php/2025/05/21/paseo-de-la-estacion/",
+        "https://destino.marcospaz.gov.ar/index.php/fiesta/ciclo-de-penas-de-folklore-en-la-estacion-2/",
+        "https://destino.marcospaz.gov.ar/index.php/fiesta/ciclo-de-penas-de-folklore-en-la-estacion/",
+        "https://diariobonaerense.com.ar/contenido/4941/marcos-paz-el-paseo-de-la-estacion-se-viste-de-fiesta-con-un-nuevo-ciclo-de-pena",
+        "https://www.marcospaz.gov.ar/noticias/item/10935-la-pantalla-gigante-en-el-paseo-de-la-estaci%C3%B3n-fue-un-%C3%A9xito-durante-el-mundial.html",
+        "https://noticias.marcospazconectada.com/2026/07/09/la-fiesta-de-la-empanada-reunio-gastronomia-musica-y-emprendedores-en-el-paseo-de-la-estacion/"
+      ],
+      "sha": "e04cf55c1f204d7f7c09eafa504e6201087f10e4",
+      "path": "src/content/noticias/folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/folklore-en-la-estacion-vuelve-a-marcos-paz-pena-gastronomia-y-feria-de-emprendedores-este-domingo/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura",
+      "entidades": [
+        "Folklore",
+        "Paseo de la Estación",
+        "Cultura Popular",
+        "Artesanos",
+        "Emprendedores",
+        "Gastronomía",
+        "Música en Vivo",
+        "Economía Local"
+      ]
+    },
+    {
+      "slug": "general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero",
+      "titulo": "General Las Heras adhirió al programa provincial que brinda asistencia económica y acompañamiento para salir de situaciones de violencia de género",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Políticas Públicas",
+      "tags": [
+        "General Las Heras",
+        "Violencia de Género",
+        "Juan Manuel Cerezo",
+        "Provincia de Buenos Aires",
+        "Derechos Humanos",
+        "Línea 144",
+        "Políticas Públicas",
+        "Mujeres y Diversidad",
+        "Asistencia Social"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero/4775643860937862235_resultado.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/juan-manuel-cerezo-participo-junto-a-kicillof-de-la-adhesion-de-general-las-heras-a-un-programa-contra-las-violencias-de-genero/",
+        "https://gba.gob.ar/mujeres/noticias/programa_de_fortalecimiento_para_la_salida_de_las_violencias_de_g%C3%A9nero",
+        "https://normas.gba.gob.ar/ar-b/decreto/2025/2640/549036",
+        "https://normas.gba.gob.ar/ar-b/resolucion/2026/14/570007",
+        "https://normas.gba.gob.ar/anexos/descargar/wBEkRWp0.pdf",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-429565/texto",
+        "https://www.argentina.gob.ar/normativa/nacional/decreto-755-2024-403276/texto",
+        "https://www.argentina.gob.ar/linea-144",
+        "https://gba.gob.ar/mujeres/campanas/l%C3%ADnea_144_0",
+        "https://gba.gob.ar/mujeres/noticias/8m_2026_toda_la_provincia_comprometida_con_la_igualdad",
+        "https://acij.org.ar/presupuesto-2026-los-programas-destinados-a-prevenir-y-atender-la-violencia-de-genero-caen-un-89-desde-2023/",
+        "https://chequeado.com/el-explicador/ni-una-menos-fuerte-caida-de-los-fondos-destinados-a-programas-de-genero-en-la-gestion-de-javier-milei/",
+        "https://www.lanacion.com.ar/sociedad/presupuesto-2026-denuncian-que-continua-el-ajuste-en-politicas-de-genero-nid23102025/",
+        "https://www.eldestapeweb.com/politica/gobierno-bonaerense-pone-foco-violencia-genero-mujeres-personas-lgbtiq-2026915142058"
+      ],
+      "sha": "61cd6e34e0d6bf613708fa8be9eac3703daf3f77",
+      "path": "src/content/noticias/general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-adhirio-al-programa-provincial-que-brinda-asistencia-economica-y-acompanamiento-para-salir-de-situaciones-de-violencia-de-genero/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Políticas Públicas",
+      "entidades": [
+        "Violencia de Género",
+        "Juan Manuel Cerezo",
+        "Provincia de Buenos Aires",
+        "Derechos Humanos",
+        "Línea 144",
+        "Políticas Públicas",
+        "Mujeres y Diversidad",
+        "Asistencia Social"
+      ]
+    },
+    {
+      "slug": "general-las-heras-banco-provincia-herramientas-financieras",
+      "titulo": "Banco Provincia: qué se analizó con intendentes y qué significa para General Las Heras",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Economía",
+      "tags": [
+        "General Las Heras",
+        "Banco Provincia",
+        "Juan Manuel Cerezo",
+        "Javier Osuna",
+        "Municipios",
+        "Trabajadores municipales",
+        "Créditos"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/general-las-heras-banco-provincia-herramientas-financieras/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.eldia.com/politica-y-economia/intendentes-llevaron-sus-planteos-al-banco-provincia-y-avanzaron-en-herramientas-para-aliviar-las-cuentas-municipales-politica-y-economia_1791063180",
+        "https://www.zonanortediario.com.ar/02/10/2026/intendentes-del-frente-renovador-analizaron-alternativas-de-financiamiento-con-el-banco-provincia/",
+        "https://gba.gob.ar/comunicacion_publica/gacetillas/kicillof_y_cuattromo_firmaron_convenios_con_municipios_para_la_7"
+      ],
+      "sha": "edd752b3a1e7e62154771a88553ca206f565e4d2",
+      "path": "src/content/noticias/general-las-heras-banco-provincia-herramientas-financieras/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-banco-provincia-herramientas-financieras/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Economía",
+      "entidades": [
+        "Banco Provincia",
+        "Juan Manuel Cerezo",
+        "Javier Osuna"
+      ]
+    },
+    {
+      "slug": "general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose",
+      "titulo": "General Las Heras extendió el recambio LED sobre la Ruta 40: trabajos en Zamudio, Nutrición, Hornos y San José",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Obras Públicas",
+      "tags": [
+        "General Las Heras",
+        "Ruta 40",
+        "Hornos",
+        "San José",
+        "Zamudio",
+        "Iluminación LED",
+        "Obras Públicas",
+        "Seguridad Vial",
+        "Zona Rural"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose/4496785044707558392_resultado.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/el-municipio-continua-con-el-recambio-de-luminarias-led-en-distintos-sectores-de-la-ruta-40/",
+        "https://gobiernodelasheras.com/noticias/iluminacion-en-el-acceso-a-villars-y-la-rotonda-de-la-ruta-6-y-la-40/",
+        "https://gobiernodelasheras.com/noticias/gobierno/recambio-de-luminarias-led/",
+        "https://hcdlasheras.com/ordenanzas/",
+        "https://www.ambiente.gba.gob.ar/ParticipacionCiudadana/EIA_Marcos%20Paz%20y%20Las%20Heras%20DIPAC.pdf",
+        "https://www.vialidad.gba.gob.ar/noticiadvba.php?id_noticia=1369&pagina=link_noticia",
+        "https://www.argentina.gob.ar/economia/energia/eficiencia-energetica/eficiencia-energetica-en-sector-publico/plan-de-alumbrado-eficiente-plae",
+        "https://www.argentina.gob.ar/node/380436"
+      ],
+      "sha": "b866de671fbc3bdbece7f6414bf32a8fa6c90e63",
+      "path": "src/content/noticias/general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-extendio-el-recambio-led-sobre-la-ruta-40-trabajos-en-zamudio-nutricion-hornos-y-san-jose/index.mdx",
+      "localidades": [
+        "General Las Heras",
+        "Hornos"
+      ],
+      "tema": "Obras Públicas",
+      "entidades": [
+        "Ruta 40",
+        "Hornos",
+        "San José",
+        "Zamudio",
+        "Iluminación LED",
+        "Obras Públicas",
+        "Seguridad Vial",
+        "Zona Rural"
+      ]
+    },
+    {
+      "slug": "general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino",
+      "titulo": "General Las Heras refuerza obras de drenaje ante la posible llegada de El Niño",
+      "fecha": "2026-09-24",
+      "modificada": null,
+      "categoria": "Obras y Servicios",
+      "tags": [
+        "General Las Heras",
+        "Villars",
+        "El Niño",
+        "lluvias",
+        "arroyo Morales",
+        "obras hidráulicas",
+        "prevención",
+        "Municipio de General Las Heras"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": null,
+      "fuentes": [
+        "https://grupolaprovincia.com/contenido/601833/general-las-heras-refuerza-obras-ante-la-llegada-de-el-nino",
+        "https://infolasheras.ar/reunion-ante-la-posible-llegada-del-nino/"
+      ],
+      "sha": "07c2f7e530370bcc680e0a2822936a8c9cdac933",
+      "path": "src/content/noticias/general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-refuerza-obras-de-drenaje-ante-la-posible-llegada-de-el-nino/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Obras y Servicios",
+      "entidades": [
+        "El Niño",
+        "Municipio de General Las Heras"
+      ]
+    },
+    {
+      "slug": "general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera",
+      "titulo": "Juegos Bonaerenses: más de 160 herenses se preparan para la final del 19 al 23 de octubre",
+      "fecha": "2026-09-21",
+      "modificada": "2026-10-17",
+      "categoria": "Deportes",
+      "tags": [
+        "Juegos Bonaerenses",
+        "General Las Heras",
+        "Villars",
+        "Plomer",
+        "Mar del Plata",
+        "Deporte",
+        "Cultura",
+        "Inclusión"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-19",
+      "fechaFinEvento": "2026-10-23",
+      "horaEvento": null,
+      "lugarEvento": "Mar del Plata, Provincia de Buenos Aires",
+      "portada": "/images/noticias/general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera/portada-editorial.jpg",
+      "fuentes": [
+        "https://juegos.gba.gob.ar/",
+        "https://plenus.juegos.gba.gob.ar/publico/escenarios",
+        "https://www.lasherasnoticias.com/mas-de-160-herenses-representaran-al-distrito-en-la-final-de-los-juegos-bonaerenses/",
+        "https://juegos.gba.gob.ar/2026/10/13/juegos-bonaerenses-larroque-encabezo-una-reunion-de-trabajo-de-cara-a-la-final/",
+        "https://juegos.gba.gob.ar/2026/10/01/juegos-bonaerenses-2026-concluyeron-los-interregionales-y-llega-la-final/"
+      ],
+      "sha": "7066839ef193d663528ec71cc9e3265cb2a9f577",
+      "path": "src/content/noticias/general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/general-las-heras-ya-tiene-seis-atletas-clasificados-a-mar-del-plata-y-tres-equipos-de-futbol-pcd-siguen-en-carrera/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Juegos Bonaerenses",
+        "Mar del Plata",
+        "Deporte",
+        "Inclusión"
+      ]
+    },
+    {
+      "slug": "gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo",
+      "titulo": "Gimnasia Acrobática del Instituto San Luis Gonzaga clasificó a la final provincial de los JEBO",
+      "fecha": "2026-09-02",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "General Las Heras",
+        "JEBO",
+        "Educación",
+        "Deportes",
+        "Instituto San Luis Gonzaga",
+        "Estudiantes",
+        "Gimnasia Acrobática",
+        "Suipacha"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo/784427270_2521354428379026_2939657671354152108_n.webp",
+      "fuentes": [
+        "https://www.facebook.com/lavoz.lasheras/posts/pfbid02HQHiqaVE6zyri1GuGPTDdZGr8ajZCXgW1454JyQZ4P9kMV9jnRc3kGHMSxMidBJvl"
+      ],
+      "sha": "73b76c1862231a85fe6a718f5ba6638f83411b3f",
+      "path": "src/content/noticias/gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/gimnasia-acrobatica-del-instituto-san-luis-gonzaga-clasifico-a-la-final-provincial-de-los-jebo/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "JEBO",
+        "Instituto San Luis Gonzaga",
+        "Estudiantes",
+        "Gimnasia Acrobática",
+        "Suipacha"
+      ]
+    },
+    {
+      "slug": "handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal",
+      "titulo": "Handball de General Las Heras cerró una gran temporada en FEMEBAL",
+      "fecha": "2026-09-04",
+      "modificada": null,
+      "categoria": "Deportes",
+      "tags": [
+        "General Las Heras",
+        "Handball",
+        "FEMEBAL",
+        "Deportes",
+        "Cadetes",
+        "Infantiles",
+        "Agustín López"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal/792971114_1106472771717711_8225797543078367771_n.webp",
+      "fuentes": [
+        "https://www.facebook.com/lavoz.lasheras/posts/pfbid0352Lip1xfZxGNfv8fxLy4J4XfZ7XpABb11PETXx4GEtwKM8x2YQa54ZaArzF8E7adl"
+      ],
+      "sha": "2006589a284bb047fdf9cecc17fab6150c3d8d9a",
+      "path": "src/content/noticias/handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/handball-de-general-las-heras-cerro-una-gran-temporada-en-femebal/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Handball",
+        "FEMEBAL",
+        "Cadetes",
+        "Infantiles",
+        "Agustín López"
+      ]
+    },
+    {
+      "slug": "hcd-marcos-paz-lineas-136-163",
+      "titulo": "Líneas 136 y 163: qué resolvió Marcos Paz y por qué todavía no es una decisión sobre el servicio",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Transporte",
+      "tags": [
+        "Marcos Paz",
+        "General Las Heras",
+        "Navarro",
+        "Línea 136",
+        "Línea 163",
+        "Transporte",
+        "HCD Marcos Paz",
+        "Colectivos"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/hcd-marcos-paz-lineas-136-163/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/2026/10/02/el-hcd-de-marcos-paz-rechazo-el-levantamiento-de-las-lineas-136-y-163/",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-428747/texto",
+        "https://diarioanticipos.com/2026/10/05/final-para-las-lineas-136-y-163-que-pasara-en-el-oeste/"
+      ],
+      "sha": "1fd105618f8d42d97eb33e45ebf13d56e5638f7a",
+      "path": "src/content/noticias/hcd-marcos-paz-lineas-136-163/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/hcd-marcos-paz-lineas-136-163/index.mdx",
+      "localidades": [
+        "General Las Heras",
+        "Marcos Paz",
+        "Navarro"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Navarro",
+        "Línea 136",
+        "Línea 163",
+        "Transporte",
+        "HCD Marcos Paz",
+        "Colectivos"
+      ]
+    },
+    {
+      "slug": "jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios",
+      "titulo": "Jubilaciones suben 2,11%, pero la mínima sigue perdiendo poder de compra: qué ayudas existen en Provincia y municipios",
+      "fecha": "2026-09-05",
+      "modificada": null,
+      "categoria": "Economía",
+      "tags": [
+        "Jubilaciones",
+        "ANSES",
+        "PAMI",
+        "Cuenta DNI",
+        "Mercados Bonaerenses",
+        "Adultos mayores",
+        "Marcos Paz",
+        "General Las Heras",
+        "Economía"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios/jubsep26.webp",
+      "fuentes": [],
+      "sha": "19a44ee2610de092a4b452f12ca4d9f8da815a59",
+      "path": "src/content/noticias/jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/jubilaciones-suben-2-11-pero-la-minima-sigue-perdiendo-poder-de-compra-que-ayudas-existen-en-provincia-y-municipios/index.mdx",
+      "localidades": [
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Economía",
+      "entidades": [
+        "Jubilaciones",
+        "ANSES",
+        "PAMI",
+        "Cuenta DNI",
+        "Mercados Bonaerenses",
+        "Adultos mayores"
+      ]
+    },
+    {
+      "slug": "las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela",
+      "titulo": "Las Heras Bike donó otra bicicleta para que una estudiante pueda llegar mejor a la escuela",
+      "fecha": "2026-09-05",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "General Las Heras",
+        "Las Heras Bike",
+        "Escuela N° 6",
+        "Educación",
+        "Solidaridad",
+        "Comunidad",
+        "Bicicletas"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela/790476142_1088661590518592_8444921128574745415_n.webp",
+      "fuentes": [
+        "https://www.facebook.com/lavoz.lasheras/posts/pfbid0LZeuUKE674wWRJkvQBF1Nx9TMV2SHAxSBLmKp5F2unFWsttP67KGZ1LvbLHZHWYWl"
+      ],
+      "sha": "8978ed337c0c2a3a170e54efe26cb3dc83bb35ec",
+      "path": "src/content/noticias/las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/las-heras-bike-dono-otra-bicicleta-para-que-una-estudiante-pueda-llegar-mejor-a-la-escuela/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Las Heras Bike",
+        "Escuela N° 6",
+        "Solidaridad",
+        "Comunidad",
+        "Bicicletas"
+      ]
+    },
+    {
+      "slug": "las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad",
+      "titulo": "Las Heras, Marcos Paz y Navarro: qué acordaron los intendentes sobre colectivos, peajes y seguridad",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Regionales",
+      "tags": [
+        "General Las Heras",
+        "Marcos Paz",
+        "Navarro",
+        "Línea 136",
+        "Ruta 6",
+        "Ruta 40",
+        "AUBASA",
+        "Transporte",
+        "Seguridad"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.marcospaz.gov.ar/noticias/item/11071-reuni%C3%B3n-de-trabajo-de-los-intendentes-del-corredor-de-la-ruta-40.html",
+        "https://www.lasherasnoticias.com/intendentes-de-la-region-coordinan-acciones-por-la-linea-136-el-peaje-de-la-ruta-6-y-la-seguridad/",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-428747/texto"
+      ],
+      "sha": "0982983a96bb656cc56c4e1b75a765d8fe7fde1f",
+      "path": "src/content/noticias/las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/las-heras-marcos-paz-navarro-reclamos-linea-136-peaje-ruta-6-seguridad/index.mdx",
+      "localidades": [
+        "General Las Heras",
+        "Marcos Paz",
+        "Navarro"
+      ],
+      "tema": "Regionales",
+      "entidades": [
+        "Navarro",
+        "Línea 136",
+        "Ruta 6",
+        "Ruta 40",
+        "AUBASA",
+        "Transporte"
+      ]
+    },
+    {
+      "slug": "laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis",
+      "titulo": "Laureano De Giorgi clasificó a la Final Provincial de los Juegos Bonaerenses en tenis",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Deportes",
+      "tags": [
+        "Laureano De Giorgi",
+        "General Las Heras",
+        "Juegos Bonaerenses",
+        "Tenis",
+        "Mar del Plata",
+        "Deporte Juvenil",
+        "Provincia de Buenos Aires",
+        "Final Provincial"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis/817191765_1729239415028821_1395558692233609780_n_resultado.webp",
+      "fuentes": [
+        "https://juegos.gba.gob.ar/wp-content/uploads/2026/reglamentos/especificos/deportes_juveniles/tenis.pdf",
+        "https://juegos.gba.gob.ar/wp-content/uploads/2026/reglamentos/generales/reglamento_general_juveniles_deportes.pdf",
+        "https://juegos.gba.gob.ar/2026/08/07/finalizo-la-etapa-local-de-los-juegos-bonaerenses-2026/",
+        "https://plenus.juegos.gba.gob.ar/publico/escenarios",
+        "https://www.gba.gob.ar/node/53154"
+      ],
+      "sha": "69c00536f55ad61b381ea6dc23453210cbb3fba9",
+      "path": "src/content/noticias/laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/laureano-de-giorgi-clasifico-a-la-final-provincial-de-los-juegos-bonaerenses-en-tenis/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Laureano De Giorgi",
+        "Juegos Bonaerenses",
+        "Tenis",
+        "Mar del Plata",
+        "Deporte Juvenil",
+        "Provincia de Buenos Aires",
+        "Final Provincial"
+      ]
+    },
+    {
+      "slug": "llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio",
+      "titulo": "Llegaron 338 ruedas nuevas para trenes del AMBA: qué mejora y qué falta para que se note en el servicio",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Transporte",
+      "tags": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Merlo-Lobos",
+        "Villars",
+        "General Las Heras",
+        "Transporte Público",
+        "Ferrocarriles",
+        "Emergencia Ferroviaria",
+        "AMBA",
+        "Trabajadores"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio/Ruedas-trenes-metropolitanos.webp",
+      "fuentes": [
+        "https://www.argentina.gob.ar/node/513786",
+        "https://www.argentina.gob.ar/transporte/emergencia-ferroviaria-0/5-ejes-prioritarios-en-seguridad-operacional/2-material-rodante",
+        "https://www.argentina.gob.ar/node/511703",
+        "https://www.argentina.gob.ar/node/485599",
+        "https://www.argentina.gob.ar/noticias/obras-de-renovacion-de-vias-en-el-ramal-merlo-lobos-del-sarmiento",
+        "https://www.argentina.gob.ar/node/52326",
+        "https://www.argentina.gob.ar/transporte/emergencia-ferroviaria-0/que-obras-se-priorizaron",
+        "https://www.cronista.com/informacion-gral/trenes-argentinos-confirmo-la-llegada-de-nuevos-repuestos-para-los-trenes-del-amba-cuales-son-las-lineas-beneficiadas/"
+      ],
+      "sha": "e07a0ee8a86df327030e5733c3c29620248b2b8d",
+      "path": "src/content/noticias/llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/llegaron-338-ruedas-nuevas-para-trenes-del-amba-que-mejora-y-que-falta-para-que-se-note-en-el-servicio/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Merlo-Lobos",
+        "Transporte Público",
+        "Ferrocarriles",
+        "Emergencia Ferroviaria",
+        "AMBA",
+        "Trabajadores"
+      ]
+    },
+    {
+      "slug": "lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre",
+      "titulo": "León XIV en Luján: el Vaticano programó la misa para el 11 de noviembre a las 10",
+      "fecha": "2026-09-03",
+      "modificada": "2026-10-19",
+      "categoria": "Actualidad",
+      "tags": [
+        "Luján",
+        "Papa León XIV",
+        "Provincia de Buenos Aires",
+        "Iglesia",
+        "Basílica de Luján",
+        "Comunidad",
+        "Agenda"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-11-11",
+      "fechaFinEvento": "2026-11-11",
+      "horaEvento": "10:00",
+      "lugarEvento": "Plaza frente a la Basílica Nuestra Señora de Luján, Luján",
+      "portada": "/images/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://press.vatican.va/content/salastampa/es/bollettino/pubblico/2026/09/21/210926d.html",
+        "https://press.vatican.va/content/leo-xiv/es/events/year.dir.html/2026.html",
+        "https://santuariodelujan.org.ar/visita-papa-leon-xiv-a-lujan/",
+        "https://elpais.com/internacional/2026-10-18/el-papa-habla-por-primera-vez-a-los-fieles-en-la-plaza-de-san-pedro-tras-su-operacion-retomare-gradualmente-mis-actividades.html"
+      ],
+      "sha": "1db594eeb11a0d1e9b89a45845a908f70a3a3f75",
+      "path": "src/content/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/lujan-se-prepara-para-recibir-al-papa-leon-xiv-en-noviembre/index.mdx",
+      "localidades": [
+        "Luján"
+      ],
+      "tema": "Actualidad",
+      "entidades": [
+        "Luján",
+        "Papa León XIV",
+        "Provincia de Buenos Aires",
+        "Iglesia",
+        "Basílica de Luján",
+        "Comunidad",
+        "Agenda"
+      ]
+    },
+    {
+      "slug": "macondo-cumple-98-anos-en-villars",
+      "titulo": "Macondo cumple 98 años en Villars con tres días de encuentro viajero",
+      "fecha": "2026-10-05",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Villars",
+        "Macondo",
+        "Zapparancho",
+        "Familia Zapp",
+        "eventos",
+        "turismo",
+        "viajeros"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-10",
+      "fechaFinEvento": "2026-10-12",
+      "horaEvento": null,
+      "lugarEvento": "Aldea Rancho / Zapparancho, Villars",
+      "portada": null,
+      "fuentes": [
+        "https://www.todomotorhome.ar/l/macondo-98-anos-10-11-y-12-de-octubre/6a90f9bf-8b92-4b2e-b4ec-3f6eca2bb221"
+      ],
+      "sha": "bcd948469017b7f82ca9fcb894a08e5c9c2af4c0",
+      "path": "src/content/noticias/macondo-cumple-98-anos-en-villars/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/macondo-cumple-98-anos-en-villars/index.mdx",
+      "localidades": [
+        "Villars"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Macondo",
+        "Zapparancho",
+        "Familia Zapp"
+      ]
+    },
+    {
+      "slug": "maraton-zabala-2026-marcos-paz",
+      "titulo": "Maratón Zabala 2026 en Marcos Paz: horarios, distancias y cómo participar",
+      "fecha": "2026-10-15",
+      "modificada": "2026-10-19",
+      "categoria": "Deportes",
+      "tags": [
+        "Marcos Paz",
+        "Maratón Zabala",
+        "Quinta Devoto",
+        "Deportes",
+        "Trail",
+        "Caminata",
+        "Eventos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-11-15",
+      "fechaFinEvento": "2026-11-15",
+      "horaEvento": "09:00",
+      "lugarEvento": "Espacio Quinta Devoto, Marcos Paz",
+      "portada": "/images/noticias/maraton-zabala-2026-marcos-paz/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://mail.marcospaz.gov.ar/noticias/item/11081-se-lanz%C3%B3-la-marat%C3%B3n-zabala-2026.html",
+        "https://noticias.marcospazconectada.com/2026/10/08/presentaron-la-edicion-2026-de-la-maraton-zabala/"
+      ],
+      "sha": "3cf0e3bba68976ed695ac904ca3a19e209f8b106",
+      "path": "src/content/noticias/maraton-zabala-2026-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/maraton-zabala-2026-marcos-paz/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Maratón Zabala",
+        "Quinta Devoto",
+        "Trail",
+        "Caminata",
+        "Eventos"
+      ]
+    },
+    {
+      "slug": "marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026",
+      "titulo": "Marcos Paz cumple 148 años: desfile, destrezas criollas y Fiesta del Chuletón el domingo 25",
+      "fecha": "2026-10-22",
+      "modificada": "2026-10-25",
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "148 aniversario",
+        "Fiesta del Chuletón Criollo",
+        "Festival de la Destreza",
+        "Tradición",
+        "Quinta Devoto",
+        "Agenda",
+        "Cultura",
+        "Turismo"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": null,
+      "horaEvento": "10:00",
+      "lugarEvento": "Centro de Marcos Paz y Espacio Quinta Devoto, Ruta 40 km 50",
+      "portada": "/images/noticias/marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026/portada-ilustracion.jpg",
+      "fuentes": [
+        "https://destino.marcospaz.gov.ar/",
+        "https://www.politicargentina.com/notas/202610/76846-marcos-paz-celebra-sus-148-anos-con-musica-popular-desfile-tradicionalista-y-la-fiesta-del-chuleton-criollo.html",
+        "https://diariobonaerense.com.ar/contenido/7330/marcos-paz-celebra-su-148-aniversario-con-desfile-destrezas-criollas-y-musica-en",
+        "https://viajandoporargentina.com.ar/2026/10/19/calendario-de-eventos-turisticos-provincia-de-buenos-aires-del-jueves-22-al-jueves-29-de-octubre-de-2026/",
+        "https://marcospaz.gov.ar/la-ciudad/sobre-marcos-paz/historia.html",
+        "https://www.instagram.com/turismommp/"
+      ],
+      "sha": "eb20dcacff28916ecf9dab02644edad9d28db117",
+      "path": "src/content/noticias/marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-148-aniversario-destreza-chuleton-25-octubre-2026/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Fiesta del Chuletón Criollo",
+        "Festival de la Destreza",
+        "Quinta Devoto"
+      ]
+    },
+    {
+      "slug": "marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico",
+      "titulo": "Marcos Paz avanza con la colectora Presidente Perón: pavimento, luminarias y un futuro desvío del transporte público",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Obras Públicas",
+      "tags": [
+        "Marcos Paz",
+        "Ruta 40",
+        "Colectora Presidente Perón",
+        "Obras Públicas",
+        "Transporte Público",
+        "Provincia de Buenos Aires",
+        "Pavimento",
+        "Desagües",
+        "Infraestructura"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico/813949471_2569666926867148_7962916911418105684_n_resultado.webp",
+      "fuentes": [
+        "https://marcospaz.gov.ar/noticias/item/11042-avanza-la-pavimentaci%C3%B3n-de-la-colectora-presidente-per%C3%B3n.html",
+        "https://www.marcospaz.gov.ar/noticias/item/10990-comenz%C3%B3-la-construcci%C3%B3n-de-una-nueva-etapa-de-la-colectora-presidente-per%C3%B3n.html",
+        "https://www.horadeinformarse.com.ar/2026/09/17/avanza-la-pavimentacion-de-la-colectora-presidente-peron/",
+        "https://noticias.marcospazconectada.com/2026/09/17/avanza-la-obra-de-la-colectora-presidente-peron/",
+        "https://localmente.com.ar/2026/09/18/avanza-la-pavimentacion-de-la-colectora-presidente-peron/",
+        "https://mail.marcospaz.gov.ar/noticias/item/10917-la-obra-p%C3%BAblica-no-se-detiene-en-marcos-paz.html",
+        "https://www.marcospaz.gov.ar/noticias/item/10899-avanzan-los-trabajos-de-reparaci%C3%B3n-de-calle-libertad.html",
+        "https://www.marcospaz.gov.ar/noticias/item/10914-solicitan-fondos-para-reparar-calle-french-ante-el-abandono-de-la-naci%C3%B3n.html"
+      ],
+      "sha": "9bffdcfc6518b768c91f656e5c837030edd77f96",
+      "path": "src/content/noticias/marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-avanza-con-la-colectora-presidente-peron-pavimento-luminarias-y-un-futuro-desvio-del-transporte-publico/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Obras Públicas",
+      "entidades": [
+        "Ruta 40",
+        "Colectora Presidente Perón",
+        "Obras Públicas",
+        "Transporte Público",
+        "Provincia de Buenos Aires",
+        "Pavimento",
+        "Desagües",
+        "Infraestructura"
+      ]
+    },
+    {
+      "slug": "marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria",
+      "titulo": "Marcos Paz recibe este domingo el 3° Encuentro Multimarcas con una jornada solidaria",
+      "fecha": "2026-09-12",
+      "modificada": null,
+      "categoria": "Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Autos clásicos",
+        "Encuentro Multimarcas",
+        "Quinta Devoto",
+        "Bomberos Voluntarios",
+        "Hospital Municipal",
+        "Eventos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-13",
+      "fechaFinEvento": "2026-09-13",
+      "horaEvento": "09:00",
+      "lugarEvento": "Espacio Quinta Devoto -  Ruta 40, km 50 — Marcos Paz",
+      "portada": "/images/noticias/marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria/800862897_1601087668694472_1803574685994943408_n.webp",
+      "fuentes": [],
+      "sha": "a0643c996ee98996bdedcc6c342bf83aaf38933b",
+      "path": "src/content/noticias/marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-recibe-este-domingo-el-3-encuentro-multimarcas-con-una-jornada-solidaria/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Eventos",
+      "entidades": [
+        "Autos clásicos",
+        "Encuentro Multimarcas",
+        "Quinta Devoto",
+        "Bomberos Voluntarios",
+        "Hospital Municipal",
+        "Eventos"
+      ]
+    },
+    {
+      "slug": "marcos-paz-registro-murgas-carnaval-2027",
+      "titulo": "Marcos Paz: inscripción gratuita de murgas hasta el 30 de octubre para preparar los corsos 2027",
+      "fecha": "2026-10-18",
+      "modificada": null,
+      "categoria": "Cultura",
+      "tags": [
+        "Marcos Paz",
+        "Murgas",
+        "Carnaval 2027",
+        "Inscripciones",
+        "Cultura",
+        "Instituciones Intermedias"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/marcos-paz-registro-murgas-carnaval-2027/portada-editorial.jpg",
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/2026/10/16/abrieron-las-inscripciones-al-registro-municipal-de-murgas/",
+        "https://www.marcospaz.gov.ar/tr%C3%A1mites-y-servicios/tramitesyservicios1/licencias-de-conducir/item/71-instituciones.html"
+      ],
+      "sha": "0632baf4a9a25fce07cae0c6a394f95db54bee56",
+      "path": "src/content/noticias/marcos-paz-registro-murgas-carnaval-2027/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-registro-murgas-carnaval-2027/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura",
+      "entidades": [
+        "Murgas",
+        "Carnaval 2027",
+        "Inscripciones",
+        "Instituciones Intermedias"
+      ]
+    },
+    {
+      "slug": "marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense",
+      "titulo": "Marcos Paz sortea dos carritos de compras en el Mercado Fijo Bonaerense",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "Marcos Paz",
+        "Mercado Bonaerense",
+        "Predio Ferial",
+        "Cuenta DNI",
+        "Sorteo",
+        "Alimentos",
+        "Economía Popular",
+        "Productores Locales",
+        "Banco Provincia"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-26",
+      "fechaFinEvento": null,
+      "horaEvento": "13:00",
+      "lugarEvento": "Predio Ferial de Marcos Paz - Monteagudo 871, B1727 Marcos Paz, Provincia de Buenos Aires",
+      "portada": "/images/noticias/marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense/819031601_27716871634656792_6894007567176638492_n_resultado.webp",
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/2026/09/10/sorteos-en-el-predio-ferial/",
+        "https://www.marcospaz.gov.ar/noticias/item/10976-nuevos-puestos-se-suman-al-predio-ferial-municipal.html",
+        "https://marcospaz.gov.ar/noticias/item/10911-el-predio-ferial-celebr%C3%B3-su-tercer-aniversario.html",
+        "https://mi.mda.gba.gob.ar/mercados/bonaerenses/public/dias",
+        "https://www.gba.gob.ar/desarrollo_agrario/programas/ab",
+        "https://www.gba.gob.ar/node/52683",
+        "https://www.eldestapeweb.com/sociedad/descuentos-ferias-mercados-bonaerenses-40-cuenta-dni-septiembre-2026-obtener-30-000-20269410930",
+        "https://www.infobae.com/economia/2026/09/02/cuenta-dni-uno-por-uno-todos-los-descuentos-y-las-promociones-para-aprovechar-en-septiembre-2026/"
+      ],
+      "sha": "29b6d6e1e83beddcf61951683366091e81657b07",
+      "path": "src/content/noticias/marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/marcos-paz-sortea-dos-carritos-de-compras-en-el-mercado-fijo-bonaerense/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Mercado Bonaerense",
+        "Predio Ferial",
+        "Cuenta DNI",
+        "Sorteo",
+        "Alimentos",
+        "Economía Popular",
+        "Productores Locales",
+        "Banco Provincia"
+      ]
+    },
+    {
+      "slug": "mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region",
+      "titulo": "Más de 2.000 cadetes juraron a la bandera: qué significa para la seguridad bonaerense y qué puede llegar a nuestra región",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Seguridad",
+      "tags": [
+        "Policía Bonaerense",
+        "seguridad",
+        "Escuela Juan Vucetich",
+        "General Las Heras",
+        "Villars",
+        "Policía Rural",
+        "cadetes",
+        "patrullaje",
+        "Provincia de Buenos Aires",
+        "prevención"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region/800644034_28201315792823038_7027612726919567018_n_resultado.webp",
+      "fuentes": [
+        "https://fmtresciudades.com.ar/2026/09/08/mas-de-2-000-futuros-policias-bonaerenses-juraron-fidelidad-a-la-bandera/",
+        "https://info3407.com.ar/2026/09/09/kicillof-tomo-juramento-a-2075-cadetes-de-la-policia/",
+        "https://www.infobae.com/politica/2026/09/11/crece-la-presion-politica-sobre-kicillof-por-la-inseguridad-en-pba-y-la-suspension-del-regimen-penal-juvenil/",
+        "https://www.lavozregional.com.ar/articulo/mas-de-2.000-cadetes-de-la-policia-bonaerense-juraron-fidelidad-a-la-bandera-nacional.php",
+        "https://www.gba.gob.ar/comunicacion_publica/gacetillas/m%C3%A1s_de_1800_cadetes_y_futuros_oficiales_de_la_polic%C3%ADa_provincial_0",
+        "https://www.gba.gob.ar/node/50066",
+        "https://gobiernodelasheras.com/noticias/mas-efectivos-policiales-para-nuestro-pueblo/",
+        "https://www.lasherasnoticias.com/refuerzan-el-patrullaje-rural-se-incorporaron-nuevos-agentes-al-cpr-de-general-las-heras/",
+        "https://www.marcospaz-gov-ar.marcospaz.net/noticias/item/10964-marcos-paz-y-las-heras-presentaron-un-anillo-digital-de-seguridad-para-fortalecer-el-control-en-los-accesos-compartidos.html",
+        "https://www.horadeinformarse.com.ar/2026/08/06/marcos-paz-y-general-las-heras-incorporaron-un-anillo-digital-de-seguridad-en-los-accesos-a-plomer-y-villars/",
+        "https://www.lasherasnoticias.com/detuvieron-a-uno-de-los-presuntos-responsables-de-los-robos-en-villars-y-recuperaron-todos-los-elementos-sustraidos/",
+        "https://www.lasherasnoticias.com/juan-manuel-cerezo-recibio-al-nuevo-superintendente-de-seguridad-del-amba-oeste-ii/",
+        "https://www.argentina.gob.ar/normativa/nacional/decreto-192-2024-396860/texto",
+        "https://gba.gob.ar/comunicacion_publica/gacetillas/kicillof_present%C3%B3_los_proyectos_de_leyes_de_presupuesto_impositiva_y",
+        "https://www.gba.gob.ar/node/53762",
+        "https://radiomitre.cienradios.com/policiales/policias-bonaerenses-reclaman-en-la-plata-el-sueldo-es-una-miseria-no-tenemos-social-ni-atencion-psicologica-y-ya-tenemos-cinco-suicidios-este-ano/",
+        "https://infomiba.com.ar/nota/58245/kicillof-respaldo-a-la-policia-en-medio-de-una-crisis-por-salarios-y-bajas/"
+      ],
+      "sha": "6413fab1d7745338cd2bbaf55a9d5239803c2d38",
+      "path": "src/content/noticias/mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/mas-de-2-000-cadetes-juraron-a-la-bandera-que-significa-para-la-seguridad-bonaerense-y-que-puede-llegar-a-nuestra-region/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Seguridad",
+      "entidades": [
+        "Policía Bonaerense",
+        "Escuela Juan Vucetich",
+        "Policía Rural",
+        "Provincia de Buenos Aires"
+      ]
+    },
+    {
+      "slug": "mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro",
+      "titulo": "Mercedes Diz dejó su marca en el Mundial Sub-20: doblete histórico, octavos de final y orgullo para Navarro",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Deportes",
+      "tags": [
+        "Mercedes Diz",
+        "Navarro",
+        "Selección Argentina",
+        "Fútbol femenino",
+        "Mundial Sub-20",
+        "River Plate",
+        "Polonia 2026",
+        "Deportes",
+        "Juventud"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro/gFKXrEbAn_1200x0__1.webp",
+      "fuentes": [
+        "https://www.fifa.com/en/articles/ten-players-who-shone-second-round",
+        "https://www.fifa.com/en/tournaments/womens/u20womensworldcup/poland-2026/articles/matchday-ten-roundup-reports-highlights",
+        "https://navarronoticias.com/mercedes-diz-fue-recibida-en-el-municipio-tras-su-participacion-en-el-mundial-sub-20/",
+        "https://www.riverplate.com/noticias/futbol-profesional-femenino/20260908-dos-goles-de-mercedes-diz-en-el-mundial-sub-20",
+        "https://www.afa.com.ar/es/posts/seleccion-femenina-sub-20-argentina-derroto-8-0-a-benin",
+        "https://www.fifa.com/es/tournaments/womens/u20womensworldcup/poland-2026/teams/argentina",
+        "https://www.elnavarrero.com.ar/polonia-mundial-femenino-sub-20-argentina-lucho-pero-cayo-en-octavos-con-una-gran-actuacion-de-mercedes-diz/"
+      ],
+      "sha": "bbd41341f068cd282b2e2c0b10dc7f2d54bb3e05",
+      "path": "src/content/noticias/mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/mercedes-diz-dejo-su-marca-en-el-mundial-sub-20-doblete-historico-octavos-de-final-y-orgullo-para-navarro/index.mdx",
+      "localidades": [
+        "Navarro"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Mercedes Diz",
+        "Navarro",
+        "Selección Argentina",
+        "Fútbol femenino",
+        "Mundial Sub-20",
+        "River Plate",
+        "Polonia 2026",
+        "Juventud"
+      ]
+    },
+    {
+      "slug": "nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar",
+      "titulo": "Nuevo aumento del transporte: otro golpe al bolsillo de quienes necesitan viajar",
+      "fecha": "2026-09-01",
+      "modificada": null,
+      "categoria": "Transporte",
+      "tags": [
+        "Villars",
+        "Transporte",
+        "Trenes",
+        "Colectivos",
+        "SUBE",
+        "AMBA",
+        "Sarmiento",
+        "Belgrano Sur",
+        "Línea 322"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar/AumentoSepTren26.webp",
+      "fuentes": [
+        "https://www.facebook.com/lavoz.lasheras/posts/pfbid02B9AZ1hzbGn9EnteSBbSeuwFkLcVXbjdo4JvKzEdGoFgbzyQpwdg6jkubj4Bhb6NTl"
+      ],
+      "sha": "baf61c18fb268fdb2166654edf47f7141fff7664",
+      "path": "src/content/noticias/nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/nuevo-aumento-del-transporte-otro-golpe-al-bolsillo-de-quienes-necesitan-viajar/index.mdx",
+      "localidades": [
+        "Villars"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Transporte",
+        "Trenes",
+        "Colectivos",
+        "SUBE",
+        "AMBA",
+        "Sarmiento",
+        "Belgrano Sur",
+        "Línea 322"
+      ]
+    },
+    {
+      "slug": "pedaleada-rosa-2026-marcos-paz-lujan",
+      "titulo": "Pedaleada Rosa desde Marcos Paz a Luján: salida el 25 de octubre a las 6:30",
+      "fecha": "2026-10-19",
+      "modificada": null,
+      "categoria": "Deportes",
+      "tags": [
+        "Marcos Paz",
+        "Luján",
+        "Rosita Team",
+        "Pedaleada Rosa",
+        "Ciclismo",
+        "Octubre Rosa",
+        "Inclusión",
+        "Eventos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-25",
+      "fechaFinEvento": "2026-10-25",
+      "horaEvento": "06:30",
+      "lugarEvento": "Iglesia de Marcos Paz (punto exacto de salida a confirmar con Rosita Team)",
+      "portada": "/images/noticias/pedaleada-rosa-2026-marcos-paz-lujan/portada-editorial.jpg",
+      "fuentes": [
+        "https://noticias.marcospazconectada.com/2026/10/16/rosita-team-realizara-una-nueva-pedaleada-rosa-a-lujan/",
+        "https://elconurbano.com.ar/rosita-team-realizara-una-nueva-pedaleada-rosa-a-lujan/78372/",
+        "https://www.estacionlujan.com.ar/pedaleada-rosa-el-recorrido-hasta-lujan/",
+        "https://empujandolimites.org/quienes-somos/"
+      ],
+      "sha": "e3e3f59157bb0c92545e6e614b82744e4b75f46a",
+      "path": "src/content/noticias/pedaleada-rosa-2026-marcos-paz-lujan/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/pedaleada-rosa-2026-marcos-paz-lujan/index.mdx",
+      "localidades": [
+        "Marcos Paz",
+        "Luján"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Luján",
+        "Rosita Team",
+        "Pedaleada Rosa",
+        "Ciclismo",
+        "Octubre Rosa",
+        "Inclusión",
+        "Eventos"
+      ]
+    },
+    {
+      "slug": "prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta",
+      "titulo": "Prevención que puede salvar vidas: finalizó la campaña gratuita para detectar aneurismas en el Hospital Cuenca Alta",
+      "fecha": "2026-09-22",
+      "modificada": "2026-09-22",
+      "categoria": "Salud",
+      "tags": [
+        "Hospital Cuenca Alta",
+        "General Las Heras",
+        "Villars",
+        "salud pública",
+        "aneurisma de aorta",
+        "prevención",
+        "adultos mayores",
+        "tabaquismo",
+        "cardiología",
+        "Cañuelas"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta/ebe774b346e0-798077770_1696179795850988_1176080345611014877_n_resultado.webp",
+      "fuentes": [
+        "https://www.hospitalcuencaalta.org.ar/index.php/nuestro-hospital/noticias/deteccion-temprana-de-aneurisma-de-aorta-abdominal-en-el-hcank",
+        "https://lapaginacanuelas.com/canuelas/deteccion-aneurisma-aorta-abdominal-hcank-canuelas-septiembre-2026/",
+        "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/abdominal-aortic-aneurysm-screening",
+        "https://www.argentina.gob.ar/node/262846",
+        "https://www.hospitalcuencaalta.org.ar/index.php/nuestro-hospital/nuestra-red",
+        "https://www.hospitalcuencaalta.org.ar/index.php/informacion/como-acceder-a-la-atencion",
+        "https://www.hospitalcuencaalta.org.ar/index.php/nuestro-hospital/autoridades",
+        "https://www.argentina.gob.ar/noticias/el-ministro-lugones-recibio-las-nuevas-autoridades-del-hospital-cuenca-alta",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-196534/actualizacion",
+        "https://elciudadano.com.ar/contenido/23674/salud-cardiovascular-en-el-hcank-realizan-ecografias-gratuitas-de-dos-minutos-pa",
+        "https://www.facebook.com/100063769501994/videos/pcb.1696179829184318/1005689595815238"
+      ],
+      "sha": "3ca6202040d961df7cdf1bee0ee7847750ac05df",
+      "path": "src/content/noticias/prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/prevencion-que-puede-salvar-vidas-finalizo-la-campana-gratuita-para-detectar-aneurismas-en-el-hospital-cuenca-alta/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras",
+        "Cañuelas"
+      ],
+      "tema": "Salud",
+      "entidades": [
+        "Hospital Cuenca Alta",
+        "Cañuelas"
+      ]
+    },
+    {
+      "slug": "prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos",
+      "titulo": "Prorrogan 120 días las licencias profesionales ante las demoras para conseguir turnos",
+      "fecha": "2026-09-02",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "Licencias de conducir",
+        "Transporte",
+        "Provincia de Buenos Aires",
+        "Conductores",
+        "Trabajo",
+        "ANSV",
+        "General Las Heras"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos/licenciasconducir120dias.webp",
+      "fuentes": [
+        "https://www.facebook.com/lavoz.lasheras/posts/pfbid0VntjAMYSD1YoJUSossYVQ6sG6oSZPeZbqmJXVVGrPgyopjcLideNhGfz27TWzdX4l"
+      ],
+      "sha": "78b7c4d820aab0ed43e1ef5f9982a0b171b1a7c6",
+      "path": "src/content/noticias/prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/prorrogan-120-dias-las-licencias-profesionales-ante-las-demoras-para-conseguir-turnos/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Servicios",
+      "entidades": [
+        "Licencias de conducir",
+        "Transporte",
+        "Provincia de Buenos Aires",
+        "Conductores",
+        "Trabajo",
+        "ANSV"
+      ]
+    },
+    {
+      "slug": "provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses",
+      "titulo": "Provincia destina $2.125 millones a los municipios para sostener la etapa regional de los Juegos Bonaerenses",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Deportes",
+      "tags": [
+        "Juegos Bonaerenses",
+        "General Las Heras",
+        "Marcos Paz",
+        "Provincia de Buenos Aires",
+        "Deportes",
+        "Cultura",
+        "Juventud",
+        "Adultos Mayores",
+        "Políticas Públicas"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses/JB-2026-3.webp",
+      "fuentes": [
+        "https://juegos.gba.gob.ar/",
+        "https://www.gba.gob.ar/node/53258",
+        "https://juegos.gba.gob.ar/wp-content/uploads/2026/reglamentos/generales/reglamento_general_cultura_2026.pdf",
+        "https://marcospaz.gov.ar/noticias/item/11014-marcos-paz-fue-sede-de-una-nueva-jornada-regional-de-los-juegos-bonaerenses-2026.html",
+        "https://www.marcospaz.gov.ar/noticias/item/11002-los-juegos-bonaerenses-se-viven-en-marcos-paz.html",
+        "https://www.lapostanoticias.com.ar/2026-09-09/juegos-bonaerenses-cuanto-dinero-repartio-kicillof-a-los-municipios-y-cuanto-le-correspondio-a-gral-rodriguez-98038/"
+      ],
+      "sha": "2319d9188960eb8ef9a531ffa71d3e8f46298105",
+      "path": "src/content/noticias/provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/provincia-destina-2-125-millones-a-los-municipios-para-sostener-la-etapa-regional-de-los-juegos-bonaerenses/index.mdx",
+      "localidades": [
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Deportes",
+      "entidades": [
+        "Juegos Bonaerenses",
+        "Provincia de Buenos Aires",
+        "Juventud",
+        "Adultos Mayores",
+        "Políticas Públicas"
+      ]
+    },
+    {
+      "slug": "provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios",
+      "titulo": "Provincia presentó un plan de prevención del suicidio: más profesionales, atención 24 horas y apoyo a municipios",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Salud",
+      "tags": [
+        "Salud Mental",
+        "Prevención del Suicidio",
+        "Provincia de Buenos Aires",
+        "General Las Heras",
+        "Villars",
+        "Salud Pública",
+        "Jóvenes",
+        "Trabajadores",
+        "Atención Comunitaria"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios/1010.webp",
+      "fuentes": [
+        "https://estasestoy.gba.gob.ar/",
+        "https://www.gba.gob.ar/comunicacion_publica/gacetillas/kicillof_present%C3%B3_el_plan_provincial_para_fortalecer_la_prevenci%C3%B3n_y",
+        "https://www.gba.gob.ar/saludprovincia/noticias/se_firm%C3%B3_un_convenio_para_consolidar_y_unificar_las_estad%C3%ADsticas_sobre",
+        "https://radioprovincia.gba.gob.ar/noticia.php?noti_id=23004",
+        "https://www.codigobaires.com.ar/2026-09-11/el-grito-que-ensordece-suicidios-salud-mental-y-la-deuda-de-escuchar-a-tiempo-250699/",
+        "https://www.argentina.gob.ar/node/513585",
+        "https://www.argentina.gob.ar/salud/mental-y-adicciones/recomendaciones-a%20medios-suicidio",
+        "https://www.who.int/publications/i/item/9789240076846",
+        "https://www.asistenciaalsuicida.org.ar/",
+        "https://gobiernodelasheras.com/noticias/jornada-de-abordaje-de-salud-mental/",
+        "https://gobiernodelasheras.com/la-ciudad/usam/",
+        "https://gobiernodelasheras.com/noticias/salud/recuperacion-integral-del-hospital-municipal-dr-pedro-arozarena/"
+      ],
+      "sha": "ed40573eda4fcb0f848c09c1ae71e84890f52b18",
+      "path": "src/content/noticias/provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/provincia-presento-un-plan-de-prevencion-del-suicidio-mas-profesionales-atencion-24-horas-y-apoyo-a-municipios/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Salud",
+      "entidades": [
+        "Salud Mental",
+        "Prevención del Suicidio",
+        "Provincia de Buenos Aires",
+        "Salud Pública",
+        "Jóvenes",
+        "Trabajadores",
+        "Atención Comunitaria"
+      ]
+    },
+    {
+      "slug": "recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes",
+      "titulo": "Recuperaron en la Ruta 6 una Hilux robada en Lomas: estaba abandonada y sin patentes",
+      "fecha": "2026-09-19",
+      "modificada": null,
+      "categoria": "Policiales",
+      "tags": [
+        "Ruta 6",
+        "General Las Heras",
+        "Villars",
+        "Seguridad",
+        "Policía",
+        "Toyota Hilux",
+        "Lomas de Zamora",
+        "CPR"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes/poli.webp",
+      "fuentes": [],
+      "sha": "8afc17897e2c17949b1327a9c409ec652ad294b6",
+      "path": "src/content/noticias/recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/recuperaron-en-la-ruta-6-una-hilux-robada-en-lomas-estaba-abandonada-y-sin-patentes/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Policiales",
+      "entidades": [
+        "Ruta 6",
+        "Policía",
+        "Toyota Hilux",
+        "Lomas de Zamora",
+        "CPR"
+      ]
+    },
+    {
+      "slug": "ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras",
+      "titulo": "Ruta 6: la Provincia avanza con obras sobre 140 kilómetros y el plan también alcanza a General Las Heras",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Obras Públicas",
+      "tags": [
+        "Ruta 6",
+        "General Las Heras",
+        "Villars",
+        "Marcos Paz",
+        "Vialidad Provincial",
+        "Obras Públicas",
+        "Seguridad Vial",
+        "Producción",
+        "AUBASA",
+        "BID"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras/fd7ac427-6444-464e-ad0c-cbaf00307e42_resultado.webp",
+      "fuentes": [
+        "https://www.vialidad.gba.gob.ar/noticiadvba.php?id_noticia=2570&pagina=link_noticia",
+        "https://www.gba.gob.ar/node/52766",
+        "https://www.vialidad.gba.gob.ar/?p=participacionpublica",
+        "https://www.iadb.org/es/proyecto/AR-L1274",
+        "https://www.gba.gob.ar/node/31530",
+        "https://www.gba.gob.ar/infraestructura/noticias/provincia_firm%C3%B3_los_contratos_para_iniciar_las_obras_en_la_ruta_provincial",
+        "https://aubasa.com.ar/autovia-6-aubasa-renovara-mas-de-2-800-luminarias-led-columnas-y-tableros/",
+        "https://boletinoficial.gba.gob.ar/",
+        "https://gobiernodelasheras.com/noticias/iluminacion-en-el-acceso-a-villars-y-la-rotonda-de-la-ruta-6-y-la-40/",
+        "https://gobiernodelasheras.com/wp-content/uploads/2019/07/Boletin-oficial-Diciembre-2018.pdf",
+        "https://www.smnoticias.com/noticias/286117",
+        "https://www.lanoticia1.com/noticia/provincia-avanza-con-la-intervencion-integral-de-la-ruta-6"
+      ],
+      "sha": "a3fcb46acdeac7752f3a2e7e3183c532366c2b4e",
+      "path": "src/content/noticias/ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ruta-6-la-provincia-avanza-con-obras-sobre-140-kilometros-y-el-plan-tambien-alcanza-a-general-las-heras/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Obras Públicas",
+      "entidades": [
+        "Ruta 6",
+        "Vialidad Provincial",
+        "Obras Públicas",
+        "Seguridad Vial",
+        "Producción",
+        "AUBASA",
+        "BID"
+      ]
+    },
+    {
+      "slug": "ruta-6-peaje-electronico-general-las-heras",
+      "titulo": "Peaje de Ruta 6 en Las Heras: cómo funciona, tarifas y reclamo para suspender el cobro",
+      "fecha": "2026-10-05",
+      "modificada": "2026-10-19",
+      "categoria": "Transporte",
+      "tags": [
+        "Ruta 6",
+        "General Las Heras",
+        "Villars",
+        "Marcos Paz",
+        "AUBASA",
+        "Peaje",
+        "Free Flow",
+        "TelePASE",
+        "CONADUV"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/ruta-6-peaje-electronico-general-las-heras/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://normas.gba.gob.ar/ar-b/resolucion/2026/475/600276",
+        "https://normas.gba.gob.ar/ar-b/resolucion/2026/767/625131",
+        "https://www.lasherasnoticias.com/desde-octubre-la-autovia-6-tendra-peaje-electronico/",
+        "https://dib.com.ar/politica/intiman-la-provincia-suspender-el-cobro-peajes-la-ruta-6-n56528",
+        "https://www.eldiariosur.com/san-vicente/2026/10/15/cuestionan-el-peaje-de-la-ruta-en-san-vicente-que-tuvo-aumento-en-tiempo-record-es-claramente-inconstitucional-83732.html"
+      ],
+      "sha": "12aa041d38dff52299819260f27f380c50e1dcf8",
+      "path": "src/content/noticias/ruta-6-peaje-electronico-general-las-heras/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ruta-6-peaje-electronico-general-las-heras/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Ruta 6",
+        "AUBASA",
+        "Peaje",
+        "Free Flow",
+        "TelePASE",
+        "CONADUV"
+      ]
+    },
+    {
+      "slug": "san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal",
+      "titulo": "San Cipriano recorrió las calles de General Las Heras en una nueva procesión patronal",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "General Las Heras",
+        "San Cipriano",
+        "Fiestas Patronales",
+        "Procesión",
+        "Comunidad",
+        "Parroquia",
+        "Tradición",
+        "Cultura Local"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal/813785883_18145124086581339_8585107446308540234_n_resultado.webp",
+      "fuentes": [
+        "https://gobiernodelasheras.com/noticias/gobierno/las-heras-celebro-a-su-santo-patrono/",
+        "https://gobiernodelasheras.com/destacados/celebramos-a-nuestro-santo-patrono-san-cipriano-2/",
+        "https://hcdlasheras.com/ordenanzas/",
+        "https://www.facebook.com/lavoz.lasheras/"
+      ],
+      "sha": "37a91dcd15d9d7ac01a2f80081df4adddb059518",
+      "path": "src/content/noticias/san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/san-cipriano-recorrio-las-calles-de-general-las-heras-en-una-nueva-procesion-patronal/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "San Cipriano",
+        "Fiestas Patronales",
+        "Procesión",
+        "Comunidad",
+        "Parroquia",
+        "Tradición",
+        "Cultura Local"
+      ]
+    },
+    {
+      "slug": "senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027",
+      "titulo": "SENASA digitaliza la documentación equina y hará obligatorio el microchip para mover caballos desde marzo de 2027",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Campo y Producción",
+      "tags": [
+        "SENASA",
+        "Equinos",
+        "Microchip",
+        "Campo",
+        "Producción Rural",
+        "Sanidad Animal",
+        "Documentación Digital",
+        "Trazabilidad",
+        "Villars"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027/653b8ff3-4fc6-4b2e-a105-06222b3307e5.webp",
+      "fuentes": [
+        "https://www.argentina.gob.ar/node/513482",
+        "https://www.boletinoficial.gob.ar/detalleAviso/primera/347218/20260910",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-429913/texto"
+      ],
+      "sha": "ed770c31cd372a0ca439917e658bddbc97e2ec2a",
+      "path": "src/content/noticias/senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/senasa-digitaliza-la-documentacion-equina-y-hara-obligatorio-el-microchip-para-mover-caballos-desde-marzo-de-2027/index.mdx",
+      "localidades": [
+        "Villars"
+      ],
+      "tema": "Campo y Producción",
+      "entidades": [
+        "SENASA",
+        "Equinos",
+        "Microchip",
+        "Campo",
+        "Producción Rural",
+        "Sanidad Animal",
+        "Documentación Digital",
+        "Trazabilidad"
+      ]
+    },
+    {
+      "slug": "taller-jardineria-7-noviembre-2026-marcos-paz",
+      "titulo": "Marcos Paz tendrá un taller gratuito de jardinería el 7 de noviembre y cierre del concurso en diciembre",
+      "fecha": "2026-10-19",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Jardinería",
+        "Casa de la Cultura",
+        "Talleres",
+        "Jardines de la Ciudad del Árbol",
+        "Ambiente",
+        "Eventos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-11-07",
+      "fechaFinEvento": "2026-11-07",
+      "horaEvento": null,
+      "lugarEvento": "Casa de la Cultura, Marcos Paz",
+      "portada": "/images/noticias/taller-jardineria-7-noviembre-2026-marcos-paz/portada-editorial.jpg",
+      "fuentes": [
+        "https://www.marcospaz.gov.ar/noticias/item/11075-se-lanz%C3%B3-una-nueva-edici%C3%B3n-del-concurso-%E2%80%9Clos-jardines-de-la-ciudad-del-%C3%A1rbol%E2%80%9D.html",
+        "https://noticias.marcospazconectada.com/2026/10/07/abrieron-las-inscripciones-para-la-segunda-edicion-del-concurso-los-jardines-de-la-ciudad-del-arbol/"
+      ],
+      "sha": "6d56458077678b307098df12fa8d9d72a779297f",
+      "path": "src/content/noticias/taller-jardineria-7-noviembre-2026-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/taller-jardineria-7-noviembre-2026-marcos-paz/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Jardinería",
+        "Casa de la Cultura",
+        "Talleres",
+        "Jardines de la Ciudad del Árbol",
+        "Ambiente",
+        "Eventos"
+      ]
+    },
+    {
+      "slug": "tercera-gran-jineteada-en-campo-la-lucia",
+      "titulo": "Tercera Gran Jineteada en Campo La Lucía",
+      "fecha": "2026-09-01",
+      "modificada": "2026-09-11",
+      "categoria": "Eventos",
+      "tags": [
+        "Villars",
+        "Jineteada",
+        "Campo La Lucía",
+        "Tradición",
+        "Eventos",
+        "Cultura"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-09-20",
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": "Campo La Lucía — Bajada a Las Cañas, Camino a La Fe",
+      "portada": "/images/noticias/tercera-gran-jineteada-en-campo-la-lucia/jineteada.webp",
+      "fuentes": [
+        "https://www.facebook.com/reel/1571556571183231/"
+      ],
+      "sha": "09f5bd6d53a9586cc5906bbabb3f21826eab7784",
+      "path": "src/content/noticias/tercera-gran-jineteada-en-campo-la-lucia/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tercera-gran-jineteada-en-campo-la-lucia/index.mdx",
+      "localidades": [
+        "Villars"
+      ],
+      "tema": "Eventos",
+      "entidades": [
+        "Jineteada",
+        "Campo La Lucía",
+        "Tradición",
+        "Eventos"
+      ]
+    },
+    {
+      "slug": "traslado-devoto-marcos-paz-1400-internos-octubre-2026",
+      "titulo": "Marcos Paz recibió 1.400 internos de Devoto: qué confirmó Nación y qué exige la Justicia",
+      "fecha": "2026-10-19",
+      "modificada": "2026-10-20",
+      "categoria": "Seguridad",
+      "tags": [
+        "Marcos Paz",
+        "Devoto",
+        "Complejo Penitenciario Federal VIII",
+        "Servicio Penitenciario Federal",
+        "Procuración Penitenciaria",
+        "Derechos Humanos",
+        "Justicia",
+        "Seguridad"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/traslado-devoto-marcos-paz-1400-internos-octubre-2026/portada-editorial.jpg",
+      "fuentes": [
+        "https://www.argentina.gob.ar/normativa/nacional/norma-431145/texto",
+        "https://www.argentina.gob.ar/noticias/nacion-y-ciudad-firmaron-el-traspaso-de-la-carcel-de-devoto",
+        "https://www.argentina.gob.ar/noticias/el-gobierno-concluyo-la-primera-fase-del-traslado-de-internos-al-complejo-penitenciario-de",
+        "https://www.argentina.gob.ar/noticias/la-secretaria-general-de-la-presidencia-participo-del-acto-por-la-finalizacion-de-la",
+        "https://tn.com.ar/politica/2026/10/19/el-gobierno-finalizara-la-primera-fase-de-la-mudanza-de-la-carcel-de-devoto-a-marcos-paz-ya-fueron-trasladados-1400-presos/",
+        "https://ppn.gov.ar/index.php/institucional/noticias/3945-la-justicia-ordeno-garantizar-el-ingreso-de-la-ppn-y-del-comite-nacional-para-la-prevencion-de-la-tortura-a-los-pabellones-de-la-nueva-carcel-de-marcos-paz",
+        "https://ppn.gov.ar/index.php/institucional/noticias/3946-la-camara-confirmo-el-rechazo-del-habeas-corpus-pero-ordeno-garantizar-el-acceso-de-la-ppn-a-las-carceles-y-respetar-el-protocolo-de-traslados",
+        "https://ppn.gov.ar/index.php/institucional/noticias/3947-cierre-del-complejo-penitenciario-federal-de-devoto-desde-la-ppn-ratificamos-que-cerrar-el-penal-y-respetar-los-derechos-humanos-no-son-objetivos-incompatibles"
+      ],
+      "sha": "d8f8aaaf1a6ecbb7b5c3be02650d3c1aca79f1a8",
+      "path": "src/content/noticias/traslado-devoto-marcos-paz-1400-internos-octubre-2026/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/traslado-devoto-marcos-paz-1400-internos-octubre-2026/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Seguridad",
+      "entidades": [
+        "Complejo Penitenciario Federal VIII",
+        "Servicio Penitenciario Federal",
+        "Procuración Penitenciaria",
+        "Derechos Humanos"
+      ]
+    },
+    {
+      "slug": "trasnoche-paranormal-en-vivo-marcos-paz",
+      "titulo": "Trasnoche Paranormal en vivo se presenta en Marcos Paz",
+      "fecha": "2026-10-05",
+      "modificada": null,
+      "categoria": "Cultura y Eventos",
+      "tags": [
+        "Marcos Paz",
+        "Centro Cultural Roma",
+        "Trasnoche Paranormal",
+        "agenda",
+        "espectáculos"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-16",
+      "fechaFinEvento": null,
+      "horaEvento": "21:30",
+      "lugarEvento": "Centro Cultural Roma - Avellaneda 1950, Marcos Paz",
+      "portada": null,
+      "fuentes": [
+        "https://saleplan.ar/buenos-aires/marcos-paz/planes/6W6ZES7PKTSB/trasnoche-paranormal-en-vivo-marcos-paz"
+      ],
+      "sha": "4c91b21f07d2a5f01e95a21b7d9fe9b037fbe71f",
+      "path": "src/content/noticias/trasnoche-paranormal-en-vivo-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/trasnoche-paranormal-en-vivo-marcos-paz/index.mdx",
+      "localidades": [
+        "Marcos Paz"
+      ],
+      "tema": "Cultura y Eventos",
+      "entidades": [
+        "Centro Cultural Roma",
+        "Trasnoche Paranormal"
+      ]
+    },
+    {
+      "slug": "tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras",
+      "titulo": "Sarmiento: se normalizaron las frecuencias, pero el ramal a Villars sigue sin reabrir",
+      "fecha": "2026-10-14",
+      "modificada": "2026-10-19",
+      "categoria": "Transporte",
+      "tags": [
+        "Tren Sarmiento",
+        "Merlo-Lobos",
+        "General Las Heras",
+        "Villars",
+        "Plomer",
+        "Marcos Paz",
+        "Trenes Argentinos",
+        "Ferrocarril",
+        "Obras"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.argentina.gob.ar/transporte/trenes-argentinos",
+        "https://www.argentina.gob.ar/noticias/linea-sarmiento-despues-de-obras-estructurales-para-mejorar-la-seguridad-operacional-se",
+        "https://www.argentina.gob.ar/noticias/linea-sarmiento-las-obras-se-concentraran-durante-el-fin-de-semana-y-el-martes-13-habra",
+        "https://www.argentina.gob.ar/noticias/trenes-argentinos-adjudico-la-obra-para-renovar-las-vias-entre-las-heras-y-lobos",
+        "https://www.argentina.gob.ar/noticias/obras-de-renovacion-de-vias-en-el-ramal-merlo-lobos-del-sarmiento"
+      ],
+      "sha": "16924c4bdad45d65bfdc3306b90d7a1d2a855401",
+      "path": "src/content/noticias/tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tren-sarmiento-reanudo-servicios-13-octubre-2026-merlo-las-heras/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Tren Sarmiento",
+        "Merlo-Lobos",
+        "Trenes Argentinos",
+        "Ferrocarril",
+        "Obras"
+      ]
+    },
+    {
+      "slug": "trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas",
+      "titulo": "Trenes Argentinos prueba una “caja negra” para vigilar pasos a nivel del Sarmiento las 24 horas",
+      "fecha": "2026-09-20",
+      "modificada": null,
+      "categoria": "Transporte",
+      "tags": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Pasos a Nivel",
+        "Seguridad Ferroviaria",
+        "Merlo-Lobos",
+        "General Las Heras",
+        "Villars",
+        "Transporte Público",
+        "Emergencia Ferroviaria"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas/9839c095-48ae-46d3-91e9-3c68545973f0.webp",
+      "fuentes": [
+        "https://www.argentina.gob.ar/node/513389",
+        "https://www.argentina.gob.ar/transporte/plan-de-accion-de-la-emergencia-ferroviaria",
+        "https://www.argentina.gob.ar/node/506777",
+        "https://www.argentina.gob.ar/noticias/por-obras-claves-para-la-seguridad-operacional-la-linea-sarmiento-estara-interrumpida-0",
+        "https://www.enfoqueuno.com.ar/noticias/2026/09/17/2449-trenes-argentinos-prueba-un-sistema-en-el-sarmiento-que-alerta-por-fallas-en-los-pasos-a-nivel",
+        "https://www.infobae.com/sociedad/2026/09/09/en-busca-de-prevenir-nuevos-accidentes-instalaron-un-sistema-de-prevencion-en-los-pasos-a-nivel-del-tren-sarmiento/",
+        "https://primerplanoonline.com.ar/trenes-argentinos-busca-implementar-sistema-de-monitoreo-y-registro-de-eventos-en-pasos-a-nivel-del-sarmiento/",
+        "https://www.smnoticias.com/noticias/285467"
+      ],
+      "sha": "3755479f9b2e52e7e1600e0fc6ba05c02e1d5b66",
+      "path": "src/content/noticias/trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/trenes-argentinos-prueba-una-caja-negra-para-vigilar-pasos-a-nivel-del-sarmiento-las-24-horas/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Transporte",
+      "entidades": [
+        "Trenes Argentinos",
+        "Línea Sarmiento",
+        "Pasos a Nivel",
+        "Seguridad Ferroviaria",
+        "Merlo-Lobos",
+        "Transporte Público",
+        "Emergencia Ferroviaria"
+      ]
+    },
+    {
+      "slug": "tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural",
+      "titulo": "Tres emergencias en un fin de semana: Bomberos de Villars actuaron en una vivienda, Ruta 6 y un camino rural",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "Villars",
+        "Bomberos Voluntarios",
+        "General Las Heras",
+        "Ruta 6",
+        "Plomer",
+        "Incendio",
+        "Emergencias",
+        "Seguridad",
+        "Zona Rural"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural/810022928_27524168090591179_3971777645357875605_n_resultado.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/fin-de-semana-de-intenso-trabajo-para-los-bomberos-voluntarios-de-villars/",
+        "https://gobiernodelasheras.com/la-ciudad/telefonos-utiles/",
+        "https://www.marcospaz.gov.ar/tr%C3%A1mites-y-servicios/tramitesyservicios-2/tel%C3%A9fonos-%C3%BAtiles.html",
+        "https://www.argentina.gob.ar/node/293449",
+        "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-91-2026-422728/texto",
+        "https://www.bomberosra.org.ar/2026/09/03/sirenazo-de-bomberos-voluntarios-en-todo-el-pais.html"
+      ],
+      "sha": "012a45b8c6a61d852e1dbedba754f7ea78cba7d1",
+      "path": "src/content/noticias/tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tres-emergencias-en-un-fin-de-semana-bomberos-de-villars-actuaron-en-una-vivienda-ruta-6-y-un-camino-rural/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Bomberos Voluntarios",
+        "Ruta 6",
+        "Incendio",
+        "Emergencias",
+        "Zona Rural"
+      ]
+    },
+    {
+      "slug": "tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano",
+      "titulo": "“Tus zapas dejan huellas”: jóvenes de Confirmación entregaron calzado donado junto a Cáritas San Cipriano",
+      "fecha": "2026-09-21",
+      "modificada": null,
+      "categoria": "Comunidad",
+      "tags": [
+        "General Las Heras",
+        "Cáritas San Cipriano",
+        "Solidaridad",
+        "Confirmación",
+        "Fiestas Patronales",
+        "Donaciones",
+        "Jóvenes",
+        "Comunidad",
+        "San Cipriano"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano/813698155_1395235546066939_7575757412431481191_n_resultado.webp",
+      "fuentes": [
+        "https://caritas.org.ar/como-donar/",
+        "https://caritas.org.ar/colecta2026/",
+        "https://gobiernodelasheras.com/destacados/celebramos-a-nuestro-santo-patrono-san-cipriano-2/"
+      ],
+      "sha": "83ca09aca939a1394c084e14b033a6dcd4e928dd",
+      "path": "src/content/noticias/tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/tus-zapas-dejan-huellas-jovenes-de-confirmacion-entregaron-calzado-donado-junto-a-caritas-san-cipriano/index.mdx",
+      "localidades": [
+        "General Las Heras"
+      ],
+      "tema": "Comunidad",
+      "entidades": [
+        "Cáritas San Cipriano",
+        "Solidaridad",
+        "Confirmación",
+        "Fiestas Patronales",
+        "Donaciones",
+        "Jóvenes",
+        "Comunidad",
+        "San Cipriano"
+      ]
+    },
+    {
+      "slug": "un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars",
+      "titulo": "Un camión terminó en un arroyo en la Ruta 6: varios siniestros encendieron la alerta en el corredor de Villars",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Policiales",
+      "tags": [
+        "Ruta 6",
+        "Villars",
+        "Marcos Paz",
+        "General Las Heras",
+        "seguridad vial",
+        "accidentes",
+        "camiones",
+        "Bomberos Voluntarios",
+        "AUBASA",
+        "obras viales"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars/6946269363433212132_resultado.webp",
+      "fuentes": [
+        "https://www.lasherasnoticias.com/un-camion-se-despisto-en-la-ruta-6-y-termino-dentro-de-un-arroyo/",
+        "https://gba.gob.ar/infraestructura/noticias/avanza_la_intervenci%C3%B3n_integral_de_la_ruta_6",
+        "https://www.lasherasnoticias.com/vuelco-en-la-ruta-6/",
+        "https://www.horadeinformarse.com.ar/2026/08/28/accidente-en-la-ruta-6-buscan-al-conductor-de-una-camioneta-que-se-retiro-caminando-del-lugar/",
+        "https://www.lasherasnoticias.com/accidente-multiple-en-la-ruta-6-al-menos-dos-motociclistas-fueron-trasladados-al-hospital-de-las-heras/",
+        "https://www.horadeinformarse.com.ar/2026/03/12/despiste-en-la-ruta-6-un-auto-se-cayo-del-puente-de-villars/",
+        "https://www.lasherasnoticias.com/volco-un-camion-en-la-ruta-6-y-el-conductor-fue-trasladado-al-hospital/",
+        "https://aubasa.com.ar/legales/",
+        "https://www.vialidad.gba.gob.ar/noticiadvba.php?id_noticia=2570&pagina=link_noticia",
+        "https://www.gba.gob.ar/infraestructura/noticias/avanza_el_mejoramiento_integral_de_la_rp_6",
+        "https://app.marcospazconectada.com/2026/07/27/el-intendente-informo-sobre-temas-de-gestion/",
+        "https://noticias.marcospazconectada.com/2026/09/03/informe-de-seguridad-18/",
+        "https://estacionvial.com.ar/nota/3594/la-provincia-aprobo-el-cobro-de-peaje-en-la-ruta-6-con-actualizacion-trimestral/"
+      ],
+      "sha": "ce53eef48dca486cc386abea620a9200adc60a98",
+      "path": "src/content/noticias/un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/un-camion-termino-en-un-arroyo-en-la-ruta-6-varios-siniestros-encendieron-la-alerta-en-el-corredor-de-villars/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Policiales",
+      "entidades": [
+        "Ruta 6",
+        "Bomberos Voluntarios",
+        "AUBASA"
+      ]
+    },
+    {
+      "slug": "universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios",
+      "titulo": "Universitarios marcharán el 15 de octubre por financiamiento, becas y salarios",
+      "fecha": "2026-09-22",
+      "modificada": null,
+      "categoria": "Educación",
+      "tags": [
+        "Marcha Federal Universitaria",
+        "FUA",
+        "universidades públicas",
+        "financiamiento universitario",
+        "becas",
+        "salarios docentes",
+        "Presupuesto 2027",
+        "estudiantes",
+        "General Las Heras",
+        "Villars"
+      ],
+      "evento": true,
+      "fechaEvento": "2026-10-15",
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios/ed793377-62eb-4d59-aca4-b9293b529ad7_resultado.webp",
+      "fuentes": [
+        "https://latecla.info/160465/universitarios-convocan-a-marchar-el-15-de-octubre",
+        "https://www.cin.edu.ar/descargas/ProyectoLeyFinanciamientoUniversitario.pdf",
+        "https://www.argentina.gob.ar/capital-humano/educacion/universidades",
+        "https://www.argentina.gob.ar/educacion/universidades/consejo-de-universidades",
+        "https://www.argentina.gob.ar/educacion/universidades/informacion/publicaciones/sintesis"
+      ],
+      "sha": "d94082c348eb4636665a8134328021c97900c77c",
+      "path": "src/content/noticias/universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/universitarios-marcharan-el-15-de-octubre-por-financiamiento-becas-y-salarios/index.mdx",
+      "localidades": [
+        "Villars",
+        "General Las Heras"
+      ],
+      "tema": "Educación",
+      "entidades": [
+        "Marcha Federal Universitaria",
+        "FUA",
+        "Presupuesto 2027"
+      ]
+    },
+    {
+      "slug": "vtv-aumento-octubre-2026-buenos-aires",
+      "titulo": "VTV bonaerense: cuánto cuesta desde octubre, por qué aumentó y quiénes tienen descuentos",
+      "fecha": "2026-10-16",
+      "modificada": "2026-10-19",
+      "categoria": "Servicios",
+      "tags": [
+        "VTV",
+        "General Las Heras",
+        "Villars",
+        "Plomer",
+        "Marcos Paz",
+        "Tarifas",
+        "Movilidad",
+        "Trámites"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/vtv-aumento-octubre-2026-buenos-aires/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://vtv.gba.gob.ar/",
+        "https://normas.gba.gob.ar/ar-b/resolucion/2026/361/626643",
+        "https://www.lasherasnoticias.com/aumento-un-176-la-vtv-en-la-provincia-de-buenos-aires-cuales-son-los-nuevos-valores/",
+        "https://www.vtv.gba.gob.ar/preguntasfrecuentes",
+        "https://vtv.gba.gob.ar/beneficios/2",
+        "https://vtv.gba.gob.ar/beneficios/13"
+      ],
+      "sha": "fdbb5a66071f2081f7444b02f7492735df20ecc4",
+      "path": "src/content/noticias/vtv-aumento-octubre-2026-buenos-aires/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/vtv-aumento-octubre-2026-buenos-aires/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras",
+        "Marcos Paz"
+      ],
+      "tema": "Servicios",
+      "entidades": [
+        "VTV",
+        "Tarifas",
+        "Movilidad",
+        "Trámites"
+      ]
+    },
+    {
+      "slug": "ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble",
+      "titulo": "Ya funcionan los tótems de pago electrónico en los peajes: sin TelePASE se paga el doble",
+      "fecha": "2026-09-05",
+      "modificada": null,
+      "categoria": "Servicios",
+      "tags": [
+        "Peajes",
+        "TelePASE",
+        "CORRESUR",
+        "Transporte",
+        "Rutas",
+        "Tarjetas",
+        "Billeteras virtuales",
+        "Servicios"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble/images.webp",
+      "fuentes": [
+        "https://telepeajeplus.com/",
+        "https://corresur.com.ar/"
+      ],
+      "sha": "046ff48dc378b30932129cec3193a1845c0a359d",
+      "path": "src/content/noticias/ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/ya-funcionan-los-totems-de-pago-electronico-en-los-peajes-sin-telepase-se-paga-el-doble/index.mdx",
+      "localidades": [],
+      "tema": "Servicios",
+      "entidades": [
+        "Peajes",
+        "TelePASE",
+        "CORRESUR",
+        "Transporte",
+        "Rutas",
+        "Tarjetas",
+        "Billeteras virtuales",
+        "Servicios"
+      ]
+    },
+    {
+      "slug": "zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz",
+      "titulo": "Zona Fría: qué cambió con la Ley 27.828 y cómo puede afectar el descuento del gas",
+      "fecha": "2026-10-14",
+      "modificada": "2026-10-19",
+      "categoria": "Economía",
+      "tags": [
+        "General Las Heras",
+        "Villars",
+        "Plomer",
+        "Marcos Paz",
+        "Navarro",
+        "Zona Fría",
+        "Gas",
+        "Ley 27.828",
+        "Subsidios",
+        "Tarifas"
+      ],
+      "evento": false,
+      "fechaEvento": null,
+      "fechaFinEvento": null,
+      "horaEvento": null,
+      "lugarEvento": null,
+      "portada": "/images/noticias/zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz/portada-editorial-2026.jpg",
+      "fuentes": [
+        "https://www.boletinoficial.gob.ar/detalleAviso/primera/348838/20261013",
+        "https://www.argentina.gob.ar/normativa/nacional/norma-431140",
+        "https://www.lasherasnoticias.com/zona-fria-94-municipios-bonaerenses-perderan-el-descuento-automatico-en-el-gas/"
+      ],
+      "sha": "39c19aa561798c8fa71c1cdb6b4579593162a699",
+      "path": "src/content/noticias/zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz/index.mdx",
+      "url": "https://github.com/SolarisPKN/Villars-Informa/blob/main/src/content/noticias/zona-fria-ley-27828-cambia-descuento-gas-las-heras-marcos-paz/index.mdx",
+      "localidades": [
+        "Villars",
+        "Plomer",
+        "General Las Heras",
+        "Marcos Paz",
+        "Navarro"
+      ],
+      "tema": "Economía",
+      "entidades": [
+        "Navarro",
+        "Zona Fría",
+        "Gas",
+        "Ley 27.828",
+        "Subsidios",
+        "Tarifas"
+      ]
+    }
+  ]
+}

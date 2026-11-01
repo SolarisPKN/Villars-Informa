@@ -47,3 +47,12 @@
 Se leyeron `docs/editorial-quality.md`, `scripts/validate-editorial.mjs` y `src/content.config.ts` desde main. La ficha IATI tiene **593 palabras útiles estimadas**, cuatro secciones, fuente organizadora enlazada, `evento: true`, `fechaEvento: 2026-12-05`, `fechaFinEvento: 2026-12-08`, sin `horaEvento` ni coordenadas. Portada nueva **PNG 1200×675**, raster original de estilo ilustrado, crédito **SolarisPKN Arts** y aviso de no documentación fotográfica; sin galería no autorizada. La nota de Luján conserva portada raster y créditos existentes. Verificación factual manual obligatoria.
 
 **Limitación de prepublicación:** el entorno de investigación no tiene checkout npm accesible por red; el control automático completo `npm run validate` y `npm audit --audit-level=high` deberá verificarse con el CI de main tras el commit. No afirmar CI o despliegue público hasta consultar resultados.
+
+
+## Verificación posterior a la publicación — 01/11/2026
+
+- **Commit editorial:** [bb9da435cb580a6ce57743055165fd27b468b9f5](https://github.com/SolarisPKN/Villars-Informa/commit/bb9da435cb580a6ce57743055165fd27b468b9f5). Relectura de `main`: artículo IATI `3ea140a532401762338f9e3668a700e90f44191b`, artículo Luján `cd153620cb838fdf5b0df4c98965d00779a71d03`, índice 74 MDX `1896ccf6b601210ca566b07cc3d4f9d6d7fc2e7e`.
+- **Portada verificada en árbol Git de main:** `public/images/noticias/expo-juntada-atrapa-tu-sueno-iati-2026-villars/portada-editorial.png`, SHA `a979851c86ec3a975550dd79671b1b90f338eea4`, **405.833 bytes, PNG 1200×675**. Ilustración original, no fotografía.
+- **CI del commit editorial:** [GitHub Actions run 41305426264](https://github.com/SolarisPKN/Villars-Informa/actions/runs/41305426264), **SUCCESS**; pasos `npm ci`, `npm run validate` y `npm audit --audit-level=high` todos aprobados.
+- **URL pública verificada el 01/11:** [artículo Expo IATI](https://villars.solarispkn.com.ar/noticias/expo-juntada-atrapa-tu-sueno-iati-2026-villars/) respondió con título, contenido y fecha del evento. La [agenda pública](https://villars.solarispkn.com.ar/noticias/) muestra el nuevo evento entre los próximos y en destacados, comprobado mediante extracción web en vivo. Una lectura anterior del sitio devolvía caché desactualizada; la consulta en vivo posterior confirmó la actualización.
+- **Estado final editorial: OK.** No se atribuyen horas, tarifas, reservas, coordenadas ni imágenes documentales no verificadas. Quedan pendientes de investigación los candidatos con conflictos o falta de fuente primaria.

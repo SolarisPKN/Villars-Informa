@@ -4,13 +4,13 @@
   "source": {
     "repository": "https://github.com/SolarisPKN/SolarisPKN-Transport",
     "databasePath": "horarios.db",
-    "databaseSha256": "9af67af9a8b3895474884a9f6b1ddcf798834f84100419e24a3df89654ce9e79",
-    "updatedAt": "2026-11-10T17:05:16Z"
+    "databaseSha256": "5475f0f054cd2ee6304f74b87d7e8e7c74c65ea5cea7ca92786f90684a1063ad",
+    "updatedAt": "2026-11-11T17:12:42Z"
   },
   "stats": {
     "routes": 6,
     "schedules": 56,
-    "times": 5416
+    "times": 5530
   },
   "routes": [
     {
@@ -31,7 +31,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 185,
@@ -172,7 +172,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 189,
@@ -299,7 +299,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 193,
@@ -486,7 +486,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 199,
@@ -659,7 +659,7 @@
           },
           "direction": "Cañuelas",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 205,
@@ -800,7 +800,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 209,
@@ -942,7 +942,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 213,
@@ -1079,7 +1079,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 215,
@@ -1202,7 +1202,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 217,
@@ -1413,7 +1413,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 221,
@@ -1568,7 +1568,7 @@
           },
           "direction": "Luján",
           "updateMethod": "Manual",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 225,
@@ -1705,7 +1705,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 227,
@@ -1843,7 +1843,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 1,
@@ -4568,7 +4568,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 16,
@@ -7081,7 +7081,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 31,
@@ -10656,7 +10656,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 51,
@@ -13949,7 +13949,7 @@
           },
           "direction": "Navarro",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 71,
@@ -17331,7 +17331,7 @@
           },
           "direction": "Primera Junta",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 90,
@@ -20462,7 +20462,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 229,
@@ -20659,7 +20659,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 233,
@@ -20856,7 +20856,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 237,
@@ -21098,7 +21098,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 243,
@@ -21340,7 +21340,7 @@
           },
           "direction": "González Catán",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 249,
@@ -21537,7 +21537,7 @@
           },
           "direction": "Lozano",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 253,
@@ -21749,7 +21749,7 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 257,
@@ -22894,7 +22894,7 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 273,
@@ -23835,1316 +23835,10 @@
           },
           "direction": "Las Heras",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 285,
-              "name": "2803",
-              "order": 1,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 248
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 256
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 261
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 266
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 270
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 277
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 288
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 295
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 301
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 286,
-              "name": "2807",
-              "order": 2,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 394
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 402
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 407
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 412
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 416
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 423
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 434
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 441
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 447
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 287,
-              "name": "2811",
-              "order": 3,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 545
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 553
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 558
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 563
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 567
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 574
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 585
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 592
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 598
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 288,
-              "name": "2815",
-              "order": 4,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 691
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 699
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 704
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 709
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 713
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 720
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 731
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 738
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 744
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 289,
-              "name": "2819",
-              "order": 5,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 837
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 845
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 850
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 855
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 859
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 866
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 877
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 884
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 890
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 290,
-              "name": "2823",
-              "order": 6,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 983
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 991
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 996
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 1001
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1005
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 1012
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 1023
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 1030
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 1036
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 291,
-              "name": "2827",
-              "order": 7,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 1129
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 1137
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 1142
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 1147
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1151
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 1158
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 1169
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 1176
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 1182
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            },
-            {
-              "id": 292,
-              "name": "2831",
-              "order": 8,
-              "stops": [
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 1,
-                  "minutes": 1275
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 2,
-                  "minutes": 1283
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 3,
-                  "minutes": 1288
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 4,
-                  "minutes": 1293
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1297
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 6,
-                  "minutes": 1304
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 7,
-                  "minutes": 1315
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 8,
-                  "minutes": 1322
-                },
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 9,
-                  "minutes": 1328
-                }
-              ],
-              "origin": "Merlo",
-              "destination": "Las Heras"
-            }
-          ],
-          "stations": [
-            {
-              "name": "Merlo",
-              "normalizedName": "merlo",
-              "order": 1,
-              "times": [
-                248,
-                394,
-                545,
-                691,
-                837,
-                983,
-                1129,
-                1275
-              ]
-            },
-            {
-              "name": "Km 34,5",
-              "normalizedName": "km 34 5",
-              "order": 2,
-              "times": [
-                256,
-                402,
-                553,
-                699,
-                845,
-                991,
-                1137,
-                1283
-              ]
-            },
-            {
-              "name": "A. Ferrari",
-              "normalizedName": "a ferrari",
-              "order": 3,
-              "times": [
-                261,
-                407,
-                558,
-                704,
-                850,
-                996,
-                1142,
-                1288
-              ]
-            },
-            {
-              "name": "Mariano Acosta",
-              "normalizedName": "mariano acosta",
-              "order": 4,
-              "times": [
-                266,
-                412,
-                563,
-                709,
-                855,
-                1001,
-                1147,
-                1293
-              ]
-            },
-            {
-              "name": "Maquinista R. Cal",
-              "normalizedName": "maquinista r cal",
-              "order": 5,
-              "times": [
-                270,
-                416,
-                567,
-                713,
-                859,
-                1005,
-                1151,
-                1297
-              ]
-            },
-            {
-              "name": "Marcos Paz",
-              "normalizedName": "marcos paz",
-              "order": 6,
-              "times": [
-                277,
-                423,
-                574,
-                720,
-                866,
-                1012,
-                1158,
-                1304
-              ]
-            },
-            {
-              "name": "Zamudio",
-              "normalizedName": "zamudio",
-              "order": 7,
-              "times": [
-                288,
-                434,
-                585,
-                731,
-                877,
-                1023,
-                1169,
-                1315
-              ]
-            },
-            {
-              "name": "Hornos",
-              "normalizedName": "hornos",
-              "order": 8,
-              "times": [
-                295,
-                441,
-                592,
-                738,
-                884,
-                1030,
-                1176,
-                1322
-              ]
-            },
-            {
-              "name": "Las Heras",
-              "normalizedName": "las heras",
-              "order": 9,
-              "times": [
-                301,
-                447,
-                598,
-                744,
-                890,
-                1036,
-                1182,
-                1328
-              ]
-            }
-          ]
-        },
-        {
-          "id": 54,
-          "day": {
-            "key": "weekday",
-            "label": "Lunes a Viernes"
-          },
-          "direction": "Merlo",
-          "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
-          "services": [
-            {
-              "id": 293,
-              "name": "2804",
-              "order": 1,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 321
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 327
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 334
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 346
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 352
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 357
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 361
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 366
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 374
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 294,
-              "name": "2808",
-              "order": 2,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 467
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 473
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 480
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 492
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 498
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 503
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 507
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 512
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 520
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 295,
-              "name": "2812",
-              "order": 3,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 618
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 624
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 631
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 643
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 649
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 654
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 658
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 663
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 671
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 296,
-              "name": "2816",
-              "order": 4,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 764
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 770
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 777
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 789
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 795
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 800
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 804
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 809
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 817
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 297,
-              "name": "2820",
-              "order": 5,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 910
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 916
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 923
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 935
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 941
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 946
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 950
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 955
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 963
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 298,
-              "name": "2824",
-              "order": 6,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 1056
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 1062
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 1069
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 1081
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1087
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 1092
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 1096
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 1101
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 1109
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 299,
-              "name": "2828",
-              "order": 7,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 1202
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 1208
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 1215
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 1227
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1233
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 1238
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 1242
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 1247
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 1255
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            },
-            {
-              "id": 300,
-              "name": "2832",
-              "order": 8,
-              "stops": [
-                {
-                  "station": "Las Heras",
-                  "normalizedStation": "las heras",
-                  "order": 1,
-                  "minutes": 1348
-                },
-                {
-                  "station": "Hornos",
-                  "normalizedStation": "hornos",
-                  "order": 2,
-                  "minutes": 1354
-                },
-                {
-                  "station": "Zamudio",
-                  "normalizedStation": "zamudio",
-                  "order": 3,
-                  "minutes": 1361
-                },
-                {
-                  "station": "Marcos Paz",
-                  "normalizedStation": "marcos paz",
-                  "order": 4,
-                  "minutes": 1373
-                },
-                {
-                  "station": "Maquinista R. Cal",
-                  "normalizedStation": "maquinista r cal",
-                  "order": 5,
-                  "minutes": 1379
-                },
-                {
-                  "station": "Mariano Acosta",
-                  "normalizedStation": "mariano acosta",
-                  "order": 6,
-                  "minutes": 1384
-                },
-                {
-                  "station": "A. Ferrari",
-                  "normalizedStation": "a ferrari",
-                  "order": 7,
-                  "minutes": 1388
-                },
-                {
-                  "station": "Km 34,5",
-                  "normalizedStation": "km 34 5",
-                  "order": 8,
-                  "minutes": 1393
-                },
-                {
-                  "station": "Merlo",
-                  "normalizedStation": "merlo",
-                  "order": 9,
-                  "minutes": 1401
-                }
-              ],
-              "origin": "Las Heras",
-              "destination": "Merlo"
-            }
-          ],
-          "stations": [
-            {
-              "name": "Las Heras",
-              "normalizedName": "las heras",
-              "order": 1,
-              "times": [
-                321,
-                467,
-                618,
-                764,
-                910,
-                1056,
-                1202,
-                1348
-              ]
-            },
-            {
-              "name": "Hornos",
-              "normalizedName": "hornos",
-              "order": 2,
-              "times": [
-                327,
-                473,
-                624,
-                770,
-                916,
-                1062,
-                1208,
-                1354
-              ]
-            },
-            {
-              "name": "Zamudio",
-              "normalizedName": "zamudio",
-              "order": 3,
-              "times": [
-                334,
-                480,
-                631,
-                777,
-                923,
-                1069,
-                1215,
-                1361
-              ]
-            },
-            {
-              "name": "Marcos Paz",
-              "normalizedName": "marcos paz",
-              "order": 4,
-              "times": [
-                346,
-                492,
-                643,
-                789,
-                935,
-                1081,
-                1227,
-                1373
-              ]
-            },
-            {
-              "name": "Maquinista R. Cal",
-              "normalizedName": "maquinista r cal",
-              "order": 5,
-              "times": [
-                352,
-                498,
-                649,
-                795,
-                941,
-                1087,
-                1233,
-                1379
-              ]
-            },
-            {
-              "name": "Mariano Acosta",
-              "normalizedName": "mariano acosta",
-              "order": 6,
-              "times": [
-                357,
-                503,
-                654,
-                800,
-                946,
-                1092,
-                1238,
-                1384
-              ]
-            },
-            {
-              "name": "A. Ferrari",
-              "normalizedName": "a ferrari",
-              "order": 7,
-              "times": [
-                361,
-                507,
-                658,
-                804,
-                950,
-                1096,
-                1242,
-                1388
-              ]
-            },
-            {
-              "name": "Km 34,5",
-              "normalizedName": "km 34 5",
-              "order": 8,
-              "times": [
-                366,
-                512,
-                663,
-                809,
-                955,
-                1101,
-                1247,
-                1393
-              ]
-            },
-            {
-              "name": "Merlo",
-              "normalizedName": "merlo",
-              "order": 9,
-              "times": [
-                374,
-                520,
-                671,
-                817,
-                963,
-                1109,
-                1255,
-                1401
-              ]
-            }
-          ]
-        },
-        {
-          "id": 55,
-          "day": {
-            "key": "saturday",
-            "label": "Sábado"
-          },
-          "direction": "Las Heras",
-          "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
-          "services": [
-            {
-              "id": 301,
               "name": "2801",
               "order": 1,
               "stops": [
@@ -25207,7 +23901,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 302,
+              "id": 286,
               "name": "2803",
               "order": 2,
               "stops": [
@@ -25270,7 +23964,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 303,
+              "id": 287,
               "name": "2805",
               "order": 3,
               "stops": [
@@ -25315,7 +24009,7 @@
               "destination": "Marcos Paz"
             },
             {
-              "id": 304,
+              "id": 288,
               "name": "2807",
               "order": 4,
               "stops": [
@@ -25378,7 +24072,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 305,
+              "id": 289,
               "name": "2809",
               "order": 5,
               "stops": [
@@ -25441,7 +24135,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 306,
+              "id": 290,
               "name": "2811",
               "order": 6,
               "stops": [
@@ -25504,7 +24198,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 307,
+              "id": 291,
               "name": "2813",
               "order": 7,
               "stops": [
@@ -25549,7 +24243,7 @@
               "destination": "Marcos Paz"
             },
             {
-              "id": 308,
+              "id": 292,
               "name": "2815",
               "order": 8,
               "stops": [
@@ -25612,7 +24306,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 309,
+              "id": 293,
               "name": "2817",
               "order": 9,
               "stops": [
@@ -25675,7 +24369,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 310,
+              "id": 294,
               "name": "2819",
               "order": 10,
               "stops": [
@@ -25738,7 +24432,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 311,
+              "id": 295,
               "name": "2821",
               "order": 11,
               "stops": [
@@ -25783,7 +24477,7 @@
               "destination": "Marcos Paz"
             },
             {
-              "id": 312,
+              "id": 296,
               "name": "2823",
               "order": 12,
               "stops": [
@@ -25846,7 +24540,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 313,
+              "id": 297,
               "name": "2825",
               "order": 13,
               "stops": [
@@ -25909,7 +24603,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 314,
+              "id": 298,
               "name": "2827",
               "order": 14,
               "stops": [
@@ -25972,7 +24666,7 @@
               "destination": "Las Heras"
             },
             {
-              "id": 315,
+              "id": 299,
               "name": "2829",
               "order": 15,
               "stops": [
@@ -26017,7 +24711,7 @@
               "destination": "Marcos Paz"
             },
             {
-              "id": 316,
+              "id": 300,
               "name": "2831",
               "order": 16,
               "stops": [
@@ -26080,7 +24774,2237 @@
               "destination": "Las Heras"
             },
             {
+              "id": 301,
+              "name": "2833",
+              "order": 17,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 1342
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 1350
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 1355
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1360
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1364
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1375
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 1386
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 1393
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 1399
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            }
+          ],
+          "stations": [
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 1,
+              "times": [
+                176,
+                248,
+                336,
+                394,
+                461,
+                545,
+                633,
+                691,
+                758,
+                837,
+                925,
+                983,
+                1050,
+                1129,
+                1217,
+                1275,
+                1342
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 2,
+              "times": [
+                184,
+                256,
+                344,
+                402,
+                469,
+                553,
+                641,
+                699,
+                766,
+                845,
+                933,
+                991,
+                1058,
+                1137,
+                1225,
+                1283,
+                1350
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 3,
+              "times": [
+                189,
+                261,
+                349,
+                407,
+                474,
+                558,
+                646,
+                704,
+                771,
+                850,
+                938,
+                996,
+                1063,
+                1142,
+                1230,
+                1288,
+                1355
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 4,
+              "times": [
+                194,
+                266,
+                360,
+                412,
+                479,
+                563,
+                657,
+                709,
+                776,
+                855,
+                949,
+                1001,
+                1068,
+                1147,
+                1241,
+                1293,
+                1360
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                198,
+                270,
+                364,
+                416,
+                483,
+                567,
+                661,
+                713,
+                780,
+                859,
+                953,
+                1005,
+                1072,
+                1151,
+                1245,
+                1297,
+                1364
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 6,
+              "times": [
+                205,
+                277,
+                370,
+                423,
+                494,
+                574,
+                667,
+                720,
+                791,
+                866,
+                959,
+                1012,
+                1083,
+                1158,
+                1251,
+                1304,
+                1375
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 7,
+              "times": [
+                216,
+                288,
+                434,
+                505,
+                585,
+                731,
+                802,
+                877,
+                1023,
+                1094,
+                1169,
+                1315,
+                1386
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 8,
+              "times": [
+                223,
+                295,
+                441,
+                512,
+                592,
+                738,
+                809,
+                884,
+                1030,
+                1101,
+                1176,
+                1322,
+                1393
+              ]
+            },
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 9,
+              "times": [
+                229,
+                301,
+                447,
+                518,
+                598,
+                744,
+                815,
+                890,
+                1036,
+                1107,
+                1182,
+                1328,
+                1399
+              ]
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "day": {
+            "key": "weekday",
+            "label": "Lunes a Viernes"
+          },
+          "direction": "Merlo",
+          "updateMethod": "API",
+          "updatedAt": "2026-11-11T17:12:42Z",
+          "services": [
+            {
+              "id": 302,
+              "name": "2802",
+              "order": 1,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 250
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 256
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 263
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 279
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 285
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 290
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 294
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 299
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 307
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 303,
+              "name": "2804",
+              "order": 2,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 321
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 327
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 334
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 346
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 352
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 357
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 361
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 366
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 374
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 304,
+              "name": "2808",
+              "order": 3,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 467
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 473
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 480
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 492
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 498
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 503
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 507
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 512
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 520
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 305,
+              "name": "2810",
+              "order": 4,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 547
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 553
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 560
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 576
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 582
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 587
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 591
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 596
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 604
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 306,
+              "name": "2812",
+              "order": 5,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 618
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 624
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 631
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 643
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 649
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 654
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 658
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 663
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 671
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 307,
+              "name": "2816",
+              "order": 6,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 764
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 770
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 777
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 789
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 795
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 800
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 804
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 809
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 817
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 308,
+              "name": "2818",
+              "order": 7,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 839
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 845
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 852
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 868
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 874
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 879
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 883
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 888
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 896
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 309,
+              "name": "2820",
+              "order": 8,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 910
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 916
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 923
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 935
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 941
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 946
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 950
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 955
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 963
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 310,
+              "name": "2824",
+              "order": 9,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 1056
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 1062
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 1069
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 1081
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1087
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 1092
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 1096
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 1101
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 1109
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 311,
+              "name": "2826",
+              "order": 10,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 1131
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 1137
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 1144
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 1160
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1166
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 1171
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 1175
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 1180
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 1188
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 312,
+              "name": "2828",
+              "order": 11,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 1202
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 1208
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 1215
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 1227
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1233
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 1238
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 1242
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 1247
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 1255
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 313,
+              "name": "2832",
+              "order": 12,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 1348
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 1354
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 1361
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 1373
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1379
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 1384
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 1388
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 1393
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 1401
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            },
+            {
+              "id": 314,
+              "name": "2834",
+              "order": 13,
+              "stops": [
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 1,
+                  "minutes": 1420
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 2,
+                  "minutes": 1426
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 3,
+                  "minutes": 1433
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 4,
+                  "minutes": 1445
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1451
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 6,
+                  "minutes": 1456
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 7,
+                  "minutes": 1460
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 8,
+                  "minutes": 1465
+                },
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 9,
+                  "minutes": 1473
+                }
+              ],
+              "origin": "Las Heras",
+              "destination": "Merlo"
+            }
+          ],
+          "stations": [
+            {
+              "name": "Las Heras",
+              "normalizedName": "las heras",
+              "order": 1,
+              "times": [
+                250,
+                321,
+                467,
+                547,
+                618,
+                764,
+                839,
+                910,
+                1056,
+                1131,
+                1202,
+                1348,
+                1420
+              ]
+            },
+            {
+              "name": "Hornos",
+              "normalizedName": "hornos",
+              "order": 2,
+              "times": [
+                256,
+                327,
+                473,
+                553,
+                624,
+                770,
+                845,
+                916,
+                1062,
+                1137,
+                1208,
+                1354,
+                1426
+              ]
+            },
+            {
+              "name": "Zamudio",
+              "normalizedName": "zamudio",
+              "order": 3,
+              "times": [
+                263,
+                334,
+                480,
+                560,
+                631,
+                777,
+                852,
+                923,
+                1069,
+                1144,
+                1215,
+                1361,
+                1433
+              ]
+            },
+            {
+              "name": "Marcos Paz",
+              "normalizedName": "marcos paz",
+              "order": 4,
+              "times": [
+                279,
+                346,
+                492,
+                576,
+                643,
+                789,
+                868,
+                935,
+                1081,
+                1160,
+                1227,
+                1373,
+                1445
+              ]
+            },
+            {
+              "name": "Maquinista R. Cal",
+              "normalizedName": "maquinista r cal",
+              "order": 5,
+              "times": [
+                285,
+                352,
+                498,
+                582,
+                649,
+                795,
+                874,
+                941,
+                1087,
+                1166,
+                1233,
+                1379,
+                1451
+              ]
+            },
+            {
+              "name": "Mariano Acosta",
+              "normalizedName": "mariano acosta",
+              "order": 6,
+              "times": [
+                290,
+                357,
+                503,
+                587,
+                654,
+                800,
+                879,
+                946,
+                1092,
+                1171,
+                1238,
+                1384,
+                1456
+              ]
+            },
+            {
+              "name": "A. Ferrari",
+              "normalizedName": "a ferrari",
+              "order": 7,
+              "times": [
+                294,
+                361,
+                507,
+                591,
+                658,
+                804,
+                883,
+                950,
+                1096,
+                1175,
+                1242,
+                1388,
+                1460
+              ]
+            },
+            {
+              "name": "Km 34,5",
+              "normalizedName": "km 34 5",
+              "order": 8,
+              "times": [
+                299,
+                366,
+                512,
+                596,
+                663,
+                809,
+                888,
+                955,
+                1101,
+                1180,
+                1247,
+                1393,
+                1465
+              ]
+            },
+            {
+              "name": "Merlo",
+              "normalizedName": "merlo",
+              "order": 9,
+              "times": [
+                307,
+                374,
+                520,
+                604,
+                671,
+                817,
+                896,
+                963,
+                1109,
+                1188,
+                1255,
+                1401,
+                1473
+              ]
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "day": {
+            "key": "saturday",
+            "label": "Sábado"
+          },
+          "direction": "Las Heras",
+          "updateMethod": "API",
+          "updatedAt": "2026-11-11T17:12:42Z",
+          "services": [
+            {
+              "id": 315,
+              "name": "2801",
+              "order": 1,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 176
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 184
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 189
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 194
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 198
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 205
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 216
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 223
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 229
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 316,
+              "name": "2803",
+              "order": 2,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 248
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 256
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 261
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 266
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 270
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 277
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 288
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 295
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 301
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
               "id": 317,
+              "name": "2805",
+              "order": 3,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 336
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 344
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 349
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 360
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 364
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 370
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Marcos Paz"
+            },
+            {
+              "id": 318,
+              "name": "2807",
+              "order": 4,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 394
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 402
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 407
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 412
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 416
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 423
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 434
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 441
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 447
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 319,
+              "name": "2809",
+              "order": 5,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 461
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 469
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 474
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 479
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 483
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 494
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 505
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 512
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 518
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 320,
+              "name": "2811",
+              "order": 6,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 545
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 553
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 558
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 563
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 567
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 574
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 585
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 592
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 598
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 321,
+              "name": "2813",
+              "order": 7,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 633
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 641
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 646
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 657
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 661
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 667
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Marcos Paz"
+            },
+            {
+              "id": 322,
+              "name": "2815",
+              "order": 8,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 691
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 699
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 704
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 709
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 713
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 720
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 731
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 738
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 744
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 323,
+              "name": "2817",
+              "order": 9,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 758
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 766
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 771
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 776
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 780
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 791
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 802
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 809
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 815
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 324,
+              "name": "2819",
+              "order": 10,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 837
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 845
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 850
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 855
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 859
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 866
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 877
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 884
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 890
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 325,
+              "name": "2821",
+              "order": 11,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 925
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 933
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 938
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 949
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 953
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 959
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Marcos Paz"
+            },
+            {
+              "id": 326,
+              "name": "2823",
+              "order": 12,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 983
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 991
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 996
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1001
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1005
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1012
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 1023
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 1030
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 1036
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 327,
+              "name": "2825",
+              "order": 13,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 1050
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 1058
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 1063
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1068
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1072
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1083
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 1094
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 1101
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 1107
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 328,
+              "name": "2827",
+              "order": 14,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 1129
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 1137
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 1142
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1147
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1151
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1158
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 1169
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 1176
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 1182
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 329,
+              "name": "2829",
+              "order": 15,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 1217
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 1225
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 1230
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1241
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1245
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1251
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Marcos Paz"
+            },
+            {
+              "id": 330,
+              "name": "2831",
+              "order": 16,
+              "stops": [
+                {
+                  "station": "Merlo",
+                  "normalizedStation": "merlo",
+                  "order": 1,
+                  "minutes": 1275
+                },
+                {
+                  "station": "Km 34,5",
+                  "normalizedStation": "km 34 5",
+                  "order": 2,
+                  "minutes": 1283
+                },
+                {
+                  "station": "A. Ferrari",
+                  "normalizedStation": "a ferrari",
+                  "order": 3,
+                  "minutes": 1288
+                },
+                {
+                  "station": "Mariano Acosta",
+                  "normalizedStation": "mariano acosta",
+                  "order": 4,
+                  "minutes": 1293
+                },
+                {
+                  "station": "Maquinista R. Cal",
+                  "normalizedStation": "maquinista r cal",
+                  "order": 5,
+                  "minutes": 1297
+                },
+                {
+                  "station": "Marcos Paz",
+                  "normalizedStation": "marcos paz",
+                  "order": 6,
+                  "minutes": 1304
+                },
+                {
+                  "station": "Zamudio",
+                  "normalizedStation": "zamudio",
+                  "order": 7,
+                  "minutes": 1315
+                },
+                {
+                  "station": "Hornos",
+                  "normalizedStation": "hornos",
+                  "order": 8,
+                  "minutes": 1322
+                },
+                {
+                  "station": "Las Heras",
+                  "normalizedStation": "las heras",
+                  "order": 9,
+                  "minutes": 1328
+                }
+              ],
+              "origin": "Merlo",
+              "destination": "Las Heras"
+            },
+            {
+              "id": 331,
               "name": "2833",
               "order": 17,
               "stops": [
@@ -26358,10 +27282,10 @@
           },
           "direction": "Merlo",
           "updateMethod": "API",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
-              "id": 318,
+              "id": 332,
               "name": "2802",
               "order": 1,
               "stops": [
@@ -26424,7 +27348,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 319,
+              "id": 333,
               "name": "2804",
               "order": 2,
               "stops": [
@@ -26487,7 +27411,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 320,
+              "id": 334,
               "name": "2808",
               "order": 3,
               "stops": [
@@ -26550,7 +27474,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 321,
+              "id": 335,
               "name": "2810",
               "order": 4,
               "stops": [
@@ -26613,7 +27537,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 322,
+              "id": 336,
               "name": "2812",
               "order": 5,
               "stops": [
@@ -26676,7 +27600,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 323,
+              "id": 337,
               "name": "2816",
               "order": 6,
               "stops": [
@@ -26739,7 +27663,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 324,
+              "id": 338,
               "name": "2818",
               "order": 7,
               "stops": [
@@ -26802,7 +27726,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 325,
+              "id": 339,
               "name": "2820",
               "order": 8,
               "stops": [
@@ -26865,7 +27789,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 326,
+              "id": 340,
               "name": "2824",
               "order": 9,
               "stops": [
@@ -26928,7 +27852,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 327,
+              "id": 341,
               "name": "2826",
               "order": 10,
               "stops": [
@@ -26991,7 +27915,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 328,
+              "id": 342,
               "name": "2828",
               "order": 11,
               "stops": [
@@ -27054,7 +27978,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 329,
+              "id": 343,
               "name": "2832",
               "order": 12,
               "stops": [
@@ -27117,7 +28041,7 @@
               "destination": "Merlo"
             },
             {
-              "id": 330,
+              "id": 344,
               "name": "2834",
               "order": 13,
               "stops": [
@@ -27403,7 +28327,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 109,
@@ -28433,7 +29357,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 113,
@@ -29668,7 +30592,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 128,
@@ -31313,7 +32237,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 135,
@@ -32753,7 +33677,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 166,
@@ -33783,7 +34707,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 170,
@@ -35018,7 +35942,7 @@
           },
           "direction": "Mariano Acosta",
           "updateMethod": "Manual",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 165,
@@ -35109,7 +36033,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 118,
@@ -35981,7 +36905,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 120,
@@ -36550,7 +37474,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 141,
@@ -37422,7 +38346,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 143,
@@ -38837,7 +39761,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 175,
@@ -39709,7 +40633,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 177,
@@ -40278,7 +41202,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 121,
@@ -40751,7 +41675,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 123,
@@ -41224,7 +42148,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 147,
@@ -42165,7 +43089,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 152,
@@ -43418,7 +44342,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 178,
@@ -43891,7 +44815,7 @@
           },
           "direction": "Villars",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 180,
@@ -44364,7 +45288,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 125,
@@ -44835,7 +45759,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 126,
@@ -45497,7 +46421,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 159,
@@ -46434,7 +47358,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 162,
@@ -47096,7 +48020,7 @@
           },
           "direction": "General Las Heras",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 182,
@@ -47567,7 +48491,7 @@
           },
           "direction": "Plomer",
           "updateMethod": "Estimado",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 183,
@@ -48229,7 +49153,7 @@
           },
           "direction": "Marcos Paz",
           "updateMethod": "Manual",
-          "updatedAt": "2026-11-10T17:05:16Z",
+          "updatedAt": "2026-11-11T17:12:42Z",
           "services": [
             {
               "id": 164,
